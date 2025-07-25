@@ -6,6 +6,9 @@ const IconNext = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 
 const IconTS = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#3178c6"/><text x="7" y="22" fontSize="14" fill="#fff">TS</text></svg>);
 const IconJS = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#f7df1e"/><text x="7" y="22" fontSize="14" fill="#000">JS</text></svg>);
 const IconTailwind = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><path d="M16 10c-4 0-6 2-8 6 2-4 4-6 8-6s6 2 8 6c-2-4-4-6-8-6zm0 4c-2 0-3 1-4 3 1-2 2-3 4-3s3 1 4 3c-1-2-2-3-4-3z" fill="#38bdf8"/></svg>);
+const IconCSS3 = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><path d="M16 10c-4 0-6 2-8 6 2-4 4-6 8-6s6 2 8 6c-2-4-4-6-8-6zm0 4c-2 0-3 1-4 3 1-2 2-3 4-3s3 1 4 3c-1-2-2-3-4-3z" fill="#38bdf8"/></svg>);
+const IconHTML5 = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><path d="M16 10c-4 0-6 2-8 6 2-4 4-6 8-6s6 2 8 6c-2-4-4-6-8-6zm0 4c-2 0-3 1-4 3 1-2 2-3 4-3s3 1 4 3c-1-2-2-3-4-3z" fill="#38bdf8"/></svg>);
+const IconAccessibility = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><path d="M16 10c-4 0-6 2-8 6 2-4 4-6 8-6s6 2 8 6c-2-4-4-6-8-6zm0 4c-2 0-3 1-4 3 1-2 2-3 4-3s3 1 4 3c-1-2-2-3-4-3z" fill="#38bdf8"/></svg>);
 
 // SVG ICONS
 const IconRobot = () => (
@@ -1002,8 +1005,8 @@ const Skills = () => (
         <div>
           <h3 className="text-cyan-400 font-bold mb-2">Frontend</h3>
           <ul className="space-y-2 text-gray-300">
-            <li><IconReact />React, <IconNext />Next.js, <IconTS />TypeScript, <IconJS />JavaScript</li>
-            <li><IconTailwind />Tailwind CSS, CSS3, HTML5</li>
+            <li>React, Next.js, TypeScript, JavaScript</li>
+            <li>Tailwind CSS, CSS3, HTML5</li>
             <li>Responsive & Accessible UI</li>
           </ul>
         </div>
@@ -1121,6 +1124,31 @@ const Experience = () => (
     </div>
   </section>
 );
+
+// Add missing icon components for all backend, cloud, AI/ML, and other technologies
+const IconCSharp = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#512bd4"/><text x="7" y="22" fontSize="14" fill="#fff">C#</text></svg>);
+const IconDotNet = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#512bd4"/><text x="3" y="22" fontSize="14" fill="#fff">.NET</text></svg>);
+const IconNode = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><polygon points="16,3 29,10 29,22 16,29 3,22 3,10" fill="#3c873a"/><text x="8" y="22" fontSize="14" fill="#fff">Node</text></svg>);
+const IconExpress = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#222"/><text x="3" y="22" fontSize="14" fill="#fff">Ex</text></svg>);
+const IconAzure = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><polygon points="16,3 29,29 3,29" fill="#0078d4"/></svg>);
+const IconDevOps = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#0078d4"/><text x="2" y="22" fontSize="14" fill="#fff">DevOps</text></svg>);
+const IconDocker = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#2496ed"/><text x="3" y="22" fontSize="14" fill="#fff">🐳</text></svg>);
+const IconK8s = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#326ce5"/><text x="7" y="22" fontSize="14" fill="#fff">K8s</text></svg>);
+const IconSQL = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><ellipse cx="16" cy="16" rx="14" ry="10" fill="#eab308"/><text x="7" y="22" fontSize="14" fill="#fff">SQL</text></svg>);
+const IconMongo = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><ellipse cx="16" cy="16" rx="14" ry="10" fill="#10b981"/><text x="3" y="22" fontSize="14" fill="#fff">Mongo</text></svg>);
+const IconRest = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#f59e42"/><text x="3" y="22" fontSize="14" fill="#fff">REST</text></svg>);
+const IconPython = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#3776ab"/><text x="3" y="22" fontSize="14" fill="#fff">Py</text></svg>);
+const IconTensorFlow = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#ff6f00"/><text x="3" y="22" fontSize="14" fill="#fff">TF</text></svg>);
+const IconScikit = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 32 32" fill="none"><ellipse cx="16" cy="16" rx="14" ry="10" fill="#fbbf24"/><text x="3" y="22" fontSize="14" fill="#fff">SK</text></svg>);
+const IconNLP = () => (<svg className="w-6 h-6 inline-block mr-2" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="8" fill="#a855f7"/><path d="M8 12h8M8 16h8" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><circle cx="8" cy="8" r="1" fill="#fff"/><circle cx="16" cy="8" r="1" fill="#fff"/></svg>);
+const IconML = () => (<svg className="w-6 h-6 inline-block mr-2" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="8" fill="#f59e42"/><path d="M8 16l4-8 4 8" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>);
+const IconGit = () => (<svg className="w-6 h-6 inline-block mr-2" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#f05032"/><path d="M12 8v8m-4-4h8" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>);
+const IconAgile = () => (<svg className="w-6 h-6 inline-block mr-2" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="8" fill="#22d3ee"/><path d="M8 12h8M8 16h8" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>);
+const IconCICD = () => (<svg className="w-6 h-6 inline-block mr-2" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="8" fill="#6366f1"/><path d="M8 12h8M8 16h8" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>);
+const IconTest = () => (<svg className="w-6 h-6 inline-block mr-2" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="8" fill="#22c55e"/><path d="M8 12h8M8 16h8" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>);
+const IconCodeReview = () => (<svg className="w-6 h-6 inline-block mr-2" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="8" fill="#f43f5e"/><path d="M8 12h8M8 16h8" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>);
+const IconWriting = () => (<svg className="w-6 h-6 inline-block mr-2" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="8" fill="#fbbf24"/><path d="M8 12h8M8 16h8" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>);
+const IconMentor = () => (<svg className="w-6 h-6 inline-block mr-2" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="8" fill="#0ea5e9"/><path d="M8 12h8M8 16h8" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>);
 
 // Main App
 const App = () => {
