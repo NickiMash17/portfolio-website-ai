@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { FaCheckCircle } from "react-icons/fa";
 
 // Add icon components for each main tech (React, Next.js, TypeScript, etc.) at the top
 const IconReact = () => (<svg className="w-6 h-6 inline-block mr-2" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2" fill="#61dafb"/><ellipse rx="10" ry="4.5" cx="12" cy="12" stroke="#61dafb" strokeWidth="1.5" fill="none"/><ellipse rx="10" ry="4.5" cx="12" cy="12" stroke="#61dafb" strokeWidth="1.5" fill="none" transform="rotate(60 12 12)"/><ellipse rx="10" ry="4.5" cx="12" cy="12" stroke="#61dafb" strokeWidth="1.5" fill="none" transform="rotate(120 12 12)"/></svg>);
@@ -1004,35 +1005,55 @@ const Skills = () => (
       <div className="grid md:grid-cols-2 gap-8">
         <div>
           <h3 className="text-cyan-400 font-bold mb-2">Frontend</h3>
-          <ul className="space-y-2 text-gray-300">
-            <li>React, Next.js, TypeScript, JavaScript</li>
-            <li>Tailwind CSS, CSS3, HTML5</li>
-            <li>Responsive & Accessible UI</li>
-          </ul>
+          <div className="flex flex-wrap gap-2 mb-4">
+            <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+            <img src="https://img.shields.io/badge/Next.js-000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
+            <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+            <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+            <img src="https://img.shields.io/badge/Tailwind_CSS-38BDF8?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+            <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+            <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+            <img src="https://img.shields.io/badge/Accessibility-000?style=for-the-badge&logo=accessibility&logoColor=white" alt="Accessibility" />
+          </div>
         </div>
         <div>
           <h3 className="text-pink-400 font-bold mb-2">Backend & Cloud</h3>
-          <ul className="space-y-2 text-gray-300">
-            <li>C#, .NET Core, Node.js, Express</li>
-            <li>Azure, Azure DevOps, Docker, Kubernetes</li>
-            <li>SQL Server, MongoDB, REST APIs</li>
-          </ul>
+          <div className="flex flex-wrap gap-2 mb-4">
+            <img src="https://img.shields.io/badge/C%23-512BD4?style=for-the-badge&logo=csharp&logoColor=white" alt="C#" />
+            <img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET" />
+            <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
+            <img src="https://img.shields.io/badge/Express-000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
+            <img src="https://img.shields.io/badge/Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white" alt="Azure" />
+            <img src="https://img.shields.io/badge/Azure_DevOps-0078D7?style=for-the-badge&logo=azuredevops&logoColor=white" alt="Azure DevOps" />
+            <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+            <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" alt="Kubernetes" />
+            <img src="https://img.shields.io/badge/SQL_Server-CC2927?style=for-the-badge&logo=microsoftsqlserver&logoColor=white" alt="SQL Server" />
+            <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+            <img src="https://img.shields.io/badge/REST_API-FF6F00?style=for-the-badge&logo=rest&logoColor=white" alt="REST API" />
+          </div>
         </div>
         <div>
           <h3 className="text-purple-400 font-bold mb-2">AI / ML</h3>
-          <ul className="space-y-2 text-gray-300">
-            <li>Python, TensorFlow, Scikit-learn</li>
-            <li>Natural Language Processing</li>
-            <li>Machine Learning Integration</li>
-          </ul>
+          <div className="flex flex-wrap gap-2 mb-4">
+            <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+            <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" alt="TensorFlow" />
+            <img src="https://img.shields.io/badge/Scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="Scikit-learn" />
+            <img src="https://img.shields.io/badge/NLP-4B8BBE?style=for-the-badge&logo=google&logoColor=white" alt="NLP" />
+            <img src="https://img.shields.io/badge/Machine_Learning-6C63FF?style=for-the-badge&logo=ml&logoColor=white" alt="Machine Learning" />
+          </div>
         </div>
         <div>
           <h3 className="text-cyan-400 font-bold mb-2">Other</h3>
-          <ul className="space-y-2 text-gray-300">
-            <li>Git, GitHub, Agile, CI/CD</li>
-            <li>Unit Testing, Code Review</li>
-            <li>Technical Writing, Mentoring</li>
-          </ul>
+          <div className="flex flex-wrap gap-2 mb-4">
+            <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git" />
+            <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+            <img src="https://img.shields.io/badge/Agile-0277BD?style=for-the-badge&logo=agile&logoColor=white" alt="Agile" />
+            <img src="https://img.shields.io/badge/CI%2FCD-6366F1?style=for-the-badge&logo=githubactions&logoColor=white" alt="CI/CD" />
+            <img src="https://img.shields.io/badge/Unit_Testing-22C55E?style=for-the-badge&logo=testinglibrary&logoColor=white" alt="Unit Testing" />
+            <img src="https://img.shields.io/badge/Code_Review-F43F5E?style=for-the-badge&logo=codefactor&logoColor=white" alt="Code Review" />
+            <img src="https://img.shields.io/badge/Technical_Writing-FBBF24?style=for-the-badge&logo=readthedocs&logoColor=white" alt="Technical Writing" />
+            <img src="https://img.shields.io/badge/Mentoring-0EA5E9?style=for-the-badge&logo=mentor&logoColor=white" alt="Mentoring" />
+          </div>
         </div>
       </div>
     </div>
@@ -1150,6 +1171,509 @@ const IconCodeReview = () => (<svg className="w-6 h-6 inline-block mr-2" fill="n
 const IconWriting = () => (<svg className="w-6 h-6 inline-block mr-2" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="8" fill="#fbbf24"/><path d="M8 12h8M8 16h8" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>);
 const IconMentor = () => (<svg className="w-6 h-6 inline-block mr-2" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="8" fill="#0ea5e9"/><path d="M8 12h8M8 16h8" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>);
 
+const AzureArchitecture = () => (
+  <div
+    className="bg-gray-900/80 rounded-2xl p-6 border border-cyan-400/20 shadow-lg transition-transform hover:scale-105 hover:shadow-cyan-400/20"
+    aria-label="Azure Cloud Architecture"
+  >
+    <h3 className="text-xl font-bold text-cyan-400 mb-4 flex items-center gap-2">
+      <span role="img" aria-label="cloud">☁️</span> Azure Cloud Architecture
+    </h3>
+    <img
+      src="/azure-architecture.png"
+      alt="Diagram of Azure Cloud Architecture"
+      className="w-full rounded-lg border border-gray-700 shadow"
+    />
+    <p className="text-gray-300 mt-4">
+      Designed and implemented scalable cloud solutions using Azure services including:
+    </p>
+    <ul className="grid grid-cols-2 gap-2 mt-2 text-sm">
+      {[
+        "Azure App Services",
+        "Azure Functions",
+        "Cosmos DB",
+        "Azure SQL",
+        "Azure Kubernetes",
+        "Azure DevOps",
+        "Azure Monitor",
+        "Azure AI Services",
+      ].map((service, i) => (
+        <li key={i} className="flex items-center">
+          <FaCheckCircle className="text-cyan-400 mr-2" aria-hidden="true" />
+          {service}
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+const AIModelCard = () => (
+  <div className="bg-gray-900/80 rounded-2xl p-6 border border-purple-400/20 shadow-lg transition-transform hover:scale-105 hover:shadow-purple-400/20">
+    <div className="flex items-start mb-4">
+      <div className="bg-purple-500/20 p-2 rounded-lg mr-4">
+        <IconAI className="w-8 h-8 text-purple-400" />
+      </div>
+      <div>
+        <h3 className="text-xl font-bold text-purple-400">Sentiment Analysis Model</h3>
+        <p className="text-gray-400 text-sm">BERT-based NLP model</p>
+      </div>
+    </div>
+    <div className="grid grid-cols-2 gap-4 mb-4">
+      <div>
+        <p className="text-gray-400 text-sm">Framework</p>
+        <p className="text-white">TensorFlow</p>
+      </div>
+      <div>
+        <p className="text-gray-400 text-sm">Accuracy</p>
+        <p className="text-white">92.4%</p>
+      </div>
+      <div>
+        <p className="text-gray-400 text-sm">Training Data</p>
+        <p className="text-white">50,000 samples</p>
+      </div>
+      <div>
+        <p className="text-gray-400 text-sm">Inference Time</p>
+        <p className="text-white">120ms</p>
+      </div>
+    </div>
+    <button className="w-full py-2 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/40 transition-colors duration-200 shadow hover:shadow-purple-400/20 focus:outline-none focus:ring-2 focus:ring-purple-400">
+      View Model Details
+    </button>
+  </div>
+);
+
+const CodeQuality = () => (
+  <div className="bg-gray-900/80 rounded-2xl p-6 border border-cyan-400/20 shadow-lg transition-transform hover:scale-105 hover:shadow-cyan-400/20">
+    <h3 className="text-xl font-bold text-cyan-400 mb-4 flex items-center gap-2">
+      <span role="img" aria-label="trophy">🏆</span> Engineering Excellence
+    </h3>
+    <div className="space-y-4">
+      <div>
+        <div className="flex justify-between mb-1">
+          <span className="text-gray-300">Test Coverage</span>
+          <span className="text-cyan-400">92%</span>
+        </div>
+        <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+          <div className="bg-cyan-400 h-2 rounded-full transition-all duration-700" style={{width: '92%'}}></div>
+        </div>
+      </div>
+      <div>
+        <div className="flex justify-between mb-1">
+          <span className="text-gray-300">Code Smells</span>
+          <span className="text-green-400">0.2/file</span>
+        </div>
+        <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+          <div className="bg-green-400 h-2 rounded-full transition-all duration-700" style={{width: '90%'}}></div>
+        </div>
+      </div>
+      <div>
+        <div className="flex justify-between mb-1">
+          <span className="text-gray-300">Build Success</span>
+          <span className="text-blue-400">99.8%</span>
+        </div>
+        <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+          <div className="bg-blue-400 h-2 rounded-full transition-all duration-700" style={{width: '99.8%'}}></div>
+        </div>
+      </div>
+    </div>
+    <p className="text-gray-300 mt-4 text-sm">
+      Maintained high engineering standards through code reviews, static analysis, and CI/CD best practices.
+    </p>
+  </div>
+);
+
+const TechnicalBlog = () => {
+  const posts = [
+    {
+      title: "Optimizing Azure Functions for AI Workloads",
+      excerpt: "How we reduced inference times by 40% using Azure Durable Functions",
+      tags: ["Azure", "AI", "Performance"],
+      date: "May 2024"
+    },
+    {
+      title: "Implementing MLOps with Azure Machine Learning",
+      excerpt: "End-to-end pipeline for continuous training and deployment of ML models",
+      tags: ["MLOps", "Azure ML", "DevOps"],
+      date: "March 2024"
+    },
+    {
+      title: "Secure Microservices Architecture on Azure",
+      excerpt: "Best practices for authentication and authorization in distributed systems",
+      tags: ["Azure", "Security", "Microservices"],
+      date: "January 2024"
+    }
+  ];
+
+  return (
+    <section id="blog" className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 mb-4">
+            Technical Writings
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-pink-500 rounded-full mx-auto mb-4"></div>
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            Sharing knowledge on software engineering, cloud architecture, and AI/ML best practices.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {posts.map((post, i) => (
+            <div key={i} className="bg-gray-900/80 rounded-2xl border border-gray-700 overflow-hidden hover:border-cyan-400/50 hover:shadow-lg transition-all duration-200">
+              <div className="p-6">
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {post.tags.map((tag, j) => (
+                    <span key={j} className="px-2 py-1 bg-gray-800 text-cyan-400 rounded-full text-xs">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">{post.title}</h3>
+                <p className="text-gray-400 text-sm mb-4">{post.excerpt}</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-500 text-xs">{post.date}</span>
+                  <button className="text-cyan-400 text-sm hover:underline focus:outline-none">Read More →</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const SkillsRadarChart = () => {
+  const skills = [
+    { name: "C#/.NET", level: 90 },
+    { name: "Azure", level: 85 },
+    { name: "React", level: 80 },
+    { name: "DevOps", level: 75 },
+    { name: "AI/ML", level: 70 },
+    { name: "Python", level: 65 }
+  ];
+
+  return (
+    <div className="bg-gray-900/80 rounded-2xl p-6 border border-cyan-400/20 shadow-lg transition-transform hover:scale-105 hover:shadow-cyan-400/20">
+      <h3 className="text-xl font-bold text-cyan-400 mb-6">Skills Radar</h3>
+      <div className="relative w-full h-64">
+        {/* Hexagon background */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <svg viewBox="0 0 200 200" className="w-full h-full">
+            {/* Hexagon rings */}
+            {[20, 40, 60, 80].map((r, i) => (
+              <polygon
+                key={i}
+                points="100,0 180,50 180,150 100,200 20,150 20,50"
+                fill="none"
+                stroke="rgba(74, 222, 128, 0.1)"
+                strokeWidth="0.5"
+                transform={`scale(${r/100})`}
+                transform-origin="center"
+              />
+            ))}
+            {/* Skill areas */}
+            {skills.map((skill, i) => {
+              const angle = (i * 60) * (Math.PI / 180);
+              const x = 100 + Math.sin(angle) * (skill.level / 100) * 80;
+              const y = 100 - Math.cos(angle) * (skill.level / 100) * 80;
+              return (
+                <circle
+                  key={i}
+                  cx={x}
+                  cy={y}
+                  r="4"
+                  fill="#06b6d4"
+                />
+              );
+            })}
+            {/* Connecting lines */}
+            <polygon
+              points={skills.map((skill, i) => {
+                const angle = (i * 60) * (Math.PI / 180);
+                const x = 100 + Math.sin(angle) * (skill.level / 100) * 80;
+                const y = 100 - Math.cos(angle) * (skill.level / 100) * 80;
+                return `${x},${y}`;
+              }).join(' ')}
+              fill="rgba(6, 182, 212, 0.2)"
+              stroke="#06b6d4"
+              strokeWidth="1"
+            />
+          </svg>
+        </div>
+        {/* Skill labels */}
+        <div className="absolute inset-0">
+          {skills.map((skill, i) => {
+            const angle = (i * 60) * (Math.PI / 180);
+            const x = 50 + Math.sin(angle) * 110;
+            const y = 50 - Math.cos(angle) * 110;
+            return (
+              <div
+                key={i}
+                className="absolute text-xs text-gray-300 font-semibold px-2 py-1 bg-gray-800/80 rounded shadow"
+                style={{
+                  left: `${x}%`,
+                  top: `${y}%`,
+                  transform: 'translate(-50%, -50%)'
+                }}
+              >
+                {skill.name}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Add missing icon components for AzureExpertise and related sections
+const IconCode = () => (
+  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="#38bdf8"/><path d="M9 9l-3 3 3 3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M15 9l3 3-3 3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+);
+const IconPipeline = () => (
+  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="8" rx="4" fill="#a78bfa"/><rect x="8" y="4" width="8" height="16" rx="4" fill="#38bdf8"/></svg>
+);
+const IconCloud = () => (
+  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24"><ellipse cx="12" cy="15" rx="8" ry="5" fill="#38bdf8"/><ellipse cx="16" cy="13" rx="4" ry="3" fill="#a5b4fc"/><ellipse cx="8" cy="13" rx="3" ry="2" fill="#f472b6"/></svg>
+);
+const IconShield = () => (
+  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5.25-3.5 9.74-8 11-4.5-1.26-8-5.75-8-11V7l8-4z" fill="#f87171"/><path d="M12 3v17" stroke="#fff" strokeWidth="2"/></svg>
+);
+
+// AzureExpertise Section
+const AzureExpertise = () => (
+  <section className="py-20 bg-gradient-to-br from-gray-900 via-blue-900/50 to-gray-900">
+    <div className="max-w-6xl mx-auto px-4">
+      <div className="text-center mb-12">
+        <h2 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-4">
+          Azure Cloud Expertise
+        </h2>
+        <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto mb-4"></div>
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          Certified Azure professional with hands-on experience building scalable cloud-native solutions
+        </p>
+      </div>
+      <div className="grid md:grid-cols-3 gap-8">
+        {[
+          {
+            title: "Infrastructure as Code",
+            icon: <IconCode />,
+            items: ["ARM Templates", "Terraform", "Bicep"],
+            color: "from-blue-400 to-cyan-400"
+          },
+          {
+            title: "DevOps Pipelines",
+            icon: <IconPipeline />,
+            items: ["CI/CD Automation", "YAML Pipelines", "Release Gates"],
+            color: "from-purple-400 to-blue-400"
+          },
+          {
+            title: "AI Services",
+            icon: <IconAI />,
+            items: ["Azure ML", "Cognitive Services", "Bot Service"],
+            color: "from-pink-400 to-purple-400"
+          }
+        ].map((service, i) => (
+          <div key={i} className={`bg-gradient-to-br ${service.color} p-0.5 rounded-2xl shadow-xl hover:shadow-blue-400/20 transition-all`}>
+            <div className="bg-gray-900 rounded-2xl p-6 h-full">
+              <div className="text-4xl mb-4">{service.icon}</div>
+              <h3 className="text-xl font-bold text-white mb-4">{service.title}</h3>
+              <ul className="space-y-2">
+                {service.items.map((item, j) => (
+                  <li key={j} className="flex items-center">
+                    <FaCheckCircle className="text-blue-400 mr-2" />
+                    <span className="text-gray-300">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-12 bg-gray-900/80 rounded-2xl p-6 border border-blue-400/20">
+        <h3 className="text-xl font-bold text-blue-400 mb-4">Azure Architecture Patterns</h3>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <h4 className="text-white mb-2">Microservices on AKS</h4>
+            <p className="text-gray-400 text-sm">
+              Designed and implemented Kubernetes-based microservices with service mesh, 
+              distributed tracing, and auto-scaling.
+            </p>
+          </div>
+          <div>
+            <h4 className="text-white mb-2">Serverless AI Processing</h4>
+            <p className="text-gray-400 text-sm">
+              Built event-driven AI pipelines using Functions, Logic Apps, and Event Grid 
+              for real-time data processing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+// AIProjects Section
+const AIProjects = () => (
+  <section className="py-20 bg-gradient-to-br from-gray-900 via-purple-900/50 to-gray-900">
+    <div className="max-w-5xl mx-auto px-4">
+      <div className="text-center mb-12">
+        <h2 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-4">
+          AI/ML Innovations
+        </h2>
+        <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full mx-auto mb-4"></div>
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          Practical applications of machine learning and artificial intelligence
+        </p>
+      </div>
+      <div className="grid md:grid-cols-2 gap-8">
+        {[
+          {
+            title: "Predictive Maintenance",
+            description: "ML model predicting equipment failures with 92% accuracy",
+            metrics: [
+              { label: "Accuracy", value: "92%" },
+              { label: "False Positives", value: "4%" },
+              { label: "Cost Savings", value: "$240k/yr" }
+            ],
+            tech: ["TensorFlow", "Azure ML", "IoT Hub"]
+          },
+          {
+            title: "Sentiment Analysis API",
+            description: "Real-time NLP processing for customer feedback",
+            metrics: [
+              { label: "Throughput", value: "1.2k req/s" },
+              { label: "Latency", value: "120ms" },
+              { label: "Accuracy", value: "88%" }
+            ],
+            tech: ["BERT", "FastAPI", "Kubernetes"]
+          }
+        ].map((project, i) => (
+          <div key={i} className="bg-gray-900/80 rounded-2xl border border-purple-400/20 p-6 hover:border-pink-400/50 transition-colors">
+            <h3 className="text-xl font-bold text-purple-400 mb-2">{project.title}</h3>
+            <p className="text-gray-300 mb-4">{project.description}</p>
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              {project.metrics.map((metric, j) => (
+                <div key={j} className="bg-gray-800/50 rounded-lg p-3 text-center">
+                  <div className="text-2xl font-bold text-pink-400">{metric.value}</div>
+                  <div className="text-xs text-gray-400">{metric.label}</div>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {project.tech.map((tech, k) => (
+                <span key={k} className="px-3 py-1 bg-purple-400/10 text-purple-400 rounded-full text-xs">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+// DevOpsPipeline Section
+const DevOpsPipeline = () => (
+  <div className="bg-gray-900/80 rounded-2xl p-6 border border-green-400/20 shadow-lg">
+    <h3 className="text-xl font-bold text-green-400 mb-6 flex items-center gap-2">
+      <IconPipeline className="w-6 h-6" /> CI/CD Pipeline Architecture
+    </h3>
+    <div className="relative h-48 overflow-x-auto">
+      <div className="flex nowrap gap-4 min-w-max">
+        {[
+          { name: "Code", icon: "💻", color: "bg-blue-500" },
+          { name: "Build", icon: "🛠️", color: "bg-purple-500" },
+          { name: "Test", icon: "🧪", color: "bg-yellow-500" },
+          { name: "Package", icon: "📦", color: "bg-pink-500" },
+          { name: "Deploy", icon: "🚀", color: "bg-green-500" },
+          { name: "Monitor", icon: "👀", color: "bg-cyan-500" }
+        ].map((stage, i) => (
+          <div key={i} className="flex flex-col items-center">
+            <div className={`w-12 h-12 rounded-full ${stage.color} flex items-center justify-center text-xl mb-2`}>
+              {stage.icon}
+            </div>
+            <div className="text-sm text-gray-300">{stage.name}</div>
+            {i < 5 && (
+              <div className="flex-1 w-px bg-gray-600 my-2 relative">
+                <div className="absolute inset-0 bg-green-400 w-px animate-pulse-slow" style={{ animationDelay: `${i * 0.2}s` }}></div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+    <div className="mt-6 grid grid-cols-2 gap-4">
+      <div>
+        <h4 className="text-white mb-2">Key Metrics</h4>
+        <ul className="text-sm text-gray-400 space-y-1">
+          <li>• Build time: 3.2min avg</li>
+          <li>• Deployment frequency: 12/day</li>
+          <li>• Change failure rate: 2%</li>
+        </ul>
+      </div>
+      <div>
+        <h4 className="text-white mb-2">Tools Used</h4>
+        <div className="flex flex-wrap gap-2">
+          {["Azure DevOps", "GitHub Actions", "Terraform", "Docker", "K8s"].map((tool, i) => (
+            <span key={i} className="px-2 py-1 bg-gray-800 text-green-400 rounded-full text-xs">
+              {tool}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// EngineeringPrinciples Section
+const EngineeringPrinciples = () => (
+  <section className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="max-w-4xl mx-auto px-4">
+      <div className="text-center mb-12">
+        <h2 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500 mb-4">
+          Engineering Philosophy
+        </h2>
+        <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-pink-500 rounded-full mx-auto mb-4"></div>
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          The principles that guide my technical decision-making
+        </p>
+      </div>
+      <div className="grid md:grid-cols-2 gap-8">
+        {[
+          {
+            title: "Cloud-Native First",
+            description: "Design for scalability, resilience and cost-efficiency from day one",
+            icon: <IconCloud className="text-blue-400" />
+          },
+          {
+            title: "Infrastructure as Code",
+            description: "Reproducible environments with Terraform and Bicep",
+            icon: <IconCode className="text-green-400" />
+          },
+          {
+            title: "Observability",
+            description: "Comprehensive logging, metrics and tracing",
+            icon: <IconChart className="text-purple-400" />
+          },
+          {
+            title: "Security by Design",
+            description: "Zero-trust principles and defense in depth",
+            icon: <IconShield className="text-red-400" />
+          }
+        ].map((principle, i) => (
+          <div key={i} className="bg-gray-900/80 rounded-2xl p-6 border border-gray-700 hover:border-cyan-400/50 transition-colors">
+            <div className="text-4xl mb-4">{principle.icon}</div>
+            <h3 className="text-xl font-bold text-white mb-2">{principle.title}</h3>
+            <p className="text-gray-400">{principle.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 // Main App
 const App = () => {
   const [aiChatOpen, setAIChatOpen] = useState(false);
@@ -1162,7 +1686,12 @@ const App = () => {
         <Hero onOpenAIChat={() => setAIChatOpen(true)} />
         <About />
         <Skills />
+        <AzureExpertise />
+        <AIProjects />
+        <DevOpsPipeline />
+        <EngineeringPrinciples />
         <AzureCertifications />
+        <Experience />
         <Projects />
         <Contact />
       </main>
