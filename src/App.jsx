@@ -381,157 +381,186 @@ const FloatingAIOrb = ({ onClick, isActive }) => {
   );
 };
 
-// Professional Navigation
-const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const navItems = [
-    { name: 'Home', href: '#hero' },
-    { name: 'About', href: '#about' },
-    { name: 'Azure', href: '#azure' },
-    { name: 'AI Projects', href: '#ai-projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Contact', href: '#contact' }
-  ];
+// Advanced Animations & Micro-interactions
+const useScrollAnimation = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const elementRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return [elementRef, isVisible];
+};
+
+// Particle System Component
+const ParticleSystem = () => {
+  const canvasRef = useRef(null);
+  const particlesRef = useRef([]);
+  const animationRef = useRef();
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Initialize particles
+    const particles = [];
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 2 + 1,
+        opacity: Math.random() * 0.5 + 0.2
+      });
+    }
+    particlesRef.current = particles;
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(particle => {
+        // Update position
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        
+        // Wrap around edges
+        if (particle.x < 0) particle.x = canvas.width;
+        if (particle.x > canvas.width) particle.x = 0;
+        if (particle.y < 0) particle.y = canvas.height;
+        if (particle.y > canvas.height) particle.y = 0;
+        
+        // Draw particle
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(6, 182, 212, ${particle.opacity})`;
+        ctx.fill();
+      });
+      
+      animationRef.current = requestAnimationFrame(animate);
+    };
+    
+    animate();
+    
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
   }, []);
 
   return (
-    <nav className={`nav-container ${scrolled ? 'scrolled' : ''}`}>
-      <div className="nav-content">
-        <a href="#hero" className="nav-logo">
-          <FaBrain className="logo-icon" />
-          <span>Nicolette Mashaba</span>
-        </a>
-        
-        <div className="nav-links">
-          {navItems.map(item => (
-            <a key={item.name} href={item.href} className="nav-link">
-              {item.name}
-            </a>
-          ))}
-          <ThemeToggle />
-        </div>
-        
-        <div className="nav-actions">
-          <ThemeToggle />
-          <button onClick={() => setIsOpen(!isOpen)} className="nav-toggle">
-            <span></span><span></span><span></span>
-          </button>
-        </div>
-      </div>
-      
-      {isOpen && (
-        <div className="nav-mobile">
-          {navItems.map(item => (
-            <a key={item.name} href={item.href} 
-               onClick={() => setIsOpen(false)} 
-               className="nav-link-mobile">
-              {item.name}
-            </a>
-          ))}
-          <div className="mobile-theme-toggle">
-            <ThemeToggle />
-          </div>
-        </div>
-      )}
-    </nav>
+    <canvas
+      ref={canvasRef}
+      className="particle-system"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        zIndex: 1
+      }}
+    />
   );
 };
 
-// Revolutionary Hero Section
-const Hero = ({ onOpenAIChat }) => {
-  const [currentText, setCurrentText] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
-  
-  const texts = [
-    "AI-Powered Full-Stack Developer",
-    "Microsoft Azure Certified Expert", 
-    "Machine Learning Enthusiast",
-    "Cloud-Native Innovator"
-  ];
-
-  useEffect(() => {
-    setIsLoaded(true);
-    const interval = setInterval(() => {
-      setCurrentText(prev => (prev + 1) % texts.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+// Enhanced Hero with Scroll Animations
+const EnhancedHero = ({ onOpenAIChat }) => {
+  const [heroRef, heroVisible] = useScrollAnimation();
+  const [titleRef, titleVisible] = useScrollAnimation();
+  const [subtitleRef, subtitleVisible] = useScrollAnimation();
+  const [ctaRef, ctaVisible] = useScrollAnimation();
 
   return (
     <section id="hero" className="hero-section">
-      <AIBrain />
-      
-      <div className={`hero-content ${isLoaded ? 'loaded' : ''}`}>
-        <div className="hero-title-container">
-          <h1 className="hero-title">
-            <span className="title-main">NICOLETTE</span>
-            <span className="title-sub">MASHABA</span>
-          </h1>
-          <div className="title-decoration">
-            <div className="decoration-line"></div>
-            <div className="decoration-dot"></div>
-            <div className="decoration-line"></div>
-          </div>
-        </div>
-
-        <div className="hero-subtitle-container">
-          <div className="typewriter-container">
-            <span className="typewriter-text">{texts[currentText]}</span>
-            <span className="typewriter-cursor">|</span>
-          </div>
-        </div>
-
-        <div className="hero-status">
-          <div className="status-badge">
-            <div className="status-indicator"></div>
-            <span>Available for AI/Cloud Opportunities</span>
-          </div>
-        </div>
-
-        <div className="hero-badges">
-          <div className="badge-preview">
-            <img src="https://learn.microsoft.com/en-us/media/learn/certification/badges/microsoft-certified-associate-badge.svg" alt="Azure Certified" />
-            <span>Azure Developer Associate</span>
-          </div>
-          <div className="badge-preview">
-            <img src="https://learn.microsoft.com/en-us/media/learn/certification/badges/microsoft-certified-fundamentals-badge.svg" alt="Azure Data" />
-            <span>Azure Data Fundamentals</span>
-          </div>
-        </div>
-
-        <div className="hero-description">
-          <div className="description-card">
-            <p>
-              <strong className="highlight">Microsoft Azure Certified</strong> Full-Stack Developer passionate about 
-              <span className="ai-highlight"> AI-driven solutions</span> and cloud-native architecture.
+      <ParticleSystem />
+      <div className="section-container">
+        <div className="hero-content">
+          <div 
+            ref={heroRef}
+            className={`hero-text ${heroVisible ? 'animate-in' : ''}`}
+          >
+            <h1 
+              ref={titleRef}
+              className={`hero-title ${titleVisible ? 'animate-in' : ''}`}
+            >
+              <span className="gradient-text">Nicolette Mashaba</span>
               <br />
-              Specializing in <span className="tech-highlight">C#/.NET, React, Azure AI Services</span> and building 
-              <span className="innovation-highlight"> innovative applications</span> that push the boundaries of technology.
+              <span className="typewriter-text">
+                <span className="typewriter-cursor">|</span>
+                <span className="typewriter-content">
+                  Full-Stack Developer
+                </span>
+              </span>
+            </h1>
+            
+            <p 
+              ref={subtitleRef}
+              className={`hero-subtitle ${subtitleVisible ? 'animate-in' : ''}`}
+            >
+              Microsoft Azure Certified Developer specializing in AI/ML, 
+              cloud architecture, and innovative web applications.
             </p>
+            
+            <div 
+              ref={ctaRef}
+              className={`hero-cta ${ctaVisible ? 'animate-in' : ''}`}
+            >
+              <button 
+                onClick={onOpenAIChat}
+                className="cta-button primary"
+              >
+                <FaRobot className="cta-icon" />
+                Chat with AI Assistant
+              </button>
+              <button className="cta-button secondary">
+                <FaDownload className="cta-icon" />
+                Download Resume
+              </button>
+            </div>
           </div>
-        </div>
-
-        <div className="hero-actions">
-          <button className="cta-primary" onClick={onOpenAIChat}>
-            <FaRobot className="cta-icon" />
-            <span>Chat with AI Assistant</span>
-          </button>
           
-          <a href="#azure" className="cta-secondary">
-            <FaCloud className="cta-icon" />
-            <span>View Azure Certifications</span>
-          </a>
-          
-          <a href="#ai-projects" className="cta-tertiary">
-            <FaBrain className="cta-icon" />
-            <span>Explore AI Projects</span>
-          </a>
+          <div className="hero-visual">
+            <div className="floating-elements">
+              <div className="floating-card azure">
+                <FaCloud />
+                <span>Azure Certified</span>
+              </div>
+              <div className="floating-card ai">
+                <FaBrain />
+                <span>AI Enthusiast</span>
+              </div>
+              <div className="floating-card react">
+                <FaCode />
+                <span>React Expert</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1667,6 +1696,74 @@ const BlogSection = () => {
   );
 };
 
+// Enhanced Navigation with Scroll Effects
+const EnhancedNavigation = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <nav className={`nav-container ${isScrolled ? 'scrolled' : ''}`}>
+      <div className="nav-content">
+        <a href="#hero" className="nav-logo">
+          <FaBrain className="logo-icon" />
+          <span>Nicolette Mashaba</span>
+        </a>
+        
+        <div className={`nav-links ${isMobileMenuOpen ? 'open' : ''}`}>
+          {navItems.map(item => (
+            <a 
+              key={item.name} 
+              href={item.href} 
+              className="nav-link"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {item.name}
+            </a>
+          ))}
+          <ThemeToggle />
+        </div>
+        
+        <div className="nav-actions">
+          <ThemeToggle />
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+            className="nav-toggle"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+      
+      {isMobileMenuOpen && (
+        <div className="nav-mobile">
+          {navItems.map(item => (
+            <a 
+              key={item.name} 
+              href={item.href} 
+              onClick={() => setIsMobileMenuOpen(false)} 
+              className="nav-link-mobile"
+            >
+              {item.name}
+            </a>
+          ))}
+          <div className="mobile-theme-toggle">
+            <ThemeToggle />
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
+
 // Footer Section
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -1754,11 +1851,11 @@ const App = () => {
   return (
     <ThemeProvider>
       <div className="app-container">
-        <Navigation />
+        <EnhancedNavigation />
         <NeuralNetworkCanvas />
         
         <main className="main-content">
-          <Hero onOpenAIChat={() => setAIChatOpen(true)} />
+          <EnhancedHero onOpenAIChat={() => setAIChatOpen(true)} />
           <AboutSection />
           <SkillsSection />
           <SkillsRadarChart />
