@@ -1,5 +1,28 @@
 import React, { useState, useEffect, useRef, useCallback, createContext, useContext } from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope, FaDownload, FaRocket, FaBrain, FaCloud, FaCode, FaRobot, FaMicrochip, FaNetworkWired, FaCogs, FaSun, FaMoon } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope, FaDownload, FaRocket, FaBrain, FaCloud, FaCode, FaRobot, FaMicrochip, FaNetworkWired, FaCogs, FaSun, FaMoon, FaChartLine } from "react-icons/fa";
+import { Radar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale
+} from 'chart.js';
+
+ChartJS.register(
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale
+);
 
 // Theme Context
 const ThemeContext = createContext();
@@ -1148,6 +1171,267 @@ const SkillsSection = () => {
   );
 };
 
+// Interactive Skills Radar Chart Component
+const SkillsRadarChart = () => {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  
+  const skillCategories = {
+    all: {
+      label: 'All Skills',
+      data: {
+        labels: ['React', 'C#/.NET', 'Azure', 'Python', 'TypeScript', 'Node.js', 'SQL', 'Git', 'Docker', 'AI/ML'],
+        datasets: [
+          {
+            label: 'Current Level',
+            data: [90, 85, 90, 75, 85, 75, 80, 90, 75, 70],
+            backgroundColor: 'rgba(6, 182, 212, 0.2)',
+            borderColor: 'rgba(6, 182, 212, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(6, 182, 212, 1)',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 6,
+            pointHoverRadius: 8
+          }
+        ]
+      }
+    },
+    frontend: {
+      label: 'Frontend Development',
+      data: {
+        labels: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'HTML/CSS', 'JavaScript'],
+        datasets: [
+          {
+            label: 'Frontend Skills',
+            data: [90, 85, 80, 95, 90, 85],
+            backgroundColor: 'rgba(168, 85, 247, 0.2)',
+            borderColor: 'rgba(168, 85, 247, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(168, 85, 247, 1)',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 6,
+            pointHoverRadius: 8
+          }
+        ]
+      }
+    },
+    backend: {
+      label: 'Backend & Cloud',
+      data: {
+        labels: ['C#/.NET', 'Azure', 'Node.js', 'SQL Server', 'MongoDB', 'REST API'],
+        datasets: [
+          {
+            label: 'Backend Skills',
+            data: [85, 90, 75, 80, 70, 85],
+            backgroundColor: 'rgba(6, 182, 212, 0.2)',
+            borderColor: 'rgba(6, 182, 212, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(6, 182, 212, 1)',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 6,
+            pointHoverRadius: 8
+          }
+        ]
+      }
+    },
+    ai: {
+      label: 'AI/ML & Data',
+      data: {
+        labels: ['Python', 'TensorFlow', 'Azure ML', 'NLP', 'Computer Vision', 'Data Analysis'],
+        datasets: [
+          {
+            label: 'AI/ML Skills',
+            data: [75, 70, 80, 65, 60, 75],
+            backgroundColor: 'rgba(236, 72, 153, 0.2)',
+            borderColor: 'rgba(236, 72, 153, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(236, 72, 153, 1)',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 6,
+            pointHoverRadius: 8
+          }
+        ]
+      }
+    },
+    devops: {
+      label: 'DevOps & Tools',
+      data: {
+        labels: ['Git', 'Azure DevOps', 'Docker', 'CI/CD', 'Kubernetes', 'Monitoring'],
+        datasets: [
+          {
+            label: 'DevOps Skills',
+            data: [90, 85, 75, 80, 65, 75],
+            backgroundColor: 'rgba(16, 185, 129, 0.2)',
+            borderColor: 'rgba(16, 185, 129, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 6,
+            pointHoverRadius: 8
+          }
+        ]
+      }
+    }
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false
+      },
+      tooltip: {
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        titleColor: '#ffffff',
+        bodyColor: '#ffffff',
+        borderColor: 'rgba(6, 182, 212, 0.5)',
+        borderWidth: 1,
+        cornerRadius: 8,
+        displayColors: false,
+        callbacks: {
+          label: function(context) {
+            return `${context.label}: ${context.parsed.r}%`;
+          }
+        }
+      }
+    },
+    scales: {
+      r: {
+        beginAtZero: true,
+        max: 100,
+        min: 0,
+        ticks: {
+          stepSize: 20,
+          color: 'var(--text-secondary)',
+          font: {
+            size: 12
+          }
+        },
+        grid: {
+          color: 'var(--border-primary)',
+          lineWidth: 1
+        },
+        angleLines: {
+          color: 'var(--border-primary)',
+          lineWidth: 1
+        },
+        pointLabels: {
+          color: 'var(--text-primary)',
+          font: {
+            size: 14,
+            weight: '600'
+          },
+          padding: 20
+        }
+      }
+    },
+    elements: {
+      point: {
+        hoverRadius: 8,
+        radius: 6
+      }
+    }
+  };
+
+  return (
+    <div className="skills-radar-section">
+      <div className="section-container">
+        <div className="section-header">
+          <h2 className="section-title">
+            <FaChartLine className="title-icon" />
+            Skills Visualization
+          </h2>
+          <div className="title-decoration">
+            <div className="decoration-line"></div>
+            <div className="decoration-dot"></div>
+            <div className="decoration-line"></div>
+          </div>
+          <p className="section-subtitle">
+            Interactive radar chart showcasing my technical expertise across different domains.
+          </p>
+        </div>
+        
+        <div className="radar-controls">
+          {Object.keys(skillCategories).map(category => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`radar-category-btn ${selectedCategory === category ? 'active' : ''}`}
+            >
+              {skillCategories[category].label}
+            </button>
+          ))}
+        </div>
+        
+        <div className="radar-chart-container">
+          <div className="radar-chart-wrapper">
+            <Radar 
+              data={skillCategories[selectedCategory].data} 
+              options={chartOptions}
+              height={400}
+            />
+          </div>
+          
+          <div className="radar-stats">
+            <div className="stat-item">
+              <div className="stat-number">
+                {Math.round(
+                  skillCategories[selectedCategory].data.datasets[0].data.reduce((a, b) => a + b, 0) / 
+                  skillCategories[selectedCategory].data.datasets[0].data.length
+                )}
+              </div>
+              <div className="stat-label">Average Skill Level</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">
+                {skillCategories[selectedCategory].data.labels.length}
+              </div>
+              <div className="stat-label">Skills Tracked</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">
+                {Math.max(...skillCategories[selectedCategory].data.datasets[0].data)}
+              </div>
+              <div className="stat-label">Highest Skill</div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="radar-insights">
+          <h3 className="insights-title">Key Insights</h3>
+          <div className="insights-grid">
+            <div className="insight-card">
+              <div className="insight-icon">🚀</div>
+              <h4>Frontend Excellence</h4>
+              <p>Strong expertise in React, TypeScript, and modern CSS frameworks</p>
+            </div>
+            <div className="insight-card">
+              <div className="insight-icon">☁️</div>
+              <h4>Cloud Native</h4>
+              <p>Deep knowledge of Azure services and cloud architecture</p>
+            </div>
+            <div className="insight-card">
+              <div className="insight-icon">🤖</div>
+              <h4>AI/ML Enthusiast</h4>
+              <p>Growing expertise in machine learning and AI applications</p>
+            </div>
+            <div className="insight-card">
+              <div className="insight-icon">⚙️</div>
+              <h4>DevOps Ready</h4>
+              <p>Proficient in CI/CD, containerization, and automation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Footer Section
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -1242,6 +1526,7 @@ const App = () => {
           <Hero onOpenAIChat={() => setAIChatOpen(true)} />
           <AboutSection />
           <SkillsSection />
+          <SkillsRadarChart />
           <AzureSection />
           <AIProjectsSection />
           <ContactSection />
