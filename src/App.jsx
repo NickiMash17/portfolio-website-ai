@@ -782,6 +782,316 @@ const ContactSection = () => {
   );
 };
 
+// About Section
+const AboutSection = () => {
+  const [activeTab, setActiveTab] = useState('overview');
+  
+  const tabs = {
+    overview: {
+      title: "Professional Overview",
+      content: (
+        <div className="about-content">
+          <p className="about-text">
+            I'm a passionate <strong className="highlight">Full-Stack Developer</strong> with 3+ years of experience 
+            building scalable web applications and AI-powered solutions. Based in South Africa, I specialize in modern 
+            technologies including C#/.NET, React, and Microsoft Azure cloud services.
+          </p>
+          <p className="about-text">
+            My unique background combines technical expertise with leadership experience from my naval service, 
+            giving me strong problem-solving skills and the ability to work effectively under pressure.
+          </p>
+          <div className="stats-grid">
+            <div className="stat-card">
+              <div className="stat-number">10+</div>
+              <div className="stat-label">Projects Delivered</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-number">3+</div>
+              <div className="stat-label">Years Experience</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-number">5+</div>
+              <div className="stat-label">Technologies Mastered</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-number">100%</div>
+              <div className="stat-label">Client Satisfaction</div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    education: {
+      title: "Education & Training",
+      content: (
+        <div className="education-timeline">
+          <div className="timeline-item">
+            <div className="timeline-marker azure"></div>
+            <div className="timeline-content">
+              <h4>Agile Software Development Bootcamp</h4>
+              <p className="institution">TechBridle • 2025</p>
+              <p className="description">Advanced training in Agile methodologies and modern development practices</p>
+            </div>
+          </div>
+          <div className="timeline-item">
+            <div className="timeline-marker ai"></div>
+            <div className="timeline-content">
+              <h4>NQF Level 6 - Software Engineering</h4>
+              <p className="institution">CTU Training Solutions • 2023-2025</p>
+              <p className="description">Comprehensive software engineering program covering full-stack development</p>
+            </div>
+          </div>
+          <div className="timeline-item">
+            <div className="timeline-marker cloud"></div>
+            <div className="timeline-content">
+              <h4>NQF Level 4 - Programming Foundation</h4>
+              <p className="institution">CTU Training Solutions • 2022-2023</p>
+              <p className="description">Strong foundation in programming principles and software development</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    interests: {
+      title: "Interests & Passion Projects",
+      content: (
+        <div className="interests-grid">
+          {[
+            { icon: <FaBrain />, title: "AI & Machine Learning", desc: "Exploring neural networks and AI applications", color: "purple" },
+            { icon: <FaCloud />, title: "Cloud Architecture", desc: "Building scalable Azure solutions", color: "blue" },
+            { icon: <FaRocket />, title: "Innovation", desc: "Creating cutting-edge web experiences", color: "orange" },
+            { icon: <FaCode />, title: "Clean Code", desc: "Writing maintainable, efficient code", color: "green" },
+            { icon: <FaMicrochip />, title: "Emerging Tech", desc: "Staying current with latest technologies", color: "cyan" },
+            { icon: <FaNetworkWired />, title: "System Design", desc: "Architecting robust solutions", color: "pink" }
+          ].map((interest, i) => (
+            <div key={i} className={`interest-card ${interest.color}`}>
+              <div className="interest-icon">
+                {interest.icon}
+              </div>
+              <h4 className="interest-title">{interest.title}</h4>
+              <p className="interest-desc">{interest.desc}</p>
+            </div>
+          ))}
+        </div>
+      )
+    }
+  };
+
+  return (
+    <section id="about" className="about-section">
+      <div className="section-container">
+        <div className="section-header">
+          <h2 className="section-title">
+            <FaBrain className="title-icon" />
+            About Me
+          </h2>
+          <div className="title-decoration">
+            <div className="decoration-line"></div>
+            <div className="decoration-dot"></div>
+            <div className="decoration-line"></div>
+          </div>
+          <p className="section-subtitle">
+            Where technical expertise meets creative innovation. Learn more about my journey, education, and interests below.
+          </p>
+        </div>
+        
+        <div className="about-content-wrapper">
+          <div className="about-sidebar">
+            <div className="profile-card">
+              <div className="profile-avatar">
+                <div className="avatar-ring">
+                  <span className="avatar-text">NM</span>
+                </div>
+              </div>
+              <div className="profile-info">
+                <h3 className="profile-name">Nicolette Mashaba</h3>
+                <p className="profile-title">Full-Stack Developer</p>
+                <div className="profile-badges">
+                  <span className="profile-badge azure">Azure Certified</span>
+                  <span className="profile-badge ai">AI Enthusiast</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="contact-card">
+              <h4>Get In Touch</h4>
+              <div className="contact-links">
+                <a href="mailto:nene171408@gmail.com" className="contact-link">
+                  <FaEnvelope /> nene171408@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/nicolette-mashaba/" target="_blank" rel="noopener noreferrer" className="contact-link">
+                  <FaLinkedin /> LinkedIn Profile
+                </a>
+                <a href="https://github.com/nene171408" target="_blank" rel="noopener noreferrer" className="contact-link">
+                  <FaGithub /> GitHub Profile
+                </a>
+                <div className="location-info">
+                  <FaCloud />
+                  <span>Polokwane, South Africa</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="about-main">
+            <div className="tab-navigation">
+              {Object.keys(tabs).map(tabKey => (
+                <button
+                  key={tabKey}
+                  onClick={() => setActiveTab(tabKey)}
+                  className={`tab-button ${activeTab === tabKey ? 'active' : ''}`}
+                >
+                  {tabs[tabKey].title}
+                </button>
+              ))}
+            </div>
+            
+            <div className="tab-content">
+              {tabs[activeTab].content}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Skills Section
+const SkillsSection = () => {
+  const skillCategories = [
+    {
+      title: "Frontend Development",
+      color: "cyan",
+      icon: <FaCode />,
+      skills: [
+        { name: "React", level: 90, category: "Framework" },
+        { name: "TypeScript", level: 85, category: "Language" },
+        { name: "Next.js", level: 80, category: "Framework" },
+        { name: "Tailwind CSS", level: 95, category: "Styling" },
+        { name: "HTML/CSS", level: 90, category: "Markup" }
+      ]
+    },
+    {
+      title: "Backend & Cloud",
+      color: "blue",
+      icon: <FaCloud />,
+      skills: [
+        { name: "C#/.NET", level: 85, category: "Language" },
+        { name: "Azure", level: 90, category: "Cloud" },
+        { name: "Node.js", level: 75, category: "Runtime" },
+        { name: "SQL Server", level: 80, category: "Database" },
+        { name: "MongoDB", level: 70, category: "Database" }
+      ]
+    },
+    {
+      title: "AI/ML & Data",
+      color: "purple",
+      icon: <FaBrain />,
+      skills: [
+        { name: "Python", level: 75, category: "Language" },
+        { name: "TensorFlow", level: 70, category: "ML" },
+        { name: "Azure ML", level: 80, category: "Cloud ML" },
+        { name: "NLP", level: 65, category: "AI" },
+        { name: "Computer Vision", level: 60, category: "AI" }
+      ]
+    },
+    {
+      title: "DevOps & Tools",
+      color: "green",
+      icon: <FaCogs />,
+      skills: [
+        { name: "Git", level: 90, category: "Version Control" },
+        { name: "Azure DevOps", level: 85, category: "CI/CD" },
+        { name: "Docker", level: 75, category: "Containerization" },
+        { name: "CI/CD", level: 80, category: "Automation" },
+        { name: "Kubernetes", level: 65, category: "Orchestration" }
+      ]
+    }
+  ];
+
+  return (
+    <section id="skills" className="skills-section">
+      <div className="section-container">
+        <div className="section-header">
+          <h2 className="section-title">
+            <FaMicrochip className="title-icon" />
+            Technical Skills
+          </h2>
+          <div className="title-decoration">
+            <div className="decoration-line"></div>
+            <div className="decoration-dot"></div>
+            <div className="decoration-line"></div>
+          </div>
+          <p className="section-subtitle">
+            A comprehensive blend of modern web, cloud, and AI/ML technologies.
+          </p>
+        </div>
+        
+        <div className="skills-grid">
+          {skillCategories.map((category, i) => (
+            <div key={i} className={`skill-category ${category.color}`}>
+              <div className="category-header">
+                <div className="category-icon">
+                  {category.icon}
+                </div>
+                <h3 className="category-title">{category.title}</h3>
+              </div>
+              
+              <div className="skills-list">
+                {category.skills.map((skill, j) => (
+                  <div key={j} className="skill-item">
+                    <div className="skill-info">
+                      <span className="skill-name">{skill.name}</span>
+                      <span className="skill-category">{skill.category}</span>
+                    </div>
+                    <div className="skill-bar">
+                      <div 
+                        className="skill-progress"
+                        style={{ width: `${skill.level}%` }}
+                      ></div>
+                    </div>
+                    <span className="skill-level">{skill.level}%</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="certifications-showcase">
+          <h3 className="certifications-title">Microsoft Azure Certifications</h3>
+          <div className="certifications-grid">
+            <div className="certification-card verified">
+              <div className="cert-icon">☁️</div>
+              <h4>Azure Data Fundamentals</h4>
+              <p>DP-900 • Earned 2024</p>
+              <span className="status verified">✓ Verified</span>
+            </div>
+            <div className="certification-card verified">
+              <div className="cert-icon">⚡</div>
+              <h4>Azure Developer Associate</h4>
+              <p>AZ-204 • Earned 2024</p>
+              <span className="status verified">✓ Verified</span>
+            </div>
+            <div className="certification-card progress">
+              <div className="cert-icon">🚀</div>
+              <h4>Azure DevOps Engineer</h4>
+              <p>AZ-400 • In Progress</p>
+              <span className="status progress">🔄 75% Complete</span>
+            </div>
+            <div className="certification-card progress">
+              <div className="cert-icon">🗄️</div>
+              <h4>Azure Database Administrator</h4>
+              <p>AZ-104 • In Progress</p>
+              <span className="status progress">🔄 60% Complete</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Footer Section
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -873,6 +1183,8 @@ const App = () => {
       
       <main className="main-content">
         <Hero onOpenAIChat={() => setAIChatOpen(true)} />
+        <AboutSection />
+        <SkillsSection />
         <AzureSection />
         <AIProjectsSection />
         <ContactSection />
