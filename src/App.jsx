@@ -1432,6 +1432,241 @@ const SkillsRadarChart = () => {
   );
 };
 
+// Blog Section Component
+const BlogSection = () => {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  const blogCategories = [
+    { id: 'all', name: 'All Posts', icon: '📚' },
+    { id: 'ai', name: 'AI/ML', icon: '🤖' },
+    { id: 'azure', name: 'Azure', icon: '☁️' },
+    { id: 'webdev', name: 'Web Development', icon: '💻' },
+    { id: 'career', name: 'Career', icon: '🚀' }
+  ];
+  
+  const blogPosts = [
+    {
+      id: 1,
+      title: "Building AI-Powered Applications with Azure Cognitive Services",
+      excerpt: "Learn how to integrate Azure Cognitive Services into your applications for natural language processing, computer vision, and more.",
+      category: 'ai',
+      readTime: '8 min read',
+      date: '2024-01-15',
+      tags: ['Azure', 'AI', 'Cognitive Services', 'Machine Learning'],
+      featured: true,
+      image: 'https://images.unsplash.com/photo-1677442136019-21780ecadf8b?w=800&h=400&fit=crop'
+    },
+    {
+      id: 2,
+      title: "Mastering React 19: New Features and Best Practices",
+      excerpt: "Explore the latest features in React 19, including concurrent rendering, automatic batching, and improved developer experience.",
+      category: 'webdev',
+      readTime: '12 min read',
+      date: '2024-01-10',
+      tags: ['React', 'JavaScript', 'Frontend', 'Web Development'],
+      featured: false,
+      image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop'
+    },
+    {
+      id: 3,
+      title: "Azure DevOps: Complete CI/CD Pipeline Guide",
+      excerpt: "Step-by-step guide to setting up automated CI/CD pipelines with Azure DevOps for .NET applications.",
+      category: 'azure',
+      readTime: '15 min read',
+      date: '2024-01-05',
+      tags: ['Azure DevOps', 'CI/CD', '.NET', 'DevOps'],
+      featured: true,
+      image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=400&fit=crop'
+    },
+    {
+      id: 4,
+      title: "Machine Learning Model Deployment on Azure ML",
+      excerpt: "Deploy your machine learning models to production using Azure Machine Learning service with best practices.",
+      category: 'ai',
+      readTime: '10 min read',
+      date: '2023-12-28',
+      tags: ['Azure ML', 'Machine Learning', 'Python', 'Model Deployment'],
+      featured: false,
+      image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&h=400&fit=crop'
+    },
+    {
+      id: 5,
+      title: "From Naval Service to Software Development: My Journey",
+      excerpt: "How my background in naval service shaped my approach to problem-solving and leadership in software development.",
+      category: 'career',
+      readTime: '6 min read',
+      date: '2023-12-20',
+      tags: ['Career', 'Leadership', 'Problem Solving', 'Personal Growth'],
+      featured: false,
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop'
+    },
+    {
+      id: 6,
+      title: "Building Scalable Microservices with .NET and Azure",
+      excerpt: "Architecture patterns and best practices for building scalable microservices using .NET and Azure cloud services.",
+      category: 'azure',
+      readTime: '18 min read',
+      date: '2023-12-15',
+      tags: ['Microservices', '.NET', 'Azure', 'Architecture'],
+      featured: true,
+      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop'
+    }
+  ];
+  
+  const filteredPosts = blogPosts.filter(post => {
+    const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesCategory && matchesSearch;
+  });
+  
+  const featuredPosts = filteredPosts.filter(post => post.featured);
+  const regularPosts = filteredPosts.filter(post => !post.featured);
+  
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+  
+  return (
+    <section id="blog" className="blog-section">
+      <div className="section-container">
+        <div className="section-header">
+          <h2 className="section-title">
+            <FaCode className="title-icon" />
+            Technical Blog
+          </h2>
+          <div className="title-decoration">
+            <div className="decoration-line"></div>
+            <div className="decoration-dot"></div>
+            <div className="decoration-line"></div>
+          </div>
+          <p className="section-subtitle">
+            Insights, tutorials, and thoughts on AI, Azure, and modern web development.
+          </p>
+        </div>
+        
+        <div className="blog-controls">
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="Search articles..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="blog-search"
+            />
+          </div>
+          
+          <div className="category-filters">
+            {blogCategories.map(category => (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                className={`category-filter-btn ${selectedCategory === category.id ? 'active' : ''}`}
+              >
+                <span className="category-icon">{category.icon}</span>
+                {category.name}
+              </button>
+            ))}
+          </div>
+        </div>
+        
+        {featuredPosts.length > 0 && (
+          <div className="featured-posts">
+            <h3 className="featured-title">Featured Articles</h3>
+            <div className="featured-grid">
+              {featuredPosts.slice(0, 2).map(post => (
+                <article key={post.id} className="featured-post-card">
+                  <div className="post-image">
+                    <img src={post.image} alt={post.title} />
+                    <div className="post-overlay">
+                      <span className="featured-badge">Featured</span>
+                    </div>
+                  </div>
+                  <div className="post-content">
+                    <div className="post-meta">
+                      <span className="post-category">{blogCategories.find(c => c.id === post.category)?.name}</span>
+                      <span className="post-date">{formatDate(post.date)}</span>
+                      <span className="post-read-time">{post.readTime}</span>
+                    </div>
+                    <h3 className="post-title">{post.title}</h3>
+                    <p className="post-excerpt">{post.excerpt}</p>
+                    <div className="post-tags">
+                      {post.tags.slice(0, 3).map(tag => (
+                        <span key={tag} className="post-tag">{tag}</span>
+                      ))}
+                    </div>
+                    <button className="read-more-btn">
+                      Read Article →
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        <div className="blog-grid">
+          {regularPosts.map(post => (
+            <article key={post.id} className="blog-post-card">
+              <div className="post-image">
+                <img src={post.image} alt={post.title} />
+              </div>
+              <div className="post-content">
+                <div className="post-meta">
+                  <span className="post-category">{blogCategories.find(c => c.id === post.category)?.name}</span>
+                  <span className="post-date">{formatDate(post.date)}</span>
+                  <span className="post-read-time">{post.readTime}</span>
+                </div>
+                <h3 className="post-title">{post.title}</h3>
+                <p className="post-excerpt">{post.excerpt}</p>
+                <div className="post-tags">
+                  {post.tags.slice(0, 2).map(tag => (
+                    <span key={tag} className="post-tag">{tag}</span>
+                  ))}
+                </div>
+                <button className="read-more-btn">
+                  Read More →
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+        
+        {filteredPosts.length === 0 && (
+          <div className="no-posts">
+            <div className="no-posts-icon">📝</div>
+            <h3>No articles found</h3>
+            <p>Try adjusting your search or category filters.</p>
+          </div>
+        )}
+        
+        <div className="blog-newsletter">
+          <div className="newsletter-content">
+            <h3>Stay Updated</h3>
+            <p>Get notified when I publish new articles about AI, Azure, and web development.</p>
+            <div className="newsletter-form">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="newsletter-input"
+              />
+              <button className="newsletter-btn">
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Footer Section
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -1530,6 +1765,7 @@ const App = () => {
           <AzureSection />
           <AIProjectsSection />
           <ContactSection />
+          <BlogSection />
         </main>
         
         <Footer />
