@@ -1,5 +1,54 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope, FaDownload, FaRocket, FaBrain, FaCloud, FaCode, FaRobot, FaMicrochip, FaNetworkWired, FaCogs } from "react-icons/fa";
+import React, { useState, useEffect, useRef, useCallback, createContext, useContext } from 'react';
+import { FaGithub, FaLinkedin, FaEnvelope, FaDownload, FaRocket, FaBrain, FaCloud, FaCode, FaRobot, FaMicrochip, FaNetworkWired, FaCogs, FaSun, FaMoon } from "react-icons/fa";
+
+// Theme Context
+const ThemeContext = createContext();
+
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
+};
+
+// Theme Provider Component
+const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    return savedTheme || 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolio-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+// Theme Toggle Component
+const ThemeToggle = () => {
+  const { theme, toggleTheme } = useTheme();
+  
+  return (
+    <button
+      onClick={toggleTheme}
+      className="theme-toggle"
+      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+    >
+      {theme === 'dark' ? <FaSun /> : <FaMoon />}
+    </button>
+  );
+};
 
 // Advanced AI-Powered Components
 const AIBrain = () => (
@@ -342,11 +391,15 @@ const Navigation = () => {
               {item.name}
             </a>
           ))}
+          <ThemeToggle />
         </div>
         
-        <button onClick={() => setIsOpen(!isOpen)} className="nav-toggle">
-          <span></span><span></span><span></span>
-        </button>
+        <div className="nav-actions">
+          <ThemeToggle />
+          <button onClick={() => setIsOpen(!isOpen)} className="nav-toggle">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
       </div>
       
       {isOpen && (
@@ -358,6 +411,9 @@ const Navigation = () => {
               {item.name}
             </a>
           ))}
+          <div className="mobile-theme-toggle">
+            <ThemeToggle />
+          </div>
         </div>
       )}
     </nav>
@@ -1177,23 +1233,25 @@ const App = () => {
   const [aiChatOpen, setAIChatOpen] = useState(false);
 
   return (
-    <div className="app-container">
-      <Navigation />
-      <NeuralNetworkCanvas />
-      
-      <main className="main-content">
-        <Hero onOpenAIChat={() => setAIChatOpen(true)} />
-        <AboutSection />
-        <SkillsSection />
-        <AzureSection />
-        <AIProjectsSection />
-        <ContactSection />
-      </main>
-      
-      <Footer />
-      <FloatingAIOrb onClick={() => setAIChatOpen(open => !open)} isActive={aiChatOpen} />
-      <AIAssistant isOpen={aiChatOpen} onClose={() => setAIChatOpen(false)} />
-    </div>
+    <ThemeProvider>
+      <div className="app-container">
+        <Navigation />
+        <NeuralNetworkCanvas />
+        
+        <main className="main-content">
+          <Hero onOpenAIChat={() => setAIChatOpen(true)} />
+          <AboutSection />
+          <SkillsSection />
+          <AzureSection />
+          <AIProjectsSection />
+          <ContactSection />
+        </main>
+        
+        <Footer />
+        <FloatingAIOrb onClick={() => setAIChatOpen(open => !open)} isActive={aiChatOpen} />
+        <AIAssistant isOpen={aiChatOpen} onClose={() => setAIChatOpen(false)} />
+      </div>
+    </ThemeProvider>
   );
 };
 
