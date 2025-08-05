@@ -3,11 +3,11 @@ import {
   FaBrain, FaRobot, FaCloud, FaCode, FaDownload, FaLinkedin, 
   FaGithub, FaTerminal, FaDatabase, FaDocker, FaAws, FaReact,
   FaNodeJs, FaPython, FaJsSquare, FaCogs, FaChartLine, FaLightbulb,
-  FaRocket, FaFire, FaZap, FaGem, FaStar, FaMagic, FaAtom,
+  FaRocket, FaFire, FaGem, FaStar, FaMagic, FaAtom,
   FaSun, FaMoon, FaMicrochip, FaNetworkWired, FaServer, FaLaptopCode, 
   FaPalette, FaTools, FaCertificate, FaGraduationCap, FaChartBar, FaCog 
 } from 'react-icons/fa';
-import { SiMicrosoftazure, SiKubernetes, SiTensorflow, SiOpenai, SiReact, SiTypescript, SiJavascript, SiTailwindcss, SiHtml5, SiCss3, SiVite, SiDotnet, SiMongodb } from 'react-icons/si';
+import { SiKubernetes, SiTensorflow, SiOpenai, SiReact, SiTypescript, SiJavascript, SiTailwindcss, SiHtml5, SiCss3, SiVite, SiDotnet, SiMongodb } from 'react-icons/si';
 import { Radar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -527,7 +527,7 @@ const EnhancedHero = ({ onOpenAIChat }) => {
 
   const techStack = [
     { icon: FaReact, name: "React", color: "#61DAFB", level: 95 },
-    { icon: SiMicrosoftazure, name: "Azure", color: "#0078D4", level: 90 },
+    { icon: FaCloud, name: "Azure", color: "#0078D4", level: 90 },
     { icon: FaNodeJs, name: "Node.js", color: "#339933", level: 92 },
     { icon: FaPython, name: "Python", color: "#3776AB", level: 88 },
     { icon: FaDocker, name: "Docker", color: "#2496ED", level: 85 },
@@ -603,13 +603,16 @@ const EnhancedHero = ({ onOpenAIChat }) => {
 
     generateParticles();
     const interval = setInterval(() => {
-      setActiveParticles(prev => prev.map(particle => ({
-        ...particle,
-        x: particle.x + particle.vx,
-        y: particle.y + particle.vy,
-        x: particle.x > window.innerWidth ? 0 : particle.x < 0 ? window.innerWidth : particle.x,
-        y: particle.y > window.innerHeight ? 0 : particle.y < 0 ? window.innerHeight : particle.y
-      })));
+      setActiveParticles(prev => prev.map(particle => {
+        const newX = particle.x + particle.vx;
+        const newY = particle.y + particle.vy;
+        
+        return {
+          ...particle,
+          x: newX > window.innerWidth ? 0 : newX < 0 ? window.innerWidth : newX,
+          y: newY > window.innerHeight ? 0 : newY < 0 ? window.innerHeight : newY
+        };
+      }));
     }, 50);
 
     return () => clearInterval(interval);
