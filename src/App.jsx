@@ -523,7 +523,7 @@ const EnhancedHero = ({ onOpenAIChat }) => {
               <span className="typewriter-text">
                 <span className="typewriter-cursor">|</span>
                 <span className="typewriter-content">
-                  Full-Stack Developer
+                  Senior Software Engineer
                 </span>
               </span>
             </h1>
@@ -532,8 +532,9 @@ const EnhancedHero = ({ onOpenAIChat }) => {
               ref={subtitleRef}
               className={`hero-subtitle ${subtitleVisible ? 'animate-in' : ''}`}
             >
-              Microsoft Azure Certified Developer specializing in AI/ML, 
-              cloud architecture, and innovative web applications.
+              Microsoft Azure Certified Professional with 3+ years of experience in 
+              full-stack development, cloud architecture, and AI/ML solutions. 
+              Passionate about building scalable, innovative applications that drive business value.
             </p>
             
             <div 
@@ -542,34 +543,38 @@ const EnhancedHero = ({ onOpenAIChat }) => {
             >
               <button 
                 onClick={onOpenAIChat}
-                className="cta-button primary"
+                className="cta-primary"
               >
                 <FaRobot className="cta-icon" />
-                Chat with AI Assistant
+                Explore My Work
               </button>
-              <button className="cta-button secondary">
+              <button className="cta-secondary">
                 <FaDownload className="cta-icon" />
                 Download Resume
+              </button>
+              <button className="cta-tertiary">
+                <FaLinkedin className="cta-icon" />
+                Connect on LinkedIn
               </button>
             </div>
           </div>
           
-          <div className="hero-visual">
-            <div className="floating-elements">
-              <div className="floating-card azure">
-                <FaCloud />
-                <span>Azure Certified</span>
-              </div>
-              <div className="floating-card ai">
-                <FaBrain />
-                <span>AI Enthusiast</span>
-              </div>
-              <div className="floating-card react">
-                <FaCode />
-                <span>React Expert</span>
+                      <div className="hero-visual">
+              <div className="floating-elements">
+                <div className="floating-card azure">
+                  <FaCloud />
+                  <span>Azure Developer Associate</span>
+                </div>
+                <div className="floating-card ai">
+                  <FaBrain />
+                  <span>AI/ML Specialist</span>
+                </div>
+                <div className="floating-card react">
+                  <FaCode />
+                  <span>Full-Stack Expert</span>
+                </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </section>
