@@ -508,6 +508,11 @@ const EnhancedHero = ({ onOpenAIChat }) => {
   return (
     <section id="hero" className="hero-section">
       <ParticleSystem />
+      <div className="hero-particles">
+        {[...Array(9)].map((_, i) => (
+          <div key={i} className="hero-particle" />
+        ))}
+      </div>
       <div className="section-container">
         <div className={`hero-content ${isLoaded ? 'loaded' : ''}`}>
           <div 
