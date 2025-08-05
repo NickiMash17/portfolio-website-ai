@@ -27,7 +27,7 @@ ChartJS.register(
 // Theme Context
 const ThemeContext = createContext();
 
-export const useTheme = () => {
+const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
@@ -495,12 +495,21 @@ const EnhancedHero = ({ onOpenAIChat }) => {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [subtitleRef, subtitleVisible] = useScrollAnimation();
   const [ctaRef, ctaVisible] = useScrollAnimation();
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Trigger the loaded animation after component mounts
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <section id="hero" className="hero-section">
       <ParticleSystem />
       <div className="section-container">
-        <div className="hero-content">
+        <div className={`hero-content ${isLoaded ? 'loaded' : ''}`}>
           <div 
             ref={heroRef}
             className={`hero-text ${heroVisible ? 'animate-in' : ''}`}
@@ -1695,6 +1704,17 @@ const BlogSection = () => {
     </section>
   );
 };
+
+// Navigation Items
+const navItems = [
+  { name: 'Home', href: '#hero' },
+  { name: 'About', href: '#about' },
+  { name: 'Skills', href: '#skills' },
+  { name: 'Azure', href: '#azure' },
+  { name: 'AI Projects', href: '#ai-projects' },
+  { name: 'Blog', href: '#blog' },
+  { name: 'Contact', href: '#contact' }
+];
 
 // Enhanced Navigation with Scroll Effects
 const EnhancedNavigation = () => {
