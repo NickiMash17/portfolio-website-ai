@@ -131,8 +131,8 @@ const AzureBadges = () => (
         />
         <div className="badge-content">
           <h4>Azure DevOps Engineer</h4>
-          <p>AZ-400 • In Progress</p>
-          <span className="status progress">🔄 75% Complete</span>
+          <p>AZ-400 • Currently Pursuing</p>
+          <span className="status progress">🔄 In Progress</span>
         </div>
       </div>
       
@@ -144,8 +144,8 @@ const AzureBadges = () => (
         />
         <div className="badge-content">
           <h4>Azure Database Administrator</h4>
-          <p>AZ-104 • In Progress</p>
-          <span className="status progress">🔄 60% Complete</span>
+          <p>AZ-104 • Currently Pursuing</p>
+          <span className="status progress">🔄 In Progress</span>
         </div>
       </div>
     </div>
@@ -523,7 +523,7 @@ const EnhancedHero = ({ onOpenAIChat }) => {
               <span className="typewriter-text">
                 <span className="typewriter-cursor">|</span>
                 <span className="typewriter-content">
-                  Senior Software Engineer
+                  Software Engineering Student
                 </span>
               </span>
             </h1>
@@ -532,9 +532,10 @@ const EnhancedHero = ({ onOpenAIChat }) => {
               ref={subtitleRef}
               className={`hero-subtitle ${subtitleVisible ? 'animate-in' : ''}`}
             >
-              Microsoft Azure Certified Professional with 3+ years of experience in 
-              full-stack development, cloud architecture, and AI/ML solutions. 
-              Passionate about building scalable, innovative applications that drive business value.
+              Microsoft Azure Certified Developer with expertise in full-stack development 
+              using C#, .NET, React, and cloud technologies. Currently pursuing Azure DevOps 
+              Engineer and Database Administrator certifications. Passionate about AI/ML and 
+              building innovative, scalable applications.
             </p>
             
             <div 
@@ -567,11 +568,11 @@ const EnhancedHero = ({ onOpenAIChat }) => {
                 </div>
                 <div className="floating-card ai">
                   <FaBrain />
-                  <span>AI/ML Specialist</span>
+                  <span>AI/ML Enthusiast</span>
                 </div>
                 <div className="floating-card react">
                   <FaCode />
-                  <span>Full-Stack Expert</span>
+                  <span>C# & React Expert</span>
                 </div>
               </div>
             </div>
@@ -914,30 +915,31 @@ const AboutSection = () => {
       content: (
         <div className="about-content">
           <p className="about-text">
-            I'm a passionate <strong className="highlight">Full-Stack Developer</strong> with 3+ years of experience 
-            building scalable web applications and AI-powered solutions. Based in South Africa, I specialize in modern 
-            technologies including C#/.NET, React, and Microsoft Azure cloud services.
+            I'm a passionate <strong className="highlight">Software Engineering Student</strong> with strong full-stack 
+            development skills and Microsoft Azure certifications. Based in South Africa, I specialize in modern 
+            technologies including C#/.NET, React, and cloud-native solutions.
           </p>
           <p className="about-text">
-            My unique background combines technical expertise with leadership experience from my naval service, 
-            giving me strong problem-solving skills and the ability to work effectively under pressure.
+            My journey combines academic excellence with hands-on project experience, giving me a solid foundation 
+            in both theoretical knowledge and practical application. I'm particularly passionate about AI/ML and 
+            creating innovative solutions that solve real-world problems.
           </p>
           <div className="stats-grid">
             <div className="stat-card">
+              <div className="stat-number">15+</div>
+              <div className="stat-label">Projects Built</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-number">2</div>
+              <div className="stat-label">Azure Certifications</div>
+            </div>
+            <div className="stat-card">
               <div className="stat-number">10+</div>
-              <div className="stat-label">Projects Delivered</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">3+</div>
-              <div className="stat-label">Years Experience</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">5+</div>
               <div className="stat-label">Technologies Mastered</div>
             </div>
             <div className="stat-card">
-              <div className="stat-number">100%</div>
-              <div className="stat-label">Client Satisfaction</div>
+              <div className="stat-number">95%</div>
+              <div className="stat-label">Academic Excellence</div>
             </div>
           </div>
         </div>
@@ -1088,45 +1090,48 @@ const SkillsSection = () => {
       skills: [
         { name: "React", level: 90, category: "Framework" },
         { name: "TypeScript", level: 85, category: "Language" },
-        { name: "Next.js", level: 80, category: "Framework" },
-        { name: "Tailwind CSS", level: 95, category: "Styling" },
-        { name: "HTML/CSS", level: 90, category: "Markup" }
+        { name: "JavaScript", level: 95, category: "Language" },
+        { name: "Tailwind CSS", level: 90, category: "Styling" },
+        { name: "HTML/CSS", level: 95, category: "Markup" },
+        { name: "Vite", level: 85, category: "Build Tool" }
       ]
     },
     {
-      title: "Backend & Cloud",
+      title: "Backend & .NET",
       color: "blue",
       icon: <FaCloud />,
       skills: [
-        { name: "C#/.NET", level: 85, category: "Language" },
-        { name: "Azure", level: 90, category: "Cloud" },
-        { name: "Node.js", level: 75, category: "Runtime" },
-        { name: "SQL Server", level: 80, category: "Database" },
-        { name: "MongoDB", level: 70, category: "Database" }
+        { name: "C#", level: 90, category: "Language" },
+        { name: ".NET Core", level: 85, category: "Framework" },
+        { name: "ASP.NET Core", level: 85, category: "Web Framework" },
+        { name: "Entity Framework", level: 80, category: "ORM" },
+        { name: "MVC Pattern", level: 85, category: "Architecture" },
+        { name: "Web API", level: 85, category: "API Development" }
       ]
     },
     {
-      title: "AI/ML & Data",
+      title: "Cloud & Databases",
       color: "purple",
       icon: <FaBrain />,
       skills: [
-        { name: "Python", level: 75, category: "Language" },
-        { name: "TensorFlow", level: 70, category: "ML" },
-        { name: "Azure ML", level: 80, category: "Cloud ML" },
-        { name: "NLP", level: 65, category: "AI" },
-        { name: "Computer Vision", level: 60, category: "AI" }
+        { name: "Azure Data Fundamentals", level: 95, category: "Certified" },
+        { name: "Azure Developer Associate", level: 90, category: "Certified" },
+        { name: "SQL Server", level: 85, category: "Database" },
+        { name: "MongoDB", level: 80, category: "NoSQL" },
+        { name: "Azure DevOps", level: 75, category: "In Progress" },
+        { name: "Azure Database Admin", level: 70, category: "In Progress" }
       ]
     },
     {
-      title: "DevOps & Tools",
+      title: "AI/ML & Innovation",
       color: "green",
       icon: <FaCogs />,
       skills: [
-        { name: "Git", level: 90, category: "Version Control" },
-        { name: "Azure DevOps", level: 85, category: "CI/CD" },
-        { name: "Docker", level: 75, category: "Containerization" },
-        { name: "CI/CD", level: 80, category: "Automation" },
-        { name: "Kubernetes", level: 65, category: "Orchestration" }
+        { name: "AI/ML Interest", level: 95, category: "Passion" },
+        { name: "Machine Learning", level: 75, category: "Learning" },
+        { name: "Neural Networks", level: 70, category: "AI" },
+        { name: "Data Analysis", level: 80, category: "Analytics" },
+        { name: "Creative Problem Solving", level: 90, category: "Innovation" }
       ]
     }
   ];
