@@ -491,96 +491,141 @@ const ParticleSystem = () => {
 
 // Enhanced Hero with Scroll Animations
 const EnhancedHero = ({ onOpenAIChat }) => {
-  const [heroRef, heroVisible] = useScrollAnimation();
-  const [titleRef, titleVisible] = useScrollAnimation();
-  const [subtitleRef, subtitleVisible] = useScrollAnimation();
-  const [ctaRef, ctaVisible] = useScrollAnimation();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [currentText, setCurrentText] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+
+  const texts = [
+    "Software Engineering Student",
+    "Azure Certified Developer", 
+    "Full-Stack Expert",
+    "AI/ML Enthusiast"
+  ];
 
   useEffect(() => {
-    // Trigger the loaded animation after component mounts
     const timer = setTimeout(() => {
       setIsLoaded(true);
     }, 100);
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentText((prev) => (prev + 1) % texts.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [texts.length]);
+
   return (
     <section id="hero" className="hero-section">
-      <ParticleSystem />
-      <div className="hero-particles">
-        {[...Array(9)].map((_, i) => (
-          <div key={i} className="hero-particle" />
-        ))}
+      {/* Animated Background */}
+      <div className="hero-background">
+        <div className="bg-gradient-1"></div>
+        <div className="bg-gradient-2"></div>
+        <div className="bg-gradient-3"></div>
+        <div className="floating-shapes">
+          {[...Array(20)].map((_, i) => (
+            <div key={i} className={`shape shape-${i % 4}`} />
+          ))}
+        </div>
       </div>
-      <div className="section-container">
-        <div className={`hero-content ${isLoaded ? 'loaded' : ''}`}>
-          <div 
-            ref={heroRef}
-            className={`hero-text ${heroVisible ? 'animate-in' : ''}`}
-          >
-            <h1 
-              ref={titleRef}
-              className={`hero-title ${titleVisible ? 'animate-in' : ''}`}
-            >
-              <span className="gradient-text">Nicolette Mashaba</span>
-              <br />
-              <span className="typewriter-text">
-                <span className="typewriter-cursor">|</span>
-                <span className="typewriter-content">
-                  Software Engineering Student
-                </span>
-              </span>
-            </h1>
-            
-            <p 
-              ref={subtitleRef}
-              className={`hero-subtitle ${subtitleVisible ? 'animate-in' : ''}`}
-            >
-              Microsoft Azure Certified Developer with expertise in full-stack development 
-              using C#, .NET, React, and cloud technologies. Currently pursuing Azure DevOps 
-              Engineer and Database Administrator certifications. Passionate about AI/ML and 
-              building innovative, scalable applications.
-            </p>
-            
-            <div 
-              ref={ctaRef}
-              className={`hero-cta ${ctaVisible ? 'animate-in' : ''}`}
-            >
-              <button 
-                onClick={onOpenAIChat}
-                className="cta-primary"
-              >
-                <FaRobot className="cta-icon" />
-                Explore My Work
-              </button>
-              <button className="cta-secondary">
-                <FaDownload className="cta-icon" />
-                Download Resume
-              </button>
-              <button className="cta-tertiary">
-                <FaLinkedin className="cta-icon" />
-                Connect on LinkedIn
-              </button>
-            </div>
+
+      {/* Main Content */}
+      <div className="hero-container">
+        <div className="hero-left">
+          <div className="hero-badge">
+            <FaBrain className="badge-icon" />
+            <span>AI Enthusiast</span>
           </div>
           
-                      <div className="hero-visual">
-              <div className="floating-elements">
-                <div className="floating-card azure">
-                  <FaCloud />
-                  <span>Azure Developer Associate</span>
-                </div>
-                <div className="floating-card ai">
-                  <FaBrain />
-                  <span>AI/ML Enthusiast</span>
-                </div>
-                <div className="floating-card react">
-                  <FaCode />
-                  <span>C# & React Expert</span>
-                </div>
+          <h1 className="hero-main-title">
+            <span className="name-highlight">Nicolette Mashaba</span>
+            <div className="title-wrapper">
+              <span className="static-text">I'm a</span>
+              <div className="dynamic-text-container">
+                <span className="dynamic-text">{texts[currentText]}</span>
+                <span className="cursor">|</span>
               </div>
             </div>
+          </h1>
+
+          <p className="hero-description">
+            Microsoft Azure Certified Developer with expertise in full-stack development 
+            using <strong>C#/.NET</strong>, <strong>React</strong>, and <strong>cloud technologies</strong>. 
+            Currently pursuing Azure DevOps Engineer and Database Administrator certifications. 
+            Passionate about <strong>AI/ML</strong> and building innovative, scalable applications.
+          </p>
+
+          <div className="hero-stats">
+            <div className="stat-item">
+              <span className="stat-number">2</span>
+              <span className="stat-label">Azure Certifications</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">15+</span>
+              <span className="stat-label">Projects Built</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">10+</span>
+              <span className="stat-label">Technologies</span>
+            </div>
+          </div>
+
+          <div className="hero-actions">
+            <button className="primary-btn" onClick={onOpenAIChat}>
+              <FaRobot />
+              <span>Explore My Work</span>
+              <div className="btn-glow"></div>
+            </button>
+            <button className="secondary-btn">
+              <FaDownload />
+              <span>Download Resume</span>
+            </button>
+            <button className="tertiary-btn">
+              <FaLinkedin />
+              <span>Connect on LinkedIn</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="hero-right">
+          <div className="tech-showcase">
+            <div className="tech-card azure">
+              <FaCloud className="tech-icon" />
+              <div className="tech-content">
+                <h4>Azure Developer Associate</h4>
+                <p>Certified Professional</p>
+                <div className="cert-badge">✓ Verified</div>
+              </div>
+            </div>
+            
+            <div className="tech-card csharp">
+              <FaCode className="tech-icon" />
+              <div className="tech-content">
+                <h4>C# & .NET Core</h4>
+                <p>Backend Expert</p>
+                <div className="skill-level">Advanced</div>
+              </div>
+            </div>
+            
+            <div className="tech-card react">
+              <FaCode className="tech-icon" />
+              <div className="tech-content">
+                <h4>React & TypeScript</h4>
+                <p>Frontend Expert</p>
+                <div className="skill-level">Advanced</div>
+              </div>
+            </div>
+            
+            <div className="tech-card ai">
+              <FaBrain className="tech-icon" />
+              <div className="tech-content">
+                <h4>AI/ML Enthusiast</h4>
+                <p>Passionate Learner</p>
+                <div className="skill-level">Growing</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
