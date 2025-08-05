@@ -81,7 +81,7 @@ const About: React.FC = () => {
             <div className="relative">
               <div className="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-cyan-400 overflow-hidden shadow-lg shadow-cyan-400/25">
                 <img
-                  src="https://via.placeholder.com/256x256/1a1a1a/00D4FF?text=N"
+                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='48' fill='%2300D4FF' text-anchor='middle' dominant-baseline='middle'%3EN%3C/text%3E%3C/svg%3E"
                   alt="Nicolette Mashaba"
                   className="w-full h-full object-cover"
                   loading="lazy"
