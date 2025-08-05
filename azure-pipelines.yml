@@ -1,0 +1,206 @@
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - portfolio-frontend/*
+    - portfolio-backend/*
+    - azure-pipelines.yml
+
+variables:
+  solution: 'portfolio-backend/PortfolioBackend.csproj'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  frontendBuildPath: 'portfolio-frontend/dist'
+  backendBuildPath: 'portfolio-backend/bin/Release/net8.0'
+
+stages:
+- stage: Build
+  displayName: 'Build Stage'
+  jobs:
+  - job: BuildFrontend
+    displayName: 'Build Frontend'
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '18.x'
+      displayName: 'Install Node.js'
+    
+    - script: |
+        cd portfolio-frontend
+        npm ci
+      displayName: 'Install Frontend Dependencies'
+    
+    - script: |
+        cd portfolio-frontend
+        npm run build
+      displayName: 'Build Frontend'
+    
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathToPublish: 'portfolio-frontend/dist'
+        artifactName: 'frontend-dist'
+      displayName: 'Publish Frontend Artifacts'
+
+  - job: BuildBackend
+    displayName: 'Build Backend'
+    pool:
+      vmImage: 'windows-latest'
+    
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        version: '8.x'
+        includePreviewVersions: false
+      displayName: 'Install .NET 8'
+    
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'restore'
+        projects: '$(solution)'
+        feedsToUse: 'select'
+      displayName: 'Restore Backend Dependencies'
+    
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '$(solution)'
+        arguments: '--configuration $(buildConfiguration) --no-restore'
+      displayName: 'Build Backend'
+    
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
+        projects: 'portfolio-backend/**/*Tests.csproj'
+        arguments: '--configuration $(buildConfiguration) --no-build --collect:"XPlat Code Coverage" --results-directory $(Build.SourcesDirectory)/TestResults'
+        publishTestResults: true
+      displayName: 'Run Backend Tests'
+    
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathToPublish: '$(backendBuildPath)'
+        artifactName: 'backend-dist'
+      displayName: 'Publish Backend Artifacts'
+
+- stage: Deploy
+  displayName: 'Deploy Stage'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: DeployBackend
+    displayName: 'Deploy Backend to Azure App Service'
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            inputs:
+              azureSubscription: 'Your-Azure-Subscription'
+              appName: 'your-portfolio-backend'
+              package: '$(Pipeline.Workspace)/backend-dist'
+              appType: 'webApp'
+              deploymentMethod: 'auto'
+    
+  - deployment: DeployFrontend
+    displayName: 'Deploy Frontend to Azure Static Web Apps'
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureStaticWebApp@0
+            inputs:
+              app_location: 'portfolio-frontend'
+              api_location: ''
+              output_location: 'dist'
+              skip_app_build: false
+              skip_api_build: true
+              azure_static_web_apps_api_token: '$(AZURE_STATIC_WEB_APPS_API_TOKEN)'
+
+- stage: Test
+  displayName: 'Test Stage'
+  dependsOn: Deploy
+  condition: succeeded()
+  jobs:
+  - job: IntegrationTests
+    displayName: 'Integration Tests'
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '18.x'
+      displayName: 'Install Node.js'
+    
+    - script: |
+        cd portfolio-frontend
+        npm ci
+      displayName: 'Install Test Dependencies'
+    
+    - script: |
+        cd portfolio-frontend
+        npm run test
+      displayName: 'Run Frontend Tests'
+    
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'portfolio-frontend/test-results.xml'
+        mergeTestResults: true
+        testRunTitle: 'Frontend Tests'
+      condition: succeededOrFailed()
+      displayName: 'Publish Test Results'
+
+- stage: Security
+  displayName: 'Security Scan'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - job: SecurityScan
+    displayName: 'Security Vulnerability Scan'
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+    steps:
+    - task: SnykSecurityScan@1
+      inputs:
+        serviceConnectionEndpoint: 'Snyk-Service-Connection'
+        testType: 'app'
+        monitorOnBuild: true
+        failOnIssues: false
+      displayName: 'Run Security Scan'
+
+- stage: Performance
+  displayName: 'Performance Test'
+  dependsOn: Deploy
+  condition: succeeded()
+  jobs:
+  - job: PerformanceTest
+    displayName: 'Performance Testing'
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        version: '8.x'
+      displayName: 'Install .NET for Performance Tests'
+    
+    - script: |
+        dotnet tool install --global NBomber.CLI
+        nbomber run portfolio-backend/PerformanceTests/load-test.json
+      displayName: 'Run Performance Tests'
+    
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'portfolio-backend/PerformanceTests/results.xml'
+        testRunTitle: 'Performance Tests'
+      condition: succeededOrFailed()
+      displayName: 'Publish Performance Test Results' 
