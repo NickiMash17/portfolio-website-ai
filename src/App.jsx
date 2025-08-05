@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback, createContext, useContext } from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope, FaDownload, FaRocket, FaBrain, FaCloud, FaCode, FaRobot, FaMicrochip, FaNetworkWired, FaCogs, FaSun, FaMoon, FaChartLine } from "react-icons/fa";
+import { 
+  FaBrain, FaRobot, FaCloud, FaCode, FaDownload, FaLinkedin, 
+  FaGithub, FaTerminal, FaDatabase, FaDocker, FaAws, FaReact,
+  FaNodeJs, FaPython, FaJsSquare, FaCogs, FaChartLine, FaLightbulb,
+  FaRocket, FaFire, FaZap, FaGem, FaStar, FaMagic, FaAtom,
+  FaSun, FaMoon, FaMicrochip, FaNetworkWired, FaServer, FaLaptopCode, 
+  FaPalette, FaTools, FaCertificate, FaGraduationCap, FaChartBar, FaCog 
+} from 'react-icons/fa';
+import { SiMicrosoftazure, SiKubernetes, SiTensorflow, SiOpenai, SiReact, SiTypescript, SiJavascript, SiTailwindcss, SiHtml5, SiCss3, SiVite, SiDotnet, SiMongodb } from 'react-icons/si';
 import { Radar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -494,137 +502,388 @@ const EnhancedHero = ({ onOpenAIChat }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentText, setCurrentText] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [activeParticles, setActiveParticles] = useState([]);
+  const [codeText, setCodeText] = useState('');
+  const [showMatrix, setShowMatrix] = useState(true);
+  const canvasRef = useRef(null);
+  const matrixRef = useRef(null);
 
   const texts = [
-    "Software Engineering Student",
-    "Azure Certified Developer", 
-    "Full-Stack Expert",
-    "AI/ML Enthusiast"
+    "Full-Stack Developer",
+    "Azure Cloud Architect", 
+    "AI/ML Engineer",
+    "DevOps Specialist",
+    "Innovation Catalyst"
   ];
 
+  const codeSnippets = [
+    "const innovation = () => { return brilliance * creativity; }",
+    "async function deployToCloud() { await azure.scale('infinite'); }",
+    "class AIEnthusiast extends Developer { constructor() { super('visionary'); } }",
+    "kubectl apply -f future-ready-developer.yaml",
+    "pip install exceptional-talent"
+  ];
+
+  const techStack = [
+    { icon: FaReact, name: "React", color: "#61DAFB", level: 95 },
+    { icon: SiMicrosoftazure, name: "Azure", color: "#0078D4", level: 90 },
+    { icon: FaNodeJs, name: "Node.js", color: "#339933", level: 92 },
+    { icon: FaPython, name: "Python", color: "#3776AB", level: 88 },
+    { icon: FaDocker, name: "Docker", color: "#2496ED", level: 85 },
+    { icon: SiKubernetes, name: "Kubernetes", color: "#326CE5", level: 80 },
+    { icon: SiTensorflow, name: "TensorFlow", color: "#FF6F00", level: 75 },
+    { icon: FaDatabase, name: "Databases", color: "#4479A1", level: 90 }
+  ];
+
+  const achievements = [
+    { number: "2+", label: "Azure Certifications", icon: FaAws },
+    { number: "50+", label: "Projects Deployed", icon: FaRocket },
+    { number: "10+", label: "Technologies Mastered", icon: FaCogs },
+    { number: "100%", label: "Passion for Innovation", icon: FaFire }
+  ];
+
+  // Matrix rain effect
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
+    const canvas = matrixRef.current;
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+    const font_size = 10;
+    const columns = canvas.width / font_size;
+    const drops = [];
+
+    for (let x = 0; x < columns; x++) {
+      drops[x] = 1;
+    }
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0F4';
+      ctx.font = font_size + 'px arial';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = matrix[Math.floor(Math.random() * matrix.length)];
+        ctx.fillText(text, i * font_size, drops[i] * font_size);
+
+        if (drops[i] * font_size > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    const interval = setInterval(drawMatrix, 35);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Particle system
+  useEffect(() => {
+    const generateParticles = () => {
+      const particles = [];
+      for (let i = 0; i < 50; i++) {
+        particles.push({
+          id: i,
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          vx: (Math.random() - 0.5) * 2,
+          vy: (Math.random() - 0.5) * 2,
+          size: Math.random() * 3 + 1,
+          color: ['#3b82f6', '#8b5cf6', '#ec4899', '#06b6d4'][Math.floor(Math.random() * 4)]
+        });
+      }
+      setActiveParticles(particles);
+    };
+
+    generateParticles();
+    const interval = setInterval(() => {
+      setActiveParticles(prev => prev.map(particle => ({
+        ...particle,
+        x: particle.x + particle.vx,
+        y: particle.y + particle.vy,
+        x: particle.x > window.innerWidth ? 0 : particle.x < 0 ? window.innerWidth : particle.x,
+        y: particle.y > window.innerHeight ? 0 : particle.y < 0 ? window.innerHeight : particle.y
+      })));
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Mouse tracking
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Text rotation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentText(prev => (prev + 1) % texts.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Code typing effect
+  useEffect(() => {
+    const snippet = codeSnippets[currentText] || codeSnippets[0];
+    let index = 0;
+    setCodeText('');
+    
+    const typeInterval = setInterval(() => {
+      if (index < snippet.length) {
+        setCodeText(snippet.substring(0, index + 1));
+        index++;
+      } else {
+        clearInterval(typeInterval);
+      }
     }, 100);
+
+    return () => clearInterval(typeInterval);
+  }, [currentText]);
+
+  // Load animation
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 500);
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentText((prev) => (prev + 1) % texts.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [texts.length]);
-
   return (
-    <section id="hero" className="hero-section">
-      {/* Animated Background */}
-      <div className="hero-background">
-        <div className="bg-gradient-1"></div>
-        <div className="bg-gradient-2"></div>
-        <div className="bg-gradient-3"></div>
-        <div className="floating-shapes">
-          {[...Array(20)].map((_, i) => (
-            <div key={i} className={`shape shape-${i % 4}`} />
-          ))}
-        </div>
+    <section className="enhanced-hero-section">
+      {/* Matrix Background */}
+      {showMatrix && (
+        <canvas
+          ref={matrixRef}
+          className="matrix-canvas"
+        />
+      )}
+
+      {/* Animated Background Gradients */}
+      <div className="animated-gradients">
+        <div className="gradient-1" 
+             style={{
+               transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
+             }} />
+        <div className="gradient-2"
+             style={{
+               transform: `translate(${mousePosition.x * -0.03}px, ${mousePosition.y * 0.03}px)`
+             }} />
+        <div className="gradient-3"
+             style={{
+               transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * -0.02}px)`
+             }} />
+      </div>
+
+      {/* Floating Particles */}
+      <div className="floating-particles">
+        {activeParticles.map(particle => (
+          <div
+            key={particle.id}
+            className="particle"
+            style={{
+              left: particle.x,
+              top: particle.y,
+              backgroundColor: particle.color,
+              width: particle.size,
+              height: particle.size,
+              boxShadow: `0 0 10px ${particle.color}`
+            }}
+          />
+        ))}
       </div>
 
       {/* Main Content */}
-      <div className="hero-container">
-        <div className="hero-left">
-          <div className="hero-badge">
-            <FaBrain className="badge-icon" />
-            <span>AI Enthusiast</span>
-          </div>
+      <div className={`hero-content ${isLoaded ? 'loaded' : ''}`}>
+        <div className="hero-grid">
           
-          <h1 className="hero-main-title">
-            <span className="name-highlight">Nicolette Mashaba</span>
-            <div className="title-wrapper">
-              <span className="static-text">I'm a</span>
-              <div className="dynamic-text-container">
+          {/* Left Content */}
+          <div className="hero-left-content">
+            {/* AI Badge */}
+            <div className="ai-badge">
+              <FaBrain className="badge-icon" />
+              <span>AI-Powered Developer</span>
+            </div>
+
+            {/* Main Title */}
+            <div className="title-section">
+              <h1 className="main-title">
+                <span className="name-nicolette">Nicolette</span>
+                <span className="name-mashaba">Mashaba</span>
+              </h1>
+              
+              {/* Dynamic Subtitle */}
+              <div className="dynamic-subtitle">
+                <span>I'm a </span>
                 <span className="dynamic-text">{texts[currentText]}</span>
                 <span className="cursor">|</span>
               </div>
             </div>
-          </h1>
 
-          <p className="hero-description">
-            Microsoft Azure Certified Developer with expertise in full-stack development 
-            using <strong>C#/.NET</strong>, <strong>React</strong>, and <strong>cloud technologies</strong>. 
-            Currently pursuing Azure DevOps Engineer and Database Administrator certifications. 
-            Passionate about <strong>AI/ML</strong> and building innovative, scalable applications.
-          </p>
+            {/* Code Terminal */}
+            <div className="code-terminal">
+              <div className="terminal-header">
+                <div className="terminal-dots">
+                  <div className="dot red"></div>
+                  <div className="dot yellow"></div>
+                  <div className="dot green"></div>
+                </div>
+                <span className="terminal-label">terminal</span>
+              </div>
+              <div className="terminal-content">
+                <span className="prompt">$</span> {codeText}
+                <span className="cursor">_</span>
+              </div>
+            </div>
 
-          <div className="hero-stats">
-            <div className="stat-item">
-              <span className="stat-number">2</span>
-              <span className="stat-label">Azure Certifications</span>
+            {/* Description */}
+            <p className="hero-description">
+              <span className="highlight-blue">Microsoft Azure Certified</span> Full-Stack Developer 
+              with cutting-edge expertise in <span className="highlight-purple">AI/ML</span>, 
+              <span className="highlight-cyan"> DevOps</span>, and 
+              <span className="highlight-green"> Cloud Architecture</span>. 
+              I transform complex problems into elegant, scalable solutions.
+            </p>
+
+            {/* Stats */}
+            <div className="achievements-grid">
+              {achievements.map((stat, index) => (
+                <div key={index} className="achievement-card">
+                  <stat.icon className="achievement-icon" />
+                  <div className="achievement-number">{stat.number}</div>
+                  <div className="achievement-label">{stat.label}</div>
+                </div>
+              ))}
             </div>
-            <div className="stat-item">
-              <span className="stat-number">15+</span>
-              <span className="stat-label">Projects Built</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">10+</span>
-              <span className="stat-label">Technologies</span>
+
+            {/* CTA Buttons */}
+            <div className="cta-buttons">
+              <button 
+                onClick={onOpenAIChat}
+                className="cta-primary"
+              >
+                <FaRobot />
+                <span>Explore My AI Projects</span>
+              </button>
+
+              <button className="cta-secondary">
+                <FaDownload />
+                <span>Download Resume</span>
+              </button>
+
+              <button className="cta-tertiary">
+                <FaLinkedin />
+                <span>Connect</span>
+              </button>
             </div>
           </div>
 
-          <div className="hero-actions">
-            <button className="primary-btn" onClick={onOpenAIChat}>
-              <FaRobot />
-              <span>Explore My Work</span>
-              <div className="btn-glow"></div>
-            </button>
-            <button className="secondary-btn">
-              <FaDownload />
-              <span>Download Resume</span>
-            </button>
-            <button className="tertiary-btn">
-              <FaLinkedin />
-              <span>Connect on LinkedIn</span>
-            </button>
+          {/* Right Content - Tech Showcase */}
+          <div className="hero-right-content">
+            {/* Central Hub */}
+            <div className="tech-hub">
+              
+              {/* Central Avatar */}
+              <div className="central-avatar">
+                NM
+              </div>
+
+              {/* Rotating Tech Icons */}
+              {techStack.map((tech, index) => {
+                const angle = (index * 360) / techStack.length;
+                const radius = 120;
+                const x = Math.cos((angle * Math.PI) / 180) * radius;
+                const y = Math.sin((angle * Math.PI) / 180) * radius;
+                
+                return (
+                  <div
+                    key={index}
+                    className="tech-orb"
+                    style={{
+                      transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
+                      animation: `float 6s ease-in-out infinite ${index * 0.5}s`
+                    }}
+                  >
+                    <tech.icon 
+                      className="tech-orb-icon" 
+                      style={{ color: tech.color }}
+                    />
+                    <span className="tech-orb-name">{tech.name}</span>
+                    
+                    {/* Skill Level Bar */}
+                    <div className="skill-level-bar">
+                      <div 
+                        className="skill-level-fill"
+                        style={{ width: `${tech.level}%` }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Connection Lines */}
+              <svg className="connection-lines">
+                {techStack.map((_, index) => {
+                  const angle = (index * 360) / techStack.length;
+                  const radius = 120;
+                  const x1 = 160; // center
+                  const y1 = 160; // center
+                  const x2 = x1 + Math.cos((angle * Math.PI) / 180) * radius;
+                  const y2 = y1 + Math.sin((angle * Math.PI) / 180) * radius;
+                  
+                  return (
+                    <line
+                      key={index}
+                      x1={x1}
+                      y1={y1}
+                      x2={x2}
+                      y2={y2}
+                      stroke="url(#gradient)"
+                      strokeWidth="1"
+                      opacity="0.3"
+                    />
+                  );
+                })}
+                <defs>
+                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#3b82f6" />
+                    <stop offset="100%" stopColor="#8b5cf6" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            {/* Floating Badges */}
+            <div className="floating-badge available">
+              <div className="badge-content">
+                <div className="badge-indicator"></div>
+                <span>Available for Hire</span>
+              </div>
+            </div>
+
+            <div className="floating-badge contributor">
+              <div className="badge-content">
+                <FaFire />
+                <span>Open Source Contributor</span>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div className="hero-right">
-          <div className="tech-showcase">
-            <div className="tech-card azure">
-              <FaCloud className="tech-icon" />
-              <div className="tech-content">
-                <h4>Azure Developer Associate</h4>
-                <p>Certified Professional</p>
-                <div className="cert-badge">✓ Verified</div>
-              </div>
-            </div>
-            
-            <div className="tech-card csharp">
-              <FaCode className="tech-icon" />
-              <div className="tech-content">
-                <h4>C# & .NET Core</h4>
-                <p>Backend Expert</p>
-                <div className="skill-level">Advanced</div>
-              </div>
-            </div>
-            
-            <div className="tech-card react">
-              <FaCode className="tech-icon" />
-              <div className="tech-content">
-                <h4>React & TypeScript</h4>
-                <p>Frontend Expert</p>
-                <div className="skill-level">Advanced</div>
-              </div>
-            </div>
-            
-            <div className="tech-card ai">
-              <FaBrain className="tech-icon" />
-              <div className="tech-content">
-                <h4>AI/ML Enthusiast</h4>
-                <p>Passionate Learner</p>
-                <div className="skill-level">Growing</div>
-              </div>
-            </div>
+      {/* Bottom Scroll Indicator */}
+      <div className="scroll-indicator">
+        <div className="scroll-content">
+          <span>Scroll to explore</span>
+          <div className="scroll-bar">
+            <div className="scroll-dot"></div>
           </div>
         </div>
       </div>
@@ -1138,12 +1397,12 @@ const SkillsSection = () => {
       color: "cyan",
       icon: <FaCode />,
       skills: [
-        { name: "React", level: 90, category: "Framework" },
-        { name: "TypeScript", level: 85, category: "Language" },
-        { name: "JavaScript", level: 95, category: "Language" },
-        { name: "Tailwind CSS", level: 90, category: "Styling" },
-        { name: "HTML/CSS", level: 95, category: "Markup" },
-        { name: "Vite", level: 85, category: "Build Tool" }
+        { name: "React", level: 90, category: "Framework", icon: <SiReact /> },
+        { name: "TypeScript", level: 85, category: "Language", icon: <SiTypescript /> },
+        { name: "JavaScript", level: 95, category: "Language", icon: <SiJavascript /> },
+        { name: "Tailwind CSS", level: 90, category: "Styling", icon: <SiTailwindcss /> },
+        { name: "HTML/CSS", level: 95, category: "Markup", icon: <SiHtml5 /> },
+        { name: "Vite", level: 85, category: "Build Tool", icon: <SiVite /> }
       ]
     },
     {
@@ -1151,12 +1410,12 @@ const SkillsSection = () => {
       color: "blue",
       icon: <FaCloud />,
       skills: [
-        { name: "C#", level: 90, category: "Language" },
-        { name: ".NET Core", level: 85, category: "Framework" },
-        { name: "ASP.NET Core", level: 85, category: "Web Framework" },
-        { name: "Entity Framework", level: 80, category: "ORM" },
-        { name: "MVC Pattern", level: 85, category: "Architecture" },
-        { name: "Web API", level: 85, category: "API Development" }
+        { name: "C#", level: 90, category: "Language", icon: <FaCode /> },
+        { name: ".NET Core", level: 85, category: "Framework", icon: <SiDotnet /> },
+        { name: "ASP.NET Core", level: 85, category: "Web Framework", icon: <FaServer /> },
+        { name: "Entity Framework", level: 80, category: "ORM", icon: <FaDatabase /> },
+        { name: "MVC Pattern", level: 85, category: "Architecture", icon: <FaCog /> },
+        { name: "Web API", level: 85, category: "API Development", icon: <FaNetworkWired /> }
       ]
     },
     {
@@ -1164,12 +1423,12 @@ const SkillsSection = () => {
       color: "purple",
       icon: <FaBrain />,
       skills: [
-        { name: "Azure Data Fundamentals", level: 95, category: "Certified" },
-        { name: "Azure Developer Associate", level: 90, category: "Certified" },
-        { name: "SQL Server", level: 85, category: "Database" },
-        { name: "MongoDB", level: 80, category: "NoSQL" },
-        { name: "Azure DevOps", level: 75, category: "In Progress" },
-        { name: "Azure Database Admin", level: 70, category: "In Progress" }
+        { name: "Azure Data Fundamentals", level: 95, category: "Certified", icon: <FaCloud /> },
+        { name: "Azure Developer Associate", level: 90, category: "Certified", icon: <FaCloud /> },
+        { name: "SQL Server", level: 85, category: "Database", icon: <FaDatabase /> },
+        { name: "MongoDB", level: 80, category: "NoSQL", icon: <SiMongodb /> },
+        { name: "Azure DevOps", level: 75, category: "In Progress", icon: <FaRocket /> },
+        { name: "Azure Database Admin", level: 70, category: "In Progress", icon: <FaDatabase /> }
       ]
     },
     {
@@ -1177,11 +1436,11 @@ const SkillsSection = () => {
       color: "green",
       icon: <FaCogs />,
       skills: [
-        { name: "AI/ML Interest", level: 95, category: "Passion" },
-        { name: "Machine Learning", level: 75, category: "Learning" },
-        { name: "Neural Networks", level: 70, category: "AI" },
-        { name: "Data Analysis", level: 80, category: "Analytics" },
-        { name: "Creative Problem Solving", level: 90, category: "Innovation" }
+        { name: "AI/ML Interest", level: 95, category: "Passion", icon: <FaBrain /> },
+        { name: "Machine Learning", level: 75, category: "Learning", icon: <SiTensorflow /> },
+        { name: "Neural Networks", level: 70, category: "AI", icon: <FaMicrochip /> },
+        { name: "Data Analysis", level: 80, category: "Analytics", icon: <FaChartBar /> },
+        { name: "Creative Problem Solving", level: 90, category: "Innovation", icon: <FaLightbulb /> }
       ]
     }
   ];
@@ -1218,8 +1477,13 @@ const SkillsSection = () => {
                 {category.skills.map((skill, j) => (
                   <div key={j} className="skill-item">
                     <div className="skill-info">
-                      <span className="skill-name">{skill.name}</span>
-                      <span className="skill-category">{skill.category}</span>
+                      <div className="skill-icon">
+                        {skill.icon}
+                      </div>
+                      <div className="skill-details">
+                        <span className="skill-name">{skill.name}</span>
+                        <span className="skill-category">{skill.category}</span>
+                      </div>
                     </div>
                     <div className="skill-bar">
                       <div 
