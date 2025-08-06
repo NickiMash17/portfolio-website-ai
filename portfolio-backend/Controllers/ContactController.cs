@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using PortfolioBackend.Models;
+using PortfolioBackend.Data;
+using PortfolioBackend.Models.Mongo;
 using PortfolioBackend.Services;
-using System.Text.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace PortfolioBackend.Controllers;
 
@@ -10,246 +11,219 @@ namespace PortfolioBackend.Controllers;
 [Route("api/[controller]")]
 public class ContactController : ControllerBase
 {
-    private readonly IMongoCollection<Contact> _contacts;
-    private readonly IAIService _aiService;
+    private readonly MongoDbContext _mongoContext;
+    private readonly IAzureCognitiveService _cognitiveService;
     private readonly ILogger<ContactController> _logger;
-
-    public ContactController(IMongoDatabase database, IAIService aiService, ILogger<ContactController> logger)
+    
+    public ContactController(
+        MongoDbContext mongoContext, 
+        IAzureCognitiveService cognitiveService,
+        ILogger<ContactController> logger)
     {
-        _contacts = database.GetCollection<Contact>("contacts");
-        _aiService = aiService;
+        _mongoContext = mongoContext;
+        _cognitiveService = cognitiveService;
         _logger = logger;
     }
-
-    // POST: api/contact
+    
+    /// <summary>
+    /// Submit a contact form message with sentiment analysis
+    /// </summary>
     [HttpPost]
-    public async Task<IActionResult> SubmitContact([FromBody] ContactFormRequest request)
+    public async Task<IActionResult> SubmitContact([FromBody] ContactMessageRequest request)
     {
         try
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new { success = false, error = "Invalid request data" });
+                return BadRequest(ModelState);
             }
-
+            
             // Analyze sentiment using Azure Cognitive Services
-            var sentimentResult = await _aiService.AnalyzeSentimentAsync(request.Message);
-
-            // Create contact document
-            var contact = new Contact
+            var (sentiment, score) = await _cognitiveService.AnalyzeSentimentAsync(request.Message);
+            
+            var contactMessage = new ContactMessage
             {
                 Name = request.Name,
                 Email = request.Email,
-                Subject = request.Subject,
                 Message = request.Message,
-                Sentiment = sentimentResult.Sentiment,
-                SentimentScore = sentimentResult.ConfidenceScore,
-                IpAddress = GetClientIpAddress(),
-                UserAgent = Request.Headers["User-Agent"].ToString(),
-                CreatedAt = DateTime.UtcNow,
-                IsRead = false,
-                IsReplied = false
+                Sentiment = sentiment,
+                SentimentScore = score,
+                Timestamp = DateTime.UtcNow,
+                IpAddress = HttpContext.Connection.RemoteIpAddress?.ToString(),
+                UserAgent = HttpContext.Request.Headers.UserAgent.ToString()
             };
-
-            // Save to MongoDB
-            await _contacts.InsertOneAsync(contact);
-
-            _logger.LogInformation("Contact form submitted by {Email} with {Sentiment} sentiment", 
-                request.Email, sentimentResult.Sentiment);
-
+            
+            await _mongoContext.ContactMessages.InsertOneAsync(contactMessage);
+            
+            _logger.LogInformation("Contact message submitted: {Name} - {Sentiment}", request.Name, sentiment);
+            
             return Ok(new 
             { 
-                success = true, 
-                message = "Contact form submitted successfully",
-                sentiment = sentimentResult.Sentiment,
-                confidence = sentimentResult.ConfidenceScore
+                message = "Contact message submitted successfully",
+                sentiment = sentiment,
+                sentimentScore = score,
+                id = contactMessage.Id
             });
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error submitting contact form");
-            return StatusCode(500, new { success = false, error = "Internal server error" });
+            _logger.LogError(ex, "Error submitting contact message");
+            return StatusCode(500, new { error = "Failed to submit contact message" });
         }
     }
-
-    // GET: api/contact
+    
+    /// <summary>
+    /// Get contact messages (admin only)
+    /// </summary>
     [HttpGet]
-    public async Task<IActionResult> GetContacts([FromQuery] int page = 1, [FromQuery] int limit = 10)
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetContactMessages([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate)
     {
         try
         {
-            var skip = (page - 1) * limit;
-            var filter = Builders<Contact>.Filter.Empty;
-            var sort = Builders<Contact>.Sort.Descending(x => x.CreatedAt);
-
-            var contacts = await _contacts
+            var filter = Builders<ContactMessage>.Filter.Empty;
+            
+            if (startDate.HasValue || endDate.HasValue)
+            {
+                var dateFilter = Builders<ContactMessage>.Filter.Empty;
+                
+                if (startDate.HasValue)
+                {
+                    dateFilter &= Builders<ContactMessage>.Filter.Gte(x => x.Timestamp, startDate.Value);
+                }
+                
+                if (endDate.HasValue)
+                {
+                    dateFilter &= Builders<ContactMessage>.Filter.Lte(x => x.Timestamp, endDate.Value);
+                }
+                
+                filter &= dateFilter;
+            }
+            
+            var messages = await _mongoContext.ContactMessages
                 .Find(filter)
-                .Sort(sort)
-                .Skip(skip)
-                .Limit(limit)
+                .SortByDescending(x => x.Timestamp)
                 .ToListAsync();
-
-            var total = await _contacts.CountDocumentsAsync(filter);
-
-            return Ok(new
-            {
-                success = true,
-                data = contacts,
-                pagination = new
-                {
-                    page,
-                    limit,
-                    total,
-                    totalPages = (int)Math.Ceiling((double)total / limit)
-                }
-            });
+            
+            return Ok(messages);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error retrieving contacts");
-            return StatusCode(500, new { success = false, error = "Internal server error" });
+            _logger.LogError(ex, "Error retrieving contact messages");
+            return StatusCode(500, new { error = "Failed to retrieve contact messages" });
         }
     }
-
-    // GET: api/contact/{id}
+    
+    /// <summary>
+    /// Get contact message by ID (admin only)
+    /// </summary>
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetContact(string id)
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetContactMessage(string id)
     {
         try
         {
-            var filter = Builders<Contact>.Filter.Eq(x => x.Id, id);
-            var contact = await _contacts.Find(filter).FirstOrDefaultAsync();
-
-            if (contact == null)
+            var message = await _mongoContext.ContactMessages
+                .Find(x => x.Id == id)
+                .FirstOrDefaultAsync();
+            
+            if (message == null)
             {
-                return NotFound(new { success = false, error = "Contact not found" });
+                return NotFound(new { error = "Contact message not found" });
             }
-
-            return Ok(new { success = true, data = contact });
+            
+            return Ok(message);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error retrieving contact {Id}", id);
-            return StatusCode(500, new { success = false, error = "Internal server error" });
+            _logger.LogError(ex, "Error retrieving contact message {Id}", id);
+            return StatusCode(500, new { error = "Failed to retrieve contact message" });
         }
     }
-
-    // PUT: api/contact/{id}/read
-    [HttpPut("{id}/read")]
-    public async Task<IActionResult> MarkAsRead(string id)
-    {
-        try
-        {
-            var filter = Builders<Contact>.Filter.Eq(x => x.Id, id);
-            var update = Builders<Contact>.Update.Set(x => x.IsRead, true);
-
-            var result = await _contacts.UpdateOneAsync(filter, update);
-
-            if (result.MatchedCount == 0)
-            {
-                return NotFound(new { success = false, error = "Contact not found" });
-            }
-
-            return Ok(new { success = true, message = "Contact marked as read" });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error marking contact {Id} as read", id);
-            return StatusCode(500, new { success = false, error = "Internal server error" });
-        }
-    }
-
-    // PUT: api/contact/{id}/replied
-    [HttpPut("{id}/replied")]
-    public async Task<IActionResult> MarkAsReplied(string id)
-    {
-        try
-        {
-            var filter = Builders<Contact>.Filter.Eq(x => x.Id, id);
-            var update = Builders<Contact>.Update.Set(x => x.IsReplied, true);
-
-            var result = await _contacts.UpdateOneAsync(filter, update);
-
-            if (result.MatchedCount == 0)
-            {
-                return NotFound(new { success = false, error = "Contact not found" });
-            }
-
-            return Ok(new { success = true, message = "Contact marked as replied" });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error marking contact {Id} as replied", id);
-            return StatusCode(500, new { success = false, error = "Internal server error" });
-        }
-    }
-
-    // GET: api/contact/analytics
+    
+    /// <summary>
+    /// Get sentiment analytics (admin only)
+    /// </summary>
     [HttpGet("analytics")]
-    public async Task<IActionResult> GetContactAnalytics()
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetSentimentAnalytics([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate)
     {
         try
         {
-            var totalContacts = await _contacts.CountDocumentsAsync(Builders<Contact>.Filter.Empty);
-            var unreadContacts = await _contacts.CountDocumentsAsync(Builders<Contact>.Filter.Eq(x => x.IsRead, false));
-            var repliedContacts = await _contacts.CountDocumentsAsync(Builders<Contact>.Filter.Eq(x => x.IsReplied, true));
-
-            // Sentiment analysis
-            var positiveContacts = await _contacts.CountDocumentsAsync(
-                Builders<Contact>.Filter.Eq(x => x.Sentiment, "positive"));
-            var negativeContacts = await _contacts.CountDocumentsAsync(
-                Builders<Contact>.Filter.Eq(x => x.Sentiment, "negative"));
-            var neutralContacts = await _contacts.CountDocumentsAsync(
-                Builders<Contact>.Filter.Eq(x => x.Sentiment, "neutral"));
-
-            // Recent activity
-            var recentContacts = await _contacts
-                .Find(Builders<Contact>.Filter.Empty)
-                .Sort(Builders<Contact>.Sort.Descending(x => x.CreatedAt))
-                .Limit(5)
-                .ToListAsync();
-
-            return Ok(new
+            var filter = Builders<ContactMessage>.Filter.Empty;
+            
+            if (startDate.HasValue || endDate.HasValue)
             {
-                success = true,
-                data = new
+                var dateFilter = Builders<ContactMessage>.Filter.Empty;
+                
+                if (startDate.HasValue)
                 {
-                    total = totalContacts,
-                    unread = unreadContacts,
-                    replied = repliedContacts,
-                    sentiment = new
-                    {
-                        positive = positiveContacts,
-                        negative = negativeContacts,
-                        neutral = neutralContacts
-                    },
-                    recent = recentContacts
+                    dateFilter &= Builders<ContactMessage>.Filter.Gte(x => x.Timestamp, startDate.Value);
                 }
-            });
+                
+                if (endDate.HasValue)
+                {
+                    dateFilter &= Builders<ContactMessage>.Filter.Lte(x => x.Timestamp, endDate.Value);
+                }
+                
+                filter &= dateFilter;
+            }
+            
+            // Get sentiment distribution
+            var sentimentStats = await _mongoContext.ContactMessages
+                .Aggregate()
+                .Match(filter)
+                .Group(x => x.Sentiment, g => new
+                {
+                    Sentiment = g.Key,
+                    Count = g.Count(),
+                    AverageScore = g.Average(x => x.SentimentScore)
+                })
+                .ToListAsync();
+            
+            // Get recent messages
+            var recentMessages = await _mongoContext.ContactMessages
+                .Find(filter)
+                .SortByDescending(x => x.Timestamp)
+                .Limit(10)
+                .ToListAsync();
+            
+            var analytics = new
+            {
+                TotalMessages = await _mongoContext.ContactMessages.CountDocumentsAsync(filter),
+                SentimentDistribution = sentimentStats,
+                RecentMessages = recentMessages.Select(x => new
+                {
+                    x.Name,
+                    x.Email,
+                    x.Sentiment,
+                    x.SentimentScore,
+                    x.Timestamp
+                })
+            };
+            
+            return Ok(analytics);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error retrieving contact analytics");
-            return StatusCode(500, new { success = false, error = "Internal server error" });
+            _logger.LogError(ex, "Error retrieving sentiment analytics");
+            return StatusCode(500, new { error = "Failed to retrieve sentiment analytics" });
         }
-    }
-
-    private string GetClientIpAddress()
-    {
-        var forwardedHeader = Request.Headers["X-Forwarded-For"].FirstOrDefault();
-        if (!string.IsNullOrEmpty(forwardedHeader))
-        {
-            return forwardedHeader.Split(',')[0].Trim();
-        }
-
-        return HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
     }
 }
 
-public class ContactFormRequest
+public class ContactMessageRequest
 {
+    [Required]
+    [StringLength(100)]
     public string Name { get; set; } = string.Empty;
+    
+    [Required]
+    [EmailAddress]
+    [StringLength(100)]
     public string Email { get; set; } = string.Empty;
-    public string Subject { get; set; } = string.Empty;
+    
+    [Required]
+    [StringLength(1000)]
     public string Message { get; set; } = string.Empty;
 } 

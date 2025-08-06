@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PortfolioBackend.Data;
 using PortfolioBackend.Models;
-using System.Text.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace PortfolioBackend.Controllers;
 
@@ -12,273 +13,231 @@ public class ProjectsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
     private readonly ILogger<ProjectsController> _logger;
-
+    
     public ProjectsController(ApplicationDbContext context, ILogger<ProjectsController> logger)
     {
         _context = context;
         _logger = logger;
     }
-
-    // GET: api/projects
+    
+    /// <summary>
+    /// Get all active projects
+    /// </summary>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<object>>> GetProjects()
+    public async Task<IActionResult> GetProjects()
     {
         try
         {
             var projects = await _context.Projects
                 .Where(p => p.IsActive)
-                .OrderBy(p => p.SortOrder)
-                .Select(p => new
-                {
-                    id = p.Id.ToString(),
-                    title = p.Title,
-                    description = p.Description,
-                    tech = JsonSerializer.Deserialize<string[]>(p.Tech),
-                    features = JsonSerializer.Deserialize<string[]>(p.Features),
-                    gradient = p.Gradient,
-                    demoUrl = p.DemoUrl,
-                    githubUrl = p.GithubUrl,
-                    metrics = JsonSerializer.Deserialize<Dictionary<string, string>>(p.Metrics),
-                    category = p.Category,
-                    imageUrl = p.ImageUrl,
-                    createdAt = p.CreatedAt,
-                    updatedAt = p.UpdatedAt
-                })
+                .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
-
-            return Ok(new { success = true, data = projects });
+            
+            _logger.LogInformation("Retrieved {Count} projects", projects.Count);
+            
+            return Ok(projects);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error retrieving projects");
-            return StatusCode(500, new { success = false, error = "Internal server error" });
+            return StatusCode(500, new { error = "Failed to retrieve projects" });
         }
     }
-
-    // GET: api/projects/5
+    
+    /// <summary>
+    /// Get a specific project by ID
+    /// </summary>
     [HttpGet("{id}")]
-    public async Task<ActionResult<object>> GetProject(int id)
+    public async Task<IActionResult> GetProject(int id)
     {
         try
         {
             var project = await _context.Projects
-                .Where(p => p.Id == id && p.IsActive)
-                .Select(p => new
-                {
-                    id = p.Id.ToString(),
-                    title = p.Title,
-                    description = p.Description,
-                    tech = JsonSerializer.Deserialize<string[]>(p.Tech),
-                    features = JsonSerializer.Deserialize<string[]>(p.Features),
-                    gradient = p.Gradient,
-                    demoUrl = p.DemoUrl,
-                    githubUrl = p.GithubUrl,
-                    metrics = JsonSerializer.Deserialize<Dictionary<string, string>>(p.Metrics),
-                    category = p.Category,
-                    imageUrl = p.ImageUrl,
-                    createdAt = p.CreatedAt,
-                    updatedAt = p.UpdatedAt
-                })
-                .FirstOrDefaultAsync();
-
+                .FirstOrDefaultAsync(p => p.Id == id && p.IsActive);
+            
             if (project == null)
             {
-                return NotFound(new { success = false, error = "Project not found" });
+                return NotFound(new { error = "Project not found" });
             }
-
-            return Ok(new { success = true, data = project });
+            
+            return Ok(project);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error retrieving project {Id}", id);
-            return StatusCode(500, new { success = false, error = "Internal server error" });
+            return StatusCode(500, new { error = "Failed to retrieve project" });
         }
     }
-
-    // GET: api/projects/category/{category}
-    [HttpGet("category/{category}")]
-    public async Task<ActionResult<IEnumerable<object>>> GetProjectsByCategory(string category)
-    {
-        try
-        {
-            var projects = await _context.Projects
-                .Where(p => p.Category.ToLower() == category.ToLower() && p.IsActive)
-                .OrderBy(p => p.SortOrder)
-                .Select(p => new
-                {
-                    id = p.Id.ToString(),
-                    title = p.Title,
-                    description = p.Description,
-                    tech = JsonSerializer.Deserialize<string[]>(p.Tech),
-                    features = JsonSerializer.Deserialize<string[]>(p.Features),
-                    gradient = p.Gradient,
-                    demoUrl = p.DemoUrl,
-                    githubUrl = p.GithubUrl,
-                    metrics = JsonSerializer.Deserialize<Dictionary<string, string>>(p.Metrics),
-                    category = p.Category,
-                    imageUrl = p.ImageUrl,
-                    createdAt = p.CreatedAt,
-                    updatedAt = p.UpdatedAt
-                })
-                .ToListAsync();
-
-            return Ok(new { success = true, data = projects });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error retrieving projects by category {Category}", category);
-            return StatusCode(500, new { success = false, error = "Internal server error" });
-        }
-    }
-
-    // POST: api/projects
+    
+    /// <summary>
+    /// Create a new project (admin only)
+    /// </summary>
     [HttpPost]
-    public async Task<ActionResult<object>> CreateProject([FromBody] CreateProjectRequest request)
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> CreateProject([FromBody] CreateProjectRequest request)
     {
         try
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new { success = false, error = "Invalid request data" });
+                return BadRequest(ModelState);
             }
-
+            
             var project = new Project
             {
                 Title = request.Title,
                 Description = request.Description,
-                Tech = JsonSerializer.Serialize(request.Tech),
-                Features = JsonSerializer.Serialize(request.Features),
-                Gradient = request.Gradient,
-                DemoUrl = request.DemoUrl,
-                GithubUrl = request.GithubUrl,
-                Metrics = JsonSerializer.Serialize(request.Metrics),
-                Category = request.Category,
+                Tags = request.Tags,
                 ImageUrl = request.ImageUrl,
-                SortOrder = request.SortOrder,
+                DemoUrl = request.DemoUrl,
+                GitHubUrl = request.GitHubUrl,
                 CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
                 IsActive = true
             };
-
+            
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
-
-            var createdProject = new
-            {
-                id = project.Id.ToString(),
-                title = project.Title,
-                description = project.Description,
-                tech = request.Tech,
-                features = request.Features,
-                gradient = project.Gradient,
-                demoUrl = project.DemoUrl,
-                githubUrl = project.GithubUrl,
-                metrics = request.Metrics,
-                category = project.Category,
-                imageUrl = project.ImageUrl,
-                createdAt = project.CreatedAt,
-                updatedAt = project.UpdatedAt
-            };
-
-            return CreatedAtAction(nameof(GetProject), new { id = project.Id }, 
-                new { success = true, data = createdProject });
+            
+            _logger.LogInformation("Created project: {Title}", project.Title);
+            
+            return CreatedAtAction(nameof(GetProject), new { id = project.Id }, project);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error creating project");
-            return StatusCode(500, new { success = false, error = "Internal server error" });
+            return StatusCode(500, new { error = "Failed to create project" });
         }
     }
-
-    // PUT: api/projects/5
+    
+    /// <summary>
+    /// Update an existing project (admin only)
+    /// </summary>
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateProject(int id, [FromBody] UpdateProjectRequest request)
     {
         try
         {
             var project = await _context.Projects.FindAsync(id);
+            
             if (project == null)
             {
-                return NotFound(new { success = false, error = "Project not found" });
+                return NotFound(new { error = "Project not found" });
             }
-
+            
             project.Title = request.Title ?? project.Title;
             project.Description = request.Description ?? project.Description;
-            project.Tech = request.Tech != null ? JsonSerializer.Serialize(request.Tech) : project.Tech;
-            project.Features = request.Features != null ? JsonSerializer.Serialize(request.Features) : project.Features;
-            project.Gradient = request.Gradient ?? project.Gradient;
-            project.DemoUrl = request.DemoUrl ?? project.DemoUrl;
-            project.GithubUrl = request.GithubUrl ?? project.GithubUrl;
-            project.Metrics = request.Metrics != null ? JsonSerializer.Serialize(request.Metrics) : project.Metrics;
-            project.Category = request.Category ?? project.Category;
+            project.Tags = request.Tags ?? project.Tags;
             project.ImageUrl = request.ImageUrl ?? project.ImageUrl;
-            project.SortOrder = request.SortOrder ?? project.SortOrder;
+            project.DemoUrl = request.DemoUrl ?? project.DemoUrl;
+            project.GitHubUrl = request.GitHubUrl ?? project.GitHubUrl;
             project.UpdatedAt = DateTime.UtcNow;
-
+            
             await _context.SaveChangesAsync();
-
-            return Ok(new { success = true, message = "Project updated successfully" });
+            
+            _logger.LogInformation("Updated project: {Title}", project.Title);
+            
+            return Ok(project);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error updating project {Id}", id);
-            return StatusCode(500, new { success = false, error = "Internal server error" });
+            return StatusCode(500, new { error = "Failed to update project" });
         }
     }
-
-    // DELETE: api/projects/5
+    
+    /// <summary>
+    /// Delete a project (admin only)
+    /// </summary>
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteProject(int id)
     {
         try
         {
             var project = await _context.Projects.FindAsync(id);
+            
             if (project == null)
             {
-                return NotFound(new { success = false, error = "Project not found" });
+                return NotFound(new { error = "Project not found" });
             }
-
+            
+            // Soft delete - mark as inactive
             project.IsActive = false;
             project.UpdatedAt = DateTime.UtcNow;
+            
             await _context.SaveChangesAsync();
-
-            return Ok(new { success = true, message = "Project deleted successfully" });
+            
+            _logger.LogInformation("Deleted project: {Title}", project.Title);
+            
+            return Ok(new { message = "Project deleted successfully" });
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error deleting project {Id}", id);
-            return StatusCode(500, new { success = false, error = "Internal server error" });
+            return StatusCode(500, new { error = "Failed to delete project" });
+        }
+    }
+    
+    /// <summary>
+    /// Get projects by tag
+    /// </summary>
+    [HttpGet("tag/{tag}")]
+    public async Task<IActionResult> GetProjectsByTag(string tag)
+    {
+        try
+        {
+            var projects = await _context.Projects
+                .Where(p => p.IsActive && p.Tags.Contains(tag))
+                .OrderByDescending(p => p.CreatedAt)
+                .ToListAsync();
+            
+            return Ok(projects);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving projects by tag {Tag}", tag);
+            return StatusCode(500, new { error = "Failed to retrieve projects" });
         }
     }
 }
 
-// Request models
 public class CreateProjectRequest
 {
+    [Required]
+    [StringLength(200)]
     public string Title { get; set; } = string.Empty;
+    
+    [Required]
     public string Description { get; set; } = string.Empty;
-    public string[] Tech { get; set; } = Array.Empty<string>();
-    public string[] Features { get; set; } = Array.Empty<string>();
-    public string Gradient { get; set; } = string.Empty;
+    
+    public List<string> Tags { get; set; } = new();
+    
+    [StringLength(500)]
+    public string ImageUrl { get; set; } = string.Empty;
+    
+    [StringLength(500)]
     public string DemoUrl { get; set; } = string.Empty;
-    public string GithubUrl { get; set; } = string.Empty;
-    public Dictionary<string, string> Metrics { get; set; } = new();
-    public string Category { get; set; } = string.Empty;
-    public string? ImageUrl { get; set; }
-    public int SortOrder { get; set; } = 0;
+    
+    [StringLength(500)]
+    public string GitHubUrl { get; set; } = string.Empty;
 }
 
 public class UpdateProjectRequest
 {
+    [StringLength(200)]
     public string? Title { get; set; }
+    
     public string? Description { get; set; }
-    public string[]? Tech { get; set; }
-    public string[]? Features { get; set; }
-    public string? Gradient { get; set; }
-    public string? DemoUrl { get; set; }
-    public string? GithubUrl { get; set; }
-    public Dictionary<string, string>? Metrics { get; set; }
-    public string? Category { get; set; }
+    
+    public List<string>? Tags { get; set; }
+    
+    [StringLength(500)]
     public string? ImageUrl { get; set; }
-    public int? SortOrder { get; set; }
+    
+    [StringLength(500)]
+    public string? DemoUrl { get; set; }
+    
+    [StringLength(500)]
+    public string? GitHubUrl { get; set; }
 } 

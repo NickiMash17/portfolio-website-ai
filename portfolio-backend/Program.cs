@@ -19,6 +19,31 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1",
         Description = "AI-powered portfolio backend API"
     });
+    
+    // Add JWT authentication to Swagger
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 // Database Configuration
@@ -34,6 +59,13 @@ builder.Services.AddSingleton<IMongoDatabase>(provider =>
     var settings = builder.Configuration.GetSection("MongoDB").Get<MongoDBSettings>();
     var client = new MongoClient(settings?.ConnectionString ?? "mongodb://localhost:27017");
     return client.GetDatabase(settings?.DatabaseName ?? "PortfolioAnalytics");
+});
+
+// Register MongoDbContext
+builder.Services.AddScoped<MongoDbContext>(provider =>
+{
+    var database = provider.GetRequiredService<IMongoDatabase>();
+    return new MongoDbContext(database);
 });
 
 // Azure Services Configuration
@@ -55,6 +87,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IAIService, AIService>();
 builder.Services.AddScoped<IChatbotService, ChatbotService>();
 builder.Services.AddScoped<IResumeService, ResumeService>();
+builder.Services.AddScoped<IAzureCognitiveService, AzureCognitiveService>();
+builder.Services.AddScoped<IResumeGenerationService, ResumeGenerationService>();
 
 var app = builder.Build();
 
@@ -82,11 +116,15 @@ app.MapControllers();
 // Health check endpoint
 app.MapGet("/health", () => new { status = "healthy", timestamp = DateTime.UtcNow });
 
-// Ensure database is created
+// Ensure database is created and indexes are set up
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     context.Database.EnsureCreated();
+    
+    // Create MongoDB indexes
+    var mongoContext = scope.ServiceProvider.GetRequiredService<MongoDbContext>();
+    await mongoContext.CreateIndexesAsync();
 }
 
 app.Run(); 
