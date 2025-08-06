@@ -1,60 +1,13 @@
 // Project Types
 export interface Project {
-  id: string;
+  id: number;
   title: string;
   description: string;
-  tech: string[];
-  features: string[];
-  gradient: string;
-  demoUrl: string;
-  githubUrl: string;
-  metrics: ProjectMetrics;
+  image: string;
+  tags: string[];
   category: string;
-  imageUrl?: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface ProjectMetrics {
-  users?: string;
-  accuracy?: string;
-  response?: string;
-  uptime?: string;
-  services?: string;
-  requests?: string;
-  teams?: string;
-  messages?: string;
-  satisfaction?: string;
-  datasets?: string;
-  predictions?: string;
-  insights?: string;
-}
-
-// Skill Types
-export interface Skill {
-  name: string;
-  level: number;
-  icon: string;
-  description: string;
-  category: string;
-}
-
-export interface SkillCategory {
-  [key: string]: Skill[];
-}
-
-// Certification Types
-export interface Certification {
-  id: string;
-  name: string;
-  issuer: string;
-  badgeId: string;
-  color: string;
-  status: 'Certified' | 'In Progress' | 'Expired';
-  date: string;
-  description: string;
-  credentialUrl: string;
-  imageUrl?: string;
+  liveUrl?: string;
+  githubUrl?: string;
 }
 
 // Contact Types
@@ -65,14 +18,6 @@ export interface ContactForm {
   message: string;
 }
 
-export interface ContactInfo {
-  icon: string;
-  title: string;
-  value: string;
-  href: string;
-  color: string;
-}
-
 // Resume Types
 export interface ResumeOptions {
   type: 'Technical' | 'General' | 'Academic';
@@ -80,51 +25,6 @@ export interface ResumeOptions {
   includeCertifications: boolean;
   includeSkills: boolean;
   format: 'PDF' | 'DOCX';
-}
-
-// Analytics Types
-export interface VisitorAnalytics {
-  id: string;
-  timestamp: Date;
-  page: string;
-  action: string;
-  userAgent: string;
-  ipAddress: string;
-  sessionId: string;
-  duration?: number;
-}
-
-// AI Types
-export interface AIRecommendation {
-  projectId: string;
-  score: number;
-  reason: string;
-  category: string;
-}
-
-export interface ChatbotMessage {
-  id: string;
-  text: string;
-  sender: 'user' | 'bot';
-  timestamp: Date;
-  type: 'text' | 'link' | 'image';
-  metadata?: any;
-}
-
-// API Response Types
-export interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  message?: string;
-  error?: string;
-}
-
-export interface PaginatedResponse<T> {
-  data: T[];
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
 }
 
 // Theme Types
@@ -144,34 +44,6 @@ export interface AnimationConfig {
   delay: number;
   easing: string;
   direction: 'forward' | 'reverse' | 'alternate';
-}
-
-// Particle Types
-export interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  size: number;
-  opacity: number;
-  color?: string;
-}
-
-// Form Types
-export interface FormField {
-  name: string;
-  label: string;
-  type: 'text' | 'email' | 'textarea' | 'select' | 'checkbox';
-  required: boolean;
-  placeholder?: string;
-  options?: string[];
-  validation?: {
-    pattern?: string;
-    minLength?: number;
-    maxLength?: number;
-    message?: string;
-  };
 }
 
 // Navigation Types
@@ -211,15 +83,6 @@ export interface Achievement {
   value: string;
   color: string;
   category: string;
-}
-
-// Learning Focus Types
-export interface LearningFocus {
-  title: string;
-  progress: number;
-  color: string;
-  description?: string;
-  targetDate?: Date;
 }
 
 // Interest Types

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Eye } from 'lucide-react';
+import { ExternalLink, Github, Eye, Sparkles } from 'lucide-react';
 
 interface Project {
   id: number;
@@ -8,118 +8,132 @@ interface Project {
   description: string;
   image: string;
   tags: string[];
-  category: 'all' | 'ai' | 'fullstack';
+  category: string;
   liveUrl?: string;
   githubUrl?: string;
 }
 
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "AI Sentiment Analyzer",
-    description: "A machine learning application that analyzes text sentiment using natural language processing. Built with Python, TensorFlow, and React.",
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='16' fill='%2300D4FF' text-anchor='middle' dominant-baseline='middle'%3EAI Sentiment Analyzer%3C/text%3E%3C/svg%3E",
-    tags: ["AI", "Python", "TensorFlow", "React"],
-    category: "ai",
-    liveUrl: "https://sentiment-analyzer.demo",
-    githubUrl: "https://github.com/nicolette/sentiment-analyzer"
-  },
-  {
-    id: 2,
-    title: "E-Commerce Platform",
-    description: "Full-stack e-commerce solution with payment integration, user authentication, and admin dashboard. Built with ASP.NET Core and React.",
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='16' fill='%23FF007A' text-anchor='middle' dominant-baseline='middle'%3EE-Commerce Platform%3C/text%3E%3C/svg%3E",
-    tags: ["C#", ".NET", "React", "SQL Server"],
-    category: "fullstack",
-    liveUrl: "https://ecommerce.demo",
-    githubUrl: "https://github.com/nicolette/ecommerce-platform"
-  },
-  {
-    id: 3,
-    title: "Azure Cloud Dashboard",
-    description: "Real-time monitoring dashboard for Azure resources with automated scaling and cost optimization. Built with Azure Functions and React.",
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='16' fill='%2300D4FF' text-anchor='middle' dominant-baseline='middle'%3EAzure Dashboard%3C/text%3E%3C/svg%3E",
-    tags: ["Azure", "C#", "React", "Azure Functions"],
-    category: "fullstack",
-    liveUrl: "https://azure-dashboard.demo",
-    githubUrl: "https://github.com/nicolette/azure-dashboard"
-  },
-  {
-    id: 4,
-    title: "AI Chatbot Assistant",
-    description: "Intelligent chatbot powered by OpenAI GPT with natural language understanding and context awareness.",
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='16' fill='%23FF007A' text-anchor='middle' dominant-baseline='middle'%3EAI Chatbot%3C/text%3E%3C/svg%3E",
-    tags: ["AI", "OpenAI", "React", "Node.js"],
-    category: "ai",
-    liveUrl: "https://chatbot.demo",
-    githubUrl: "https://github.com/nicolette/ai-chatbot"
-  },
-  {
-    id: 5,
-    title: "Portfolio Website",
-    description: "Modern, responsive portfolio website with AI-powered features and interactive animations.",
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='16' fill='%2300D4FF' text-anchor='middle' dominant-baseline='middle'%3EPortfolio Website%3C/text%3E%3C/svg%3E",
-    tags: ["React", "TypeScript", "Tailwind CSS", "AI"],
-    category: "fullstack",
-    liveUrl: "https://nicolette.dev",
-    githubUrl: "https://github.com/nicolette/portfolio"
-  },
-  {
-    id: 6,
-    title: "Data Analytics Platform",
-    description: "Real-time data visualization platform with interactive charts and predictive analytics.",
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='16' fill='%23FF007A' text-anchor='middle' dominant-baseline='middle'%3EAnalytics Platform%3C/text%3E%3C/svg%3E",
-    tags: ["Python", "React", "Chart.js", "MongoDB"],
-    category: "ai",
-    liveUrl: "https://analytics.demo",
-    githubUrl: "https://github.com/nicolette/analytics-platform"
-  }
-];
-
 const Projects: React.FC = () => {
-  const [activeFilter, setActiveFilter] = useState<'all' | 'ai' | 'fullstack'>('all');
+  const [activeFilter, setActiveFilter] = useState('all');
 
-  const filteredProjects = projects.filter(project => 
-    activeFilter === 'all' ? true : project.category === activeFilter
-  );
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
+  const projects: Project[] = [
+    {
+      id: 1,
+      title: "AI-Powered Portfolio Website",
+      description: "A dynamic portfolio website with neural network background, AI chatbot integration, and advanced animations using React, TypeScript, and Framer Motion.",
+      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop",
+      tags: ["React", "TypeScript", "AI", "Framer Motion"],
+      category: "web",
+      githubUrl: "https://github.com/nicolettemashaba/portfolio-website",
+      liveUrl: "https://nicolettemashaba.dev"
+    },
+    {
+      id: 2,
+      title: "Azure Cloud Management System",
+      description: "Comprehensive cloud management platform for Azure resources with real-time monitoring, cost optimization, and automated scaling capabilities.",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop",
+      tags: ["Azure", "C#", ".NET", "Cloud"],
+      category: "cloud",
+      githubUrl: "https://github.com/nicolettemashaba/azure-manager",
+      liveUrl: "https://azure-manager.azurewebsites.net"
+    },
+    {
+      id: 3,
+      title: "E-Commerce Platform",
+      description: "Full-stack e-commerce solution with payment integration, inventory management, and responsive design for optimal user experience.",
+      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
+      tags: ["React", "Node.js", "MongoDB", "Stripe"],
+      category: "web",
+      githubUrl: "https://github.com/nicolettemashaba/ecommerce-platform",
+      liveUrl: "https://ecommerce-demo.vercel.app"
+    },
+    {
+      id: 4,
+      title: "Real-Time Chat Application",
+      description: "Modern chat application with real-time messaging, file sharing, and user authentication using WebSocket technology.",
+      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=300&fit=crop",
+      tags: ["WebSocket", "React", "Node.js", "Socket.io"],
+      category: "web",
+      githubUrl: "https://github.com/nicolettemashaba/chat-app",
+      liveUrl: "https://chat-app-demo.netlify.app"
+    },
+    {
+      id: 5,
+      title: "Database Management System",
+      description: "Advanced database management system with SQL Server integration, data visualization, and automated backup solutions.",
+      image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=400&h=300&fit=crop",
+      tags: ["SQL Server", "C#", ".NET", "Entity Framework"],
+      category: "database",
+      githubUrl: "https://github.com/nicolettemashaba/db-manager",
+      liveUrl: "https://db-manager.azurewebsites.net"
+    },
+    {
+      id: 6,
+      title: "Machine Learning API",
+      description: "RESTful API for machine learning models with Azure ML integration, model versioning, and automated deployment pipelines.",
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop",
+      tags: ["Python", "Azure ML", "FastAPI", "Docker"],
+      category: "ai",
+      githubUrl: "https://github.com/nicolettemashaba/ml-api",
+      liveUrl: "https://ml-api-docs.azurewebsites.net"
     }
-  };
+  ];
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6
-      }
-    }
+  const categories = [
+    { id: 'all', label: 'All Projects' },
+    { id: 'frontend', label: 'Frontend' },
+    { id: 'backend', label: 'Backend' },
+    { id: 'fullstack', label: 'Full Stack' },
+    { id: 'devops', label: 'DevOps' }
+  ];
+
+  const filteredProjects = activeFilter === 'all' 
+    ? projects 
+    : projects.filter(project => project.category === activeFilter);
+
+  const handleRipple = (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+    const button = event.currentTarget;
+    const ripple = document.createElement('span');
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+    
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.classList.add('ripple');
+    
+    button.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
   };
 
   return (
-    <section id="projects" className="py-16 bg-gray-800">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="projects" className="relative min-h-screen py-16 bg-gray-900 overflow-hidden">
+      {/* Neural Network Background */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/40 via-transparent to-gray-900/40 z-5" />
+        <div className="absolute inset-0 z-5 opacity-20">
+          <div className="absolute inset-0 bg-gradient-radial from-blue-500/30 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-radial from-purple-500/25 via-transparent to-transparent" style={{ transform: 'translate(70%, 30%)' }} />
+          <div className="absolute inset-0 bg-gradient-radial from-emerald-500/25 via-transparent to-transparent" style={{ transform: 'translate(-30%, 70%)' }} />
+        </div>
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white font-inter mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             My Projects
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Explore my latest work showcasing full-stack development, AI integration, and cloud solutions.
+            Explore my latest work showcasing full-stack development, cloud solutions, and AI integration.
           </p>
         </motion.div>
 
@@ -127,124 +141,175 @@ const Projects: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="flex justify-center gap-4 mb-12 flex-wrap"
+          className="flex flex-wrap justify-center gap-4 mb-12"
         >
-          {[
-            { key: 'all', label: 'All Projects' },
-            { key: 'ai', label: 'AI Projects' },
-            { key: 'fullstack', label: 'Full-Stack' }
-          ].map((filter) => (
-            <button
-              key={filter.key}
-              onClick={() => setActiveFilter(filter.key as 'all' | 'ai' | 'fullstack')}
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
-                activeFilter === filter.key
-                  ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/25'
-                  : 'bg-cyan-400 text-gray-900 hover:bg-pink-500 hover:text-white'
+          {categories.map((category, index) => (
+            <motion.button
+              key={category.id}
+              onClick={() => setActiveFilter(category.id)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onMouseDown={handleRipple}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-sm border ${
+                activeFilter === category.id
+                  ? 'bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 text-white border-white/20 shadow-lg'
+                  : 'bg-gray-800/50 text-gray-300 border-gray-700/50 hover:text-blue-400 hover:border-blue-400/50'
               }`}
             >
-              {filter.label}
-            </button>
+              {category.label}
+            </motion.button>
           ))}
         </motion.div>
 
         {/* Projects Grid */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}
-              variants={cardVariants}
-              className="bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 transform hover:scale-105"
-              whileHover={{ y: -5 }}
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.02 }}
+              className="group"
             >
-              {/* Project Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent" />
-              </div>
-
-              {/* Project Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-white mb-3">
-                  {project.title}
-                </h3>
-                <p className="text-gray-300 text-sm mb-4 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className="bg-cyan-500 text-gray-900 text-xs px-3 py-1 rounded-full font-medium"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+              <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden hover:border-blue-400/50 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                {/* Project Image */}
+                <div className="relative overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent" />
+                  
+                  {/* Action Buttons */}
+                  <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {project.liveUrl && (
+                      <motion.a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onMouseDown={handleRipple}
+                        className="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-500 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center text-white shadow-lg hover:shadow-blue-400/25 transition-all duration-300"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </motion.a>
+                    )}
+                    {project.githubUrl && (
+                      <motion.a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onMouseDown={handleRipple}
+                        className="w-10 h-10 bg-gradient-to-r from-purple-500 to-emerald-400 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center text-white shadow-lg hover:shadow-purple-400/25 transition-all duration-300"
+                      >
+                        <Github className="w-4 h-4" />
+                      </motion.a>
+                    )}
+                  </div>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex gap-3">
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 border-2 border-pink-500 text-pink-500 rounded-lg hover:bg-pink-500 hover:text-white transition-all duration-300 text-sm font-medium"
-                    >
-                      <Eye className="w-4 h-4" />
-                      Live Demo
-                    </a>
-                  )}
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 border-2 border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400 hover:text-gray-900 transition-all duration-300 text-sm font-medium"
-                    >
-                      <Github className="w-4 h-4" />
-                      GitHub
-                    </a>
-                  )}
+                {/* Project Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+                  
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.map((tag, tagIndex) => (
+                      <span
+                        key={tagIndex}
+                        className="px-3 py-1 bg-gradient-to-r from-blue-400/20 to-purple-500/20 backdrop-blur-sm rounded-full text-xs font-medium text-blue-400 border border-blue-400/30"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-3">
+                    {project.liveUrl && (
+                      <motion.a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onMouseDown={handleRipple}
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-lg font-medium text-sm backdrop-blur-sm border border-white/20 hover:shadow-lg transition-all duration-300"
+                      >
+                        <Eye className="w-4 h-4" />
+                        Live Demo
+                      </motion.a>
+                    )}
+                    {project.githubUrl && (
+                      <motion.a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onMouseDown={handleRipple}
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-emerald-400 text-white rounded-lg font-medium text-sm backdrop-blur-sm border border-white/20 hover:shadow-lg transition-all duration-300"
+                      >
+                        <Github className="w-4 h-4" />
+                        GitHub
+                      </motion.a>
+                    )}
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Call to Action */}
+        {/* Explore More Projects */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          className="text-center mt-16"
         >
-          <p className="text-gray-300 mb-4">
-            Interested in working together? Let's discuss your next project!
-          </p>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-cyan-400 to-pink-500 text-gray-900 rounded-full font-semibold hover:from-pink-500 hover:to-cyan-400 transition-all duration-300 transform hover:scale-105"
-          >
-            <ExternalLink className="w-5 h-5" />
-            Get In Touch
-          </a>
+          <div className="backdrop-blur-sm bg-gray-800/20 rounded-3xl border border-gray-700/50 p-12 shadow-2xl max-w-2xl mx-auto">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <Sparkles className="w-8 h-8 text-emerald-400" />
+              <h3 className="text-2xl font-bold text-white">
+                Explore More Projects
+              </h3>
+            </div>
+            <p className="text-gray-300 text-lg mb-6">
+              Interested in seeing more of my work? Check out my GitHub profile for additional projects and contributions.
+            </p>
+            <motion.a
+              href="https://github.com/nicolettemashaba"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onMouseDown={handleRipple}
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 text-white rounded-full font-semibold backdrop-blur-sm border border-white/20 hover:shadow-lg transition-all duration-300"
+            >
+              <Github className="w-5 h-5" />
+              View All Projects
+            </motion.a>
+          </div>
         </motion.div>
       </div>
     </section>

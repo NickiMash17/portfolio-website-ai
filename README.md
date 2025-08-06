@@ -1,268 +1,196 @@
 
-# Nicolette's AI-Powered Portfolio Website
+# Nicolette's Portfolio Website
 
-A stunning, futuristic portfolio website showcasing full-stack development skills with AI integration, built with React, TypeScript, and Tailwind CSS.
+A stunning, AI-inspired portfolio website built with React, TypeScript, and Tailwind CSS. Features a dynamic neural network background, interactive AI chatbot, and modern UI/UX design.
 
-## 🌟 Features
+## ✨ Features
 
-### **Futuristic AI-Inspired Design**
-- **Neon Color Scheme**: Cyan (#00D4FF) and Pink (#FF007A) accents
-- **Dark Theme**: Professional dark gray (#1A1A1A) background
-- **Particle Animations**: Interactive animated background in hero section
-- **Smooth Animations**: Framer Motion powered transitions and hover effects
+### 🎨 **Visual Design**
+- **Dynamic Neural Network Background**: Interactive p5.js-based neural network visualization
+- **Dark Theme**: Consistent dark theme with blue/purple/emerald gradient accents
+- **Glass Morphism**: Modern backdrop blur effects throughout
+- **Smooth Animations**: Framer Motion animations for enhanced UX
+- **Responsive Design**: Mobile-first approach (375px - 1440px)
 
-### **Responsive Design**
-- **Mobile-First**: Optimized for 375px mobile screens
-- **Desktop Ready**: Perfect display on 1440px desktop screens
-- **Accessible**: ARIA labels, alt text, and keyboard navigation
+### 🤖 **AI Assistant**
+- **Interactive Chatbot**: AI-powered assistant with pre-programmed responses
+- **Quick Reply Buttons**: Common questions about skills, projects, contact info
+- **Real-time Chat**: Instant responses with typing simulation
+- **Professional UI**: Clean, modern chat interface
 
-### **Interactive Components**
-- **Hero Section**: Full-screen with particle effects and floating chatbot
-- **Projects Gallery**: Filterable project cards with live demos and GitHub links
-- **About Section**: Professional bio with skills and certification timeline
-- **Resume Download**: Technical and general resume options
-- **Contact Form**: Interactive form with floating AI chatbot assistant
+### 📱 **Sections**
+- **Hero**: Full-screen introduction with neural network background
+- **About**: Skills, certifications, and personal information
+- **Projects**: Showcase of development work with filtering
+- **Resume**: Download section with multiple format options
+- **Contact**: Contact form and information
+- **Footer**: Social links and additional information
 
-## 🚀 Tech Stack
+### 🛠️ **Technical Stack**
+- **React 18**: Latest React features and hooks
+- **TypeScript**: Type-safe development
+- **Vite**: Fast build tool and development server
+- **Tailwind CSS**: Utility-first styling
+- **Framer Motion**: Advanced animations
+- **p5.js**: Neural network background visualization
+- **Lucide React**: Beautiful icons
 
-### **Frontend**
-- **React 18** with TypeScript
-- **Vite** for fast development and building
-- **Tailwind CSS** for utility-first styling
-- **Framer Motion** for smooth animations
-- **Lucide React** for beautiful icons
+## 🚀 Quick Start
 
-### **Design System**
-- **Typography**: Inter font family
-- **Colors**: Neon cyan/pink with dark grays
-- **Spacing**: Consistent padding/margins
-- **Animations**: Fade-ins, scale effects, and hover states
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/nicolettemashaba/portfolio-website.git
+   cd portfolio-website
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173`
 
 ## 📁 Project Structure
 
 ```
-src/
-├── components/
-│   ├── Hero.tsx          # Hero section with particles
-│   ├── About.tsx         # About section with skills
-│   ├── Projects.tsx      # Projects gallery with filters
-│   ├── Resume.tsx        # Resume download section
-│   ├── Contact.tsx       # Contact form with chatbot
-│   └── Chatbot.tsx       # AI chatbot component
-├── App.tsx               # Main application component
-├── main.jsx             # Application entry point
-└── index.css            # Global styles and animations
+portfolio-website/
+├── src/
+│   ├── components/          # React components
+│   │   ├── Hero.tsx        # Hero section
+│   │   ├── About.tsx       # About section
+│   │   ├── Projects.tsx    # Projects showcase
+│   │   ├── Resume.tsx      # Resume download
+│   │   ├── Contact.tsx     # Contact form
+│   │   ├── Chatbot.tsx     # AI assistant
+│   │   └── NeuralBackground.tsx # Neural network background
+│   ├── contexts/           # React contexts
+│   │   └── ThemeContext.tsx # Theme management
+│   ├── types/              # TypeScript types
+│   │   └── index.ts        # Type definitions
+│   ├── App.tsx             # Main app component
+│   ├── main.jsx            # Entry point
+│   └── index.css           # Global styles
+├── public/                 # Static assets
+│   ├── manifest.json       # PWA manifest
+│   └── sw.js              # Service worker
+├── package.json            # Dependencies
+├── tailwind.config.js      # Tailwind configuration
+├── vite.config.js          # Vite configuration
+└── README.md              # This file
 ```
-
-## 🎨 Design Specifications
-
-### **Color Palette**
-- **Primary Background**: Dark gray (#1A1A1A)
-- **Accent Colors**: Neon cyan (#00D4FF), Neon pink (#FF007A)
-- **Text Colors**: White (#FFFFFF) for headings, Light gray (#D1D5DB) for body
-
-### **Typography**
-- **Font**: Inter (Google Fonts)
-- **Sizes**: 5xl for H1, 3xl for H2, xl for H3, base for body
-- **Weights**: Bold for headings, regular for body text
-
-### **Animations**
-- **Framer Motion**: Fade-ins, scale effects, stagger animations
-- **Hover Effects**: Scale transforms and glow effects
-- **Particles**: Interactive background animations
-
-## 🛠️ Installation & Setup
-
-### **Prerequisites**
-- Node.js 18+ 
-- npm or yarn
-
-### **Installation**
-```bash
-# Clone the repository
-git clone <repository-url>
-cd portfolio-website-ai
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-### **Build for Production**
-```bash
-# Build the application
-npm run build
-
-# Preview the build
-npm run preview
-```
-
-## 📱 Responsive Design
-
-### **Mobile (375px)**
-- Single-column layouts
-- Reduced font sizes
-- Stacked navigation
-- Touch-friendly buttons
-
-### **Desktop (1440px)**
-- Multi-column layouts
-- Full navigation menu
-- Hover effects
-- Enhanced animations
-
-## 🎯 Key Sections
-
-### **Hero Section**
-- Full-screen animated background
-- Particle effects with cyan dots
-- Floating chatbot icon
-- Smooth scroll indicator
-- Call-to-action button
-
-### **Projects Section**
-- Filterable project gallery (All, AI, Full-Stack)
-- Project cards with images and descriptions
-- Technology tags
-- Live demo and GitHub links
-- Hover animations
-
-### **About Section**
-- Professional avatar with glow effect
-- Skills grid with hover animations
-- Certification timeline
-- Responsive two-column layout
-
-### **Resume Section**
-- Circuit board background pattern
-- Technical and general resume options
-- Download functionality
-- Skills and certifications overview
-
-### **Contact Section**
-- Interactive contact form
-- Floating AI chatbot assistant
-- Contact information cards
-- Social media links
-
-## 🤖 AI Features
-
-### **Chatbot Assistant**
-- Floating chat interface
-- Quick message buttons
-- Simulated AI responses
-- Professional conversation flow
-
-### **Interactive Elements**
-- Hover effects on all interactive elements
-- Smooth transitions between states
-- Loading animations
-- Form validation
 
 ## 🎨 Customization
 
-### **Adding Your Information**
-1. **Personal Details**: Update name, bio, and contact information
-2. **Projects**: Add your projects to the `projects` array in `Projects.tsx`
-3. **Skills**: Modify the skills array in `About.tsx`
-4. **Certifications**: Update the certifications timeline
-5. **Images**: Replace placeholder images with your own
+### Colors & Theme
+The website uses a consistent color palette:
+- **Primary**: Electric Blue (`#60A5FA`)
+- **Secondary**: Neon Purple (`#8B5CF6`) 
+- **Accent**: Emerald Green (`#34D399`)
+- **Background**: Dark Gray (`#111827`)
 
-### **Styling Customization**
-- **Colors**: Modify CSS variables in `index.css`
-- **Fonts**: Change font imports in `index.css`
-- **Animations**: Adjust Framer Motion variants
-- **Layout**: Modify Tailwind classes
+### Adding Projects
+Edit `src/components/Projects.tsx` to add your projects:
 
-### **Adding New Sections**
-1. Create new component in `src/components/`
-2. Import and add to `App.tsx`
-3. Add navigation link
-4. Style with Tailwind classes
+```typescript
+{
+  id: 1,
+  title: "Your Project",
+  description: "Project description",
+  image: "https://images.unsplash.com/your-image",
+  tags: ["React", "TypeScript"],
+  category: "web",
+  githubUrl: "https://github.com/your-repo",
+  liveUrl: "https://your-demo.com"
+}
+```
+
+### Updating Content
+- **Hero**: Edit `src/components/Hero.tsx`
+- **About**: Edit `src/components/About.tsx`
+- **Contact**: Edit `src/components/Contact.tsx`
+- **Resume**: Edit `src/components/Resume.tsx`
 
 ## 🚀 Deployment
 
-### **Vercel (Recommended)**
+### Build for Production
 ```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel
-```
-
-### **Netlify**
-```bash
-# Build the project
 npm run build
-
-# Deploy to Netlify
-# Upload the dist folder to Netlify
 ```
 
-### **GitHub Pages**
-```bash
-# Add to package.json
-"homepage": "https://yourusername.github.io/portfolio-website-ai"
+### Deploy to Vercel
+1. Install Vercel CLI: `npm i -g vercel`
+2. Run: `vercel`
+3. Follow the prompts
 
-# Deploy
-npm run build
-git add dist -f
-git commit -m "Deploy to GitHub Pages"
-git subtree push --prefix dist origin gh-pages
-```
-
-## 📊 Performance
-
-### **Optimizations**
-- **Lazy Loading**: Images load on scroll
-- **Code Splitting**: Component-based bundling
-- **Minification**: Production builds are optimized
-- **Caching**: Static assets are cached
-
-### **Accessibility**
-- **ARIA Labels**: Screen reader support
-- **Keyboard Navigation**: Full keyboard accessibility
-- **Color Contrast**: WCAG compliant color ratios
-- **Reduced Motion**: Respects user preferences
+### Deploy to Netlify
+1. Build the project: `npm run build`
+2. Drag the `dist` folder to Netlify
+3. Configure custom domain if needed
 
 ## 🔧 Development
 
-### **Available Scripts**
-```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run preview      # Preview production build
-npm run test         # Run tests
-npm run test:watch   # Run tests in watch mode
-```
+### Available Scripts
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-### **Code Quality**
-- **TypeScript**: Type-safe development
-- **ESLint**: Code linting and formatting
-- **Prettier**: Consistent code formatting
-- **Git Hooks**: Pre-commit code quality checks
+### Key Dependencies
+- `react` - UI library
+- `framer-motion` - Animations
+- `p5` - Neural network background
+- `lucide-react` - Icons
+- `tailwindcss` - Styling
 
-## 📝 License
+## 📱 Features
 
-This project is licensed under the ISC License.
+### Responsive Design
+- **Mobile**: 375px minimum
+- **Tablet**: 768px breakpoint
+- **Desktop**: 1440px maximum
+
+### Accessibility
+- ARIA labels throughout
+- Keyboard navigation support
+- Screen reader friendly
+- High contrast support
+
+### Performance
+- Lazy loading images
+- Optimized bundle size
+- Service worker for caching
+- PWA ready
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Add tests if applicable
+4. Test thoroughly
 5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
 
 ## 📞 Contact
 
-- **Email**: nicolette@example.com
-- **LinkedIn**: [Nicolette Mashaba](https://linkedin.com/in/nicolette)
-- **GitHub**: [@nicolette](https://github.com/nicolette)
+- **Email**: hello@nicolettemashaba.dev
+- **LinkedIn**: [Nicolette Mashaba](https://linkedin.com/in/nicolettemashaba)
+- **GitHub**: [@nicolettemashaba](https://github.com/nicolettemashaba)
 
 ---
 
-**Built with ❤️ using React, TypeScript, and Tailwind CSS** 
+Made with ❤️ and lots of ⚡ by Nicolette Mashaba 

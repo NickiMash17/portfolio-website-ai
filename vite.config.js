@@ -17,12 +17,12 @@ export default defineConfig({
           vendor: ['react', 'react-dom'],
           animations: ['framer-motion'],
           ai: ['@tensorflow/tfjs'],
-          particles: ['react-particles', 'tsparticles']
+          graphics: ['p5', 'three']
         }
       }
     }
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion', '@tensorflow/tfjs']
+    include: ['react', 'react-dom', 'framer-motion', '@tensorflow/tfjs', 'p5']
   }
 }) 

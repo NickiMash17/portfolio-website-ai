@@ -1,18 +1,18 @@
-const CACHE_NAME = 'portfolio-cache-v1';
+const CACHE_NAME = 'portfolio-cache-v2';
 const urlsToCache = [
   '/',
   '/index.html',
   '/src/main.jsx',
-  '/src/App.jsx',
+  '/src/App.tsx',
   '/src/index.css',
   '/manifest.json',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap',
-  'https://images.unsplash.com/photo-1677442136019-21780ecadf8b?w=800&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop'
+  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
+  'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop',
+  'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop',
+  'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop',
+  'https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=300&fit=crop',
+  'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=400&h=300&fit=crop',
+  'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop'
 ];
 
 // Install event - cache resources
@@ -109,11 +109,11 @@ self.addEventListener('push', (event) => {
   };
 
   event.waitUntil(
-    self.registration.showNotification('Nicolette Portfolio', options)
+    self.registration.showNotification('Portfolio Update', options)
   );
 });
 
-// Notification click handler
+// Handle notification clicks
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
 

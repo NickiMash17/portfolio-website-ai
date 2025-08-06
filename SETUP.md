@@ -1,318 +1,310 @@
-# Local Development Setup
+# Portfolio Website Setup Guide
 
-This guide will help you set up and run the AI-powered portfolio website locally for development.
+## 🎯 Enhanced Features Overview
+
+This portfolio website has been enhanced with cutting-edge AI-inspired design and interactive features:
+
+### ✨ New Features Added
+
+1. **Neural Network Background**
+   - Dynamic p5.js-powered neural network visualization
+   - Interactive nodes that pulse every 2 seconds
+   - Animated connecting lines with neon pink color
+   - Click to add new nodes (showcases AI interactivity)
+   - Fallback SVG pattern for mobile devices
+
+2. **Dark/Light Mode Toggle**
+   - Seamless theme switching with localStorage persistence
+   - Smooth transitions between dark and light themes
+   - All components adapt to theme changes
+   - Accessible theme toggle with proper ARIA labels
+
+3. **Enhanced Animations**
+   - Framer Motion animations with micro-interactions
+   - Ripple effects on button clicks
+   - Parallax scrolling effects
+   - Staggered animations for project cards
+   - Hover effects with scale transformations
+
+4. **Improved Responsive Design**
+   - Mobile-first approach (375px - 1440px+)
+   - Mobile hamburger menu
+   - Optimized typography scaling
+   - Touch-friendly interactive elements
+
+5. **Advanced Project Showcase**
+   - Filterable project categories (Frontend, Backend, Full-Stack, AI/ML, Data, DevOps)
+   - Enhanced project cards with better imagery
+   - Technology tags with overflow handling
+   - Live demo and GitHub links with ripple effects
+
+6. **Professional About Section**
+   - Timeline of certifications with icons
+   - Skills visualization with animated progress bars
+   - Professional avatar with award badge
+   - Responsive two-column layout
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Node.js 18+ and npm
-- .NET 8 SDK
-- SQL Server (LocalDB or Docker)
-- MongoDB (Local or Docker)
-- Azure account (for AI features)
-
-### 1. Clone and Setup
+### 1. Development Server
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/portfolio-website-ai.git
-cd portfolio-website-ai
-
-# Install frontend dependencies
-npm install
-
-# Copy environment file
-cp env.example .env
-```
-
-### 2. Configure Environment Variables
-Edit `.env` file with your settings:
-```env
-# Frontend Environment Variables
-VITE_API_BASE_URL=http://localhost:5000/api
-VITE_AZURE_STORAGE_CONNECTION_STRING=your_storage_connection_string
-VITE_MONGO_URI=mongodb://localhost:27017/PortfolioAnalytics
-VITE_AZURE_COGNITIVE_SERVICES_KEY=your_cognitive_services_key
-VITE_AZURE_BOT_SERVICE_KEY=your_bot_service_key
-```
-
-### 3. Setup Backend
-```bash
-# Navigate to backend directory
-cd portfolio-backend
-
-# Restore dependencies
-dotnet restore
-
-# Update appsettings.json with your connection strings
-# Run database migrations
-dotnet ef database update
-
-# Start backend server
-dotnet run
-```
-
-### 4. Start Frontend
-```bash
-# In a new terminal, from the root directory
 npm run dev
 ```
+Visit: http://localhost:5173
 
-### 5. Access the Application
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:5000
-- Swagger Documentation: http://localhost:5000/swagger
-
-## 🛠️ Development Commands
-
-### Frontend
+### 2. Production Build
 ```bash
-# Start development server
-npm run dev
-
-# Build for production
 npm run build
-
-# Preview production build
 npm run preview
-
-# Run tests
-npm run test
-
-# Run tests in watch mode
-npm run test:watch
 ```
 
-### Backend
-```bash
-# Start development server
-dotnet run
+## 🎨 Customization Guide
 
-# Run tests
-dotnet test
+### Personal Information
+1. **Update Hero Section** (`src/components/Hero.tsx`)
+   - Change name from "Nicolette" to your name
+   - Update tagline and description
+   - Replace avatar image URL
 
-# Create database migration
-dotnet ef migrations add MigrationName
+2. **Add Your Projects** (`src/components/Projects.tsx`)
+   ```typescript
+   {
+     id: 7,
+     title: "Your Project Name",
+     description: "Detailed project description",
+     tags: ["React", "TypeScript", "Azure"],
+     image: "https://your-image-url.com/image.jpg",
+     liveUrl: "https://your-live-demo.com",
+     githubUrl: "https://github.com/your-username/repo",
+     category: "Frontend" // or "Backend", "Full-Stack", "AI/ML", "Data", "DevOps"
+   }
+   ```
 
-# Update database
-dotnet ef database update
+3. **Update Skills** (`src/components/About.tsx`)
+   ```typescript
+   { name: "Your Skill", level: 85, icon: <YourIcon /> }
+   ```
 
-# Build for production
-dotnet publish -c Release
+4. **Modify Certifications Timeline**
+   ```typescript
+   {
+     id: 5,
+     date: "2024",
+     title: "Your Certification",
+     description: "Certification description",
+     icon: <YourIcon className="w-6 h-6 text-pink-500" />
+   }
+   ```
+
+### Neural Network Customization
+Edit `src/components/NeuralBackground.tsx`:
+
+```typescript
+// Change number of nodes
+const numNodes = 30; // Default: 25
+
+// Modify colors
+p.stroke(255, 0, 122); // Connection lines (neon pink)
+p.fill(0, 212, 255); // Node color (neon cyan)
+
+// Adjust animation speeds
+node.pulse += 0.03; // Slower pulse (default: 0.05)
+time += 0.01; // Slower line animation (default: 0.02)
 ```
 
-## 📊 Database Setup
+### Theme Customization
+Edit `tailwind.config.js`:
 
-### SQL Server (LocalDB)
-```bash
-# Install SQL Server LocalDB
-# On Windows: Included with Visual Studio
-# On macOS/Linux: Use Docker
-
-# Create database
-sqlcmd -S "(localdb)\MSSQLLocalDB" -Q "CREATE DATABASE PortfolioDB"
-```
-
-### MongoDB
-```bash
-# Install MongoDB
-# On macOS: brew install mongodb-community
-# On Ubuntu: sudo apt install mongodb
-# On Windows: Download from mongodb.com
-
-# Start MongoDB service
-sudo systemctl start mongod
-
-# Or use Docker
-docker run -d -p 27017:27017 --name mongodb mongo:latest
-```
-
-## 🔧 Configuration
-
-### Backend Configuration (appsettings.json)
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=PortfolioDB;Trusted_Connection=true;TrustServerCertificate=true;"
-  },
-  "MongoDB": {
-    "ConnectionString": "mongodb://localhost:27017",
-    "DatabaseName": "PortfolioAnalytics"
-  },
-  "Azure": {
-    "StorageConnectionString": "your_storage_connection_string",
-    "CognitiveServicesKey": "your_cognitive_services_key",
-    "CognitiveServicesEndpoint": "https://your-resource.cognitiveservices.azure.com/"
+```javascript
+theme: {
+  extend: {
+    colors: {
+      'neon-cyan': '#00D4FF',
+      'neon-pink': '#FF007A',
+      'dark-gray': '#1A1A1A',
+      // Add your custom colors
+    },
+    animation: {
+      'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      'glow': 'glow 2s ease-in-out infinite alternate',
+      // Add custom animations
+    }
   }
 }
 ```
 
-### Frontend Configuration (.env)
-```env
-VITE_API_BASE_URL=http://localhost:5000/api
-VITE_AZURE_STORAGE_CONNECTION_STRING=your_storage_connection_string
-VITE_MONGO_URI=mongodb://localhost:27017/PortfolioAnalytics
-VITE_AZURE_COGNITIVE_SERVICES_KEY=your_cognitive_services_key
-VITE_AZURE_BOT_SERVICE_KEY=your_bot_service_key
+## 🎯 Performance Optimizations
+
+### Image Optimization
+1. Replace placeholder images with optimized versions
+2. Use WebP format for better compression
+3. Implement lazy loading for project images
+4. Consider using a CDN for image hosting
+
+### Code Splitting
+The build is already optimized with:
+- Vendor chunk (React, React-DOM)
+- Animations chunk (Framer Motion)
+- Graphics chunk (p5.js, Three.js)
+- AI chunk (TensorFlow.js)
+
+### Bundle Size Optimization
+If the graphics chunk is too large, consider:
+1. Lazy loading the neural network background
+2. Using a simpler animation for mobile
+3. Implementing progressive enhancement
+
+## 🔧 Advanced Customization
+
+### Adding New Sections
+1. Create component in `src/components/`
+2. Import in `App.tsx`
+3. Add to navigation
+4. Style with Tailwind classes
+
+### Custom Animations
+```typescript
+// In your component
+const customVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, delay: 0.2 }
+  }
+};
+
+<motion.div
+  variants={customVariants}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+>
+  Your content
+</motion.div>
+```
+
+### Adding Interactive Features
+```typescript
+// Example: Custom hover effect
+const [isHovered, setIsHovered] = useState(false);
+
+<motion.div
+  onHoverStart={() => setIsHovered(true)}
+  onHoverEnd={() => setIsHovered(false)}
+  animate={{ scale: isHovered ? 1.05 : 1 }}
+  transition={{ duration: 0.3 }}
+>
+  Interactive content
+</motion.div>
+```
+
+## 🎨 Design System
+
+### Color Palette
+- **Primary**: Dark gray (#1A1A1A) / Light gray (#F9FAFB)
+- **Accent Cyan**: #00D4FF
+- **Accent Pink**: #FF007A
+- **Text**: White (#FFFFFF) / Dark gray (#111827)
+
+### Typography
+- **Font**: Inter (Google Fonts)
+- **Weights**: 300, 400, 500, 600, 700, 800, 900
+- **Sizes**: text-xs to text-7xl
+
+### Spacing
+- **Container**: max-w-6xl mx-auto px-6
+- **Section Padding**: py-12
+- **Component Spacing**: gap-4, gap-6, gap-8
+
+## 🚀 Deployment Options
+
+### Vercel (Recommended)
+```bash
+npm i -g vercel
+vercel
+```
+
+### Netlify
+1. Build: `npm run build`
+2. Drag `dist` folder to Netlify
+3. Configure custom domain
+
+### GitHub Pages
+```bash
+npm run build
+# Upload dist folder to gh-pages branch
+```
+
+## 🔍 SEO Optimization
+
+### Meta Tags
+Update `index.html`:
+```html
+<meta name="description" content="Nicolette Mashaba - Full-Stack Developer Portfolio">
+<meta name="keywords" content="React, TypeScript, Azure, Full-Stack, Developer">
+<meta property="og:title" content="Nicolette Mashaba - Portfolio">
+<meta property="og:description" content="Full-Stack Developer Portfolio">
+```
+
+### Structured Data
+Add to `index.html`:
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Nicolette Mashaba",
+  "jobTitle": "Full-Stack Developer",
+  "url": "https://your-domain.com"
+}
+</script>
 ```
 
 ## 🧪 Testing
 
-### Frontend Tests
+### Manual Testing Checklist
+- [ ] Dark/light mode toggle works
+- [ ] Neural network background animates
+- [ ] Project filtering works
+- [ ] Mobile menu opens/closes
+- [ ] All links work correctly
+- [ ] Form validation works
+- [ ] Chatbot opens/closes
+- [ ] Scroll to top button works
+
+### Performance Testing
 ```bash
-# Run unit tests
-npm run test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Run E2E tests (if configured)
-npm run test:e2e
+# Lighthouse audit
+npm install -g lighthouse
+lighthouse http://localhost:5173 --output html
 ```
 
-### Backend Tests
-```bash
-# Run all tests
-dotnet test
+## 🎯 Next Steps
 
-# Run specific test project
-dotnet test portfolio-backend.Tests
+1. **Add Real Content**
+   - Replace placeholder images
+   - Add actual project screenshots
+   - Update with real certifications
+   - Add personal bio
 
-# Run with coverage
-dotnet test --collect:"XPlat Code Coverage"
-```
+2. **Enhance Functionality**
+   - Implement real chatbot with AI
+   - Add blog section
+   - Create project detail pages
+   - Add contact form backend
 
-## 🔍 Debugging
+3. **Performance Optimization**
+   - Implement image optimization
+   - Add service worker for caching
+   - Optimize neural network for mobile
+   - Add loading states
 
-### Frontend Debugging
-1. Open browser developer tools
-2. Check Console for errors
-3. Use React Developer Tools extension
-4. Check Network tab for API calls
-
-### Backend Debugging
-1. Use Visual Studio or VS Code
-2. Set breakpoints in controllers
-3. Check application logs
-4. Use Swagger UI for API testing
-
-## 📱 Features to Test
-
-### 1. Portfolio Sections
-- [ ] Hero section with particle effects
-- [ ] Skills section with progress bars
-- [ ] Projects section with filtering
-- [ ] About section with timeline
-- [ ] Contact section with form
-
-### 2. AI Features
-- [ ] Chatbot in bottom-right corner
-- [ ] Sentiment analysis on contact form
-- [ ] Project recommendations
-- [ ] TensorFlow.js integration
-
-### 3. Backend APIs
-- [ ] Projects CRUD operations
-- [ ] Contact form submission
-- [ ] Resume PDF generation
-- [ ] Analytics tracking
-
-### 4. Responsive Design
-- [ ] Mobile layout (375px)
-- [ ] Tablet layout (768px)
-- [ ] Desktop layout (1440px)
-
-## 🚨 Common Issues
-
-### Frontend Issues
-1. **Port already in use**
-   ```bash
-   # Kill process on port 5173
-   lsof -ti:5173 | xargs kill -9
-   ```
-
-2. **Dependencies not found**
-   ```bash
-   # Clear npm cache
-   npm cache clean --force
-   # Reinstall dependencies
-   rm -rf node_modules package-lock.json
-   npm install
-   ```
-
-3. **TypeScript errors**
-   ```bash
-   # Check TypeScript configuration
-   npx tsc --noEmit
-   ```
-
-### Backend Issues
-1. **Database connection failed**
-   - Verify SQL Server is running
-   - Check connection string
-   - Ensure database exists
-
-2. **MongoDB connection failed**
-   - Verify MongoDB is running
-   - Check connection string
-   - Ensure collections exist
-
-3. **Azure services not working**
-   - Verify API keys are correct
-   - Check service endpoints
-   - Ensure services are enabled
-
-## 📈 Performance Tips
-
-### Frontend Optimization
-1. Use React.memo for expensive components
-2. Implement lazy loading for images
-3. Optimize bundle size with code splitting
-4. Use service worker for caching
-
-### Backend Optimization
-1. Enable response compression
-2. Implement caching strategies
-3. Optimize database queries
-4. Use async/await properly
-
-## 🔒 Security Considerations
-
-### Development
-1. Never commit sensitive data
-2. Use environment variables
-3. Validate all inputs
-4. Implement proper CORS
-
-### Production
-1. Use HTTPS only
-2. Implement rate limiting
-3. Add authentication
-4. Regular security updates
-
-## 📚 Additional Resources
-
-- [React Documentation](https://react.dev/)
-- [ASP.NET Core Documentation](https://docs.microsoft.com/en-us/aspnet/core/)
-- [Azure Documentation](https://docs.microsoft.com/en-us/azure/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [Framer Motion Documentation](https://www.framer.com/motion/)
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📞 Support
-
-For local development issues:
-- Check the troubleshooting section
-- Review application logs
-- Search existing issues
-- Create a new issue with details
+4. **Analytics Integration**
+   - Google Analytics 4
+   - Microsoft Clarity
+   - Custom event tracking
 
 ---
 
-**Happy Coding! 🚀** 
+**Your AI-powered portfolio is ready to showcase your skills! 🚀** 

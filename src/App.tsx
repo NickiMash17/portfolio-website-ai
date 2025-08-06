@@ -5,58 +5,374 @@ import About from './components/About';
 import Projects from './components/Projects';
 import Resume from './components/Resume';
 import Contact from './components/Contact';
-import { ChevronUp } from 'lucide-react';
+import Chatbot from './components/Chatbot';
+import NeuralBackground from './components/NeuralBackground';
+import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Sparkles, Github, Linkedin, Twitter, Mail as MailIcon, Heart, Zap } from 'lucide-react';
+import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 
-const App: React.FC = () => {
+const Navigation: React.FC = () => {
+  const { isDark } = useTheme();
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [activeSection, setActiveSection] = React.useState('home');
+
+  const navItems = [
+    { href: '#home', label: 'Home', icon: <Home className="w-4 h-4" /> },
+    { href: '#about', label: 'About', icon: <User className="w-4 h-4" /> },
+    { href: '#projects', label: 'Projects', icon: <Briefcase className="w-4 h-4" /> },
+    { href: '#resume', label: 'Resume', icon: <FileText className="w-4 h-4" /> },
+    { href: '#contact', label: 'Contact', icon: <Mail className="w-4 h-4" /> }
+  ];
+
+  // Track active section on scroll
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const sections = navItems.map(item => item.href.substring(1));
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <motion.nav
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="fixed top-0 left-0 right-0 z-50 bg-gray-900/90 backdrop-blur-xl border-b border-gray-800/50 shadow-2xl"
+    >
+      <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          {/* Enhanced Logo */}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center gap-3"
+          >
+            <div className="relative">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 rounded-xl flex items-center justify-center shadow-lg">
+                <Sparkles className="w-5 h-5 text-white" />
+              </div>
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full animate-pulse" />
+            </div>
+            <div>
+              <div className="text-xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 bg-clip-text text-transparent">
+                Nicolette
+              </div>
+              <div className="text-xs text-gray-400 font-medium">
+                Full-Stack Developer
+              </div>
+            </div>
+          </motion.div>
+          
+          {/* Enhanced Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-1">
+            {navItems.map((link, index) => {
+              const isActive = activeSection === link.href.substring(1);
+              return (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`relative px-4 py-2 rounded-lg font-medium transition-all duration-300 group ${
+                    isActive
+                      ? 'text-white bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 shadow-lg'
+                      : 'text-gray-300 hover:text-blue-400'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className={`transition-colors duration-300 ${
+                      isActive ? 'text-white' : 'text-gray-400 group-hover:text-blue-400'
+                    }`}>
+                      {link.icon}
+                    </span>
+                    {link.label}
+                  </div>
+                  
+                  {/* Active indicator */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeIndicator"
+                      className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 rounded-lg -z-10"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  )}
+                  
+                  {/* Hover effect */}
+                  {!isActive && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-purple-500/10 to-emerald-400/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  )}
+                </motion.a>
+              );
+            })}
+          </div>
+
+          {/* Enhanced Mobile Menu Button */}
+          <motion.button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="lg:hidden w-12 h-12 bg-gradient-to-r from-blue-400/20 via-purple-500/20 to-emerald-400/20 backdrop-blur-sm rounded-xl border border-gray-700/50 flex items-center justify-center text-white shadow-lg"
+            aria-label="Toggle menu"
+          >
+            <motion.div
+              animate={isMenuOpen ? { rotate: 180 } : { rotate: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </motion.div>
+          </motion.button>
+        </div>
+
+        {/* Enhanced Mobile Navigation */}
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0, y: -20 }}
+            animate={{ opacity: 1, height: 'auto', y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden mt-4 pb-4"
+          >
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-4">
+              <div className="flex flex-col gap-2">
+                {navItems.map((link, index) => {
+                  const isActive = activeSection === link.href.substring(1);
+                  return (
+                    <motion.a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+                        isActive
+                          ? 'text-white bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 shadow-lg'
+                          : 'text-gray-300 hover:text-blue-400 hover:bg-gray-700/50'
+                      }`}
+                    >
+                      <span className={`transition-colors duration-300 ${
+                        isActive ? 'text-white' : 'text-gray-400'
+                      }`}>
+                        {link.icon}
+                      </span>
+                      {link.label}
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </motion.nav>
+  );
+};
+
+const Footer: React.FC = () => {
+  const { isDark } = useTheme();
+  
+  const socialLinks = [
+    { name: 'GitHub', icon: <Github className="w-5 h-5" />, url: 'https://github.com/nicolettemashaba' },
+    { name: 'LinkedIn', icon: <Linkedin className="w-5 h-5" />, url: 'https://linkedin.com/in/nicolettemashaba' },
+    { name: 'Twitter', icon: <Twitter className="w-5 h-5" />, url: 'https://twitter.com/nicolettemashaba' },
+    { name: 'Email', icon: <MailIcon className="w-5 h-5" />, url: 'mailto:hello@nicolettemashaba.dev' }
+  ];
+
+  return (
+    <footer className="relative bg-gray-900 overflow-hidden">
+      {/* Neural Network Background */}
+      <div className="absolute inset-0 z-0">
+        <NeuralBackground />
+      </div>
+      
+      {/* Enhanced Gradient Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900/40 via-transparent to-gray-900/40 z-5" />
+      
+      {/* Premium Mesh Gradient */}
+      <div className="absolute inset-0 z-5 opacity-20">
+        <div className="absolute inset-0 bg-gradient-radial from-blue-500/30 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-radial from-purple-500/25 via-transparent to-transparent" style={{ transform: 'translate(70%, 30%)' }} />
+        <div className="absolute inset-0 bg-gradient-radial from-emerald-500/25 via-transparent to-transparent" style={{ transform: 'translate(-30%, 70%)' }} />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Brand Section */}
+          <div className="md:col-span-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 rounded-xl flex items-center justify-center shadow-lg">
+                    <Sparkles className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full animate-pulse" />
+                </div>
+                <div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 bg-clip-text text-transparent">
+                    Nicolette
+                  </div>
+                  <div className="text-sm text-gray-400 font-medium">
+                    Full-Stack Developer
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-gray-300 text-lg leading-relaxed max-w-md">
+                Passionate about creating innovative solutions with cutting-edge technologies. 
+                Specializing in AI, cloud computing, and full-stack development.
+              </p>
+
+              {/* Social Links */}
+              <div className="flex items-center gap-4">
+                {socialLinks.map((social, index) => (
+                  <motion.a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-12 h-12 bg-gradient-to-r from-blue-400/20 via-purple-500/20 to-emerald-400/20 backdrop-blur-sm rounded-xl border border-gray-700/50 flex items-center justify-center text-gray-300 hover:text-blue-400 transition-all duration-300 shadow-lg hover:shadow-blue-400/25"
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-lg font-semibold text-white mb-6"
+            >
+              Quick Links
+            </motion.h3>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="space-y-3"
+            >
+              {['About', 'Projects', 'Resume', 'Contact'].map((link, index) => (
+                <motion.a
+                  key={link}
+                  href={`#${link.toLowerCase()}`}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ x: 5 }}
+                  className="block text-gray-300 hover:text-blue-400 transition-colors duration-300"
+                >
+                  {link}
+                </motion.a>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="text-lg font-semibold text-white mb-6"
+            >
+              Get In Touch
+            </motion.h3>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="space-y-3"
+            >
+              <div className="flex items-center gap-3 text-gray-300">
+                <MailIcon className="w-5 h-5 text-blue-400" />
+                <span>hello@nicolettemashaba.dev</span>
+              </div>
+              <div className="flex items-center gap-3 text-gray-300">
+                <Zap className="w-5 h-5 text-purple-400" />
+                <span>Available for new opportunities</span>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
+          className="mt-12 pt-8 border-t border-gray-700/50"
+        >
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-gray-400 text-sm">
+              <span>© 2024 Nicolette Mashaba. Made with</span>
+              <Heart className="w-4 h-4 text-red-400 animate-pulse" />
+              <span>and lots of</span>
+              <Zap className="w-4 h-4 text-emerald-400" />
+            </div>
+            
+            <div className="flex items-center gap-6 text-sm">
+              <a href="#privacy" className="text-gray-400 hover:text-blue-400 transition-colors duration-300">
+                Privacy Policy
+              </a>
+              <a href="#terms" className="text-gray-400 hover:text-blue-400 transition-colors duration-300">
+                Terms of Service
+              </a>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </footer>
+  );
+};
+
+const AppContent: React.FC = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 font-inter">
-      {/* Navigation */}
-      <motion.nav
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800"
-      >
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="text-2xl font-bold text-white"
-            >
-              Nicolette
-            </motion.div>
-            
-            <div className="hidden md:flex items-center gap-8">
-              {[
-                { href: '#about', label: 'About' },
-                { href: '#projects', label: 'Projects' },
-                { href: '#resume', label: 'Resume' },
-                { href: '#contact', label: 'Contact' }
-              ].map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="text-gray-300 hover:text-cyan-400 transition-colors duration-300 font-medium"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-2 bg-gradient-to-r from-cyan-400 to-pink-500 text-gray-900 rounded-full font-semibold hover:from-pink-500 hover:to-cyan-400 transition-all duration-300"
-            >
-              Get Started
-            </motion.button>
-          </div>
-        </div>
-      </motion.nav>
+    <div className="min-h-screen bg-gray-900 font-inter transition-colors duration-300">
+      <Navigation />
 
       {/* Main Content */}
       <main>
@@ -67,7 +383,13 @@ const App: React.FC = () => {
         <Contact />
       </main>
 
-      {/* Scroll to Top Button */}
+      {/* Magical Footer */}
+      <Footer />
+
+      {/* AI Assistant */}
+      <Chatbot />
+
+      {/* Enhanced Scroll to Top Button */}
       <motion.button
         onClick={scrollToTop}
         initial={{ opacity: 0, scale: 0 }}
@@ -75,33 +397,20 @@ const App: React.FC = () => {
         transition={{ duration: 0.5, delay: 1 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-6 left-6 z-40 w-12 h-12 bg-cyan-400 rounded-full flex items-center justify-center shadow-lg shadow-cyan-400/50 hover:shadow-cyan-400/75 transition-all duration-300"
+        className="fixed bottom-8 left-8 z-40 w-12 h-12 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 text-white rounded-full shadow-2xl hover:shadow-blue-400/50 transition-all duration-300 backdrop-blur-sm border border-white/20"
+        aria-label="Scroll to top"
       >
-        <ChevronUp className="w-6 h-6 text-gray-900" />
+        <ChevronUp className="w-6 h-6 mx-auto" />
       </motion.button>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 py-8 border-t border-gray-700">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="text-gray-300 text-sm mb-4 md:mb-0">
-              © 2024 Nicolette Mashaba. All rights reserved.
-            </div>
-            <div className="flex items-center gap-6 text-sm">
-              <a href="#privacy" className="text-gray-300 hover:text-cyan-400 transition-colors duration-300">
-                Privacy Policy
-              </a>
-              <a href="#terms" className="text-gray-300 hover:text-cyan-400 transition-colors duration-300">
-                Terms of Service
-              </a>
-              <a href="#contact" className="text-gray-300 hover:text-cyan-400 transition-colors duration-300">
-                Contact
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 };
 
