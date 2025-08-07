@@ -9,13 +9,13 @@ public class ResumeController : ControllerBase
 {
     private readonly IResumeGenerationService _resumeService;
     private readonly ILogger<ResumeController> _logger;
-    
+
     public ResumeController(IResumeGenerationService resumeService, ILogger<ResumeController> logger)
     {
         _resumeService = resumeService;
         _logger = logger;
     }
-    
+
     /// <summary>
     /// Get available resume templates
     /// </summary>
@@ -47,11 +47,11 @@ public class ResumeController : ControllerBase
             {
                 return BadRequest(ModelState);
             }
-            
+
             var pdfBytes = await _resumeService.GenerateResumeAsync(request.TemplateType, request.Data ?? new());
-            
+
             _logger.LogInformation("Generated resume for template: {TemplateType}", request.TemplateType);
-            
+
             return File(pdfBytes, "application/pdf", $"resume_{request.TemplateType}_{DateTime.UtcNow:yyyyMMdd}.pdf");
         }
         catch (ArgumentException ex)
@@ -65,7 +65,7 @@ public class ResumeController : ControllerBase
             return StatusCode(500, new { error = "Failed to generate resume" });
         }
     }
-    
+
     /// <summary>
     /// Generate a resume with custom data
     /// </summary>

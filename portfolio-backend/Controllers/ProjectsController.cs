@@ -13,13 +13,13 @@ public class ProjectsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
     private readonly ILogger<ProjectsController> _logger;
-    
+
     public ProjectsController(ApplicationDbContext context, ILogger<ProjectsController> logger)
     {
         _context = context;
         _logger = logger;
     }
-    
+
     /// <summary>
     /// Get all active projects
     /// </summary>
@@ -32,7 +32,7 @@ public class ProjectsController : ControllerBase
                 .Where(p => p.IsActive)
                 .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
-            
+
             _logger.LogInformation("Retrieved {Count} projects", projects.Count);
             
             return Ok(projects);
@@ -43,7 +43,7 @@ public class ProjectsController : ControllerBase
             return StatusCode(500, new { error = "Failed to retrieve projects" });
         }
     }
-    
+
     /// <summary>
     /// Get a specific project by ID
     /// </summary>
@@ -54,12 +54,12 @@ public class ProjectsController : ControllerBase
         {
             var project = await _context.Projects
                 .FirstOrDefaultAsync(p => p.Id == id && p.IsActive);
-            
+
             if (project == null)
             {
                 return NotFound(new { error = "Project not found" });
             }
-            
+
             return Ok(project);
         }
         catch (Exception ex)
@@ -82,7 +82,7 @@ public class ProjectsController : ControllerBase
             {
                 return BadRequest(ModelState);
             }
-            
+
             var project = new Project
             {
                 Title = request.Title,
@@ -94,12 +94,12 @@ public class ProjectsController : ControllerBase
                 CreatedAt = DateTime.UtcNow,
                 IsActive = true
             };
-            
+
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
-            
+
             _logger.LogInformation("Created project: {Title}", project.Title);
-            
+
             return CreatedAtAction(nameof(GetProject), new { id = project.Id }, project);
         }
         catch (Exception ex)
@@ -108,7 +108,7 @@ public class ProjectsController : ControllerBase
             return StatusCode(500, new { error = "Failed to create project" });
         }
     }
-    
+
     /// <summary>
     /// Update an existing project (admin only)
     /// </summary>
@@ -124,7 +124,7 @@ public class ProjectsController : ControllerBase
             {
                 return NotFound(new { error = "Project not found" });
             }
-            
+
             project.Title = request.Title ?? project.Title;
             project.Description = request.Description ?? project.Description;
             project.Tags = request.Tags ?? project.Tags;
@@ -132,9 +132,9 @@ public class ProjectsController : ControllerBase
             project.DemoUrl = request.DemoUrl ?? project.DemoUrl;
             project.GitHubUrl = request.GitHubUrl ?? project.GitHubUrl;
             project.UpdatedAt = DateTime.UtcNow;
-            
+
             await _context.SaveChangesAsync();
-            
+
             _logger.LogInformation("Updated project: {Title}", project.Title);
             
             return Ok(project);
@@ -145,7 +145,7 @@ public class ProjectsController : ControllerBase
             return StatusCode(500, new { error = "Failed to update project" });
         }
     }
-    
+
     /// <summary>
     /// Delete a project (admin only)
     /// </summary>
@@ -161,13 +161,13 @@ public class ProjectsController : ControllerBase
             {
                 return NotFound(new { error = "Project not found" });
             }
-            
+
             // Soft delete - mark as inactive
             project.IsActive = false;
             project.UpdatedAt = DateTime.UtcNow;
             
             await _context.SaveChangesAsync();
-            
+
             _logger.LogInformation("Deleted project: {Title}", project.Title);
             
             return Ok(new { message = "Project deleted successfully" });

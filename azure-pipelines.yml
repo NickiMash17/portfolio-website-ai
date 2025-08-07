@@ -1,5 +1,5 @@
 trigger:
-  - main
+    - main
 
 variables:
   solution: 'portfolio-backend/PortfolioBackend.csproj'
@@ -119,7 +119,7 @@ stages:
                 -Cors__AllowedOrigins__1 "https://$(AZURE_WEBAPP_NAME).azurewebsites.net"
                 -ASPNETCORE_ENVIRONMENT "Production"
                 -ASPNETCORE_URLS "http://+:80;https://+:443"
-
+    
   - deployment: DeployFrontend
     displayName: 'Deploy Frontend to Azure Static Web Apps'
     environment: 'production'

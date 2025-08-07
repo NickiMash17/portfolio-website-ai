@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import p5 from 'p5';
 
 interface Node {
@@ -24,54 +24,63 @@ interface Connection {
 const NeuralBackground: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const sketchRef = useRef<p5 | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    if (!canvasRef.current) return;
+    if (!canvasRef.current || isInitialized) return;
 
     // Clean up previous sketch
     if (sketchRef.current) {
-      sketchRef.current.remove();
+      try {
+        sketchRef.current.remove();
+      } catch (error) {
+        console.error('Error removing previous sketch:', error);
+      }
     }
 
     const sketch = (p: p5) => {
       let nodes: Node[] = [];
       let connections: Connection[] = [];
-      let width: number;
-      let height: number;
+      let width: number = 800;
+      let height: number = 600;
       let canvas: p5.Element | null = null;
+      let isSetup = false;
 
       p.setup = () => {
         try {
-          width = window.innerWidth;
-          height = window.innerHeight;
+          // Get safe dimensions
+          width = Math.max(window.innerWidth, 800);
+          height = Math.max(window.innerHeight, 600);
+          
+          // Create canvas with safe dimensions
           canvas = p.createCanvas(width, height);
           
-          if (canvasRef.current) {
+          if (canvasRef.current && canvas) {
             canvas.parent(canvasRef.current);
           }
           
-          p.frameRate(60);
+          p.frameRate(30); // Reduced frame rate for better performance
           
-          // Initialize neural network layers
+          // Initialize neural network layers with safe positioning
           const layers = [
-            { count: 6, x: width * 0.15, type: 'input' as const },
-            { count: 10, x: width * 0.35, type: 'hidden' as const },
-            { count: 12, x: width * 0.55, type: 'hidden' as const },
-            { count: 8, x: width * 0.75, type: 'hidden' as const },
-            { count: 4, x: width * 0.9, type: 'output' as const }
+            { count: 4, x: width * 0.15, type: 'input' as const },
+            { count: 6, x: width * 0.35, type: 'hidden' as const },
+            { count: 8, x: width * 0.55, type: 'hidden' as const },
+            { count: 6, x: width * 0.75, type: 'hidden' as const },
+            { count: 3, x: width * 0.9, type: 'output' as const }
           ];
 
           // Create nodes for each layer
-          layers.forEach((layer, layerIndex) => {
+          layers.forEach((layer) => {
             for (let i = 0; i < layer.count; i++) {
-              const y = height * 0.2 + (height * 0.6 * i) / (layer.count - 1);
-              const randomOffset = p.random(-20, 20);
+              const y = height * 0.2 + (height * 0.6 * i) / Math.max(layer.count - 1, 1);
+              const randomOffset = p.random(-15, 15);
               
               nodes.push({
                 x: layer.x + randomOffset,
                 y: y + randomOffset,
-                vx: p.random(-0.5, 0.5),
-                vy: p.random(-0.5, 0.5),
+                vx: p.random(-0.3, 0.3),
+                vy: p.random(-0.3, 0.3),
                 type: layer.type,
                 rotation: p.random(p.TWO_PI),
                 glowIntensity: p.random(0.3, 1),
@@ -97,7 +106,7 @@ const NeuralBackground: React.FC = () => {
 
             // Connect each node in current layer to multiple nodes in next layer
             currentLayerNodes.forEach(fromNode => {
-              const connectionCount = p.random(2, 4);
+              const connectionCount = Math.min(p.random(1, 3), nextLayerNodes.length);
               for (let i = 0; i < connectionCount; i++) {
                 const toNode = p.random(nextLayerNodes);
                 if (toNode && fromNode !== toNode) {
@@ -112,6 +121,8 @@ const NeuralBackground: React.FC = () => {
               }
             });
           }
+          
+          isSetup = true;
         } catch (error) {
           console.error('Error in p5 setup:', error);
         }
@@ -119,24 +130,27 @@ const NeuralBackground: React.FC = () => {
 
       p.draw = () => {
         try {
-          if (!canvas) return;
+          if (!isSetup || !canvas) return;
           
+          // Clear with safe background
           p.clear();
           p.background(26, 26, 26, 10);
 
           // Update and draw connections
           connections.forEach(connection => {
-            connection.pulsePosition += 0.02;
+            if (!connection.from || !connection.to) return;
+            
+            connection.pulsePosition += 0.01;
             if (connection.pulsePosition > 1) {
               connection.pulsePosition = 0;
             }
 
             const pulseAlpha = p.sin(connection.pulsePosition * p.PI) * 0.5 + 0.5;
             const weight = connection.weight;
-            const strokeWeight = p.abs(weight) * 2 + 0.5;
+            const strokeWeight = p.abs(weight) * 1.5 + 0.5;
             const strokeColor = weight > 0 ? 
-              p.color(52, 211, 153, pulseAlpha * 100) : 
-              p.color(248, 113, 113, pulseAlpha * 100);
+              p.color(52, 211, 153, pulseAlpha * 80) : 
+              p.color(248, 113, 113, pulseAlpha * 80);
 
             p.stroke(strokeColor);
             p.strokeWeight(strokeWeight);
@@ -145,21 +159,24 @@ const NeuralBackground: React.FC = () => {
 
           // Update and draw nodes
           nodes.forEach(node => {
-            // Update node position
+            if (!node) return;
+            
+            // Update node position with bounds checking
             node.x += node.vx;
             node.y += node.vy;
 
-            // Bounce off edges
-            if (node.x < 50 || node.x > width - 50) node.vx *= -1;
-            if (node.y < 50 || node.y > height - 50) node.vy *= -1;
+            // Bounce off edges with safe margins
+            const margin = 50;
+            if (node.x < margin || node.x > width - margin) node.vx *= -0.8;
+            if (node.y < margin || node.y > height - margin) node.vy *= -0.8;
 
             // Keep nodes within bounds
-            node.x = p.constrain(node.x, 50, width - 50);
-            node.y = p.constrain(node.y, 50, height - 50);
+            node.x = p.constrain(node.x, margin, width - margin);
+            node.y = p.constrain(node.y, margin, height - margin);
 
             // Update rotation and activity
-            node.rotation += 0.02;
-            node.activity = p.sin(p.frameCount * 0.05 + node.x * 0.01) * 0.3 + 0.7;
+            node.rotation += 0.01;
+            node.activity = p.sin(p.frameCount * 0.03 + node.x * 0.01) * 0.3 + 0.7;
 
             // Draw node
             p.push();
@@ -167,8 +184,8 @@ const NeuralBackground: React.FC = () => {
             p.rotate(node.rotation);
 
             // Node glow effect
-            const glowSize = 20 + node.activity * 10;
-            const glowAlpha = node.activity * 50;
+            const glowSize = 15 + node.activity * 8;
+            const glowAlpha = node.activity * 40;
             
             // Input nodes (cyan)
             if (node.type === 'input') {
@@ -176,7 +193,7 @@ const NeuralBackground: React.FC = () => {
               p.noStroke();
               p.ellipse(0, 0, glowSize);
               p.fill(0, 212, 255);
-              p.ellipse(0, 0, 8);
+              p.ellipse(0, 0, 6);
             }
             // Output nodes (pink)
             else if (node.type === 'output') {
@@ -184,7 +201,7 @@ const NeuralBackground: React.FC = () => {
               p.noStroke();
               p.ellipse(0, 0, glowSize);
               p.fill(255, 0, 122);
-              p.ellipse(0, 0, 8);
+              p.ellipse(0, 0, 6);
             }
             // Hidden nodes (purple)
             else {
@@ -192,7 +209,7 @@ const NeuralBackground: React.FC = () => {
               p.noStroke();
               p.ellipse(0, 0, glowSize);
               p.fill(168, 85, 247);
-              p.ellipse(0, 0, 6);
+              p.ellipse(0, 0, 5);
             }
 
             p.pop();
@@ -204,9 +221,16 @@ const NeuralBackground: React.FC = () => {
 
       p.windowResized = () => {
         try {
-          width = window.innerWidth;
-          height = window.innerHeight;
-          p.resizeCanvas(width, height);
+          if (!isSetup) return;
+          
+          const newWidth = Math.max(window.innerWidth, 800);
+          const newHeight = Math.max(window.innerHeight, 600);
+          
+          if (newWidth !== width || newHeight !== height) {
+            width = newWidth;
+            height = newHeight;
+            p.resizeCanvas(width, height);
+          }
         } catch (error) {
           console.error('Error in p5 windowResized:', error);
         }
@@ -215,6 +239,7 @@ const NeuralBackground: React.FC = () => {
 
     try {
       sketchRef.current = new p5(sketch);
+      setIsInitialized(true);
     } catch (error) {
       console.error('Error creating p5 sketch:', error);
     }
@@ -227,8 +252,9 @@ const NeuralBackground: React.FC = () => {
           console.error('Error removing p5 sketch:', error);
         }
       }
+      setIsInitialized(false);
     };
-  }, []);
+  }, [isInitialized]);
 
   return (
     <div 

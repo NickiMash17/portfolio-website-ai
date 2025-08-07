@@ -8,14 +8,14 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
-    
+
     public DbSet<Project> Projects { get; set; }
     public DbSet<ResumeTemplate> ResumeTemplates { get; set; }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        
+
         // Configure Project entity
         modelBuilder.Entity<Project>(entity =>
         {
@@ -33,7 +33,7 @@ public class ApplicationDbContext : DbContext
                     v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
                 );
         });
-        
+
         // Configure ResumeTemplate entity
         modelBuilder.Entity<ResumeTemplate>(entity =>
         {
@@ -45,11 +45,11 @@ public class ApplicationDbContext : DbContext
             // Add index for active templates
             entity.HasIndex(e => new { e.Type, e.IsActive });
         });
-        
+
         // Seed sample data
         SeedData(modelBuilder);
     }
-    
+
     private void SeedData(ModelBuilder modelBuilder)
     {
         // Seed Projects

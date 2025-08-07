@@ -7,6 +7,7 @@ export default defineConfig({
   base: './',
   define: {
     __DEFINES__: '{}',
+    __BASE__: '"/"',
     global: 'globalThis',
   },
   server: {
