@@ -2,8 +2,7 @@
   "routes": [
     {
       "route": "/*",
-      "serve": "/index.html",
-      "statusCode": 200
+      "rewrite": "/index.html"
     }
   ],
   "navigationFallback": {
@@ -12,8 +11,7 @@
   },
   "responseOverrides": {
     "404": {
-      "rewrite": "/index.html",
-      "statusCode": 200
+      "rewrite": "/index.html"
     }
   },
   "globalHeaders": {
