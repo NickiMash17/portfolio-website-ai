@@ -4,6 +4,7 @@ using PortfolioBackend.Data;
 using PortfolioBackend.Models.Mongo;
 using PortfolioBackend.Services;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PortfolioBackend.Controllers;
 

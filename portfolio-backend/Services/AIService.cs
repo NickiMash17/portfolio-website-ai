@@ -35,11 +35,11 @@ public class AIService : IAIService
 
             return new SentimentAnalysisResult
             {
-                Sentiment = documentSentiment.DocumentSentiment.ToString(),
-                ConfidenceScore = documentSentiment.DocumentSentiment.ConfidenceScore,
-                PositiveScore = documentSentiment.DocumentSentiment.ConfidenceScores.Positive,
-                NeutralScore = documentSentiment.DocumentSentiment.ConfidenceScores.Neutral,
-                NegativeScore = documentSentiment.DocumentSentiment.ConfidenceScores.Negative
+                Sentiment = documentSentiment.Sentiment.ToString(),
+                ConfidenceScore = (float)documentSentiment.ConfidenceScores.Positive,
+                PositiveScore = (float)documentSentiment.ConfidenceScores.Positive,
+                NeutralScore = (float)documentSentiment.ConfidenceScores.Neutral,
+                NegativeScore = (float)documentSentiment.ConfidenceScores.Negative
             };
         }
         catch (Exception ex)
@@ -75,7 +75,7 @@ public class AIService : IAIService
         try
         {
             var response = await _textAnalyticsClient.DetectLanguageAsync(text);
-            return response.Value.DetectedLanguage.Name;
+            return response.Value.Name;
         }
         catch (Exception ex)
         {

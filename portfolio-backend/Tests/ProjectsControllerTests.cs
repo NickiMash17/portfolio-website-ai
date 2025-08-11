@@ -205,7 +205,7 @@ public class ProjectsControllerTests
         
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
-        var message = Assert.IsType<Anonymous>(okResult.Value);
+        var message = Assert.IsType<DeleteResponse>(okResult.Value);
         Assert.Equal("Project deleted successfully", message.message);
         
         // Verify soft delete
@@ -215,7 +215,7 @@ public class ProjectsControllerTests
 }
 
 // Helper class for anonymous objects
-public class Anonymous
+public class DeleteResponse
 {
     public string message { get; set; } = string.Empty;
 } 

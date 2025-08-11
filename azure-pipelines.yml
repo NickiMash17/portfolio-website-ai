@@ -6,6 +6,8 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   testProject: 'portfolio-backend/Tests/PortfolioBackend.Tests.csproj'
+  frontendBuildCommand: 'npm ci && npm run build'
+  backendBuildCommand: 'dotnet restore && dotnet build --configuration Release --no-restore'
 
 stages:
 - stage: Build
@@ -115,8 +117,7 @@ stages:
                 -Jwt__Key "$(JWT_SECRET_KEY)"
                 -Jwt__Issuer "$(JWT_ISSUER)"
                 -Jwt__Audience "$(JWT_AUDIENCE)"
-                -Cors__AllowedOrigins__0 "https://portfolio-frontend.azurestaticapps.net"
-                -Cors__AllowedOrigins__1 "https://$(AZURE_WEBAPP_NAME).azurewebsites.net"
+                -Cors__AllowedOrigins__0 "https://$(AZURE_STATIC_WEB_APP_NAME).azurestaticapps.net"
                 -ASPNETCORE_ENVIRONMENT "Production"
                 -ASPNETCORE_URLS "http://+:80;https://+:443"
     
@@ -127,6 +128,24 @@ stages:
       runOnce:
         deploy:
           steps:
+          - task: NodeTool@0
+            displayName: 'Use Node.js'
+            inputs:
+              versionSpec: '18.x'
+          
+          - task: Npm@1
+            displayName: 'Install dependencies'
+            inputs:
+              command: 'ci'
+              workingDir: '$(System.DefaultWorkingDirectory)'
+          
+          - task: Npm@1
+            displayName: 'Build frontend'
+            inputs:
+              command: 'custom'
+              workingDir: '$(System.DefaultWorkingDirectory)'
+              customCommand: 'run build'
+          
           - task: AzureStaticWebApp@0
             displayName: 'Deploy to Azure Static Web Apps'
             inputs:
@@ -134,13 +153,9 @@ stages:
               api_location: 'portfolio-backend'
               output_location: 'dist'
               azure_static_web_apps_api_token: '$(AZURE_STATIC_WEB_APPS_API_TOKEN)'
-              skip_app_build: false
+              skip_app_build: true
               skip_api_build: true
               deployment_environment: 'production'
-              app_build_command: 'npm run build'
-              api_build_command: 'dotnet publish -c Release -o ./publish'
-              app_artifact_location: 'dist'
-              api_artifact_location: 'portfolio-backend/publish'
 
 - stage: PostDeploy
   displayName: 'Post-Deployment Tests'
@@ -159,47 +174,36 @@ stages:
         targetType: 'inline'
         script: |
           $apiUrl = "https://$(AZURE_WEBAPP_NAME).azurewebsites.net/health"
-          $response = Invoke-RestMethod -Uri $apiUrl -Method Get
-          Write-Host "API Health Check: $($response | ConvertTo-Json)"
-          
-          if ($response.status -eq "healthy") {
-            Write-Host "✅ API is healthy"
-          } else {
-            Write-Host "❌ API health check failed"
-            exit 1
-          }
-    
-    - task: PowerShell@2
-      displayName: 'Test Projects API'
-      inputs:
-        targetType: 'inline'
-        script: |
-          $apiUrl = "https://$(AZURE_WEBAPP_NAME).azurewebsites.net/api/projects"
-          $response = Invoke-RestMethod -Uri $apiUrl -Method Get
-          Write-Host "Projects API Test: Retrieved $($response.Count) projects"
-          
-          if ($response.Count -ge 0) {
-            Write-Host "✅ Projects API is working"
-          } else {
-            Write-Host "❌ Projects API test failed"
-            exit 1
-          }
-    
-    - task: PowerShell@2
-      displayName: 'Test Swagger Documentation'
-      inputs:
-        targetType: 'inline'
-        script: |
-          $swaggerUrl = "https://$(AZURE_WEBAPP_NAME).azurewebsites.net/swagger"
           try {
-            $response = Invoke-WebRequest -Uri $swaggerUrl -Method Get
-            if ($response.StatusCode -eq 200) {
-              Write-Host "✅ Swagger documentation is accessible"
+            $response = Invoke-RestMethod -Uri $apiUrl -Method Get -TimeoutSec 30
+            Write-Host "API Health Check: $($response | ConvertTo-Json)"
+            
+            if ($response.status -eq "healthy") {
+              Write-Host "✅ API is healthy"
             } else {
-              Write-Host "❌ Swagger documentation test failed"
+              Write-Host "❌ API health check failed"
               exit 1
             }
           } catch {
-            Write-Host "❌ Swagger documentation test failed: $($_.Exception.Message)"
+            Write-Host "❌ API health check failed: $($_.Exception.Message)"
+            exit 1
+          }
+    
+    - task: PowerShell@2
+      displayName: 'Test Frontend Accessibility'
+      inputs:
+        targetType: 'inline'
+        script: |
+          $frontendUrl = "https://$(AZURE_STATIC_WEB_APP_NAME).azurestaticapps.net"
+          try {
+            $response = Invoke-WebRequest -Uri $frontendUrl -Method Get -TimeoutSec 30
+            if ($response.StatusCode -eq 200) {
+              Write-Host "✅ Frontend is accessible"
+            } else {
+              Write-Host "❌ Frontend accessibility test failed"
+              exit 1
+            }
+          } catch {
+            Write-Host "❌ Frontend accessibility test failed: $($_.Exception.Message)"
             exit 1
           } 

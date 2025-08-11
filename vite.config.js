@@ -16,7 +16,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    sourcemap: false, // Disable sourcemaps in production
     rollupOptions: {
       output: {
         manualChunks: {
@@ -26,9 +26,18 @@ export default defineConfig({
           graphics: ['p5', 'three']
         }
       }
+    },
+    chunkSizeWarningLimit: 1000, // Increase warning limit
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.log in production
+        drop_debugger: true
+      }
     }
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion', '@tensorflow/tfjs', 'p5']
-  }
+  },
+  envPrefix: 'VITE_'
 }) 

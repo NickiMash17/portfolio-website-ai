@@ -1,7 +1,9 @@
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+using Microsoft.EntityFrameworkCore;
 using PortfolioBackend.Data;
 using PortfolioBackend.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Text.Json;
 
 namespace PortfolioBackend.Services;
 
@@ -64,9 +66,9 @@ public class ResumeGenerationService : IResumeGenerationService
             // Add contact information
             var contactFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             var contactInfo = new Paragraph();
-            contactInfo.Add(new Chunk("Email: nicolette.mashaba@example.com\n", contactFont));
-            contactInfo.Add(new Chunk("LinkedIn: linkedin.com/in/nicolette-mashaba\n", contactFont));
-            contactInfo.Add(new Chunk("GitHub: github.com/nicolette-mashaba", contactFont));
+            contactInfo.Add(new Chunk("Email: nicolette.mashaba@example.com\n"));
+            contactInfo.Add(new Chunk("LinkedIn: linkedin.com/in/nicolette-mashaba\n"));
+            contactInfo.Add(new Chunk("GitHub: github.com/nicolette-mashaba"));
             contactInfo.Alignment = Element.ALIGN_CENTER;
             contactInfo.SpacingAfter = 20f;
             document.Add(contactInfo);

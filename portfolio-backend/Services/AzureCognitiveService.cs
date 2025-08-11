@@ -35,22 +35,19 @@ public class AzureCognitiveService : IAzureCognitiveService
             var response = await _client.AnalyzeSentimentAsync(text);
             var documentSentiment = response.Value;
             
-            var sentiment = documentSentiment.DocumentSentiment.ToString();
-            var score = documentSentiment.DocumentSentiment switch
+            var score = documentSentiment.Sentiment switch
             {
                 TextSentiment.Positive => documentSentiment.ConfidenceScores.Positive,
                 TextSentiment.Negative => documentSentiment.ConfidenceScores.Negative,
                 _ => documentSentiment.ConfidenceScores.Neutral
             };
             
-            _logger.LogInformation("Sentiment analysis completed: {Sentiment} with score {Score}", sentiment, score);
-            
-            return (sentiment, score);
+            return (documentSentiment.Sentiment.ToString(), score);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error analyzing sentiment for text: {Text}", text);
-            return ("Neutral", 0.5); // Default fallback
+            _logger.LogError(ex, "Error analyzing sentiment: {Error}", ex.Message);
+            return ("neutral", 0.5);
         }
     }
     
