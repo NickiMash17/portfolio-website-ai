@@ -4,19 +4,14 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './',
-  define: {
-    __DEFINES__: '{}',
-    __BASE__: '"/"',
-    global: 'globalThis',
-  },
+  base: '/portfolio-website-ai/', // GitHub Pages base path
   server: {
     port: 5173,
     host: true
   },
   build: {
     outDir: 'dist',
-    sourcemap: false, // Disable sourcemaps in production
+    sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -27,17 +22,16 @@ export default defineConfig({
         }
       }
     },
-    chunkSizeWarningLimit: 1000, // Increase warning limit
+    chunkSizeWarningLimit: 1000,
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true, // Remove console.log in production
+        drop_console: true,
         drop_debugger: true
       }
     }
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion', '@tensorflow/tfjs', 'p5']
-  },
-  envPrefix: 'VITE_'
+  }
 }) 
