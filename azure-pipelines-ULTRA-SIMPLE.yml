@@ -1,0 +1,36 @@
+# 🆓 ULTRA SIMPLE FREE Pipeline
+# This pipeline should work without parallelism issues
+
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  displayName: 'Use Node.js 18.x'
+  inputs:
+    versionSpec: '18.x'
+
+- task: Npm@1
+  displayName: 'Install dependencies'
+  inputs:
+    command: 'ci'
+    workingDir: '$(System.DefaultWorkingDirectory)'
+
+- task: Npm@1
+  displayName: 'Build frontend'
+  inputs:
+    command: 'custom'
+    workingDir: '$(System.DefaultWorkingDirectory)'
+    customCommand: 'run build'
+
+- task: AzureStaticWebApp@0
+  displayName: 'Deploy to Azure Static Web Apps (FREE)'
+  inputs:
+    app_location: '/'
+    output_location: 'dist'
+    azure_static_web_apps_api_token: '$(AZURE_STATIC_WEB_APPS_API_TOKEN)'
+    skip_app_build: true
+    deployment_environment: 'production' 

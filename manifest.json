@@ -1,0 +1,28 @@
+{
+  "name": "Nicolette Mashaba Portfolio",
+  "short_name": "Nicolette Portfolio",
+  "description": "AI-Enthusiastic Full-Stack Developer Portfolio",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#1A1A1A",
+  "theme_color": "#00D4FF",
+  "orientation": "portrait-primary",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "./favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "lang": "en",
+  "dir": "ltr"
+} 
