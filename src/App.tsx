@@ -1,19 +1,33 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { Suspense, lazy } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Hero from './components/Hero';
 import About from './components/About';
-import Projects from './components/Projects';
-import Resume from './components/Resume';
-import Contact from './components/Contact';
-import Chatbot from './components/Chatbot';
 import NeuralBackground from './components/NeuralBackground';
+import PerformanceOptimizer from './components/PerformanceOptimizer';
+import PerformanceTest from './components/PerformanceTest';
 import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Sparkles, Github, Linkedin, Twitter, Mail as MailIcon, Heart, Zap } from 'lucide-react';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
+import { usePerformance } from './hooks/usePerformance';
+
+// Lazy load heavy components
+const Chatbot = lazy(() => import('./components/Chatbot'));
+const Projects = lazy(() => import('./components/Projects'));
+const Resume = lazy(() => import('./components/Resume'));
+const Contact = lazy(() => import('./components/Contact'));
+const FloatingActionMenu = lazy(() => import('./components/FloatingActionMenu'));
+
+// Loading component for lazy-loaded components
+const LoadingSpinner: React.FC = () => (
+  <div className="flex items-center justify-center p-8">
+    <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 const Navigation: React.FC = () => {
   const { isDark } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState('home');
+  const { throttleScroll } = usePerformance({ enableScrollOptimization: true });
 
   const navItems = [
     { href: '#home', label: 'Home', icon: <Home className="w-4 h-4" /> },
@@ -23,9 +37,9 @@ const Navigation: React.FC = () => {
     { href: '#contact', label: 'Contact', icon: <Mail className="w-4 h-4" /> }
   ];
 
-  // Track active section on scroll
+  // Track active section on scroll with performance optimization
   React.useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = throttleScroll(() => {
       const sections = navItems.map(item => item.href.substring(1));
       const scrollPosition = window.scrollY + 100;
 
@@ -39,11 +53,11 @@ const Navigation: React.FC = () => {
           }
         }
       }
-    };
+    }, 100);
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navItems, throttleScroll]);
 
   return (
     <motion.nav
@@ -366,28 +380,58 @@ const Footer: React.FC = () => {
 };
 
 const AppContent: React.FC = () => {
-  const scrollToTop = () => {
+  const { optimizeElement, debounceScroll } = usePerformance({ 
+    enableMonitoring: true, 
+    enableScrollOptimization: true 
+  });
+
+  const scrollToTop = debounceScroll(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, 100);
+
+  // Optimize elements for performance
+  React.useEffect(() => {
+    const elements = document.querySelectorAll('.performance-critical');
+    elements.forEach(element => {
+      if (element instanceof HTMLElement) {
+        optimizeElement(element);
+      }
+    });
+  }, [optimizeElement]);
 
   return (
     <div className="min-h-screen bg-gray-900 font-inter transition-colors duration-300">
       <Navigation />
 
       {/* Main Content */}
-      <main>
-        <Hero />
-        <About />
-        <Projects />
-        <Resume />
-        <Contact />
-      </main>
+      <PerformanceOptimizer>
+        <main>
+          <Hero />
+          <About />
+          <Suspense fallback={<LoadingSpinner />}>
+            <Projects />
+          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Resume />
+          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Contact />
+          </Suspense>
+        </main>
+      </PerformanceOptimizer>
 
       {/* Magical Footer */}
       <Footer />
 
       {/* AI Assistant */}
-      <Chatbot />
+      <Suspense fallback={<LoadingSpinner />}>
+        <Chatbot />
+      </Suspense>
+
+      {/* Floating Action Menu */}
+      <Suspense fallback={<LoadingSpinner />}>
+        <FloatingActionMenu />
+      </Suspense>
 
       {/* Enhanced Scroll to Top Button */}
       <motion.button
@@ -397,11 +441,14 @@ const AppContent: React.FC = () => {
         transition={{ duration: 0.5, delay: 1 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-8 left-8 z-40 w-12 h-12 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 text-white rounded-full shadow-2xl hover:shadow-blue-400/50 transition-all duration-300 backdrop-blur-sm border border-white/20"
+        className="fixed bottom-8 left-8 z-40 w-12 h-12 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 text-white rounded-full shadow-2xl hover:shadow-blue-400/50 transition-all duration-300 backdrop-blur-sm border border-white/20 performance-critical"
         aria-label="Scroll to top"
       >
         <ChevronUp className="w-6 h-6 mx-auto" />
       </motion.button>
+
+      {/* Performance Test Component (Development Only) */}
+      {process.env.NODE_ENV === 'development' && <PerformanceTest />}
     </div>
   );
 };
