@@ -63,8 +63,8 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ children })
       }
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
-      }
-    };
+        }
+      };
   }, [handleScroll]);
 
   // Intersection Observer for lazy loading with performance optimization

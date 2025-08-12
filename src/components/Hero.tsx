@@ -236,7 +236,10 @@ const Hero: React.FC = () => {
                 }}
                 transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
                 className={`relative px-6 py-3 bg-gradient-to-r ${tech.color} backdrop-blur-sm rounded-full text-sm font-semibold text-white border border-white/20 shadow-lg transition-all duration-300 cursor-pointer group hover:scale-105 hover:shadow-xl`}
-                onClick={() => setCurrentTechIndex(index)}
+                onClick={() => {
+                  console.log(`${tech.name} technology tag clicked!`);
+                  setCurrentTechIndex(index);
+                }}
               >
                 <span className="mr-2">{tech.icon}</span>
                 {tech.name}
@@ -261,6 +264,10 @@ const Hero: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onMouseDown={handleRipple}
+              onClick={() => {
+                console.log('Explore My Work button clicked!');
+                // Add your navigation logic here
+              }}
               className="px-8 py-4 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 text-white rounded-full font-semibold text-lg backdrop-blur-sm border border-white/20 hover:shadow-lg hover:shadow-blue-400/25 transition-all duration-300 flex items-center gap-3 group"
             >
               Explore My Work
@@ -273,7 +280,10 @@ const Hero: React.FC = () => {
               transition={{ duration: 0.8, delay: 1.4 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setIsPlaying(!isPlaying)}
+              onClick={() => {
+                console.log('Pause/Play button clicked!');
+                setIsPlaying(!isPlaying);
+              }}
               className="px-6 py-4 bg-gray-800/50 text-gray-300 rounded-full font-medium backdrop-blur-sm border border-gray-600/50 hover:bg-gray-700/50 hover:text-white transition-all duration-300 flex items-center gap-2"
             >
               {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
@@ -307,7 +317,10 @@ const Hero: React.FC = () => {
         transition={{ duration: 0.5, delay: 2 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        onClick={toggleTheme}
+        onClick={() => {
+          console.log('Theme toggle button clicked!');
+          toggleTheme();
+        }}
         className="absolute top-8 right-8 z-30 p-3 bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-600/50 text-gray-300 hover:text-white hover:bg-gray-700/50 transition-all duration-300"
       >
         {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}

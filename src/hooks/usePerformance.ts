@@ -40,14 +40,14 @@ export const usePerformance = (options: PerformanceOptions = {}) => {
   const measureFPS = useCallback(() => {
     frameCountRef.current++;
     const currentTime = performance.now();
-    
+
     if (currentTime - lastTimeRef.current >= 1000) {
       const fps = Math.round((frameCountRef.current * 1000) / (currentTime - lastTimeRef.current));
       setMetrics(prev => ({ ...prev, fps }));
       frameCountRef.current = 0;
       lastTimeRef.current = currentTime;
     }
-    
+
     rafRef.current = requestAnimationFrame(measureFPS);
   }, []);
 
@@ -76,7 +76,7 @@ export const usePerformance = (options: PerformanceOptions = {}) => {
       const scrollSpeed = scrollDistance / scrollDuration; // pixels per millisecond
       const scrollPerformance = Math.round(scrollSpeed * 1000); // pixels per second
       
-      setMetrics(prev => ({ ...prev, scrollPerformance }));
+        setMetrics(prev => ({ ...prev, scrollPerformance }));
     } else if (metrics.isScrolling) {
       setMetrics(prev => ({ ...prev, isScrolling: false }));
     }
@@ -101,23 +101,23 @@ export const usePerformance = (options: PerformanceOptions = {}) => {
       // Force garbage collection if available
       if ('gc' in window) {
         (window as any).gc();
-      }
-      
+    }
+
       // Clear any cached data
       if ('caches' in window) {
         caches.keys().then(names => {
           names.forEach(name => {
             if (name.includes('temp') || name.includes('cache')) {
               caches.delete(name);
-            }
+    }
           });
         });
       }
       
       // Clear console for development
-      if (process.env.NODE_ENV === 'development') {
-        console.clear();
-      }
+      // if (process.env.NODE_ENV === 'development') {
+      //   console.clear();
+      // }
     }
   }, [enableMemoryCleanup]);
 
@@ -130,7 +130,7 @@ export const usePerformance = (options: PerformanceOptions = {}) => {
       document.documentElement.style.setProperty('--animation-duration', '0.1s');
       document.documentElement.style.setProperty('--animation-delay', '0s');
       document.documentElement.style.setProperty('--scroll-behavior', 'auto');
-    } else {
+      } else {
       document.documentElement.style.setProperty('--animation-duration', '0.3s');
       document.documentElement.style.setProperty('--animation-delay', '0.1s');
       document.documentElement.style.setProperty('--scroll-behavior', 'smooth');
@@ -148,18 +148,18 @@ export const usePerformance = (options: PerformanceOptions = {}) => {
   // Initialize performance monitoring
   useEffect(() => {
     if (enableMonitoring) {
-      // Start FPS monitoring
+    // Start FPS monitoring
       rafRef.current = requestAnimationFrame(measureFPS);
-      
+
       // Start memory monitoring
       const memoryInterval = setInterval(measureMemory, 2000);
-      
-      return () => {
+
+    return () => {
         if (rafRef.current) {
           cancelAnimationFrame(rafRef.current);
-        }
-        clearInterval(memoryInterval);
-      };
+      }
+      clearInterval(memoryInterval);
+    };
     }
   }, [enableMonitoring, measureFPS, measureMemory]);
 

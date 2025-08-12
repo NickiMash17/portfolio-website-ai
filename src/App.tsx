@@ -4,7 +4,6 @@ import Hero from './components/Hero';
 import About from './components/About';
 import NeuralBackground from './components/NeuralBackground';
 import PerformanceOptimizer from './components/PerformanceOptimizer';
-import PerformanceTest from './components/PerformanceTest';
 import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Sparkles, Github, Linkedin, Twitter, Mail as MailIcon, Heart, Zap } from 'lucide-react';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { usePerformance } from './hooks/usePerformance';
@@ -385,6 +384,8 @@ const AppContent: React.FC = () => {
     enableScrollOptimization: true 
   });
 
+  console.log('AppContent component rendered!');
+
   const scrollToTop = debounceScroll(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 100);
@@ -409,13 +410,13 @@ const AppContent: React.FC = () => {
           <Hero />
           <About />
           <Suspense fallback={<LoadingSpinner />}>
-            <Projects />
+          <Projects />
           </Suspense>
           <Suspense fallback={<LoadingSpinner />}>
-            <Resume />
+          <Resume />
           </Suspense>
           <Suspense fallback={<LoadingSpinner />}>
-            <Contact />
+          <Contact />
           </Suspense>
         </main>
       </PerformanceOptimizer>
@@ -425,12 +426,12 @@ const AppContent: React.FC = () => {
 
       {/* AI Assistant */}
       <Suspense fallback={<LoadingSpinner />}>
-        <Chatbot />
+      <Chatbot />
       </Suspense>
 
       {/* Floating Action Menu */}
       <Suspense fallback={<LoadingSpinner />}>
-        <FloatingActionMenu />
+      <FloatingActionMenu />
       </Suspense>
 
       {/* Enhanced Scroll to Top Button */}
@@ -446,14 +447,13 @@ const AppContent: React.FC = () => {
       >
         <ChevronUp className="w-6 h-6 mx-auto" />
       </motion.button>
-
-      {/* Performance Test Component (Development Only) */}
-      {process.env.NODE_ENV === 'development' && <PerformanceTest />}
     </div>
   );
 };
 
 const App: React.FC = () => {
+  console.log('App component mounting...');
+  
   return (
     <ThemeProvider>
       <AppContent />

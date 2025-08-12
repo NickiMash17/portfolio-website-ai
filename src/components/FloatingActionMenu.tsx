@@ -75,7 +75,7 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       label: 'GitHub',
       color: 'from-gray-600 to-gray-800',
       action: () => {
-        window.open('https://github.com/yourusername', '_blank');
+        window.open('https://github.com/nicolettemashaba', '_blank');
         setActiveAction('github');
         setTimeout(() => setActiveAction(null), 2000);
       }
@@ -86,7 +86,7 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       label: 'LinkedIn',
       color: 'from-blue-600 to-blue-800',
       action: () => {
-        window.open('https://linkedin.com/in/yourusername', '_blank');
+        window.open('https://linkedin.com/in/nicolettemashaba', '_blank');
         setActiveAction('linkedin');
         setTimeout(() => setActiveAction(null), 2000);
       }

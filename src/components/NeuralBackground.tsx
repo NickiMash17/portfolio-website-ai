@@ -69,41 +69,41 @@ const NeuralBackground: React.FC = () => {
   const initializeNetwork = useCallback((width: number, height: number) => {
     const nodes: NeuralNode[] = [];
     const connections: NeuralConnection[] = [];
-    
+          
     // Create layers with optimized positioning
-    const layers = [
+          const layers = [
       { count: 4, x: width * 0.15, type: 'input' as const },
       { count: 6, x: width * 0.35, type: 'hidden' as const },
       { count: 8, x: width * 0.55, type: 'hidden' as const },
       { count: 6, x: width * 0.75, type: 'hidden' as const },
       { count: 4, x: width * 0.85, type: 'output' as const }
-    ];
+          ];
 
     let nodeIndex = 0;
-    layers.forEach((layer, layerIndex) => {
-      for (let i = 0; i < layer.count; i++) {
+          layers.forEach((layer, layerIndex) => {
+            for (let i = 0; i < layer.count; i++) {
         const y = height * 0.2 + (height * 0.6 * i) / Math.max(layer.count - 1, 1);
         const randomOffset = (Math.random() - 0.5) * 40;
-        
-        nodes.push({
-          x: layer.x + randomOffset,
-          y: y + randomOffset,
+              
+              nodes.push({
+                x: layer.x + randomOffset,
+                y: y + randomOffset,
           vx: (Math.random() - 0.5) * 0.5,
           vy: (Math.random() - 0.5) * 0.5,
-          type: layer.type,
+                type: layer.type,
           size: Math.random() * 4 + 3,
           energy: Math.random() * 0.5 + 0.5,
           pulsePhase: Math.random() * Math.PI * 2,
-          targetX: layer.x + randomOffset,
-          targetY: y + randomOffset,
+                targetX: layer.x + randomOffset,
+                targetY: y + randomOffset,
           connections: []
-        });
+              });
         nodeIndex++;
-      }
-    });
+            }
+          });
 
     // Create optimized connections
-    for (let layerIndex = 0; layerIndex < layers.length - 1; layerIndex++) {
+          for (let layerIndex = 0; layerIndex < layers.length - 1; layerIndex++) {
       const currentLayerStart = layers.slice(0, layerIndex).reduce((sum, layer) => sum + layer.count, 0);
       const currentLayerEnd = currentLayerStart + layers[layerIndex].count;
       const nextLayerStart = currentLayerEnd;
@@ -114,7 +114,7 @@ const NeuralBackground: React.FC = () => {
         for (let j = 0; j < connectionCount; j++) {
           const targetIndex = nextLayerStart + Math.floor(Math.random() * layers[layerIndex + 1].count);
           if (targetIndex !== i) {
-            connections.push({
+                  connections.push({
               from: i,
               to: targetIndex,
               weight: Math.random() * 2 - 1,
@@ -122,11 +122,11 @@ const NeuralBackground: React.FC = () => {
               strength: Math.random() * 0.5 + 0.5
             });
             nodes[i].connections.push(targetIndex);
-          }
-        }
+                }
+              }
       }
-    }
-
+          }
+          
     nodesRef.current = nodes;
     connectionsRef.current = connections;
   }, []);
@@ -147,7 +147,7 @@ const NeuralBackground: React.FC = () => {
         color,
         alpha: 1
       });
-    }
+        }
   }, []);
 
   // Main animation loop with performance optimizations
@@ -165,7 +165,7 @@ const NeuralBackground: React.FC = () => {
 
     // Clear canvas efficiently
     ctx.clearRect(0, 0, width, height);
-
+          
     // Create subtle gradient background
     const gradient = ctx.createRadialGradient(width * 0.5, height * 0.5, 0, width * 0.5, height * 0.5, width * 0.8);
     gradient.addColorStop(0, 'rgba(17, 24, 39, 0.8)');
@@ -176,16 +176,16 @@ const NeuralBackground: React.FC = () => {
 
     // Update and draw connections with WebGL-like optimization
     ctx.lineCap = 'round';
-    connections.forEach(connection => {
+          connections.forEach(connection => {
       const fromNode = nodes[connection.from];
       const toNode = nodes[connection.to];
       if (!fromNode || !toNode) return;
-
+            
       connection.pulsePosition += 0.015;
       if (connection.pulsePosition > 1) connection.pulsePosition = 0;
 
       const pulseAlpha = Math.sin(connection.pulsePosition * Math.PI) * 0.4 + 0.6;
-      const weight = connection.weight;
+            const weight = connection.weight;
       const strokeWidth = Math.abs(weight) * 1.5 + 0.5;
       
       // Draw connection with glow effect
@@ -204,18 +204,18 @@ const NeuralBackground: React.FC = () => {
         const x = fromNode.x + (toNode.x - fromNode.x) * t;
         const y = fromNode.y + (toNode.y - fromNode.y) * t;
         createParticles(x, y, weight > 0 ? '#34d399' : '#f87171', 1);
-      }
-    });
+            }
+          });
 
     // Update and draw particles efficiently
     particlesRef.current = particles.filter(particle => {
-      particle.x += particle.vx;
-      particle.y += particle.vy;
-      particle.life -= 1;
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            particle.life -= 1;
       particle.vy += 0.02;
       particle.alpha = particle.life / particle.maxLife;
-
-      if (particle.life > 0) {
+            
+            if (particle.life > 0) {
         ctx.save();
         ctx.globalAlpha = particle.alpha;
         ctx.fillStyle = particle.color;
@@ -223,18 +223,18 @@ const NeuralBackground: React.FC = () => {
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
-        return true;
-      }
-      return false;
-    });
+              return true;
+            }
+            return false;
+          });
 
-    // Update and draw nodes with enhanced effects
-    nodes.forEach(node => {
+          // Update and draw nodes with enhanced effects
+          nodes.forEach(node => {
       // Smooth movement towards target
       node.x += (node.targetX - node.x) * 0.01;
       node.y += (node.targetY - node.y) * 0.01;
-      
-      // Add subtle floating motion
+            
+            // Add subtle floating motion
       node.x += Math.sin(time * 0.5 + node.x * 0.01) * 0.2;
       node.y += Math.cos(time * 0.3 + node.y * 0.01) * 0.2;
 
@@ -242,23 +242,23 @@ const NeuralBackground: React.FC = () => {
       node.pulsePhase += 0.02;
       node.energy = Math.sin(time * 0.01 + node.y * 0.01) * 0.2 + 0.8;
 
-      // Mouse interaction
+            // Mouse interaction
       const mouseDist = Math.sqrt((mouseRef.current.x - node.x) ** 2 + (mouseRef.current.y - node.y) ** 2);
       if (mouseDist < 80 && mouseRef.current.active) {
         node.energy = Math.min(node.energy + 0.05, 1.2);
         if (Math.random() < 0.03) {
           const colors = { input: '#00d4ff', hidden: '#a855f7', output: '#ff007a' };
           createParticles(node.x, node.y, colors[node.type], 2);
-        }
-      }
+              }
+            }
 
-      // Draw node with enhanced effects
+            // Draw node with enhanced effects
       const pulseSize = node.size + Math.sin(node.pulsePhase) * 1.5;
       const glowSize = pulseSize * 2.5 + node.energy * 8;
-      
+            
       // Multiple glow layers for depth
-      for (let i = 3; i > 0; i--) {
-        const layerSize = glowSize * (i / 3);
+            for (let i = 3; i > 0; i--) {
+              const layerSize = glowSize * (i / 3);
         const layerAlpha = (node.energy * 0.4) * (i / 3) * 0.3;
         
         const colors = { 
@@ -271,9 +271,9 @@ const NeuralBackground: React.FC = () => {
         ctx.beginPath();
         ctx.arc(node.x, node.y, layerSize, 0, Math.PI * 2);
         ctx.fill();
-      }
+            }
 
-      // Core node
+            // Core node
       const colors = { 
         input: '#00d4ff', 
         hidden: '#a855f7', 
@@ -285,12 +285,12 @@ const NeuralBackground: React.FC = () => {
       ctx.arc(node.x, node.y, pulseSize, 0, Math.PI * 2);
       ctx.fill();
 
-      // Inner highlight
+            // Inner highlight
       ctx.fillStyle = `rgba(255, 255, 255, ${node.energy * 0.6})`;
       ctx.beginPath();
       ctx.arc(node.x - pulseSize * 0.3, node.y - pulseSize * 0.3, pulseSize * 0.4, 0, Math.PI * 2);
       ctx.fill();
-    });
+          });
 
     // Add ambient particles occasionally
     if (Math.random() < 0.2) {
@@ -308,20 +308,20 @@ const NeuralBackground: React.FC = () => {
   const startAnimation = useCallback(() => {
     if (!animationRef.current && isVisible) {
       animationRef.current = requestAnimationFrame(animate);
-    }
+          }
   }, [animate, isVisible]);
 
   const stopAnimation = useCallback(() => {
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
       animationRef.current = undefined;
-    }
+        }
   }, []);
 
   // Handle canvas resize efficiently
   const handleResize = useCallback(() => {
     if (!canvasRef.current) return;
-    
+          
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
     
@@ -357,7 +357,7 @@ const NeuralBackground: React.FC = () => {
   useEffect(() => {
     handleResize();
     window.addEventListener('resize', handleResize);
-    
+
     return () => {
       window.removeEventListener('resize', handleResize);
       stopAnimation();
@@ -373,11 +373,11 @@ const NeuralBackground: React.FC = () => {
 
   return (
     <canvas
-      ref={canvasRef}
+      ref={canvasRef} 
       className="fixed inset-0 z-0 pointer-events-none w-full h-full"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{
+      style={{ 
         background: `
           radial-gradient(circle at 20% 80%, rgba(0,212,255,0.1) 0%, transparent 50%),
           radial-gradient(circle at 80% 20%, rgba(255,0,122,0.1) 0%, transparent 50%),
