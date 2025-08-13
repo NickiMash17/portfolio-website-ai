@@ -336,12 +336,12 @@ const AIAbout: React.FC = () => {
                   viewport={{ once: true }}
                   className="mb-12"
                 >
-                                      <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                      <div className="w-8 h-8 bg-gradient-to-br from-azure-500 to-purple-500 rounded-lg flex items-center justify-center">
-                        <Code className="w-5 h-5 text-white" />
-                      </div>
-                      {category.category}
-                    </h3>
+                  <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gradient-to-br from-azure-500 to-purple-500 rounded-lg flex items-center justify-center">
+                      <Code className="w-5 h-5 text-white" />
+                    </div>
+                    {category.category}
+                  </h3>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {category.items.map((skill, skillIndex) => (
