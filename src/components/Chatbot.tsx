@@ -87,7 +87,7 @@ const Chatbot: React.FC = () => {
         transition={{ duration: 0.5, delay: 1.8 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-8 right-8 z-50 w-14 h-14 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 rounded-full flex items-center justify-center shadow-lg hover:shadow-blue-400/25 transition-all duration-300 cursor-pointer"
+        className="fixed bottom-8 right-8 z-50 w-14 h-14 bg-gradient-to-r from-azure-600 to-purple-600 rounded-full flex items-center justify-center shadow-azure hover:shadow-neon/25 transition-all duration-300 cursor-pointer"
         aria-label="Open AI chatbot"
       >
         <MessageCircle className="w-7 h-7 text-white" />
@@ -101,22 +101,22 @@ const Chatbot: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.8 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-40 right-8 z-50 w-80 h-96 bg-gray-800/95 backdrop-blur-md rounded-2xl border border-gray-700/50 shadow-2xl"
+            className="fixed bottom-40 right-8 z-50 w-80 h-96 bg-dark-800/95 backdrop-blur-md rounded-2xl border border-dark-700/50 shadow-2xl"
           >
             {/* Chatbot Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-700/50">
+            <div className="flex items-center justify-between p-4 border-b border-dark-700/50">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-to-r from-azure-600 to-purple-600 rounded-full flex items-center justify-center">
                   <Bot className="w-4 h-4 text-white" />
                 </div>
                 <div>
                   <h3 className="text-white font-semibold">AI Assistant</h3>
-                  <p className="text-emerald-400 text-xs">Online</p>
+                  <p className="text-neon-400 text-xs">Online</p>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-white transition-colors duration-300"
+                className="text-light-400 hover:text-white transition-colors duration-300"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -135,8 +135,8 @@ const Chatbot: React.FC = () => {
                   <div
                     className={`max-w-xs px-3 py-2 rounded-lg ${
                       message.isBot
-                        ? 'bg-gray-700/80 text-white'
-                        : 'bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 text-white'
+                        ? 'bg-dark-700/80 text-white'
+                        : 'bg-gradient-to-r from-azure-600 to-purple-600 text-white'
                     }`}
                   >
                     {message.text}
@@ -146,7 +146,7 @@ const Chatbot: React.FC = () => {
             </div>
 
             {/* Quick Replies */}
-            <div className="p-4 border-t border-gray-700/50">
+            <div className="p-4 border-t border-dark-700/50">
               <div className="flex flex-wrap gap-2 mb-3">
                 {quickReplies.map((reply, index) => (
                   <motion.button
@@ -154,7 +154,7 @@ const Chatbot: React.FC = () => {
                     onClick={() => handleQuickReply(reply)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-3 py-1 bg-gray-700/80 text-gray-300 text-xs rounded-full hover:bg-gradient-to-r hover:from-blue-400 hover:via-purple-500 hover:to-emerald-400 hover:text-white transition-all duration-300"
+                    className="px-3 py-1 bg-dark-700/80 text-light-300 text-xs rounded-full hover:bg-gradient-to-r hover:from-azure-600 hover:to-purple-600 hover:text-white transition-all duration-300"
                   >
                     {reply}
                   </motion.button>
@@ -173,13 +173,13 @@ const Chatbot: React.FC = () => {
                     }
                   }}
                   placeholder="Type your message..."
-                  className="flex-1 px-3 py-2 bg-gray-700/80 border border-gray-600/50 rounded-lg text-white text-sm placeholder-gray-400 focus:ring-2 focus:ring-blue-400 focus:border-transparent backdrop-blur-sm"
+                  className="flex-1 px-3 py-2 bg-dark-700/80 border border-dark-600/50 rounded-lg text-white text-sm placeholder-light-400 focus:ring-2 focus:ring-azure-400 focus:border-transparent backdrop-blur-sm"
                 />
                 <motion.button
                   onClick={() => handleSendMessage(inputValue)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-3 py-2 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 text-white rounded-lg hover:shadow-lg transition-all duration-300"
+                  className="px-3 py-2 bg-gradient-to-r from-azure-600 to-purple-600 text-white rounded-lg hover:shadow-azure transition-all duration-300"
                 >
                   <Send className="w-4 h-4" />
                 </motion.button>

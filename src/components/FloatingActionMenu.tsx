@@ -28,7 +28,7 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       id: 'chat',
       icon: MessageCircle,
       label: 'AI Chat',
-      color: 'from-blue-400 to-purple-500',
+      color: 'from-azure-600 to-purple-600',
       action: () => {
         // Scroll to chatbot section
         document.getElementById('chatbot')?.scrollIntoView({ behavior: 'smooth' });
@@ -40,7 +40,7 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       id: 'resume',
       icon: FileText,
       label: 'Resume',
-      color: 'from-purple-500 to-emerald-400',
+      color: 'from-purple-600 to-neon-500',
       action: () => {
         document.getElementById('resume')?.scrollIntoView({ behavior: 'smooth' });
         setActiveAction('resume');
@@ -51,7 +51,7 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       id: 'projects',
       icon: Briefcase,
       label: 'Projects',
-      color: 'from-emerald-400 to-blue-400',
+      color: 'from-neon-500 to-azure-600',
       action: () => {
         document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
         setActiveAction('projects');
@@ -62,7 +62,7 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       id: 'contact',
       icon: Mail,
       label: 'Contact',
-      color: 'from-blue-400 to-purple-500',
+      color: 'from-azure-600 to-purple-600',
       action: () => {
         document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
         setActiveAction('contact');
@@ -73,7 +73,7 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       id: 'github',
       icon: Github,
       label: 'GitHub',
-      color: 'from-gray-600 to-gray-800',
+      color: 'from-dark-600 to-dark-800',
       action: () => {
         window.open('https://github.com/nicolettemashaba', '_blank');
         setActiveAction('github');
@@ -84,7 +84,7 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       id: 'linkedin',
       icon: Linkedin,
       label: 'LinkedIn',
-      color: 'from-blue-600 to-blue-800',
+      color: 'from-azure-600 to-azure-800',
       action: () => {
         window.open('https://linkedin.com/in/nicolettemashaba', '_blank');
         setActiveAction('linkedin');
@@ -106,10 +106,10 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
             initial={{ opacity: 0, y: 20, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.8 }}
-            className="absolute bottom-20 right-0 bg-gray-800/90 backdrop-blur-md text-white px-4 py-2 rounded-lg border border-gray-600/50 shadow-xl"
+            className="absolute bottom-20 right-0 bg-dark-800/90 backdrop-blur-md text-white px-4 py-2 rounded-lg border border-dark-600/50 shadow-xl"
           >
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-yellow-400" />
+              <Sparkles className="w-4 h-4 text-neon-400" />
               <span className="text-sm font-medium">
                 {actions.find(a => a.id === activeAction)?.label} opened!
               </span>
