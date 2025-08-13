@@ -266,7 +266,7 @@ const AIProjects: React.FC = () => {
     : projects.filter(p => p.category === activeFilter);
 
   return (
-    <section id="projects" className="py-20 bg-gradient-to-br from-dark-950 via-dark-900 to-azure-950 relative overflow-hidden">
+    <section id="projects" className="py-20 bg-gradient-to-br from-dark-900 via-dark-800 to-azure-950 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-neural-pattern opacity-10" />
       
