@@ -299,7 +299,11 @@ const AIProjects: React.FC = () => {
           {filters.map((filter) => (
             <button
               key={filter.id}
-              onClick={() => setActiveFilter(filter.id)}
+              onClick={() => {
+                console.log('Filter clicked:', filter.id);
+                setActiveFilter(filter.id);
+                console.log('Active filter set to:', filter.id);
+              }}
               className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${
                 activeFilter === filter.id
                   ? 'bg-gradient-to-r from-azure-600 to-purple-600 text-white shadow-azure'

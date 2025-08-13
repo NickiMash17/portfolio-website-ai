@@ -8,6 +8,8 @@
 /home/nicolettemashaba/portfolio-website-ai/portfolio-backend/obj/Debug/net8.0/PortfolioBackend.sourcelink.json
 /home/nicolettemashaba/portfolio-website-ai/portfolio-backend/bin/Debug/net8.0/appsettings.json
 /home/nicolettemashaba/portfolio-website-ai/portfolio-backend/bin/Debug/net8.0/appsettings.Production.json
+/home/nicolettemashaba/portfolio-website-ai/portfolio-backend/bin/Debug/net8.0/Tests/obj/PortfolioBackend.Tests.csproj.nuget.dgspec.json
+/home/nicolettemashaba/portfolio-website-ai/portfolio-backend/bin/Debug/net8.0/Tests/obj/project.assets.json
 /home/nicolettemashaba/portfolio-website-ai/portfolio-backend/bin/Debug/net8.0/PortfolioBackend
 /home/nicolettemashaba/portfolio-website-ai/portfolio-backend/bin/Debug/net8.0/PortfolioBackend.deps.json
 /home/nicolettemashaba/portfolio-website-ai/portfolio-backend/bin/Debug/net8.0/PortfolioBackend.runtimeconfig.json
@@ -174,3 +176,5 @@
 /home/nicolettemashaba/portfolio-website-ai/portfolio-backend/obj/Debug/net8.0/PortfolioBackend.pdb
 /home/nicolettemashaba/portfolio-website-ai/portfolio-backend/obj/Debug/net8.0/PortfolioBackend.genruntimeconfig.cache
 /home/nicolettemashaba/portfolio-website-ai/portfolio-backend/obj/Debug/net8.0/ref/PortfolioBackend.dll
+/home/nicolettemashaba/portfolio-website-ai/portfolio-backend/bin/Debug/net8.0/Tests/obj/Debug/net8.0/MvcTestingAppManifest.json
+/home/nicolettemashaba/portfolio-website-ai/portfolio-backend/bin/Debug/net8.0/Tests/obj/Debug/net8.0/PortfolioBackend.Tests.sourcelink.json

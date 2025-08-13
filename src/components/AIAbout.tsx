@@ -118,7 +118,7 @@ const AIAbout: React.FC = () => {
     }
   ];
 
-  const tabs = [
+  const tabs: Array<{id: 'overview' | 'experience' | 'skills' | 'certifications', label: string, icon: React.ComponentType<{className?: string}>}> = [
     { id: 'overview', label: 'Overview', icon: Lightbulb },
     { id: 'experience', label: 'Experience', icon: TrendingUp },
     { id: 'skills', label: 'Skills', icon: Zap },
@@ -159,7 +159,11 @@ const AIAbout: React.FC = () => {
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
+              onClick={() => {
+                console.log('Tab clicked:', tab.id);
+                setActiveTab(tab.id);
+                console.log('Active tab set to:', tab.id);
+              }}
               className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${
                 activeTab === tab.id
                   ? 'bg-gradient-to-r from-azure-600 to-purple-600 text-white shadow-azure'

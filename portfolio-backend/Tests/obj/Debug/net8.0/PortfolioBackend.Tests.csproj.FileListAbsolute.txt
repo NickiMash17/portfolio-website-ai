@@ -1,0 +1,8 @@
+/home/nicolettemashaba/portfolio-website-ai/portfolio-backend/Tests/bin/Debug/net8.0/CoverletSourceRootsMapping_PortfolioBackend.Tests
+/home/nicolettemashaba/portfolio-website-ai/portfolio-backend/Tests/obj/Debug/net8.0/PortfolioBackend.Tests.csproj.AssemblyReference.cache
+/home/nicolettemashaba/portfolio-website-ai/portfolio-backend/Tests/obj/Debug/net8.0/MvcTestingAppManifest.json
+/home/nicolettemashaba/portfolio-website-ai/portfolio-backend/Tests/obj/Debug/net8.0/PortfolioBackend.Tests.GeneratedMSBuildEditorConfig.editorconfig
+/home/nicolettemashaba/portfolio-website-ai/portfolio-backend/Tests/obj/Debug/net8.0/PortfolioBackend.Tests.AssemblyInfoInputs.cache
+/home/nicolettemashaba/portfolio-website-ai/portfolio-backend/Tests/obj/Debug/net8.0/PortfolioBackend.Tests.AssemblyInfo.cs
+/home/nicolettemashaba/portfolio-website-ai/portfolio-backend/Tests/obj/Debug/net8.0/PortfolioBackend.Tests.csproj.CoreCompileInputs.cache
+/home/nicolettemashaba/portfolio-website-ai/portfolio-backend/Tests/obj/Debug/net8.0/PortfolioBackend.Tests.sourcelink.json

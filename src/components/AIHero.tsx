@@ -26,6 +26,12 @@ const AIHero: React.FC = () => {
     "Azure Expert"
   ];
 
+  const socialLinks = [
+    { name: 'GitHub', url: 'https://github.com/your-username', icon: Github },
+    { name: 'LinkedIn', url: 'https://linkedin.com/in/your-profile', icon: Linkedin },
+    { name: 'Email', url: 'mailto:your-email@example.com', icon: Mail }
+  ];
+
   // Rotating taglines effect
   useEffect(() => {
     const interval = setInterval(() => {
@@ -177,6 +183,7 @@ const AIHero: React.FC = () => {
 
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+        {/* Hero Content */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -205,7 +212,7 @@ const AIHero: React.FC = () => {
               <div className="absolute top-1/2 -left-2 transform -translate-y-1/2 w-4 h-4 bg-neon-500 rounded-full shadow-neon"></div>
             </motion.div>
           </motion.div>
-          
+
           {/* Name */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -216,7 +223,7 @@ const AIHero: React.FC = () => {
           >
             NICOLLETTE MASHABA
           </motion.h1>
-          
+
           {/* Animated Tagline */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -239,7 +246,7 @@ const AIHero: React.FC = () => {
               </motion.p>
             </AnimatePresence>
           </motion.div>
-          
+
           {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -265,24 +272,42 @@ const AIHero: React.FC = () => {
               }}
               whileTap={{ scale: 0.95 }}
               className="group px-10 py-4 bg-gradient-to-r from-azure-600 to-purple-600 text-white font-bold rounded-xl shadow-azure hover:shadow-neon transition-all duration-300 flex items-center gap-3 relative overflow-hidden"
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => {
+                const projectsSection = document.getElementById('projects');
+                if (projectsSection) {
+                  projectsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-azure-600 to-purple-600 animate-gradient-shift bg-200%"></div>
-              <Code className="w-6 h-6 relative z-10 group-hover:rotate-12 transition-transform duration-300" />
+              <Code className="w-6 h-6 relative z-10" />
               <span className="relative z-10">Explore Projects</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-neon-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                initial={false}
+              />
             </motion.button>
-            
+
             <motion.button
               whileHover={{ 
                 scale: 1.05, 
-                boxShadow: "0 0 30px rgba(147, 51, 234, 0.6)" 
+                boxShadow: "0 0 30px rgba(56, 232, 248, 0.6)" 
               }}
               whileTap={{ scale: 0.95 }}
-              className="px-10 py-4 bg-transparent text-white font-bold rounded-xl border-2 border-purple-500 hover:bg-purple-500/10 transition-all duration-300 flex items-center gap-3 group"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="group px-10 py-4 bg-transparent border-2 border-neon-400 text-neon-400 font-bold rounded-xl hover:bg-neon-400 hover:text-dark-900 transition-all duration-300 flex items-center gap-3 relative overflow-hidden"
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
             >
-              <Mail className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
-              Get In Touch
+              <Mail className="w-6 h-6" />
+              <span>Get In Touch</span>
+              <motion.div
+                className="absolute inset-0 bg-neon-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                initial={false}
+              />
             </motion.button>
           </motion.div>
 
