@@ -4,6 +4,7 @@ import AIHero from './components/AIHero';
 import AIAbout from './components/AIAbout';
 import NeuralBackground from './components/NeuralBackground';
 import PerformanceOptimizer from './components/PerformanceOptimizer';
+// ...existing code...
 import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Code, Github, Linkedin, Twitter, Mail as MailIcon, Heart, Zap } from 'lucide-react';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { usePerformance } from './hooks/usePerformance';
@@ -22,11 +23,10 @@ const LoadingSpinner: React.FC = () => (
   </div>
 );
 
-const Navigation: React.FC = () => {
+const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) => {
   const { isDark } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState('home');
-  const { throttleScroll } = usePerformance({ enableScrollOptimization: true });
 
   const navItems = [
     { href: '#home', label: 'Home', icon: <Home className="w-4 h-4" /> },
@@ -378,17 +378,143 @@ const Footer: React.FC = () => {
   );
 };
 
-const AppContent: React.FC = () => {
-  const { optimizeElement, debounceScroll } = usePerformance({ 
-    enableMonitoring: true, 
-    enableScrollOptimization: true 
-  });
-
+const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function, throttleScroll: Function }> = ({ optimizeElement, debounceScroll, throttleScroll }) => {
   console.log('AppContent component rendered!');
 
   const scrollToTop = debounceScroll(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 100);
+
+  // Initialize global particle network background
+  React.useEffect(() => {
+    const canvas = document.getElementById('global-particle-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles: Array<{
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      size: number;
+      opacity: number;
+      connections: number[];
+    }> = [];
+
+    const particleCount = 80; // More particles for full page
+    const connectionDistance = 200;
+
+    // Initialize particles
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 2 + 0.5,
+        opacity: Math.random() * 0.4 + 0.2,
+        connections: []
+      });
+    }
+
+    // Find connections between particles
+    const findConnections = () => {
+      particles.forEach((particle, i) => {
+        particle.connections = [];
+        particles.forEach((otherParticle, j) => {
+          if (i !== j) {
+            const distance = Math.sqrt(
+              Math.pow(particle.x - otherParticle.x, 2) +
+              Math.pow(particle.y - otherParticle.y, 2)
+            );
+            if (distance < connectionDistance) {
+              particle.connections.push(j);
+            }
+          }
+        });
+      });
+    };
+
+    let animationId: number;
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Update particle positions
+      particles.forEach((particle) => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        // Bounce off edges
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+
+        // Keep particles in bounds
+        particle.x = Math.max(0, Math.min(canvas.width, particle.x));
+        particle.y = Math.max(0, Math.min(canvas.height, particle.y));
+      });
+
+      // Draw connections
+      particles.forEach((particle) => {
+        particle.connections.forEach((connectionIndex) => {
+          const connectedParticle = particles[connectionIndex];
+          const distance = Math.sqrt(
+            Math.pow(particle.x - connectedParticle.x, 2) +
+            Math.pow(particle.y - connectedParticle.y, 2)
+          );
+          
+          if (distance < connectionDistance) {
+            const opacity = 1 - (distance / connectionDistance);
+            ctx.strokeStyle = `rgba(56, 232, 248, ${opacity * 0.2})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particle.x, particle.y);
+            ctx.lineTo(connectedParticle.x, connectedParticle.y);
+            ctx.stroke();
+          }
+        });
+      });
+
+      // Draw particles
+      particles.forEach((particle) => {
+        ctx.fillStyle = `rgba(56, 232, 248, ${particle.opacity})`;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Add subtle glow effect
+        ctx.shadowColor = '#38E8F8';
+        ctx.shadowBlur = 5;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+
+      findConnections();
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    // Handle window resize
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   // Optimize elements for performance
   React.useEffect(() => {
@@ -401,35 +527,48 @@ const AppContent: React.FC = () => {
   }, [optimizeElement]);
 
   return (
-    <div className="min-h-screen bg-dark-950 font-inter transition-colors duration-300">
-      <Navigation />
+    <div className="min-h-screen bg-gradient-to-br from-dark-950 via-dark-900 to-azure-950 font-inter transition-colors duration-300 relative overflow-hidden">
+      {/* 3D Particle Network Background - Same as hero */}
+      <canvas
+        id="global-particle-canvas"
+        className="fixed inset-0 w-full h-full opacity-60"
+        style={{ zIndex: 1 }}
+      />
+
+      <Navigation throttleScroll={throttleScroll} />
 
       {/* Main Content */}
-      <PerformanceOptimizer>
-        <main>
+      <main className="relative z-10">
+        <section id="home" className="relative">
           <AIHero />
+        </section>
+        <section id="about" className="relative">
           <AIAbout />
-          <Suspense fallback={<LoadingSpinner />}>
+        </section>
+        <section id="projects" className="relative">
           <AIProjects />
+        </section>
+        <PerformanceOptimizer>
+          <Suspense fallback={<LoadingSpinner />}>
+            <section id="resume" className="relative">
+              <Resume />
+            </section>
           </Suspense>
           <Suspense fallback={<LoadingSpinner />}>
-          <Resume />
+            <section id="contact" className="relative">
+              <Contact />
+            </section>
           </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-          <Contact />
-          </Suspense>
-        </main>
-      </PerformanceOptimizer>
+        </PerformanceOptimizer>
+      </main>
 
       {/* Magical Footer */}
       <Footer />
 
       {/* AI Assistant */}
       <Suspense fallback={<LoadingSpinner />}>
-      <Chatbot />
+        <Chatbot />
       </Suspense>
-
-
 
       {/* Enhanced Scroll to Top Button */}
       <motion.button
@@ -450,10 +589,13 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => {
   console.log('App component mounting...');
-  
+  const { optimizeElement, debounceScroll, throttleScroll } = usePerformance({
+    enableMonitoring: true,
+    enableScrollOptimization: true
+  });
   return (
     <ThemeProvider>
-      <AppContent />
+      <AppContent optimizeElement={optimizeElement} debounceScroll={debounceScroll} throttleScroll={throttleScroll} />
     </ThemeProvider>
   );
 };

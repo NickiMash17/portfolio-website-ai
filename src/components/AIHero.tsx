@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Code, 
@@ -15,8 +15,6 @@ import {
 
 const AIHero: React.FC = () => {
   const [currentTagline, setCurrentTagline] = useState(0);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
 
   const taglines = [
     "Full-Stack Engineer",
@@ -40,147 +38,8 @@ const AIHero: React.FC = () => {
     return () => clearInterval(interval);
   }, [taglines.length]);
 
-  // 3D Particle Network Animation
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      opacity: number;
-      connections: number[];
-    }> = [];
-
-    const particleCount = 50;
-    const connectionDistance = 150;
-
-    // Initialize particles
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 3 + 1,
-        opacity: Math.random() * 0.5 + 0.3,
-        connections: []
-      });
-    }
-
-    // Find connections between particles
-    const findConnections = () => {
-      particles.forEach((particle, i) => {
-        particle.connections = [];
-        particles.forEach((otherParticle, j) => {
-          if (i !== j) {
-            const distance = Math.sqrt(
-              Math.pow(particle.x - otherParticle.x, 2) +
-              Math.pow(particle.y - otherParticle.y, 2)
-            );
-            if (distance < connectionDistance) {
-              particle.connections.push(j);
-            }
-          }
-        });
-      });
-    };
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Update particle positions
-      particles.forEach((particle) => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        // Bounce off edges
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-
-        // Keep particles in bounds
-        particle.x = Math.max(0, Math.min(canvas.width, particle.x));
-        particle.y = Math.max(0, Math.min(canvas.height, particle.y));
-      });
-
-      // Draw connections
-      particles.forEach((particle) => {
-        particle.connections.forEach((connectionIndex) => {
-          const connectedParticle = particles[connectionIndex];
-          const distance = Math.sqrt(
-            Math.pow(particle.x - connectedParticle.x, 2) +
-            Math.pow(particle.y - connectedParticle.y, 2)
-          );
-          
-          if (distance < connectionDistance) {
-            const opacity = 1 - (distance / connectionDistance);
-            ctx.strokeStyle = `rgba(56, 232, 248, ${opacity * 0.3})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(connectedParticle.x, connectedParticle.y);
-            ctx.stroke();
-          }
-        });
-      });
-
-      // Draw particles
-      particles.forEach((particle) => {
-        ctx.fillStyle = `rgba(56, 232, 248, ${particle.opacity})`;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Add glow effect
-        ctx.shadowColor = '#38E8F8';
-        ctx.shadowBlur = 10;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      });
-
-      findConnections();
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    // Handle window resize
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   return (
-    <section id="home" className="min-h-screen bg-gradient-to-br from-dark-950 via-dark-900 to-azure-950 relative overflow-hidden">
-      {/* 3D Particle Network Background */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-60"
-        style={{ zIndex: 1 }}
-      />
-
-      {/* Neural Pattern Overlay */}
-      <div className="absolute inset-0 bg-neural-pattern opacity-20" style={{ zIndex: 2 }} />
-
+    <section id="home" className="min-h-screen relative overflow-hidden">
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
         {/* Hero Content */}

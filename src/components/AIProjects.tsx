@@ -266,17 +266,13 @@ const AIProjects: React.FC = () => {
     : projects.filter(p => p.category === activeFilter);
 
   return (
-    <section id="projects" className="py-20 bg-gradient-to-br from-dark-900 via-dark-800 to-azure-950 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-neural-pattern opacity-10" />
-      
+    <section id="projects" className="py-20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
           className="text-center mb-20"
         >
           <h2 className="text-section font-bold text-white mb-6 font-orbitron tracking-wider">
@@ -289,22 +285,12 @@ const AIProjects: React.FC = () => {
         </motion.div>
 
         {/* Filter Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-4 mb-16"
-        >
+        <div className="flex flex-wrap justify-center gap-4 mb-16">
           {filters.map((filter) => (
             <button
               key={filter.id}
-              onClick={() => {
-                console.log('Filter clicked:', filter.id);
-                setActiveFilter(filter.id);
-                console.log('Active filter set to:', filter.id);
-              }}
-              className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${
+              onClick={() => setActiveFilter(filter.id)}
+              className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 cursor-pointer ${
                 activeFilter === filter.id
                   ? 'bg-gradient-to-r from-azure-600 to-purple-600 text-white shadow-azure'
                   : 'bg-dark-800/50 text-light-400 hover:bg-dark-700/50 hover:text-white border border-dark-700 hover:border-azure-500/50'
@@ -316,7 +302,7 @@ const AIProjects: React.FC = () => {
               </span>
             </button>
           ))}
-        </motion.div>
+        </div>
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
@@ -402,7 +388,7 @@ const AIProjects: React.FC = () => {
                   <div className="flex gap-3">
                     <button
                       onClick={() => setSelectedProject(project)}
-                      className="flex-1 px-4 py-2 bg-gradient-to-r from-azure-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-azure transition-all duration-300 flex items-center justify-center gap-2 group"
+                      className="flex-1 px-4 py-2 bg-gradient-to-r from-azure-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-azure transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
                     >
                       <Lightbulb className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
                       View Details
@@ -412,7 +398,8 @@ const AIProjects: React.FC = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 bg-dark-700/50 text-light-300 text-sm font-medium rounded-lg hover:bg-dark-600/50 hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
+                      className="px-4 py-2 bg-dark-700/50 text-light-300 text-sm font-medium rounded-lg hover:bg-dark-600/50 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                      onClick={() => console.log('GitHub link clicked for:', project.title)}
                     >
                       <Github className="w-4 h-4" />
                       Code
@@ -423,7 +410,8 @@ const AIProjects: React.FC = () => {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2 bg-dark-700/50 text-light-300 text-sm font-medium rounded-lg hover:bg-dark-600/50 hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
+                        className="px-4 py-2 bg-dark-700/50 text-light-300 text-sm font-medium rounded-lg hover:bg-dark-600/50 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                        onClick={() => console.log('Live link clicked for:', project.title)}
                       >
                         <Globe className="w-4 h-4" />
                         Live
@@ -577,7 +565,8 @@ const AIProjects: React.FC = () => {
                       href={selectedProject.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 px-6 py-3 bg-dark-700/50 text-white text-center font-medium rounded-xl hover:bg-dark-600/50 transition-colors duration-300 flex items-center justify-center gap-2 border border-dark-600 hover:border-azure-500/50"
+                      className="flex-1 px-6 py-3 bg-dark-700/50 text-white text-center font-medium rounded-xl hover:bg-dark-600/50 transition-colors duration-300 flex items-center justify-center gap-2 border border-dark-600 hover:border-azure-500/50 cursor-pointer"
+                      onClick={() => console.log('GitHub link clicked for:', selectedProject.title)}
                     >
                       <Github className="w-5 h-5" />
                       View Source Code
@@ -588,7 +577,8 @@ const AIProjects: React.FC = () => {
                         href={selectedProject.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 px-6 py-3 bg-gradient-to-r from-azure-600 to-purple-600 text-white text-center font-medium rounded-xl hover:shadow-azure transition-all duration-300 flex items-center justify-center gap-2"
+                        className="flex-1 px-6 py-3 bg-gradient-to-r from-azure-600 to-purple-600 text-white text-center font-medium rounded-xl hover:shadow-azure transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                        onClick={() => console.log('Live demo link clicked for:', selectedProject.title)}
                       >
                         <Globe className="w-5 h-5" />
                         Live Demo
@@ -600,7 +590,8 @@ const AIProjects: React.FC = () => {
                         href={selectedProject.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-6 py-3 bg-gradient-to-r from-neon-500 to-purple-500 text-white text-center font-medium rounded-xl hover:shadow-neon transition-all duration-300 flex items-center justify-center gap-2"
+                        className="px-6 py-3 bg-gradient-to-r from-neon-500 to-purple-500 text-white text-center font-medium rounded-xl hover:shadow-neon transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                        onClick={() => console.log('Demo link clicked for:', selectedProject.title)}
                       >
                         <Play className="w-5 h-5" />
                         Watch Demo
@@ -632,14 +623,17 @@ const AIProjects: React.FC = () => {
               href="https://github.com/your-username"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3 bg-gradient-to-r from-azure-600 to-purple-600 text-white font-bold rounded-xl hover:shadow-azure transition-all duration-300 flex items-center justify-center gap-2"
+              className="px-8 py-3 bg-gradient-to-r from-azure-600 to-purple-600 text-white font-bold rounded-xl hover:shadow-azure transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+              onClick={() => console.log('GitHub CTA button clicked')}
             >
               <Github className="w-5 h-5" />
               View GitHub
             </a>
             <button
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-3 bg-transparent text-white font-bold rounded-xl border-2 border-azure-500 hover:bg-azure-500/10 transition-all duration-300 flex items-center justify-center gap-2 group"
+              onClick={() => {
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-8 py-3 bg-transparent text-white font-bold rounded-xl border-2 border-azure-500 hover:bg-azure-500/10 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
             >
               <span>Start a Project</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -651,4 +645,4 @@ const AIProjects: React.FC = () => {
   );
 };
 
-export default AIProjects; 
+export default React.memo(AIProjects);
