@@ -152,7 +152,11 @@ stages:
               app_location: '/'
               api_location: 'portfolio-backend'
               output_location: 'dist'
-              azure_static_web_apps_api_token: '$(AZURE_STATIC_WEB_APPS_API_TOKEN)'
+              azure_static_web_apps_api_token: '$(index-Bh8FVG-X.js:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+vendor-eVk5PToZ.js:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+animations-CG-KNg6f.js:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+graphics-CXyWsoeO.js:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+AZURE_STATIC_WEB_APPS_API_TOKEN)'
               skip_app_build: true
               skip_api_build: true
               deployment_environment: 'production'

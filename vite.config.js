@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  base: '/portfolio-website-ai/',
+export default defineConfig(({ command, mode }) => ({
+  base: command === 'serve' ? '/' : '/portfolio-website-ai/',
   plugins: [react()],
   publicDir: 'public',
   resolve: {
@@ -99,4 +99,4 @@ export default defineConfig({
     target: 'esnext',
     legalComments: 'none',
   },
-}) 
+})) 

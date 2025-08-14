@@ -80,7 +80,7 @@ portfolio-website/
 │   ├── types/              # TypeScript types
 │   │   └── index.ts        # Type definitions
 │   ├── App.tsx             # Main app component
-│   ├── main.jsx            # Entry point
+│   ├── main.tsx            # Entry point
 │   └── index.css           # Global styles
 ├── public/                 # Static assets
 │   ├── manifest.json       # PWA manifest

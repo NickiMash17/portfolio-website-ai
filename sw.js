@@ -2,7 +2,7 @@ const CACHE_NAME = 'portfolio-cache-v2';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/src/main.jsx',
+  '/src/main.tsx',
   '/src/App.tsx',
   '/src/index.css',
   '/manifest.json',
