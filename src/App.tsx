@@ -4,8 +4,7 @@ import AIHero from './components/AIHero';
 import AIAbout from './components/AIAbout';
 import NeuralBackground from './components/NeuralBackground';
 import PerformanceOptimizer from './components/PerformanceOptimizer';
-// ...existing code...
-import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Code, Github, Linkedin, Twitter, Mail as MailIcon, Heart, Zap } from 'lucide-react';
+import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Code, Github, Linkedin, Twitter, Mail as MailIcon, Heart, Zap, Sun, Moon } from 'lucide-react';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { usePerformance } from './hooks/usePerformance';
 
@@ -24,7 +23,7 @@ const LoadingSpinner: React.FC = () => (
 );
 
 const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) => {
-  const { isDark } = useTheme();
+  const { theme, toggleTheme, isLight } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState('home');
 
@@ -135,6 +134,22 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
             })}
           </div>
 
+          {/* Theme Toggle Button */}
+          <motion.button
+            onClick={toggleTheme}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="hidden lg:flex w-12 h-12 bg-gradient-to-r from-azure-500/20 to-purple-500/20 backdrop-blur-sm rounded-xl border border-dark-700/50 items-center justify-center text-white shadow-azure hover:shadow-neon transition-all duration-300"
+            aria-label={`Switch to ${isLight ? 'dark' : 'light'} mode`}
+          >
+            <motion.div
+              animate={{ rotate: isLight ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+            </motion.div>
+          </motion.button>
+
           {/* Enhanced Mobile Menu Button */}
           <motion.button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -162,6 +177,25 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
             className="lg:hidden mt-4 pb-4"
           >
             <div className="bg-dark-800/50 backdrop-blur-md rounded-xl border border-dark-700/50 p-4">
+              {/* Mobile Theme Toggle */}
+              <div className="flex justify-center mb-4">
+                <motion.button
+                  onClick={toggleTheme}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full max-w-xs px-4 py-3 bg-gradient-to-r from-azure-500/20 to-purple-500/20 backdrop-blur-sm rounded-lg border border-dark-700/50 text-white shadow-azure hover:shadow-neon transition-all duration-300 flex items-center justify-center gap-2"
+                  aria-label={`Switch to ${isLight ? 'dark' : 'light'} mode`}
+                >
+                  <motion.div
+                    animate={{ rotate: isLight ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+                  </motion.div>
+                  <span>{isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode'}</span>
+                </motion.button>
+              </div>
+              
               <div className="flex flex-col gap-2">
                 {navItems.map((link, index) => {
                   const isActive = activeSection === link.href.substring(1);
@@ -200,7 +234,6 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
 };
 
 const Footer: React.FC = () => {
-  const { isDark } = useTheme();
   
   const socialLinks = [
     { name: 'GitHub', icon: <Github className="w-5 h-5" />, url: 'https://github.com/nicolettemashaba' },
@@ -470,8 +503,16 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
           
           if (distance < connectionDistance) {
             const opacity = 1 - (distance / connectionDistance);
-            ctx.strokeStyle = `rgba(56, 232, 248, ${opacity * 0.2})`;
-            ctx.lineWidth = 0.5;
+            // Enhanced colors for light mode
+            const connectionColors = [
+              'rgba(0, 120, 212, 0.4)',    // Azure blue
+              'rgba(147, 51, 234, 0.4)',   // Purple
+              'rgba(56, 232, 248, 0.4)',   // Neon cyan
+              'rgba(0, 212, 255, 0.4)'     // Bright cyan
+            ];
+            const color = connectionColors[Math.floor(Math.random() * connectionColors.length)];
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 0.8;
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(connectedParticle.x, connectedParticle.y);
@@ -480,17 +521,30 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
         });
       });
 
-      // Draw particles
+      // Draw particles with enhanced effects
       particles.forEach((particle) => {
-        ctx.fillStyle = `rgba(56, 232, 248, ${particle.opacity})`;
+        // Enhanced particle colors for light mode
+        const particleColors = [
+          'rgba(0, 120, 212, 0.8)',    // Azure blue
+          'rgba(147, 51, 234, 0.8)',   // Purple
+          'rgba(56, 232, 248, 0.8)',   // Neon cyan
+          'rgba(0, 212, 255, 0.8)',    // Bright cyan
+          'rgba(255, 0, 122, 0.8)'     // Pink accent
+        ];
+        const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+        
+        ctx.fillStyle = color;
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 8;
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fill();
 
-        // Add subtle glow effect
-        ctx.shadowColor = '#38E8F8';
-        ctx.shadowBlur = 5;
+        // Add enhanced glow effect for light mode
+        ctx.shadowBlur = 12;
+        ctx.globalAlpha = 0.6;
         ctx.fill();
+        ctx.globalAlpha = 1;
         ctx.shadowBlur = 0;
       });
 
@@ -528,13 +582,10 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-dark-950 via-dark-900 to-azure-950 font-inter transition-colors duration-300 relative overflow-hidden">
-      {/* 3D Particle Network Background - Same as hero */}
-      <canvas
-        id="global-particle-canvas"
-        className="fixed inset-0 w-full h-full opacity-60"
-        style={{ zIndex: 1 }}
-      />
-
+      {/* Neural Background - Clean and Simple */}
+      <NeuralBackground />
+      
+      {/* Navigation */}
       <Navigation throttleScroll={throttleScroll} />
 
       {/* Main Content */}

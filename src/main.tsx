@@ -20,6 +20,35 @@ if (process.env.NODE_ENV === 'production') {
   }
 }
 
+// Theme initialization
+const initializeTheme = () => {
+  // Check for saved theme preference or default to system preference
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  // Default to light mode for better UX
+  const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+  
+  // Set initial theme
+  document.documentElement.setAttribute('data-theme', theme);
+  document.body.className = theme;
+  
+  // Add theme transition class
+  document.body.classList.add('theme-transition');
+  
+  // Add theme-specific class
+  if (theme === 'light') {
+    document.body.classList.add('light-mode');
+  } else {
+    document.body.classList.add('dark-mode');
+  }
+  
+  console.log('Theme initialized:', theme);
+};
+
+// Initialize theme before React renders
+initializeTheme();
+
 // Optimize React rendering
 const rootElement = document.getElementById('root');
 if (!rootElement) {
