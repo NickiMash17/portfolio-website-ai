@@ -7,6 +7,7 @@ yarn-error.log*
 # Build outputs
 dist/
 build/
+assets/
 
 # Environment variables
 .env
@@ -79,4 +80,28 @@ jspm_packages/
 .dynamodb/
 
 # TernJS port file
-.tern-port 
+.tern-port
+
+# Azure deployment files
+azure-pipelines-*.yml
+deploy-*.sh
+deploy-*.md
+*-DEPLOYMENT*.md
+*-deployment*.md
+azure-*.md
+
+# Performance and audit files
+PERFORMANCE_*.md
+BACKEND_*.md
+*_SUMMARY.md
+*_IMPROVEMENTS.md
+
+# Backup files
+*.backup
+*.bak
+
+# Solution files
+*.sln
+
+# Example files
+env.example 
