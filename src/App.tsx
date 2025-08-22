@@ -4,7 +4,7 @@ import AIHero from './components/AIHero';
 import AIAbout from './components/AIAbout';
 import NeuralBackground from './components/NeuralBackground';
 import PerformanceOptimizer from './components/PerformanceOptimizer';
-import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Code, Github, Linkedin, Twitter, Mail as MailIcon, Heart, Zap, Sun, Moon } from 'lucide-react';
+import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Code, Mail as MailIcon, Heart, Zap, Sun, Moon } from 'lucide-react';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { usePerformance } from './hooks/usePerformance';
 
@@ -14,7 +14,6 @@ const AIProjects = lazy(() => import('./components/AIProjects'));
 const Resume = lazy(() => import('./components/Resume'));
 const Contact = lazy(() => import('./components/Contact'));
 
-
 // Loading component for lazy-loaded components
 const LoadingSpinner: React.FC = () => (
   <div className="flex items-center justify-center p-8">
@@ -23,9 +22,11 @@ const LoadingSpinner: React.FC = () => (
 );
 
 const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) => {
-  const { theme, toggleTheme, isLight } = useTheme();
+  const { toggleTheme, isLight } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState('home');
+  // Lockout to prevent scroll handler from overriding activeSection after hashchange/click
+  const lockoutRef = React.useRef(false);
 
   const navItems = [
     { href: '#home', label: 'Home', icon: <Home className="w-4 h-4" /> },
@@ -35,27 +36,60 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
     { href: '#contact', label: 'Contact', icon: <Mail className="w-4 h-4" /> }
   ];
 
-  // Track active section on scroll with performance optimization
+  // Track active section on scroll with performance optimization and lockout
   React.useEffect(() => {
+    // More aggressive debounce (200ms)
     const handleScroll = throttleScroll(() => {
+      if (lockoutRef.current) return;
       const sections = navItems.map(item => item.href.substring(1));
       const scrollPosition = window.scrollY + 100;
 
+      let foundSection = '';
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const { offsetTop, offsetHeight } = element;
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
+            foundSection = section;
             break;
           }
         }
       }
-    }, 100);
+      // Only update if changed
+      setActiveSection(prev => prev !== foundSection ? foundSection : prev);
+    }, 200);
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [navItems, throttleScroll]);
+
+  // Update active section on hash change, with lockout
+  React.useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      const sections = navItems.map(item => item.href.substring(1));
+      if (sections.includes(hash)) {
+        setActiveSection(prev => prev !== hash ? hash : prev);
+        lockoutRef.current = true;
+        setTimeout(() => { lockoutRef.current = false; }, 400);
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [navItems]);
+
+  // On initial mount, set active section based on hash
+  React.useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    const sections = navItems.map(item => item.href.substring(1));
+    if (sections.includes(hash)) {
+      setActiveSection(hash);
+      lockoutRef.current = true;
+      setTimeout(() => { lockoutRef.current = false; }, 400);
+    } else {
+      setActiveSection('home');
+    }
+  }, [navItems]);
 
   return (
     <motion.nav
@@ -64,294 +98,161 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
       transition={{ duration: 0.8 }}
       className="fixed top-0 left-0 right-0 z-50 bg-dark-900/95 backdrop-blur-xl border-b border-dark-700/50 shadow-azure"
     >
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          {/* Enhanced Logo */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
           <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-3"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex items-center space-x-2"
           >
-            <div className="relative">
-                          <div className="w-10 h-10 bg-gradient-to-r from-azure-600 to-purple-600 rounded-xl flex items-center justify-center shadow-azure">
-              <Code className="w-5 h-5 text-white" />
-            </div>
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-neon-400 rounded-full animate-pulse" />
-          </div>
-          <div>
-            <div className="text-xl font-bold bg-gradient-to-r from-azure-600 to-purple-600 bg-clip-text text-transparent">
-              Nicolette
-            </div>
-            <div className="text-xs text-light-400 font-medium">
-              AI-Powered Full-Stack Developer
-            </div>
-          </div>
+            <Code className="w-8 h-8 text-azure-400" />
+            <span className="text-xl font-bold text-white">Nicolette</span>
           </motion.div>
-          
-          {/* Enhanced Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navItems.map((link, index) => {
-              const isActive = activeSection === link.href.substring(1);
-              return (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`relative px-4 py-2 rounded-lg font-medium transition-all duration-300 group ${
-                    isActive
-                      ? 'text-white bg-gradient-to-r from-azure-600 to-purple-600 shadow-azure'
-                      : 'text-light-300 hover:text-neon-400'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className={`transition-colors duration-300 ${
-                      isActive ? 'text-white' : 'text-light-400 group-hover:text-neon-400'
-                    }`}>
-                      {link.icon}
-                    </span>
-                    {link.label}
-                  </div>
-                  
-                  {/* Active indicator */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeIndicator"
-                      className="absolute inset-0 bg-gradient-to-r from-azure-600 to-purple-600 rounded-lg -z-10"
-                      initial={false}
-                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                    />
-                  )}
-                  
-                  {/* Hover effect */}
-                  {!isActive && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-azure-500/10 to-purple-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  )}
-                </motion.a>
-              );
-            })}
-          </div>
 
-          {/* Theme Toggle Button */}
-          <motion.button
-            onClick={toggleTheme}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="hidden lg:flex w-12 h-12 bg-gradient-to-r from-azure-500/20 to-purple-500/20 backdrop-blur-sm rounded-xl border border-dark-700/50 items-center justify-center text-white shadow-azure hover:shadow-neon transition-all duration-300"
-            aria-label={`Switch to ${isLight ? 'dark' : 'light'} mode`}
+          {/* Desktop Navigation */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="hidden md:flex items-center space-x-8"
           >
-            <motion.div
-              animate={{ rotate: isLight ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => {
+                  setActiveSection(item.href.substring(1));
+                  lockoutRef.current = true;
+                  setTimeout(() => { lockoutRef.current = false; }, 400);
+                }}
+                className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                  activeSection === item.href.substring(1)
+                    ? 'text-azure-400 bg-azure-400/10 border border-azure-400/20'
+                    : 'text-light-300 hover:text-azure-400 hover:bg-dark-700/50'
+                }`}
+              >
+                {item.icon}
+                <span>{item.label}</span>
+              </a>
+            ))}
+          </motion.div>
+
+          {/* Theme Toggle & Mobile Menu Button */}
+          <div className="flex items-center space-x-4">
+            <motion.button
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-dark-800 text-light-300 hover:text-azure-400 hover:bg-dark-700 transition-all duration-300"
+              aria-label="Toggle theme"
             >
               {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-            </motion.div>
-          </motion.button>
+            </motion.button>
 
-          {/* Enhanced Mobile Menu Button */}
-          <motion.button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="lg:hidden w-12 h-12 bg-gradient-to-r from-azure-500/20 to-purple-500/20 backdrop-blur-sm rounded-xl border border-dark-700/50 flex items-center justify-center text-white shadow-azure"
-            aria-label="Toggle menu"
-          >
-            <motion.div
-              animate={isMenuOpen ? { rotate: 180 } : { rotate: 0 }}
-              transition={{ duration: 0.3 }}
+            <motion.button
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 rounded-lg bg-dark-800 text-light-300 hover:text-azure-400 hover:bg-dark-700 transition-all duration-300"
+              aria-label="Toggle mobile menu"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </motion.div>
-          </motion.button>
+              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </motion.button>
+          </div>
         </div>
 
-        {/* Enhanced Mobile Navigation */}
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0, y: -20 }}
-            animate={{ opacity: 1, height: 'auto', y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden mt-4 pb-4"
-          >
-            <div className="bg-dark-800/50 backdrop-blur-md rounded-xl border border-dark-700/50 p-4">
-              {/* Mobile Theme Toggle */}
-              <div className="flex justify-center mb-4">
-                <motion.button
-                  onClick={toggleTheme}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full max-w-xs px-4 py-3 bg-gradient-to-r from-azure-500/20 to-purple-500/20 backdrop-blur-sm rounded-lg border border-dark-700/50 text-white shadow-azure hover:shadow-neon transition-all duration-300 flex items-center justify-center gap-2"
-                  aria-label={`Switch to ${isLight ? 'dark' : 'light'} mode`}
-                >
-                  <motion.div
-                    animate={{ rotate: isLight ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden border-t border-dark-700/50"
+            >
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                {navItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => {
+                      setActiveSection(item.href.substring(1));
+                      setIsMenuOpen(false);
+                      lockoutRef.current = true;
+                      setTimeout(() => { lockoutRef.current = false; }, 400);
+                    }}
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium transition-all duration-300 ${
+                      activeSection === item.href.substring(1)
+                        ? 'text-azure-400 bg-azure-400/10 border border-azure-400/20'
+                        : 'text-light-300 hover:text-azure-400 hover:bg-dark-700/50'
+                    }`}
                   >
-                    {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-                  </motion.div>
-                  <span>{isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode'}</span>
-                </motion.button>
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </a>
+                ))}
               </div>
-              
-              <div className="flex flex-col gap-2">
-                {navItems.map((link, index) => {
-                  const isActive = activeSection === link.href.substring(1);
-                  return (
-                    <motion.a
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.1 }}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
-                        isActive
-                          ? 'text-white bg-gradient-to-r from-azure-600 to-purple-600 shadow-azure'
-                          : 'text-light-300 hover:text-neon-400 hover:bg-dark-700/50'
-                      }`}
-                    >
-                      <span className={`transition-colors duration-300 ${
-                        isActive ? 'text-white' : 'text-light-400'
-                      }`}>
-                        {link.icon}
-                      </span>
-                      {link.label}
-                    </motion.a>
-                  );
-                })}
-              </div>
-            </div>
-          </motion.div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.nav>
   );
 };
 
 const Footer: React.FC = () => {
-  
-  const socialLinks = [
-    { name: 'GitHub', icon: <Github className="w-5 h-5" />, url: 'https://github.com/nicolettemashaba' },
-    { name: 'LinkedIn', icon: <Linkedin className="w-5 h-5" />, url: 'https://linkedin.com/in/nicolettemashaba' },
-    { name: 'Twitter', icon: <Twitter className="w-5 h-5" />, url: 'https://twitter.com/nicolettemashaba' },
-    { name: 'Email', icon: <MailIcon className="w-5 h-5" />, url: 'mailto:hello@nicolettemashaba.dev' }
-  ];
-
   return (
-    <footer className="relative bg-dark-900 overflow-hidden">
-      {/* Neural Network Background */}
-      <div className="absolute inset-0 z-0">
-        <NeuralBackground />
-      </div>
-      
-      {/* Enhanced Gradient Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-br from-dark-900/40 via-transparent to-dark-900/40 z-5" />
-      
-      {/* Premium Mesh Gradient */}
-      <div className="absolute inset-0 z-5 opacity-20">
-        <div className="absolute inset-0 bg-gradient-radial from-azure-500/30 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-gradient-radial from-purple-500/25 via-transparent to-transparent" style={{ transform: 'translate(70%, 30%)' }} />
-        <div className="absolute inset-0 bg-gradient-radial from-neon-500/25 via-transparent to-transparent" style={{ transform: 'translate(-30%, 70%)' }} />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand Section */}
-          <div className="md:col-span-2">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <div className="flex items-center gap-3">
-                <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-r from-azure-600 to-purple-600 rounded-xl flex items-center justify-center shadow-azure">
-                    <Code className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-neon-400 rounded-full animate-pulse" />
-                </div>
-                <div>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-azure-600 to-purple-600 bg-clip-text text-transparent">
-                    Nicolette
-                  </div>
-                  <div className="text-sm text-light-400 font-medium">
-                    Full-Stack Developer
-                  </div>
-                </div>
-              </div>
-              
-              <p className="text-light-300 text-lg leading-relaxed max-w-md">
-                Passionate about creating innovative solutions with cutting-edge technologies. 
-                Specializing in AI, cloud computing, and full-stack development.
-              </p>
-
-              {/* Social Links */}
-              <div className="flex items-center gap-4">
-                {socialLinks.map((social, index) => (
-                  <motion.a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-12 h-12 bg-gradient-to-r from-azure-500/20 to-purple-500/20 backdrop-blur-sm rounded-xl border border-dark-700/50 flex items-center justify-center text-light-300 hover:text-neon-400 transition-all duration-300 shadow-lg hover:shadow-neon/25"
-                  >
-                    {social.icon}
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-          </div>
+    <footer className="relative z-10 bg-dark-900/50 backdrop-blur-xl border-t border-dark-700/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Top Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Brand */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-4"
+          >
+            <div className="flex items-center space-x-2">
+              <Code className="w-8 h-8 text-azure-400" />
+              <span className="text-2xl font-bold text-white">Nicolette</span>
+            </div>
+            <p className="text-light-300 max-w-md">
+              Full-stack developer passionate about creating innovative solutions and pushing the boundaries of web technology.
+            </p>
+          </motion.div>
 
           {/* Quick Links */}
-          <div>
-            <motion.h3
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-lg font-semibold text-white mb-6"
-            >
-              Quick Links
-            </motion.h3>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="space-y-3"
-            >
-              {['About', 'Projects', 'Resume', 'Contact'].map((link, index) => (
-                <motion.a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ x: 5 }}
-                  className="block text-light-300 hover:text-neon-400 transition-colors duration-300"
-                >
-                  {link}
-                </motion.a>
-              ))}
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="space-y-4"
+          >
+            <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
+            <div className="space-y-2">
+              <a href="#home" className="block text-light-300 hover:text-azure-400 transition-colors duration-300">Home</a>
+              <a href="#about" className="block text-light-300 hover:text-azure-400 transition-colors duration-300">About</a>
+              <a href="#projects" className="block text-light-300 hover:text-azure-400 transition-colors duration-300">Projects</a>
+              <a href="#resume" className="block text-light-300 hover:text-azure-400 transition-colors duration-300">Resume</a>
+            </div>
+          </motion.div>
 
           {/* Contact Info */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="space-y-4"
+          >
             <motion.h3
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -368,8 +269,8 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
               className="space-y-3"
             >
-                              <div className="flex items-center gap-3 text-light-300">
-                  <MailIcon className="w-5 h-5 text-azure-400" />
+              <div className="flex items-center gap-3 text-light-300">
+                <MailIcon className="w-5 h-5 text-azure-400" />
                 <span>hello@nicolettemashaba.dev</span>
               </div>
               <div className="flex items-center gap-3 text-gray-300">
@@ -377,7 +278,7 @@ const Footer: React.FC = () => {
                 <span>Available for new opportunities</span>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Bottom Section */}
@@ -411,6 +312,18 @@ const Footer: React.FC = () => {
   );
 };
 
+// Types for particle animation
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+  shape: number;
+  t: number;
+  connections: number[];
+}
+
 const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function, throttleScroll: Function }> = ({ optimizeElement, debounceScroll, throttleScroll }) => {
   console.log('AppContent component rendered!');
 
@@ -418,45 +331,86 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 100);
 
-  // Initialize global particle network background
+  // Unique particle background: dynamic shapes, color gradients, mouse-reactive clustering
   React.useEffect(() => {
     const canvas = document.getElementById('global-particle-canvas') as HTMLCanvasElement;
     if (!canvas) return;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      opacity: number;
-      connections: number[];
-    }> = [];
+    // Mouse position for clustering
+    let mouse = { x: canvas.width / 2, y: canvas.height / 2, active: false };
+    canvas.onmousemove = (e) => {
+      mouse.x = e.offsetX;
+      mouse.y = e.offsetY;
+      mouse.active = true;
+    };
+    canvas.onmouseleave = () => { mouse.active = false; };
 
-    const particleCount = 80; // More particles for full page
+    // Particle shapes: 0=circle, 1=polygon, 2=star
+    function drawShape(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, type: number, color: string) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.fillStyle = color;
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 10;
+      if (type === 0) {
+        ctx.beginPath();
+        ctx.arc(0, 0, size, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (type === 1) {
+        // Polygon (hexagon)
+        ctx.beginPath();
+        for (let i = 0; i < 6; i++) {
+          const angle = (Math.PI * 2 * i) / 6;
+          ctx.lineTo(Math.cos(angle) * size, Math.sin(angle) * size);
+        }
+        ctx.closePath();
+        ctx.fill();
+      } else if (type === 2) {
+        // Star
+        ctx.beginPath();
+        for (let i = 0; i < 5; i++) {
+          let angle = (Math.PI * 2 * i) / 5;
+          ctx.lineTo(Math.cos(angle) * size, Math.sin(angle) * size);
+          angle += Math.PI / 5;
+          ctx.lineTo(Math.cos(angle) * size * 0.5, Math.sin(angle) * size * 0.5);
+        }
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    // Gradient color generator
+    function getGradientColor(t: number): string {
+      // t in [0,1]
+      const r = Math.floor(120 + 120 * Math.sin(2 * Math.PI * t));
+      const g = Math.floor(50 + 205 * Math.sin(2 * Math.PI * t + 2));
+      const b = Math.floor(200 + 55 * Math.sin(2 * Math.PI * t + 4));
+      return `rgba(${r},${g},${b},0.8)`;
+    }
+
+    const particles: Particle[] = [];
+    const particleCount = 80;
     const connectionDistance = 200;
-
-    // Initialize particles
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.3,
         vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.4 + 0.2,
+        size: Math.random() * 2 + 1.5,
+        shape: Math.floor(Math.random() * 3),
+        t: Math.random(), // for color gradient
         connections: []
       });
     }
 
     // Find connections between particles
-    const findConnections = () => {
+    function findConnections() {
       particles.forEach((particle, i) => {
         particle.connections = [];
         particles.forEach((otherParticle, j) => {
@@ -471,17 +425,29 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
           }
         });
       });
-    };
+    }
 
     let animationId: number;
-
-    const animate = () => {
+    function animate() {
+      if (!ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Update particle positions
+      // Update particle positions and color
       particles.forEach((particle) => {
+        // Mouse clustering effect
+        if (mouse.active) {
+          const dx = mouse.x - particle.x;
+          const dy = mouse.y - particle.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            particle.vx += dx * 0.0005;
+            particle.vy += dy * 0.0005;
+          }
+        }
+
+        // Update position
         particle.x += particle.vx;
         particle.y += particle.vy;
+        particle.t += 0.01;
 
         // Bounce off edges
         if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
@@ -490,82 +456,48 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
         // Keep particles in bounds
         particle.x = Math.max(0, Math.min(canvas.width, particle.x));
         particle.y = Math.max(0, Math.min(canvas.height, particle.y));
-      });
 
-      // Draw connections
-      particles.forEach((particle) => {
-        particle.connections.forEach((connectionIndex) => {
-          const connectedParticle = particles[connectionIndex];
+        // Draw connections
+        particle.connections.forEach((connectedIndex) => {
+          const connectedParticle = particles[connectedIndex];
           const distance = Math.sqrt(
             Math.pow(particle.x - connectedParticle.x, 2) +
             Math.pow(particle.y - connectedParticle.y, 2)
           );
-          
           if (distance < connectionDistance) {
             const opacity = 1 - (distance / connectionDistance);
-            // Enhanced colors for light mode
-            const connectionColors = [
-              'rgba(0, 120, 212, 0.4)',    // Azure blue
-              'rgba(147, 51, 234, 0.4)',   // Purple
-              'rgba(56, 232, 248, 0.4)',   // Neon cyan
-              'rgba(0, 212, 255, 0.4)'     // Bright cyan
-            ];
-            const color = connectionColors[Math.floor(Math.random() * connectionColors.length)];
-            ctx.strokeStyle = color;
-            ctx.lineWidth = 0.8;
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(connectedParticle.x, connectedParticle.y);
-            ctx.stroke();
+            if (ctx) {
+              ctx.save();
+              ctx.globalAlpha = opacity * 0.7;
+              ctx.strokeStyle = getGradientColor((particle.t + connectedParticle.t) / 2);
+              ctx.lineWidth = 1.2;
+              ctx.beginPath();
+              ctx.moveTo(particle.x, particle.y);
+              ctx.lineTo(connectedParticle.x, connectedParticle.y);
+              ctx.stroke();
+              ctx.restore();
+            }
           }
         });
       });
-
-      // Draw particles with enhanced effects
+      // Draw particles with dynamic shapes and animated color
       particles.forEach((particle) => {
-        // Enhanced particle colors for light mode
-        const particleColors = [
-          'rgba(0, 120, 212, 0.8)',    // Azure blue
-          'rgba(147, 51, 234, 0.8)',   // Purple
-          'rgba(56, 232, 248, 0.8)',   // Neon cyan
-          'rgba(0, 212, 255, 0.8)',    // Bright cyan
-          'rgba(255, 0, 122, 0.8)'     // Pink accent
-        ];
-        const color = particleColors[Math.floor(Math.random() * particleColors.length)];
-        
-        ctx.fillStyle = color;
-        ctx.shadowColor = color;
-        ctx.shadowBlur = 8;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Add enhanced glow effect for light mode
-        ctx.shadowBlur = 12;
-        ctx.globalAlpha = 0.6;
-        ctx.fill();
-        ctx.globalAlpha = 1;
-        ctx.shadowBlur = 0;
+        if (ctx) {
+          drawShape(ctx, particle.x, particle.y, particle.size, particle.shape, getGradientColor(particle.t));
+        }
       });
-
       findConnections();
       animationId = requestAnimationFrame(animate);
-    };
-
+    }
     animate();
-
     // Handle window resize
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-
     window.addEventListener('resize', handleResize);
-
     return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
+      if (animationId) cancelAnimationFrame(animationId);
       window.removeEventListener('resize', handleResize);
     };
   }, []);
@@ -582,6 +514,19 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-dark-950 via-dark-900 to-azure-950 font-inter transition-colors duration-300 relative overflow-hidden">
+      {/* Particle Canvas for Genius Background */}
+      <canvas
+        id="global-particle-canvas"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
       {/* Neural Background - Clean and Simple */}
       <NeuralBackground />
       

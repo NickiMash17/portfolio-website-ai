@@ -1,25 +1,20 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ExternalLink, 
   Github, 
-  Globe,
-  Code,
-  Lightbulb,
-  Target,
-  Calendar,
+  Globe, 
+  Brain, 
+  Code, 
   Users,
-  Brain,
-  Cloud,
-  Zap,
-  Database,
-  Shield,
-  Play,
+  Calendar,
+  Lightbulb,
   X,
-  ArrowRight,
   Star,
   CheckCircle,
-  TrendingUp
+  Target,
+  TrendingUp,
+  Play,
+  ArrowRight
 } from 'lucide-react';
 
 interface Project {

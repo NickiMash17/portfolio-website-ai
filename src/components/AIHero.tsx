@@ -24,12 +24,6 @@ const AIHero: React.FC = () => {
     "Azure Expert"
   ];
 
-  const socialLinks = [
-    { name: 'GitHub', url: 'https://github.com/your-username', icon: Github },
-    { name: 'LinkedIn', url: 'https://linkedin.com/in/your-profile', icon: Linkedin },
-    { name: 'Email', url: 'mailto:your-email@example.com', icon: Mail }
-  ];
-
   // Rotating taglines effect
   useEffect(() => {
     const interval = setInterval(() => {
