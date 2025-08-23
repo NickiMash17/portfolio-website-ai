@@ -20,76 +20,75 @@ const AIAbout: React.FC = () => {
 
   const experience = [
     {
-      year: '2024',
-      title: 'AI Innovation Lead',
-      company: 'Tech Solutions Inc.',
-      description: 'Leading AI/ML initiatives, implementing Azure Cognitive Services, and architecting cloud-native solutions.',
-      technologies: ['Azure AI', 'Machine Learning', 'Python', 'React', 'Node.js'],
-      icon: Brain
-    },
-    {
-      year: '2023',
-      title: 'Full-Stack Developer',
-      company: 'Digital Dynamics',
-      description: 'Built scalable web applications using modern technologies and cloud infrastructure.',
-      technologies: ['React', 'TypeScript', 'Azure', 'PostgreSQL', 'Docker'],
+      year: '2025',
+      title: 'Web Developer Intern',
+      company: 'CodeCatalyst, Remote',
+      description: 'Built full-stack applications using React, Node.js, and MongoDB. Implemented JWT authentication, reducing report generation time by 20%. Delivered responsive UIs with Tailwind CSS.',
+      technologies: ['React', 'Node.js', 'MongoDB', 'JWT', 'Tailwind CSS'],
       icon: Code
     },
     {
-      year: '2022',
-      title: 'Cloud Engineer',
-      company: 'CloudFirst Solutions',
-      description: 'Specialized in Azure cloud architecture, DevOps practices, and infrastructure automation.',
-      technologies: ['Azure', 'Terraform', 'Kubernetes', 'Python', 'PowerShell'],
-      icon: Cloud
+      year: '2025',
+      title: 'AI Model Trainer',
+      company: 'Outlier, Remote',
+      description: 'Created and refined 100+ AI prompts, improving model accuracy by 25%. Reduced debugging time for developers by 10 hours/week.',
+      technologies: ['AI Prompt Engineering', 'Model Training', 'Data Analysis'],
+      icon: Brain
+    },
+    {
+      year: '2012-2021',
+      title: 'Junior Navigation Officer',
+      company: 'South African Navy, Simon\'s Town',
+      description: 'Conducted pre-departure briefings and optimized voyage plans, reducing fuel consumption by up to 10% per voyage. Enhanced vessel safety and trained 5+ junior officers.',
+      technologies: ['Navigation Systems', 'Safety Protocols', 'Team Leadership', 'Optimization'],
+      icon: Shield
     }
   ];
 
   const skills = [
     {
-      category: 'AI & Machine Learning',
+      category: 'Programming Languages',
       items: [
-        { name: 'Azure Cognitive Services', level: 90, icon: Brain, color: 'from-neon-500 to-purple-500' },
-        { name: 'TensorFlow & PyTorch', level: 85, icon: Brain, color: 'from-purple-500 to-azure-500' },
-        { name: 'Natural Language Processing', level: 80, icon: Brain, color: 'from-azure-500 to-neon-500' },
-        { name: 'Computer Vision', level: 75, icon: Brain, color: 'from-neon-500 to-purple-500' }
+        { name: 'JavaScript & TypeScript', level: 90, icon: Code, color: 'from-neon-500 to-purple-500' },
+        { name: 'Python', level: 85, icon: Code, color: 'from-purple-500 to-azure-500' },
+        { name: 'C# & .NET', level: 80, icon: Code, color: 'from-azure-500 to-neon-500' },
+        { name: 'SQL', level: 85, icon: Database, color: 'from-neon-500 to-purple-500' }
       ]
     },
     {
-      category: 'Cloud & DevOps',
+      category: 'Frontend Development',
       items: [
-        { name: 'Microsoft Azure', level: 95, icon: Cloud, color: 'from-azure-500 to-neon-500' },
-        { name: 'Kubernetes & Docker', level: 88, icon: Database, color: 'from-purple-500 to-azure-500' },
-        { name: 'Terraform & ARM Templates', level: 85, icon: Shield, color: 'from-azure-500 to-purple-500' },
-        { name: 'CI/CD Pipelines', level: 90, icon: Zap, color: 'from-neon-500 to-azure-500' }
+        { name: 'React.js', level: 92, icon: Code, color: 'from-purple-500 to-neon-500' },
+        { name: 'HTML5 & CSS3', level: 90, icon: Code, color: 'from-azure-500 to-purple-500' },
+        { name: 'Tailwind CSS', level: 88, icon: Code, color: 'from-neon-500 to-azure-500' },
+        { name: 'Vite & Bootstrap', level: 85, icon: Code, color: 'from-purple-500 to-neon-500' }
       ]
     },
     {
-      category: 'Full-Stack Development',
+      category: 'Backend & Cloud',
       items: [
-        { name: 'React & TypeScript', level: 92, icon: Code, color: 'from-purple-500 to-neon-500' },
         { name: 'Node.js & Express', level: 88, icon: Code, color: 'from-azure-500 to-purple-500' },
-        { name: 'Python & FastAPI', level: 85, icon: Code, color: 'from-neon-500 to-azure-500' },
-        { name: 'PostgreSQL & MongoDB', level: 82, icon: Database, color: 'from-purple-500 to-neon-500' }
+        { name: 'ASP.NET Core', level: 85, icon: Code, color: 'from-neon-500 to-azure-500' },
+        { name: 'Microsoft Azure', level: 90, icon: Cloud, color: 'from-purple-500 to-neon-500' },
+        { name: 'Docker & CI/CD', level: 80, icon: Database, color: 'from-azure-500 to-purple-500' }
+      ]
+    },
+    {
+      category: 'Databases & Tools',
+      items: [
+        { name: 'MongoDB', level: 85, icon: Database, color: 'from-neon-500 to-purple-500' },
+        { name: 'SQL Server', level: 80, icon: Database, color: 'from-purple-500 to-azure-500' },
+        { name: 'Git & GitHub', level: 90, icon: Code, color: 'from-azure-500 to-neon-500' },
+        { name: 'RESTful APIs', level: 88, icon: Code, color: 'from-neon-500 to-purple-500' }
       ]
     }
   ];
 
   const certifications = [
     {
-      name: 'Microsoft Azure Solutions Architect Expert',
+      name: 'Microsoft Certified: Azure Developer Associate',
       issuer: 'Microsoft',
       date: '2024',
-      badge: 'AZ-305',
-      description: 'Expert-level certification for designing and implementing solutions on Microsoft Azure.',
-      icon: Award,
-      color: 'from-azure-500 to-blue-600',
-      url: 'https://learn.microsoft.com/en-us/certifications/azure-solutions-architect/'
-    },
-    {
-      name: 'Microsoft Azure Developer Associate',
-      issuer: 'Microsoft',
-      date: '2023',
       badge: 'AZ-204',
       description: 'Associate-level certification for developing applications and services on Azure.',
       icon: Code,
@@ -97,24 +96,34 @@ const AIAbout: React.FC = () => {
       url: 'https://learn.microsoft.com/en-us/certifications/azure-developer/'
     },
     {
-      name: 'Microsoft Azure AI Engineer Associate',
+      name: 'Microsoft Certified: Azure Data Fundamentals',
       issuer: 'Microsoft',
       date: '2024',
-      badge: 'AI-102',
-      description: 'Specialized certification for implementing AI solutions on Azure.',
-      icon: Brain,
-      color: 'from-neon-500 to-purple-500',
-      url: 'https://learn.microsoft.com/en-us/certifications/azure-ai-engineer/'
+      badge: 'DP-900',
+      description: 'Fundamental knowledge of core data concepts and how they are implemented using Microsoft Azure data services.',
+      icon: Database,
+      color: 'from-azure-500 to-blue-600',
+      url: 'https://learn.microsoft.com/en-us/certifications/azure-data-fundamentals/'
     },
     {
-      name: 'AWS Solutions Architect Associate',
-      issuer: 'Amazon Web Services',
-      date: '2023',
-      badge: 'SAA-C03',
-      description: 'Cloud architecture certification for designing distributed systems.',
-      icon: Cloud,
+      name: 'SheCodes: Responsive Web Development',
+      issuer: 'SheCodes',
+      date: '2024',
+      badge: 'Advanced',
+      description: 'Advanced web development certification covering responsive design and modern web technologies.',
+      icon: Award,
+      color: 'from-neon-500 to-purple-500',
+      url: 'https://www.shecodes.io/'
+    },
+    {
+      name: 'Techbridle Foundation: Software Development Bootcamp',
+      issuer: 'Techbridle Foundation',
+      date: '2024',
+      badge: 'Bootcamp',
+      description: 'Intensive software development bootcamp covering full-stack development and modern technologies.',
+      icon: Rocket,
       color: 'from-orange-500 to-red-600',
-      url: 'https://aws.amazon.com/certification/certified-solutions-architect-associate/'
+      url: '#'
     }
   ];
 
@@ -139,8 +148,8 @@ const AIAbout: React.FC = () => {
             ABOUT ME
           </h2>
           <p className="text-body text-light-300 max-w-3xl mx-auto">
-            AI-driven developer with a passion for innovation, cloud architecture, and cutting-edge technologies. 
-            Transforming ideas into intelligent solutions that drive business value.
+            Motivated and results-driven Software Engineering student with experience in full-stack development, cloud computing, and AI-assisted coding. 
+            Microsoft Azure certified and recognized as a top-performing student, dedicated to building scalable, user-friendly applications.
           </p>
         </motion.div>
         {/* Tab Navigation */}
@@ -174,56 +183,38 @@ const AIAbout: React.FC = () => {
         >
           {activeTab === 'overview' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* AI Innovation */}
+              {/* Education & Background */}
               <div className="bg-dark-800/30 backdrop-blur-md rounded-2xl p-8 border border-dark-700/50">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-neon-500 to-purple-500 rounded-xl flex items-center justify-center">
-                    <Brain className="w-6 h-6 text-white" />
+                    <Award className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white">AI Innovation</h3>
+                  <h3 className="text-xl font-bold text-white">Education & Achievements</h3>
                 </div>
+                <p className="text-light-300 leading-relaxed mb-4">
+                  Currently pursuing Occupational Certificate: Software Engineering (NQF Level 6) at CTU Training Solutions, 
+                  graduating in 2026. Awarded Programming Foundation Top Performer in 2023.
+                </p>
                 <p className="text-light-300 leading-relaxed">
-                  Pioneering AI solutions that transform business processes. Specializing in machine learning, 
-                  natural language processing, and computer vision applications.
+                  Completed J.P. Morgan Midas Core Software Engineering Simulation in 2024, demonstrating real-world 
+                  software engineering skills and problem-solving abilities.
                 </p>
               </div>
-              {/* Cloud Architecture */}
+              {/* Professional Experience */}
               <div className="bg-dark-800/30 backdrop-blur-md rounded-2xl p-8 border border-dark-700/50">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-azure-500 to-neon-500 rounded-xl flex items-center justify-center">
-                    <Cloud className="w-6 h-6 text-white" />
+                    <TrendingUp className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white">Cloud Architecture</h3>
+                  <h3 className="text-xl font-bold text-white">Professional Journey</h3>
                 </div>
-                <p className="text-light-300 leading-relaxed">
-                  Expert in Microsoft Azure cloud solutions, designing scalable architectures, 
-                  and implementing DevOps best practices for enterprise applications.
+                <p className="text-light-300 leading-relaxed mb-4">
+                  Transitioned from a successful 9-year career in the South African Navy as a Junior Navigation Officer, 
+                  where I developed strong leadership, problem-solving, and optimization skills.
                 </p>
-              </div>
-              {/* Full-Stack Excellence */}
-              <div className="bg-dark-800/30 backdrop-blur-md rounded-2xl p-8 border border-dark-700/50">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-azure-500 rounded-xl flex items-center justify-center">
-                    <Code className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-white">Full-Stack Excellence</h3>
-                </div>
                 <p className="text-light-300 leading-relaxed">
-                  Building modern, responsive web applications with cutting-edge technologies. 
-                  From frontend frameworks to backend services and database design.
-                </p>
-              </div>
-              {/* Innovation Leadership */}
-              <div className="bg-dark-800/30 backdrop-blur-md rounded-2xl p-8 border border-dark-700/50">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-neon-500 to-azure-500 rounded-xl flex items-center justify-center">
-                    <Rocket className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-white">Innovation Leadership</h3>
-                </div>
-                <p className="text-light-300 leading-relaxed">
-                  Leading technical teams, mentoring developers, and driving innovation initiatives. 
-                  Passionate about sharing knowledge and building the next generation of tech leaders.
+                  Now focused on software development with recent experience as a Web Developer Intern at CodeCatalyst 
+                  and AI Model Trainer at Outlier, building modern web applications and improving AI model accuracy.
                 </p>
               </div>
             </div>

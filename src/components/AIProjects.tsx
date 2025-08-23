@@ -44,6 +44,40 @@ const AIProjects: React.FC = () => {
 
   const projects: Project[] = [
     {
+      id: 'ai-resume-analyzer',
+      title: 'AI Resume Analyzer & Career Advisor',
+      description: 'Intelligent resume analysis platform with AI-powered insights, skill gap analysis, and personalized career recommendations.',
+      longDescription: 'A sophisticated AI-powered platform that analyzes resumes, identifies skill gaps, and provides personalized career recommendations. Features include natural language processing for resume parsing, skill assessment algorithms, and machine learning-based career path suggestions.',
+      image: '/api/placeholder/600/400',
+      technologies: ['React', 'Python', 'OpenAI GPT', 'Azure AI', 'Machine Learning', 'NLP', 'FastAPI', 'PostgreSQL'],
+      category: 'ai-ml',
+      difficulty: 'expert',
+      githubUrl: 'https://github.com/NickiMash17/ai-resume-analyzer',
+      features: [
+        'AI-powered resume parsing and analysis',
+        'Skill gap identification and recommendations',
+        'Personalized career path suggestions',
+        'Real-time skill assessment',
+        'Integration with job market data'
+      ],
+      challenges: [
+        'Implementing accurate resume parsing',
+        'Creating intelligent skill assessment algorithms',
+        'Building personalized recommendation engine',
+        'Ensuring data privacy and security'
+      ],
+      solutions: [
+        'Used OpenAI GPT for intelligent text analysis',
+        'Implemented custom ML models for skill assessment',
+        'Created recommendation engine with Azure AI',
+        'Built secure, GDPR-compliant data handling'
+      ],
+      impact: 'Helps job seekers optimize their resumes and career paths with AI-driven insights and recommendations.',
+      teamSize: 1,
+      duration: '6 months',
+      status: 'in-progress'
+    },
+    {
       id: 'meteora-weather',
       title: 'Meteora Weather App',
       description: 'PWA with AI-powered insights, gamification, and offline-first architecture.',
@@ -178,6 +212,74 @@ const AIProjects: React.FC = () => {
       teamSize: 1,
       duration: '3 months',
       status: 'completed'
+    },
+    {
+      id: 'quantum-trading-platform',
+      title: 'Quantum Trading Platform',
+      description: 'Next-generation trading platform leveraging quantum computing principles and AI for market prediction.',
+      longDescription: 'A cutting-edge trading platform that combines quantum computing principles with artificial intelligence for advanced market analysis and prediction. Features include quantum-inspired algorithms, real-time market data processing, and AI-driven trading strategies.',
+      image: '/api/placeholder/600/400',
+      technologies: ['Python', 'Quantum Computing', 'TensorFlow', 'React', 'FastAPI', 'PostgreSQL', 'Redis', 'Docker'],
+      category: 'innovation',
+      difficulty: 'pioneering',
+      githubUrl: 'https://github.com/NickiMash17/quantum-trading-platform',
+      features: [
+        'Quantum-inspired trading algorithms',
+        'AI-powered market prediction models',
+        'Real-time market data processing',
+        'Advanced risk management system',
+        'High-frequency trading capabilities'
+      ],
+      challenges: [
+        'Implementing quantum computing principles',
+        'Building real-time data processing systems',
+        'Creating accurate prediction models',
+        'Ensuring system reliability and security'
+      ],
+      solutions: [
+        'Used quantum-inspired optimization algorithms',
+        'Implemented event-driven architecture',
+        'Created ensemble ML models for predictions',
+        'Built robust security and monitoring systems'
+      ],
+      impact: 'Demonstrates cutting-edge technology skills and innovative thinking in financial technology.',
+      teamSize: 1,
+      duration: '8 months',
+      status: 'planned'
+    },
+    {
+      id: 'ai-powered-healthcare-platform',
+      title: 'AI-Powered Healthcare Platform',
+      description: 'Comprehensive healthcare management system with AI diagnostics, patient monitoring, and predictive analytics.',
+      longDescription: 'An intelligent healthcare platform that leverages artificial intelligence for patient diagnosis, monitoring, and predictive health analytics. Features include AI-powered symptom analysis, patient data management, and predictive health risk assessment.',
+      image: '/api/placeholder/600/400',
+      technologies: ['React', 'Python', 'TensorFlow', 'Azure AI', 'Healthcare APIs', 'HIPAA Compliance', 'FastAPI', 'PostgreSQL'],
+      category: 'ai-ml',
+      difficulty: 'expert',
+      githubUrl: 'https://github.com/NickiMash17/ai-healthcare-platform',
+      features: [
+        'AI-powered symptom analysis and diagnosis',
+        'Patient data management and monitoring',
+        'Predictive health risk assessment',
+        'HIPAA-compliant data handling',
+        'Integration with healthcare systems'
+      ],
+      challenges: [
+        'Ensuring HIPAA compliance and data security',
+        'Building accurate AI diagnostic models',
+        'Integrating with healthcare APIs',
+        'Creating user-friendly medical interfaces'
+      ],
+      solutions: [
+        'Implemented end-to-end encryption and compliance',
+        'Used medical datasets for model training',
+        'Created standardized API integration layer',
+        'Designed intuitive medical user interfaces'
+      ],
+      impact: 'Shows ability to work with sensitive data, healthcare regulations, and complex AI systems.',
+      teamSize: 1,
+      duration: '10 months',
+      status: 'planned'
     }
   ];
 
