@@ -42,47 +42,60 @@ const Contact: React.FC = () => {
 
   return (
     <section id="contact" className="relative py-16 overflow-hidden theme-transition">
-      {/* Simple background that matches main page */}
+      {/* Enhanced background with better gradients and effects */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-azure-950" />
-        <div className="absolute inset-0 bg-gradient-to-br from-azure-500/10 via-transparent to-purple-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-azure-500/15 via-transparent to-purple-500/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-900/50 via-transparent to-transparent" />
+        {/* Subtle mesh gradient overlay */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-gradient-radial from-purple-500/30 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-radial from-neon-500/25 via-transparent to-transparent" style={{ transform: 'translate(70%, 30%)' }} />
+          <div className="absolute inset-0 bg-gradient-radial from-azure-500/25 via-transparent to-transparent" style={{ transform: 'translate(-30%, 70%)' }} />
+        </div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             <span className="bg-gradient-to-r from-azure-600 to-purple-600 bg-clip-text text-transparent">
               Get In Touch
             </span>
           </h2>
-          <p className="text-light-300 text-lg max-w-2xl mx-auto">
+          <p className="text-light-300 text-lg max-w-3xl mx-auto leading-relaxed">
             Ready to start a project or have a question? 
             I'd love to hear from you. Let's create something amazing together.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            className="order-2 lg:order-1"
           >
             <div className="backdrop-blur-md bg-dark-800/30 rounded-3xl border border-dark-700/50 p-8 shadow-2xl relative overflow-hidden theme-transition">
-              {/* Enhanced card background - using consistent dark theme */}
+              {/* Enhanced card background */}
               <div className="absolute inset-0 bg-gradient-to-br from-dark-800/50 via-dark-700/30 to-dark-800/50 rounded-3xl" />
               <div className="absolute inset-0 bg-gradient-to-br from-azure-500/5 via-purple-500/5 to-neon-500/5 rounded-3xl" />
               
               <div className="relative z-10">
-                <h3 className="text-2xl font-bold text-white mb-6">Send a Message</h3>
+                <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-azure-600 to-purple-600 rounded-lg flex items-center justify-center">
+                    <Mail className="w-5 h-5 text-white" />
+                  </div>
+                  Send a Message
+                </h3>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -172,11 +185,16 @@ const Contact: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="space-y-8 order-1 lg:order-2"
           >
             {/* Contact Methods */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
+              <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-neon-500 rounded-lg flex items-center justify-center">
+                  <Mail className="w-5 h-5 text-white" />
+                </div>
+                Contact Information
+              </h3>
               
               <motion.div
                 whileHover={{ scale: 1.02, y: -2 }}
@@ -216,11 +234,27 @@ const Contact: React.FC = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-neon-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
                 <div className="w-12 h-12 bg-gradient-to-r from-neon-500 to-azure-600 rounded-lg flex items-center justify-center relative z-10">
+                  <Github className="w-6 h-6 text-white" />
+                </div>
+                <div className="relative z-10">
+                  <h4 className="text-white font-semibold">GitHub</h4>
+                  <a href="https://github.com/NickiMash17" target="_blank" rel="noopener noreferrer" className="text-light-300 hover:text-neon-400 transition-colors duration-300">
+                    @NickiMash17
+                  </a>
+                </div>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.02, y: -2 }}
+                className="flex items-center gap-4 p-6 bg-dark-800/20 backdrop-blur-sm rounded-xl border border-dark-700/50 hover:border-azure-400/50 transition-all duration-300 relative overflow-hidden group theme-transition"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-azure-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+                <div className="w-12 h-12 bg-gradient-to-r from-azure-600 to-purple-600 rounded-lg flex items-center justify-center relative z-10">
                   <Linkedin className="w-6 h-6 text-white" />
                 </div>
                 <div className="relative z-10">
                   <h4 className="text-white font-semibold">LinkedIn</h4>
-                  <a href="https://linkedin.com/in/nicolette-mashaba" target="_blank" rel="noopener noreferrer" className="text-light-300 hover:text-neon-400 transition-colors duration-300">
+                  <a href="https://linkedin.com/in/nicolette-mashaba" target="_blank" rel="noopener noreferrer" className="text-light-300 hover:text-azure-400 transition-colors duration-300">
                     nicolette-mashaba
                   </a>
                 </div>

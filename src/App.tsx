@@ -207,25 +207,45 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative z-10 bg-dark-900/50 backdrop-blur-xl border-t border-dark-700/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="relative z-10 overflow-hidden theme-transition">
+      {/* Enhanced background with gradients and effects */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-900 to-dark-800" />
+        <div className="absolute inset-0 bg-gradient-to-t from-azure-500/10 via-purple-500/5 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent" />
+        {/* Subtle mesh gradient overlay */}
+        <div className="absolute inset-0 opacity-15">
+          <div className="absolute inset-0 bg-gradient-radial from-azure-500/20 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-radial from-purple-500/15 via-transparent to-transparent" style={{ transform: 'translate(70%, 30%)' }} />
+          <div className="absolute inset-0 bg-gradient-radial from-neon-500/15 via-transparent to-transparent" style={{ transform: 'translate(-30%, 70%)' }} />
+        </div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-4"
+            className="space-y-6"
           >
-            <div className="flex items-center space-x-2">
-              <Code className="w-8 h-8 text-azure-400" />
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-azure-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <Code className="w-6 h-6 text-white" />
+              </div>
               <span className="text-2xl font-bold text-white">Nicolette</span>
             </div>
-            <p className="text-light-300 max-w-md">
-              Full-stack developer passionate about creating innovative solutions and pushing the boundaries of web technology.
+            <p className="text-light-300 max-w-md leading-relaxed">
+              Software Engineering student passionate about creating innovative solutions and pushing the boundaries of web technology. Microsoft Azure certified and ready to build the future.
             </p>
+            {/* Status indicator */}
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-neon-400 rounded-full animate-pulse" />
+              <span className="text-neon-400 text-sm font-medium">Available for opportunities</span>
+            </div>
           </motion.div>
 
           {/* Quick Links */}
@@ -234,14 +254,20 @@ const Footer: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="space-y-4"
+            className="space-y-6"
           >
-            <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
-            <div className="space-y-2">
-              <a href="#home" className="block text-light-300 hover:text-azure-400 transition-colors duration-300">Home</a>
-              <a href="#about" className="block text-light-300 hover:text-azure-400 transition-colors duration-300">About</a>
-              <a href="#projects" className="block text-light-300 hover:text-azure-400 transition-colors duration-300">Projects</a>
-              <a href="#resume" className="block text-light-300 hover:text-azure-400 transition-colors duration-300">Resume</a>
+            <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
+              <div className="w-6 h-6 bg-gradient-to-r from-purple-600 to-neon-500 rounded-md flex items-center justify-center">
+                <Zap className="w-3 h-3 text-white" />
+              </div>
+              Quick Links
+            </h3>
+            <div className="space-y-3">
+              <a href="#home" className="block text-light-300 hover:text-azure-400 transition-colors duration-300 hover:translate-x-1 transform">Home</a>
+              <a href="#about" className="block text-light-300 hover:text-azure-400 transition-colors duration-300 hover:translate-x-1 transform">About</a>
+              <a href="#projects" className="block text-light-300 hover:text-azure-400 transition-colors duration-300 hover:translate-x-1 transform">Projects</a>
+              <a href="#resume" className="block text-light-300 hover:text-azure-400 transition-colors duration-300 hover:translate-x-1 transform">Resume</a>
+              <a href="#contact" className="block text-light-300 hover:text-azure-400 transition-colors duration-300 hover:translate-x-1 transform">Contact</a>
             </div>
           </motion.div>
 
@@ -251,15 +277,18 @@ const Footer: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
-            className="space-y-4"
+            className="space-y-6"
           >
             <motion.h3
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               viewport={{ once: true }}
-              className="text-lg font-semibold text-white mb-6"
+              className="text-lg font-semibold text-white mb-6 flex items-center gap-2"
             >
+              <div className="w-6 h-6 bg-gradient-to-r from-azure-600 to-purple-600 rounded-md flex items-center justify-center">
+                <MailIcon className="w-3 h-3 text-white" />
+              </div>
               Get In Touch
             </motion.h3>
             <motion.div
@@ -267,39 +296,44 @@ const Footer: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
               viewport={{ once: true }}
-              className="space-y-3"
+              className="space-y-4"
             >
-              <div className="flex items-center gap-3 text-light-300">
-                <MailIcon className="w-5 h-5 text-azure-400" />
+              <div className="flex items-center gap-3 text-light-300 group">
+                <div className="w-8 h-8 bg-gradient-to-r from-azure-500/20 to-purple-500/20 rounded-lg flex items-center justify-center group-hover:from-azure-500/30 group-hover:to-purple-500/30 transition-all duration-300">
+                  <MailIcon className="w-4 h-4 text-azure-400" />
+                </div>
                 <a href="mailto:nene171408@gmail.com" className="hover:text-azure-400 transition-colors duration-300">
                   nene171408@gmail.com
                 </a>
               </div>
-              <div className="flex items-center gap-3 text-gray-300">
-                <Zap className="w-5 h-5 text-purple-400" />
-                <span>Available for new opportunities</span>
-              </div>
               
               {/* Social Links */}
-              <div className="flex items-center gap-4 pt-2">
-                <a 
-                  href="https://github.com/NickiMash17" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-light-300 hover:text-azure-400 transition-colors duration-300"
-                >
-                  <Github className="w-5 h-5" />
-                  <span>GitHub</span>
-                </a>
-                <a 
-                  href="https://linkedin.com/in/nicolette-mashaba" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-light-300 hover:text-azure-400 transition-colors duration-300"
-                >
-                  <Linkedin className="w-5 h-5" />
-                  <span>LinkedIn</span>
-                </a>
+              <div className="space-y-3">
+                <h4 className="text-sm font-medium text-light-400 uppercase tracking-wider">Connect</h4>
+                <div className="flex items-center gap-4">
+                  <a 
+                    href="https://github.com/NickiMash17" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-light-300 hover:text-azure-400 transition-all duration-300 hover:scale-105 group"
+                  >
+                    <div className="w-8 h-8 bg-gradient-to-r from-dark-700 to-dark-800 rounded-lg flex items-center justify-center group-hover:from-azure-500/20 group-hover:to-purple-500/20 transition-all duration-300">
+                      <Github className="w-4 h-4" />
+                    </div>
+                    <span>GitHub</span>
+                  </a>
+                  <a 
+                    href="https://linkedin.com/in/nicolette-mashaba" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-light-300 hover:text-azure-400 transition-all duration-300 hover:scale-105 group"
+                  >
+                    <div className="w-8 h-8 bg-gradient-to-r from-dark-700 to-dark-800 rounded-lg flex items-center justify-center group-hover:from-azure-500/20 group-hover:to-purple-500/20 transition-all duration-300">
+                      <Linkedin className="w-4 h-4" />
+                    </div>
+                    <span>LinkedIn</span>
+                  </a>
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -311,10 +345,10 @@ const Footer: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           viewport={{ once: true }}
-          className="mt-12 pt-8 border-t border-gray-700/50"
+          className="mt-16 pt-8 border-t border-dark-700/50"
         >
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-gray-400 text-sm">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-3 text-light-400 text-sm">
               <span>© 2024 Nicolette Mashaba. Made with</span>
               <Heart className="w-4 h-4 text-red-400 animate-pulse" />
               <span>and lots of</span>
@@ -322,10 +356,10 @@ const Footer: React.FC = () => {
             </div>
             
             <div className="flex items-center gap-6 text-sm">
-              <a href="#privacy" className="text-light-400 hover:text-neon-400 transition-colors duration-300">
+              <a href="#privacy" className="text-light-400 hover:text-neon-400 transition-colors duration-300 hover:underline">
                 Privacy Policy
               </a>
-              <a href="#terms" className="text-light-400 hover:text-neon-400 transition-colors duration-300">
+              <a href="#terms" className="text-light-400 hover:text-neon-400 transition-colors duration-300 hover:underline">
                 Terms of Service
               </a>
             </div>

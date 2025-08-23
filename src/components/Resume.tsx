@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, FileText, Eye, Sparkles } from 'lucide-react';
+import { Download, FileText, Eye, Sparkles, FileText as FileTextIcon, FileCode, File } from 'lucide-react';
 
 const Resume: React.FC = () => {
   const [selectedFormat, setSelectedFormat] = useState('pdf');
@@ -30,10 +30,17 @@ const Resume: React.FC = () => {
 
   return (
     <section id="resume" className="relative py-16 overflow-hidden theme-transition">
-      {/* Simple background that matches main page */}
+      {/* Enhanced background with better gradients and effects */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-azure-950" />
-        <div className="absolute inset-0 bg-gradient-to-br from-azure-500/10 via-transparent to-purple-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-azure-500/15 via-transparent to-purple-500/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-900/50 via-transparent to-transparent" />
+        {/* Subtle mesh gradient overlay */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-gradient-radial from-azure-500/30 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-radial from-purple-500/25 via-transparent to-transparent" style={{ transform: 'translate(70%, 30%)' }} />
+          <div className="absolute inset-0 bg-gradient-radial from-neon-500/25 via-transparent to-transparent" style={{ transform: 'translate(-30%, 70%)' }} />
+        </div>
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-6">
@@ -89,13 +96,13 @@ const Resume: React.FC = () => {
             <div className="space-y-4">
               <h3 className="text-2xl font-bold text-white">Nicolette Mashaba - Resume</h3>
               <p className="text-light-300 text-lg">
-                Full-Stack Developer with expertise in C#, .NET, React, and Azure Cloud
+                Software Engineering Student with expertise in React, .NET, and Azure Cloud
               </p>
               <div className="flex flex-wrap justify-center gap-4 text-sm text-light-400">
-                <span className="px-3 py-1 bg-azure-500/20 rounded-full border border-azure-500/30">• 3+ Years Experience</span>
-                <span className="px-3 py-1 bg-purple-500/20 rounded-full border border-purple-500/30">• Azure Certified</span>
-                <span className="px-3 py-1 bg-neon-500/20 rounded-full border border-neon-500/30">• Full-Stack Development</span>
-                <span className="px-3 py-1 bg-azure-500/20 rounded-full border border-azure-500/30">• AI/ML Integration</span>
+                <span className="px-3 py-1 bg-azure-500/20 rounded-full border border-azure-500/30">• Microsoft Azure Certified</span>
+                <span className="px-3 py-1 bg-purple-500/20 rounded-full border border-purple-500/30">• Full-Stack Development</span>
+                <span className="px-3 py-1 bg-neon-500/20 rounded-full border border-neon-500/30">• AI/ML Integration</span>
+                <span className="px-3 py-1 bg-azure-500/20 rounded-full border border-azure-500/30">• Top Performer Student</span>
               </div>
             </div>
 
@@ -104,22 +111,22 @@ const Resume: React.FC = () => {
               <h4 className="text-lg font-semibold text-white">Choose Format</h4>
               <div className="flex flex-wrap justify-center gap-4">
                 {[
-                  { id: 'pdf', label: 'PDF', icon: '📄' },
-                  { id: 'docx', label: 'Word', icon: '📝' },
-                  { id: 'txt', label: 'Text', icon: '📃' }
+                  { id: 'pdf', label: 'PDF', icon: FileTextIcon, color: 'from-red-500 to-red-600' },
+                  { id: 'docx', label: 'Word', icon: FileCode, color: 'from-blue-500 to-blue-600' },
+                  { id: 'txt', label: 'Text', icon: File, color: 'from-gray-500 to-gray-600' }
                 ].map((format) => (
                   <motion.button
                     key={format.id}
                     onClick={() => setSelectedFormat(format.id)}
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm border relative overflow-hidden theme-transition ${
+                    className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm border relative overflow-hidden theme-transition flex items-center gap-2 ${
                       selectedFormat === format.id
                         ? 'bg-gradient-to-r from-azure-600 to-purple-600 text-white border-white/20 shadow-azure'
                         : 'bg-dark-800/50 text-light-300 border-dark-700/50 hover:text-neon-400 hover:border-neon-400/50'
                     }`}
                   >
-                    <span className="mr-2">{format.icon}</span>
+                    <format.icon className="w-4 h-4" />
                     {format.label}
                     {/* Hover glow effect - using consistent colors */}
                     <div className="absolute inset-0 bg-gradient-to-r from-azure-500/20 to-purple-500/20 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-lg" />
