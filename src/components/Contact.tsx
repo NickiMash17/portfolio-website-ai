@@ -42,17 +42,10 @@ const Contact: React.FC = () => {
 
   return (
     <section id="contact" className="relative py-16 overflow-hidden theme-transition">
-      {/* Enhanced background with better gradients and effects */}
+      {/* Simple background that matches main page */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-azure-950" />
-        <div className="absolute inset-0 bg-gradient-to-br from-azure-500/15 via-transparent to-purple-500/15" />
-        <div className="absolute inset-0 bg-gradient-to-t from-dark-900/50 via-transparent to-transparent" />
-        {/* Subtle mesh gradient overlay */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0 bg-gradient-radial from-purple-500/30 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-gradient-radial from-neon-500/25 via-transparent to-transparent" style={{ transform: 'translate(70%, 30%)' }} />
-          <div className="absolute inset-0 bg-gradient-radial from-azure-500/25 via-transparent to-transparent" style={{ transform: 'translate(-30%, 70%)' }} />
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-azure-500/10 via-transparent to-purple-500/10" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">

@@ -207,20 +207,7 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative z-10 overflow-hidden theme-transition">
-      {/* Enhanced background with gradients and effects */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-900 to-dark-800" />
-        <div className="absolute inset-0 bg-gradient-to-t from-azure-500/10 via-purple-500/5 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent" />
-        {/* Subtle mesh gradient overlay */}
-        <div className="absolute inset-0 opacity-15">
-          <div className="absolute inset-0 bg-gradient-radial from-azure-500/20 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-gradient-radial from-purple-500/15 via-transparent to-transparent" style={{ transform: 'translate(70%, 30%)' }} />
-          <div className="absolute inset-0 bg-gradient-radial from-neon-500/15 via-transparent to-transparent" style={{ transform: 'translate(-30%, 70%)' }} />
-        </div>
-      </div>
-
+    <footer className="relative z-10 bg-dark-900/50 backdrop-blur-xl border-t border-dark-700/50 theme-transition">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Top Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
