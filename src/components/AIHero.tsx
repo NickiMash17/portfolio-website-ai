@@ -17,11 +17,11 @@ const AIHero: React.FC = () => {
   const [currentTagline, setCurrentTagline] = useState(0);
 
   const taglines = [
-    "Full-Stack Engineer",
-    "Microsoft Certified",
-    "AI Innovator",
-    "Cloud Architect",
-    "Azure Expert"
+    "Software Engineering Student",
+    "Microsoft Azure Certified",
+    "Full-Stack Developer",
+    "AI Model Trainer",
+    "Cloud & AI Technologies"
   ];
 
   // Rotating taglines effect
@@ -74,7 +74,7 @@ const AIHero: React.FC = () => {
             className="text-hero font-bold text-white mb-6 font-orbitron tracking-wider"
             style={{ textShadow: '0 0 30px rgba(56, 232, 248, 0.8)' }}
           >
-            NICOLLETTE MASHABA
+            NICOLETTE MASHABA
           </motion.h1>
 
           {/* Animated Tagline */}
@@ -107,8 +107,8 @@ const AIHero: React.FC = () => {
             transition={{ duration: 1, delay: 1.0 }}
             className="text-body text-light-200 mb-12 max-w-3xl mx-auto leading-relaxed"
           >
-            Next-generation developer specializing in AI innovation, cloud solutions, and cutting-edge web technologies. 
-            Building the future with Microsoft Azure, machine learning, and full-stack excellence.
+            Motivated and results-driven Software Engineering student with experience in full-stack development, cloud computing, and AI-assisted coding. 
+            Microsoft Azure certified and recognized as a top-performing student. Building scalable, user-friendly applications that solve real-world problems.
           </motion.p>
 
           {/* Call-to-Action Buttons */}

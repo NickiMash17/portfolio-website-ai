@@ -200,12 +200,12 @@ const Contact: React.FC = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
                 <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-neon-500 rounded-lg flex items-center justify-center relative z-10">
-                  <Github className="w-6 h-6 text-white" />
+                  <Phone className="w-6 h-6 text-white" />
                 </div>
                 <div className="relative z-10">
-                  <h4 className="text-white font-semibold">GitHub</h4>
-                  <a href="https://github.com/NickiMash17" target="_blank" rel="noopener noreferrer" className="text-light-300 hover:text-purple-400 transition-colors duration-300">
-                    @NickiMash17
+                  <h4 className="text-white font-semibold">Phone</h4>
+                  <a href="tel:+271526795" className="text-light-300 hover:text-purple-400 transition-colors duration-300">
+                    +27 152 6795
                   </a>
                 </div>
               </motion.div>

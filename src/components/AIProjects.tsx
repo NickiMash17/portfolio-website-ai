@@ -44,177 +44,139 @@ const AIProjects: React.FC = () => {
 
   const projects: Project[] = [
     {
-      id: 'ai-chatbot-platform',
-      title: 'AI-Powered Chatbot Platform',
-      description: 'Enterprise-grade conversational AI platform with natural language processing and machine learning capabilities.',
-      longDescription: 'A comprehensive chatbot platform that leverages Azure Cognitive Services, OpenAI GPT models, and custom ML algorithms to provide intelligent customer service solutions. Features include sentiment analysis, multi-language support, and seamless integration with existing business systems.',
+      id: 'meteora-weather',
+      title: 'Meteora Weather App',
+      description: 'PWA with AI-powered insights, gamification, and offline-first architecture.',
+      longDescription: 'A progressive web application that provides AI-powered weather insights with gamification elements and offline-first architecture. Features include real-time weather data, AI-driven forecasts, and a responsive design that works seamlessly across all devices.',
       image: '/api/placeholder/600/400',
-      technologies: ['Azure AI', 'OpenAI GPT', 'Python', 'React', 'Node.js', 'PostgreSQL', 'Docker', 'Kubernetes'],
-      category: 'ai-ml',
-      difficulty: 'expert',
-      githubUrl: 'https://github.com/your-username/ai-chatbot-platform',
-      liveUrl: 'https://ai-chatbot-demo.azurewebsites.net',
-      demoUrl: 'https://demo.ai-chatbot.com',
-      features: [
-        'Natural Language Processing with 95% accuracy',
-        'Multi-language support (EN, ES, FR, DE)',
-        'Sentiment analysis and emotion detection',
-        'Seamless Azure integration',
-        'Real-time learning and adaptation'
-      ],
-      challenges: [
-        'Achieving high accuracy in natural language understanding',
-        'Scaling ML models for real-time processing',
-        'Integrating multiple AI services seamlessly',
-        'Ensuring data privacy and security compliance'
-      ],
-      solutions: [
-        'Implemented ensemble ML models with Azure Cognitive Services',
-        'Used Redis caching and Azure Functions for scalability',
-        'Created unified API layer for service integration',
-        'Implemented end-to-end encryption and GDPR compliance'
-      ],
-      impact: 'Reduced customer service response time by 80% and improved customer satisfaction scores by 35%.',
-      teamSize: 6,
-      duration: '8 months',
-      status: 'completed'
-    },
-    {
-      id: 'azure-cloud-architecture',
-      title: 'Enterprise Cloud Architecture',
-      description: 'Scalable cloud infrastructure design with Azure services, implementing microservices and DevOps best practices.',
-      longDescription: 'Designed and implemented a comprehensive cloud architecture for a Fortune 500 company, featuring microservices architecture, automated CI/CD pipelines, and advanced monitoring solutions. The system handles millions of requests daily with 99.99% uptime.',
-      image: '/api/placeholder/600/400',
-      technologies: ['Azure', 'Terraform', 'Kubernetes', 'Docker', 'Azure DevOps', 'Application Insights', 'Azure SQL', 'Redis'],
-      category: 'cloud-azure',
-      difficulty: 'expert',
-      githubUrl: 'https://github.com/your-username/azure-architecture',
-      liveUrl: 'https://enterprise-cloud.azurewebsites.net',
-      features: [
-        'Microservices architecture with 50+ services',
-        'Automated CI/CD with Azure DevOps',
-        'Advanced monitoring and alerting',
-        'Auto-scaling and load balancing',
-        'Multi-region deployment'
-      ],
-      challenges: [
-        'Managing complex microservices interactions',
-        'Ensuring high availability across regions',
-        'Implementing comprehensive monitoring',
-        'Automating deployment processes'
-      ],
-      solutions: [
-        'Used Azure Service Mesh for service communication',
-        'Implemented Azure Traffic Manager for global routing',
-        'Created custom dashboards with Application Insights',
-        'Built automated deployment pipelines with Terraform'
-      ],
-      impact: 'Achieved 99.99% uptime and reduced deployment time from 4 hours to 15 minutes.',
-      teamSize: 8,
-      duration: '12 months',
-      status: 'completed'
-    },
-    {
-      id: 'ml-pipeline-automation',
-      title: 'ML Pipeline Automation',
-      description: 'Automated machine learning pipeline for data processing, model training, and deployment using Azure ML.',
-      longDescription: 'Built an end-to-end machine learning pipeline that automates data preprocessing, feature engineering, model training, and deployment. The system includes automated hyperparameter tuning, model versioning, and A/B testing capabilities.',
-      image: '/api/placeholder/600/400',
-      technologies: ['Azure ML', 'Python', 'TensorFlow', 'PyTorch', 'MLflow', 'Kubeflow', 'Azure Functions', 'Cosmos DB'],
+      technologies: ['React', 'PWA', 'AI/ML', 'Offline-First', 'Gamification', 'Weather API'],
       category: 'ai-ml',
       difficulty: 'advanced',
-      githubUrl: 'https://github.com/your-username/ml-pipeline',
+      githubUrl: 'https://github.com/NickiMash17/meteora-weather',
       features: [
-        'Automated data preprocessing and feature engineering',
-        'Hyperparameter optimization with Azure ML',
-        'Model versioning and experiment tracking',
-        'Automated model deployment and monitoring',
-        'A/B testing framework'
+        'AI-powered weather insights and predictions',
+        'Progressive Web App (PWA) functionality',
+        'Offline-first architecture for reliability',
+        'Gamification elements for user engagement',
+        'Responsive design for all devices'
       ],
       challenges: [
-        'Automating complex ML workflows',
-        'Managing model versions and experiments',
-        'Ensuring reproducibility across environments',
-        'Optimizing training performance'
+        'Implementing offline-first architecture',
+        'Integrating AI-powered weather insights',
+        'Creating engaging gamification elements',
+        'Achieving high performance scores'
       ],
       solutions: [
-        'Used Azure ML pipelines for workflow orchestration',
-        'Implemented MLflow for experiment tracking',
-        'Created containerized training environments',
-        'Used distributed training with multiple GPUs'
+        'Used Service Workers for offline functionality',
+        'Implemented AI algorithms for weather analysis',
+        'Designed reward system for user engagement',
+        'Optimized code for Lighthouse performance'
       ],
-      impact: 'Reduced model development time by 60% and improved model accuracy by 15%.',
-      teamSize: 4,
+      impact: 'Scored 100/100 Lighthouse performance rating and achieved excellent user engagement through gamification.',
+      teamSize: 1,
+      duration: '3 months',
+      status: 'completed'
+    },
+    {
+      id: 'techshop-pro',
+      title: 'TechShop Pro (E-Commerce App)',
+      description: 'Built secure login, product catalog, and Stripe payment integration.',
+      longDescription: 'A full-stack e-commerce application with secure user authentication, comprehensive product management, and integrated Stripe payment processing. Features include user accounts, shopping cart functionality, and secure checkout process.',
+      image: '/api/placeholder/600/400',
+      technologies: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'Stripe', 'MongoDB'],
+      category: 'full-stack',
+      difficulty: 'advanced',
+      githubUrl: 'https://github.com/NickiMash17/techshop-pro',
+      features: [
+        'Secure user authentication and authorization',
+        'Comprehensive product catalog management',
+        'Shopping cart and checkout functionality',
+        'Stripe payment integration',
+        'Responsive design with Tailwind CSS'
+      ],
+      challenges: [
+        'Implementing secure payment processing',
+        'Managing user authentication securely',
+        'Creating responsive product catalog',
+        'Integrating multiple third-party services'
+      ],
+      solutions: [
+        'Used Stripe for secure payment processing',
+        'Implemented JWT for user authentication',
+        'Created responsive UI with Tailwind CSS',
+        'Built modular API architecture'
+      ],
+      impact: 'Successfully delivered a production-ready e-commerce platform with secure payment processing.',
+      teamSize: 1,
+      duration: '4 months',
+      status: 'completed'
+    },
+    {
+      id: 'tf-future-guide',
+      title: 'TF Future Guide (STEM Career Platform)',
+      description: 'Connected South African students with STEM careers & scholarships.',
+      longDescription: 'A collaborative platform that connects South African students with STEM career opportunities and scholarships. Contributed to frontend development, backend APIs, and team Git workflows to create an accessible resource for students.',
+      image: '/api/placeholder/600/400',
+      technologies: ['React', 'Node.js', 'Git', 'Team Collaboration', 'STEM Education'],
+      category: 'innovation',
+      difficulty: 'advanced',
+      githubUrl: 'https://github.com/ciphers-den/futureGuide',
+      features: [
+        'STEM career guidance and resources',
+        'Scholarship information and applications',
+        'Student mentorship connections',
+        'Interactive career path exploration',
+        'Multi-language support for accessibility'
+      ],
+      challenges: [
+        'Coordinating with multiple team members',
+        'Managing complex Git workflows',
+        'Creating accessible user interfaces',
+        'Integrating multiple data sources'
+      ],
+      solutions: [
+        'Implemented efficient Git branching strategies',
+        'Created modular component architecture',
+        'Used accessibility best practices',
+        'Built robust API integration layer'
+      ],
+      impact: 'Successfully connected South African students with STEM opportunities and improved access to educational resources.',
+      teamSize: 5,
       duration: '6 months',
       status: 'completed'
     },
     {
-      id: 'real-time-analytics-dashboard',
-      title: 'Real-Time Analytics Dashboard',
-      description: 'Interactive dashboard for real-time data visualization and business intelligence using Azure Stream Analytics.',
-      longDescription: 'Developed a real-time analytics platform that processes streaming data from multiple sources, providing instant insights and predictive analytics. Features include interactive charts, custom alerts, and automated reporting.',
+      id: 'book-review-app',
+      title: 'Book Review App',
+      description: 'CRUD app with search and analytics dashboard.',
+      longDescription: 'A full-stack book review application with comprehensive CRUD operations, advanced search functionality, and analytics dashboard. Implemented clean architecture patterns in ASP.NET Core for maintainability and scalability.',
       image: '/api/placeholder/600/400',
-      technologies: ['Azure Stream Analytics', 'Power BI', 'React', 'TypeScript', 'Azure Event Hubs', 'Azure Data Lake', 'Azure Functions'],
+      technologies: ['ASP.NET Core', 'C#', 'SQL Server', 'Clean Architecture', 'Analytics'],
       category: 'full-stack',
       difficulty: 'advanced',
-      githubUrl: 'https://github.com/your-username/analytics-dashboard',
-      liveUrl: 'https://analytics-dashboard.azurewebsites.net',
+      githubUrl: 'https://github.com/NickiMash17/BookReviewApp',
       features: [
-        'Real-time data streaming and processing',
-        'Interactive data visualization',
-        'Custom alerting and notifications',
-        'Automated report generation',
-        'Predictive analytics models'
+        'Complete CRUD operations for book reviews',
+        'Advanced search and filtering capabilities',
+        'Analytics dashboard with insights',
+        'Clean architecture implementation',
+        'Responsive web interface'
       ],
       challenges: [
-        'Processing high-volume streaming data',
-        'Creating responsive real-time visualizations',
-        'Implementing complex business logic',
-        'Ensuring data accuracy and consistency'
+        'Implementing clean architecture patterns',
+        'Creating efficient search algorithms',
+        'Building comprehensive analytics dashboard',
+        'Ensuring code maintainability'
       ],
       solutions: [
-        'Used Azure Stream Analytics for data processing',
-        'Implemented WebSocket connections for real-time updates',
-        'Created modular business logic components',
-        'Used Azure Data Lake for data validation'
+        'Used SOLID principles and clean architecture',
+        'Implemented optimized search with indexing',
+        'Created modular analytics components',
+        'Applied design patterns for maintainability'
       ],
-      impact: 'Enabled real-time decision making and reduced reporting time from daily to instant.',
-      teamSize: 5,
-      duration: '7 months',
-      status: 'completed'
-    },
-    {
-      id: 'devops-automation-suite',
-      title: 'DevOps Automation Suite',
-      description: 'Comprehensive DevOps toolchain with automated testing, deployment, and monitoring using Azure DevOps.',
-      longDescription: 'Built a complete DevOps automation suite that streamlines the software development lifecycle. Includes automated testing, security scanning, deployment pipelines, and comprehensive monitoring solutions.',
-      image: '/api/placeholder/600/400',
-      technologies: ['Azure DevOps', 'Terraform', 'Docker', 'Kubernetes', 'Helm', 'Prometheus', 'Grafana', 'SonarQube'],
-      category: 'devops',
-      difficulty: 'advanced',
-      githubUrl: 'https://github.com/your-username/devops-suite',
-      features: [
-        'Automated CI/CD pipelines',
-        'Infrastructure as Code with Terraform',
-        'Container orchestration with Kubernetes',
-        'Comprehensive monitoring and alerting',
-        'Security scanning and compliance checks'
-      ],
-      challenges: [
-        'Integrating multiple DevOps tools',
-        'Ensuring security compliance',
-        'Managing complex deployment scenarios',
-        'Providing comprehensive monitoring'
-      ],
-      solutions: [
-        'Created unified API for tool integration',
-        'Implemented automated security scanning',
-        'Built deployment templates for common scenarios',
-        'Used Prometheus and Grafana for monitoring'
-      ],
-      impact: 'Reduced deployment failures by 90% and improved development velocity by 40%.',
-      teamSize: 6,
-      duration: '9 months',
+      impact: 'Delivered a robust book review platform with clean, maintainable code and comprehensive functionality.',
+      teamSize: 1,
+      duration: '3 months',
       status: 'completed'
     }
   ];
