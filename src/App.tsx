@@ -4,7 +4,7 @@ import AIHero from './components/AIHero';
 import AIAbout from './components/AIAbout';
 import NeuralBackground from './components/NeuralBackground';
 import PerformanceOptimizer from './components/PerformanceOptimizer';
-import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Code, Mail as MailIcon, Heart, Zap, Sun, Moon } from 'lucide-react';
+import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Code, Mail as MailIcon, Heart, Zap, Sun, Moon, Github, Linkedin } from 'lucide-react';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { usePerformance } from './hooks/usePerformance';
 
@@ -271,11 +271,35 @@ const Footer: React.FC = () => {
             >
               <div className="flex items-center gap-3 text-light-300">
                 <MailIcon className="w-5 h-5 text-azure-400" />
-                <span>hello@nicolettemashaba.dev</span>
+                <a href="mailto:nene171408@gmail.com" className="hover:text-azure-400 transition-colors duration-300">
+                  nene171408@gmail.com
+                </a>
               </div>
               <div className="flex items-center gap-3 text-gray-300">
                 <Zap className="w-5 h-5 text-purple-400" />
                 <span>Available for new opportunities</span>
+              </div>
+              
+              {/* Social Links */}
+              <div className="flex items-center gap-4 pt-2">
+                <a 
+                  href="https://github.com/NickiMash17" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-light-300 hover:text-azure-400 transition-colors duration-300"
+                >
+                  <Github className="w-5 h-5" />
+                  <span>GitHub</span>
+                </a>
+                <a 
+                  href="https://linkedin.com/in/nicolette-mashaba" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-light-300 hover:text-azure-400 transition-colors duration-300"
+                >
+                  <Linkedin className="w-5 h-5" />
+                  <span>LinkedIn</span>
+                </a>
               </div>
             </motion.div>
           </motion.div>

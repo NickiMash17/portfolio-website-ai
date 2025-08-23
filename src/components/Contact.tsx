@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Send, Phone, MapPin } from 'lucide-react';
+import { Mail, Send, Phone, MapPin, Github, Linkedin } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -101,7 +101,6 @@ const Contact: React.FC = () => {
                         placeholder="Your name"
                       />
                     </div>
-                    
                     <div>
                       <label htmlFor="email" className="block text-light-300 text-sm font-medium mb-2">
                         Email
@@ -145,8 +144,8 @@ const Contact: React.FC = () => {
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      rows={6}
-                      className="w-full px-4 py-3 bg-dark-800/50 border border-dark-700/50 rounded-lg text-white placeholder-light-400 focus:ring-2 focus:ring-azure-400 focus:border-transparent backdrop-blur-sm transition-all duration-300 resize-none hover:border-azure-400/50 theme-transition"
+                      rows={5}
+                      className="w-full px-4 py-3 bg-dark-800/50 border border-dark-700/50 rounded-lg text-white placeholder-light-400 focus:ring-2 focus:ring-azure-400 focus:border-transparent backdrop-blur-sm transition-all duration-300 hover:border-azure-400/50 theme-transition resize-none"
                       placeholder="Tell me about your project or just say hello!"
                     />
                   </div>
@@ -189,7 +188,9 @@ const Contact: React.FC = () => {
                 </div>
                 <div className="relative z-10">
                   <h4 className="text-white font-semibold">Email</h4>
-                  <p className="text-light-300">hello@nicolettemashaba.dev</p>
+                  <a href="mailto:nene171408@gmail.com" className="text-light-300 hover:text-azure-400 transition-colors duration-300">
+                    nene171408@gmail.com
+                  </a>
                 </div>
               </motion.div>
 
@@ -199,11 +200,13 @@ const Contact: React.FC = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
                 <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-neon-500 rounded-lg flex items-center justify-center relative z-10">
-                  <Phone className="w-6 h-6 text-white" />
+                  <Github className="w-6 h-6 text-white" />
                 </div>
                 <div className="relative z-10">
-                  <h4 className="text-white font-semibold">Phone</h4>
-                  <p className="text-light-300">+1 (555) 123-4567</p>
+                  <h4 className="text-white font-semibold">GitHub</h4>
+                  <a href="https://github.com/NickiMash17" target="_blank" rel="noopener noreferrer" className="text-light-300 hover:text-purple-400 transition-colors duration-300">
+                    @NickiMash17
+                  </a>
                 </div>
               </motion.div>
 
@@ -213,6 +216,22 @@ const Contact: React.FC = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-neon-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
                 <div className="w-12 h-12 bg-gradient-to-r from-neon-500 to-azure-600 rounded-lg flex items-center justify-center relative z-10">
+                  <Linkedin className="w-6 h-6 text-white" />
+                </div>
+                <div className="relative z-10">
+                  <h4 className="text-white font-semibold">LinkedIn</h4>
+                  <a href="https://linkedin.com/in/nicolette-mashaba" target="_blank" rel="noopener noreferrer" className="text-light-300 hover:text-neon-400 transition-colors duration-300">
+                    nicolette-mashaba
+                  </a>
+                </div>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.02, y: -2 }}
+                className="flex items-center gap-4 p-6 bg-dark-800/20 backdrop-blur-sm rounded-xl border border-dark-700/50 hover:border-azure-400/50 transition-all duration-300 relative overflow-hidden group theme-transition"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-azure-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+                <div className="w-12 h-12 bg-gradient-to-r from-azure-600 to-purple-600 rounded-lg flex items-center justify-center relative z-10">
                   <MapPin className="w-6 h-6 text-white" />
                 </div>
                 <div className="relative z-10">
