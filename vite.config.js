@@ -4,7 +4,7 @@ import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => ({
-  base: command === 'serve' ? '/' : '/portfolio-website-ai/',
+  base: '/',
   plugins: [react()],
   publicDir: 'public',
   resolve: {
@@ -36,31 +36,15 @@ export default defineConfig(({ command, mode }) => ({
     },
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'vendor-react';
-            }
-            if (id.includes('framer-motion')) {
-              return 'vendor-animations';
-            }
-            if (id.includes('lucide-react')) {
-              return 'vendor-ui';
-            }
-            return 'vendor';
-          }
-          if (id.includes('components/NeuralBackground')) {
-            return 'neural-background';
-          }
-          if (id.includes('components/PerformanceOptimizer')) {
-            return 'performance';
-          }
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-animations': ['framer-motion'],
+          'vendor': ['lucide-react']
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
       },
-      external: ['@tensorflow/tfjs', 'three', 'p5'],
     },
     chunkSizeWarningLimit: 300,
     sourcemap: false,
@@ -69,7 +53,6 @@ export default defineConfig(({ command, mode }) => ({
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion', 'lucide-react'],
-    exclude: ['@tensorflow/tfjs', 'three', 'p5'],
     esbuildOptions: {
       target: 'esnext',
     },

@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Download, 
-  Eye, 
-  FileText, 
-  User,
-  Briefcase,
+import { motion } from 'framer-motion';
+import {
+  Download,
   Mail,
   Phone,
   MapPin,
-  Github,
-  Linkedin,
   Calendar,
+  User,
+  Briefcase,
   Award,
-  Star,
-  ArrowRight,
   ExternalLink,
-  CheckCircle
+  FileText,
+  CheckCircle,
+  Star,
+  Eye
 } from 'lucide-react';
 
 interface ResumeProps {
@@ -40,62 +37,219 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
 
   const resumeData = {
     personalInfo: {
-      name: 'Nicolette Mashaba',
-      title: 'Software Engineering Student & AI Engineer',
-      email: 'nene171408@gmail.com',
-      phone: '+27 82 123 4567',
-      location: 'Johannesburg, South Africa',
+      name: 'NICOLETTE MASHABA',
+      title: 'Software Engineering Student | Full-Stack Development | Cloud & AI Technologies',
+      email: 'nene171408@email.com',
+      phone: '+2763 152 6795',
+      location: 'South Africa',
       github: 'github.com/NickiMash17',
       linkedin: 'linkedin.com/in/nicolette-mashaba'
     },
-    summary: 'Passionate Software Engineering student specializing in AI/ML, Cloud Computing, and DevOps. Microsoft Azure certified professional with expertise in building scalable, intelligent solutions.',
+    summary: 'Motivated and results-driven Software Engineering student with experience in full-stack development, cloud computing, and AI-assisted coding. Skilled in building dynamic React.js frontends, scalable Node.js and .NET backends, and managing MongoDB and SQL databases. Microsoft Azure certified and recognized as a top-performing student. Dedicated to writing clean, maintainable code and building scalable, user-friendly applications that solve real-world problems.',
     experience: [
       {
-        title: 'Software Engineering Student',
-        company: 'University of Johannesburg',
-        period: '2022 - Present',
-        description: 'Pursuing Bachelor of Science in Software Engineering with focus on AI/ML and cloud technologies.'
+        title: 'Web Developer Intern',
+        company: 'CodeCatalyst, Remote',
+        period: 'June 2025 – July 2025',
+        description: 'Built full-stack applications using React, Node.js, and MongoDB. Implemented JWT authentication, reducing report generation time by 20%. Delivered responsive UIs with Tailwind CSS.'
       },
       {
-        title: 'AI/ML Research Assistant',
-        company: 'University Research Lab',
-        period: '2023 - Present',
-        description: 'Conducting research on machine learning algorithms and developing AI-powered applications.'
+        title: 'AI Model Trainer',
+        company: 'Outlier, Remote',
+        period: 'October 2025 – December 2025',
+        description: 'Created and refined 100+ AI prompts, improving model accuracy by 25%. Reduced debugging time for developers by 10 hours/week.'
+      },
+      {
+        title: 'Junior Navigation Officer',
+        company: 'South African Navy, Simon\'s Town',
+        period: 'January 2012 – July 2021',
+        description: 'Conducted pre-departure briefings and optimized voyage plans, reducing fuel consumption by up to 10% per voyage. Enhanced vessel safety and trained 5+ junior officers.'
       }
     ],
     education: [
       {
-        degree: 'Bachelor of Science in Software Engineering',
-        institution: 'University of Johannesburg',
-        period: '2022 - 2025',
-        gpa: '3.8/4.0'
+        degree: 'Occupational Certificate: Software Engineering (NQF Level 6)',
+        institution: 'CTU Training Solutions, Polokwane',
+        period: 'Graduation: 2026',
+        gpa: 'Top Performer'
+      },
+      {
+        degree: 'IT Programming Foundation (NQF Level 4)',
+        institution: 'CTU Training Solutions, Polokwane',
+        period: 'Jul 2024',
+        gpa: 'Programming Foundation Top Performer (2023)'
       }
     ],
     skills: {
-      programming: ['Python', 'JavaScript', 'TypeScript', 'C#', 'Java', 'SQL'],
-      frameworks: ['React', 'Node.js', '.NET', 'TensorFlow', 'PyTorch', 'Azure'],
-      tools: ['Git', 'Docker', 'Kubernetes', 'Azure DevOps', 'VS Code', 'Jupyter'],
-      certifications: ['Microsoft Azure Fundamentals', 'Microsoft Azure AI Engineer Associate']
+      programming: ['JavaScript', 'TypeScript', 'Python', 'C#', 'C', 'SQL'],
+      frameworks: ['React.js', 'Node.js', 'Express.js', 'ASP.NET Core', '.NET', 'Tailwind CSS', 'Bootstrap'],
+      databases: ['MongoDB', 'SQL Server'],
+      cloud: ['Microsoft Azure', 'Azure Functions', 'Azure DevOps', 'AKS', 'Docker', 'Terraform'],
+      tools: ['Git', 'CI/CD', 'RESTful APIs', 'Google Maps API', 'Stripe', 'Vite'],
+      certifications: ['Microsoft Certified: Azure Developer Associate', 'Microsoft Certified: Azure Data Fundamentals', 'SheCodes: Responsive Web Development', 'Techbridle Foundation: Software Development Bootcamp']
     },
     projects: [
       {
-        name: 'AI-Powered Portfolio Website',
-        description: 'Built a responsive portfolio with AI chatbot integration and neural network animations.',
-        technologies: ['React', 'TypeScript', 'Framer Motion', 'Tailwind CSS']
+        name: 'Meteora Weather App',
+        description: 'PWA with AI-powered insights, gamification, and offline-first architecture. Scored 100/100 Lighthouse performance rating.',
+        technologies: ['React', 'PWA', 'AI Integration', 'Performance Optimization']
       },
       {
-        name: 'Machine Learning Model Deployment',
-        description: 'Deployed ML models on Azure with automated CI/CD pipeline.',
-        technologies: ['Python', 'Azure ML', 'Docker', 'Azure DevOps']
+        name: 'TechShop Pro (E-Commerce App)',
+        description: 'Built secure login, product catalog, and Stripe payment integration.',
+        technologies: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'Stripe']
+      },
+      {
+        name: 'TF Future Guide (STEM Career Platform)',
+        description: 'Connected South African students with STEM careers & scholarships. Contributed to frontend, backend APIs, and team Git workflows.',
+        technologies: ['Full-Stack Development', 'API Development', 'Git Collaboration']
+      },
+      {
+        name: 'Book Review App',
+        description: 'CRUD app with search and analytics dashboard. Implemented clean architecture patterns in ASP.NET Core.',
+        technologies: ['ASP.NET Core', 'Clean Architecture', 'Analytics Dashboard']
       }
     ]
   };
 
   return (
-    <section id="resume" className={`py-20 relative ${className}`}>
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-cyan-500/5" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent" />
+    <section id="resume" className={`py-20 relative overflow-hidden ${className}`}>
+      {/* Advanced Tech Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950" />
+      
+      {/* Azure Cloud Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,#0078d4_0%,transparent_50%),radial-gradient(circle_at_75%_75%,#00bcf2_0%,transparent_50%),radial-gradient(circle_at_50%_50%,#40e0d0_0%,transparent_50%)]" />
+      </div>
+      
+      {/* DevOps Pipeline Visualization */}
+      <div className="absolute inset-0 opacity-20">
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+            style={{
+              left: '0%',
+              top: `${15 + i * 12}%`,
+              width: '100%',
+            }}
+            animate={{
+              opacity: [0, 1, 0],
+              scaleX: [0, 1, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              delay: i * 0.8,
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Code Matrix Effect */}
+      <div className="absolute inset-0 opacity-15">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-green-400 font-mono text-xs"
+            style={{
+              left: `${(i * 5) % 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -100, 0],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              delay: i * 0.2,
+            }}
+          >
+            {['const', 'function', 'async', 'await', 'import', 'export', 'class', 'interface'][i % 8]}
+          </motion.div>
+        ))}
+      </div>
+      
+      {/* Advanced Neural Network Grid */}
+      <div className="absolute inset-0 opacity-25">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,120,212,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(0,120,212,0.15)_1px,transparent_1px)] bg-[size:60px_60px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.1)_1px,transparent_1px)] bg-[size:20px_20px] animate-pulse" />
+      </div>
+
+      {/* Tech Stack Floating Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Azure Hexagons */}
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={`azure-${i}`}
+            className="absolute w-24 h-24 border-2 border-blue-500/20"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
+            }}
+            animate={{
+              x: [0, 50, 0],
+              y: [0, -75, 0],
+              rotate: [0, 180, 360],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: 15 + i * 2,
+              repeat: Infinity,
+              delay: i * 0.7,
+            }}
+          />
+        ))}
+        
+        {/* DevOps Gears */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={`gear-${i}`}
+            className="absolute w-16 h-16 border border-green-400/25 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 12 + i,
+              repeat: Infinity,
+              delay: i * 0.4,
+            }}
+          >
+            <div className="absolute inset-2 border border-green-400/25 rounded-full" />
+            <div className="absolute inset-4 border border-green-400/25 rounded-full" />
+          </motion.div>
+        ))}
+        
+        {/* AI Neural Nodes */}
+        {[...Array(10)].map((_, i) => (
+          <motion.div
+            key={`node-${i}`}
+            className="absolute w-8 h-8 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.3, 0.8, 0.3],
+              x: [0, 30, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{
+              duration: 8 + i,
+              repeat: Infinity,
+              delay: i * 0.3,
+            }}
+          />
+        ))}
+      </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         {/* Section Header */}
@@ -202,7 +356,7 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Frameworks & Tools</h3>
+                      <h3 className="font-semibold text-gray-900 mb-2">Frameworks & Frontend</h3>
                       <div className="flex flex-wrap gap-2">
                         {resumeData.skills.frameworks.map((skill, index) => (
                           <span key={index} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">
@@ -210,6 +364,58 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
                           </span>
                         ))}
                       </div>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">Databases</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {resumeData.skills.databases.map((skill, index) => (
+                          <span key={index} className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">Cloud & DevOps</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {resumeData.skills.cloud.map((skill, index) => (
+                          <span key={index} className="px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-sm">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Certifications */}
+                  <div className="mt-4">
+                    <h3 className="font-semibold text-gray-900 mb-2">Certifications</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {resumeData.skills.certifications.map((cert, index) => (
+                        <span key={index} className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
+                          {cert}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Projects */}
+                  <div className="mt-4">
+                    <h3 className="font-semibold text-gray-900 mb-2">Key Projects</h3>
+                    <div className="space-y-2">
+                      {resumeData.projects.map((project, index) => (
+                        <div key={index} className="border-l-2 border-green-200 pl-3">
+                          <h4 className="font-medium text-gray-900">{project.name}</h4>
+                          <p className="text-gray-700 text-sm">{project.description}</p>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {project.technologies.map((tech, techIndex) => (
+                              <span key={techIndex} className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -298,28 +504,28 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
                   <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Microsoft Azure Certified</p>
-                    <p className="text-gray-400 text-sm">Professional cloud computing expertise</p>
+                    <p className="text-gray-400 text-sm">Azure Developer Associate & Data Fundamentals</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-white font-semibold">AI/ML Specialization</p>
-                    <p className="text-gray-400 text-sm">Machine learning and artificial intelligence</p>
+                    <p className="text-white font-semibold">Top Academic Performer</p>
+                    <p className="text-gray-400 text-sm">Programming Foundation Top Performer 2023</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Full-Stack Development</p>
-                    <p className="text-gray-400 text-sm">End-to-end application development</p>
+                    <p className="text-gray-400 text-sm">React.js, Node.js, .NET, MongoDB expertise</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-white font-semibold">DevOps Expertise</p>
-                    <p className="text-gray-400 text-sm">CI/CD and cloud deployment</p>
+                    <p className="text-white font-semibold">Industry Experience</p>
+                    <p className="text-gray-400 text-sm">Web development & AI model training roles</p>
                   </div>
                 </div>
               </div>

@@ -2,11 +2,8 @@ import React, { Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AIHero from './components/AIHero';
 import AIAbout from './components/AIAbout';
-import NeuralBackground from './components/NeuralBackground';
 import PerformanceOptimizer from './components/PerformanceOptimizer';
-import FloatingActionMenu from './components/FloatingActionMenu';
-import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Code, Mail as MailIcon, Heart, Zap, Sun, Moon, Github, Linkedin, Brain, Cloud, Database, Server, Terminal, Layers, Activity } from 'lucide-react';
-import { ThemeProvider, useTheme } from './contexts/ThemeContext';
+import { Menu, X, Home, User, Briefcase, FileText, Mail, Mail as MailIcon, Heart, Zap, Github, Linkedin, Brain, MessageCircle, Sparkles, ArrowUp } from 'lucide-react';
 import { usePerformance } from './hooks/usePerformance';
 
 // Lazy load heavy components
@@ -23,7 +20,6 @@ const LoadingSpinner: React.FC = () => (
 );
 
 const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) => {
-  const { toggleTheme, isLight } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState('home');
   const lockoutRef = React.useRef(false);
@@ -110,7 +106,7 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
             </div>
             <div>
               <span className="text-2xl font-bold text-white font-orbitron tracking-wider">NICOLETTE</span>
-              <p className="text-xs text-cyan-400 font-semibold">AI ENGINEER</p>
+              <p className="text-xs text-cyan-400 font-semibold">SOFTWARE DEVELOPER</p>
             </div>
           </motion.div>
 
@@ -142,19 +138,8 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
             ))}
           </motion.div>
 
-          {/* Theme Toggle & Mobile Menu Button */}
-          <div className="flex items-center space-x-4">
-            <motion.button
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              onClick={toggleTheme}
-              className="p-3 rounded-2xl glass-ai text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-300"
-              aria-label="Toggle theme"
-            >
-              {isLight ? <Moon className="w-6 h-6" /> : <Sun className="w-6 h-6" />}
-            </motion.button>
-
+          {/* Mobile Menu Button */}
+          <div className="flex items-center">
             <motion.button
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -210,7 +195,120 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative z-10 glass-ai border-t border-cyan-500/20 theme-transition">
+    <footer className="relative z-10 border-t border-cyan-500/20 theme-transition overflow-hidden">
+      {/* Advanced Tech Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950" />
+      
+      {/* Azure Cloud Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,#0078d4_0%,transparent_50%),radial-gradient(circle_at_75%_75%,#00bcf2_0%,transparent_50%),radial-gradient(circle_at_50%_50%,#40e0d0_0%,transparent_50%)]" />
+      </div>
+      
+      {/* DevOps Pipeline Visualization */}
+      <div className="absolute inset-0 opacity-20">
+        {[...Array(4)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+            style={{
+              left: '0%',
+              top: `${20 + i * 20}%`,
+              width: '100%',
+            }}
+            animate={{
+              opacity: [0, 1, 0],
+              scaleX: [0, 1, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              delay: i * 0.8,
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Code Matrix Effect */}
+      <div className="absolute inset-0 opacity-15">
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-green-400 font-mono text-xs"
+            style={{
+              left: `${(i * 8) % 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -50, 0],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              delay: i * 0.3,
+            }}
+          >
+            {['const', 'function', 'async', 'await', 'import', 'export'][i % 6]}
+          </motion.div>
+        ))}
+      </div>
+      
+      {/* Advanced Neural Network Grid */}
+      <div className="absolute inset-0 opacity-25">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,120,212,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(0,120,212,0.15)_1px,transparent_1px)] bg-[size:60px_60px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.1)_1px,transparent_1px)] bg-[size:20px_20px] animate-pulse" />
+      </div>
+
+      {/* Tech Stack Floating Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Azure Hexagons */}
+        {[...Array(4)].map((_, i) => (
+          <motion.div
+            key={`azure-${i}`}
+            className="absolute w-16 h-16 border-2 border-blue-500/20"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
+            }}
+            animate={{
+              x: [0, 30, 0],
+              y: [0, -40, 0],
+              rotate: [0, 180, 360],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 12 + i * 2,
+              repeat: Infinity,
+              delay: i * 0.5,
+            }}
+          />
+        ))}
+        
+        {/* AI Neural Nodes */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={`node-${i}`}
+            className="absolute w-6 h-6 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.3, 0.7, 0.3],
+              x: [0, 20, 0],
+              y: [0, -20, 0],
+            }}
+            transition={{
+              duration: 6 + i,
+              repeat: Infinity,
+              delay: i * 0.2,
+            }}
+          />
+        ))}
+      </div>
+      
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* Top Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -228,11 +326,11 @@ const Footer: React.FC = () => {
               </div>
               <div>
                 <span className="text-2xl font-bold text-white font-orbitron">NICOLETTE</span>
-                <p className="text-sm text-cyan-400 font-semibold">AI ENGINEER</p>
+                <p className="text-sm text-cyan-400 font-semibold">SOFTWARE DEVELOPER</p>
               </div>
             </div>
             <p className="text-lg text-gray-300 max-w-md leading-relaxed">
-              Software Engineering student passionate about creating innovative solutions and pushing the boundaries of web technology. 
+              Software Engineering student architecting innovative solutions and pushing the boundaries of web technology. 
               Microsoft Azure certified and ready to build the future.
             </p>
             {/* Status indicator */}
@@ -574,23 +672,8 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
   }, [optimizeElement]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 font-inter transition-colors duration-300 relative overflow-hidden">
-      {/* Enhanced Particle Canvas */}
-      <canvas
-        id="global-particle-canvas"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
-      />
+    <div className="min-h-screen font-inter transition-colors duration-300 relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950">
       
-      {/* Neural Background */}
-      <NeuralBackground />
       
       {/* Navigation */}
       <Navigation throttleScroll={throttleScroll} />
@@ -628,22 +711,362 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
         <Chatbot />
       </Suspense>
 
-      {/* Floating Action Menu */}
-      <FloatingActionMenu />
 
       {/* Enhanced Scroll to Top Button */}
       <motion.button
         onClick={scrollToTop}
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 1 }}
-        whileHover={{ scale: 1.1 }}
+        initial={{ opacity: 0, scale: 0, y: 100 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.2, type: "spring", stiffness: 200 }}
+        whileHover={{ 
+          scale: 1.15, 
+          rotate: [0, -10, 10, 0],
+          boxShadow: "0 0 40px rgba(6, 182, 212, 0.6)"
+        }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-8 left-8 z-40 w-16 h-16 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 text-white rounded-2xl shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 backdrop-blur-sm border border-white/20 performance-critical"
+        className="fixed bottom-6 left-6 z-40 w-16 h-16 bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 text-white rounded-2xl shadow-2xl hover:shadow-cyan-500/40 transition-all duration-500 backdrop-blur-lg border-2 border-white/30 performance-critical group relative overflow-hidden"
         aria-label="Scroll to top"
       >
-        <ChevronUp className="w-8 h-8 mx-auto" />
+        {/* Animated Background Effect */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-br from-cyan-300/30 via-blue-400/30 to-purple-500/30"
+          animate={{ 
+            rotate: [0, 360],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{ 
+            duration: 4, 
+            repeat: Infinity, 
+            ease: "linear" 
+          }}
+        />
+        
+        {/* Pulsing Ring */}
+        <motion.div
+          className="absolute inset-2 border-2 border-white/40 rounded-2xl"
+          animate={{ 
+            scale: [1, 1.1, 1],
+            opacity: [0.5, 1, 0.5]
+          }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity 
+          }}
+        />
+        
+        {/* Icon with Animation */}
+        <motion.div
+          className="relative z-10 flex items-center justify-center w-full h-full"
+          whileHover={{ y: -2 }}
+        >
+          <ArrowUp className="w-8 h-8 drop-shadow-lg" />
+        </motion.div>
+        
+        {/* Floating Particles */}
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-white/60 rounded-full"
+            style={{
+              left: `${20 + i * 20}%`,
+              top: `${15 + i * 10}%`
+            }}
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0, 1, 0],
+              scale: [0.5, 1, 0.5]
+            }}
+            transition={{
+              duration: 2 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.3
+            }}
+          />
+        ))}
       </motion.button>
+      
+      {/* Ultra-Enhanced AI Assistant Interface */}
+      <div className="fixed bottom-6 right-20 z-50">
+        {/* Quantum Field Background */}
+        <motion.div
+          className="absolute -inset-20 rounded-full"
+          animate={{
+            background: [
+              'radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%)',
+              'radial-gradient(circle, rgba(6,182,212,0.15) 0%, transparent 70%)',
+              'radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%)',
+              'radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%)'
+            ]
+          }}
+          transition={{ duration: 6, repeat: Infinity }}
+        />
+        
+        {/* Holographic AI Orb */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0, rotate: -180 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 1.5, delay: 1.8, type: "spring", stiffness: 80 }}
+          className="relative group cursor-pointer"
+          onClick={() => {
+            const chatbotButton = document.querySelector('[aria-label="Open AI chatbot"]') as HTMLButtonElement;
+            if (chatbotButton) {
+              chatbotButton.click();
+            }
+          }}
+        >
+          {/* Outer Holographic Ring */}
+          <motion.div
+            className="absolute -inset-8 rounded-full border-2 border-emerald-400/30"
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.8, 0.3]
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
+          
+          {/* Middle Energy Ring */}
+          <motion.div
+            className="absolute -inset-4 rounded-full border border-cyan-400/40"
+            animate={{
+              rotate: [360, 0],
+              scale: [1, 1.15, 1]
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          
+          {/* Main AI Orb */}
+          <motion.div
+            whileHover={{
+              scale: 1.15,
+              boxShadow: [
+                "0 0 40px rgba(16, 185, 129, 0.6)",
+                "0 0 80px rgba(6, 182, 212, 0.8)",
+                "0 0 120px rgba(139, 92, 246, 0.4)",
+                "0 0 40px rgba(16, 185, 129, 0.6)"
+              ],
+              rotate: [0, 5, -5, 0]
+            }}
+            whileTap={{ scale: 0.9 }}
+            className="w-28 h-28 bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600 rounded-full shadow-2xl relative overflow-hidden border-3 border-white/30 backdrop-blur-xl"
+          >
+            {/* Liquid Metal Effect */}
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: 'conic-gradient(from 0deg, rgba(16,185,129,0.8), rgba(6,182,212,0.8), rgba(139,92,246,0.8), rgba(16,185,129,0.8))'
+              }}
+              animate={{
+                rotate: [0, 360]
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+            
+            {/* Neural Network Pattern */}
+            <div className="absolute inset-2 rounded-full bg-gradient-to-br from-slate-900/80 via-blue-900/80 to-purple-900/80 backdrop-blur-sm">
+              {/* Central AI Brain */}
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  rotate: [0, 5, -5, 0]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity
+                }}
+              >
+                <Brain className="w-12 h-12 text-emerald-300 drop-shadow-lg" />
+              </motion.div>
+              
+              {/* Orbiting Data Points */}
+              {[...Array(6)].map((_, i) => {
+                const angle = (i / 6) * Math.PI * 2;
+                const radius = 25;
+                const x = Math.cos(angle) * radius;
+                const y = Math.sin(angle) * radius;
+                
+                return (
+                  <motion.div
+                    key={i}
+                    className="absolute w-2 h-2 bg-cyan-300 rounded-full shadow-lg"
+                    style={{
+                      left: `calc(50% + ${x}px - 4px)`,
+                      top: `calc(50% + ${y}px - 4px)`
+                    }}
+                    animate={{
+                      scale: [0.5, 1.5, 0.5],
+                      opacity: [0.4, 1, 0.4],
+                      rotate: [0, 360]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: i * 0.3
+                    }}
+                  />
+                );
+              })}
+            </div>
+            
+            {/* Pulse Effect */}
+            <motion.div
+              className="absolute inset-0 rounded-full bg-emerald-400/20"
+              animate={{
+                scale: [1, 2, 1],
+                opacity: [0.5, 0, 0.5]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity
+              }}
+            />
+          </motion.div>
+          
+          {/* Floating AI Particles */}
+          {[...Array(8)].map((_, i) => {
+            const angle = (i / 8) * Math.PI * 2;
+            const radius = 60 + Math.sin(i) * 20;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            
+            return (
+              <motion.div
+                key={i}
+                className="absolute w-3 h-3 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full shadow-lg"
+                style={{
+                  left: `calc(50% + ${x}px - 6px)`,
+                  top: `calc(50% + ${y}px - 6px)`
+                }}
+                animate={{
+                  x: [0, Math.cos(angle + Math.PI/4) * 20, 0],
+                  y: [0, Math.sin(angle + Math.PI/4) * 20, 0],
+                  scale: [0, 1, 0],
+                  opacity: [0, 1, 0]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  delay: i * 0.5
+                }}
+              />
+            );
+          })}
+          
+          {/* Enhanced Holographic Label */}
+          <motion.div
+            className="absolute -left-56 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-700"
+            initial={{ x: 40, opacity: 0, scale: 0.8 }}
+            whileHover={{ x: 0, opacity: 1, scale: 1 }}
+          >
+            <div className="relative">
+              {/* Glowing Background */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-teal-500/20 to-cyan-500/20 rounded-3xl blur-xl"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.3, 0.6, 0.3]
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              
+              <div className="relative bg-gradient-to-r from-emerald-600/95 via-teal-600/95 to-cyan-600/95 backdrop-blur-2xl text-white px-8 py-4 rounded-3xl shadow-2xl border-2 border-white/30">
+                <div className="flex items-center gap-4">
+                  <motion.div
+                    animate={{
+                      rotate: [0, 360],
+                      scale: [1, 1.2, 1]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    <Sparkles className="w-6 h-6 text-emerald-200" />
+                  </motion.div>
+                  <div>
+                    <span className="text-xl font-bold tracking-wider bg-gradient-to-r from-white to-emerald-200 bg-clip-text text-transparent">AI NEXUS</span>
+                    <div className="text-sm text-emerald-200/80 font-medium">Neural Intelligence Interface</div>
+                  </div>
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.3, 1],
+                      opacity: [0.7, 1, 0.7],
+                      rotate: [0, 10, -10, 0]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity
+                    }}
+                  >
+                    <MessageCircle className="w-6 h-6 text-cyan-200" />
+                  </motion.div>
+                </div>
+                
+                {/* Status Indicator */}
+                <div className="flex items-center gap-2 mt-2">
+                  <motion.div
+                    className="w-2 h-2 bg-emerald-400 rounded-full"
+                    animate={{
+                      scale: [1, 1.5, 1],
+                      opacity: [0.5, 1, 0.5]
+                    }}
+                    transition={{ duration: 1, repeat: Infinity }}
+                  />
+                  <span className="text-xs text-emerald-300 font-semibold">ONLINE & READY</span>
+                </div>
+                
+                {/* Enhanced Arrow */}
+                <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2">
+                  <motion.div
+                    className="w-4 h-4 bg-gradient-to-br from-emerald-500 to-cyan-500 rotate-45 border-r-2 border-b-2 border-white/40"
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      rotate: [45, 65, 45]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+          
+          {/* Energy Streams */}
+          {[...Array(3)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-px h-16 bg-gradient-to-t from-transparent via-emerald-400 to-transparent"
+              style={{
+                left: `${30 + i * 20}%`,
+                top: '-20px',
+                transformOrigin: 'bottom'
+              }}
+              animate={{
+                scaleY: [0, 1, 0],
+                opacity: [0, 1, 0]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: i * 0.7
+              }}
+            />
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 };
@@ -655,9 +1078,7 @@ const App: React.FC = () => {
     enableScrollOptimization: true
   });
   return (
-    <ThemeProvider>
-      <AppContent optimizeElement={optimizeElement} debounceScroll={debounceScroll} throttleScroll={throttleScroll} />
-    </ThemeProvider>
+    <AppContent optimizeElement={optimizeElement} debounceScroll={debounceScroll} throttleScroll={throttleScroll} />
   );
 };
 

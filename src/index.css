@@ -10,9 +10,9 @@
 /* CSS Custom Properties for theming */
 :root {
   /* Dark theme defaults */
-  --bg-primary: #0a0f1c;
-  --bg-secondary: #0f172a;
-  --bg-tertiary: #1e293b;
+  --bg-primary: transparent;
+  --bg-secondary: transparent;
+  --bg-tertiary: transparent;
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
   --text-muted: #94a3b8;

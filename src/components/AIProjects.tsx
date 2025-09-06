@@ -1,43 +1,25 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Github, 
-  Globe, 
-  Brain, 
-  Code, 
-  Users,
-  Calendar,
-  Lightbulb,
-  X,
-  Star,
-  CheckCircle,
-  Target,
-  TrendingUp,
-  Play,
-  ArrowRight,
-  Clock,
+import {
   ExternalLink,
-  Mail,
-  FileText,
-  BarChart3,
-  Eye,
-  Grid3X3,
+  Github,
+  Code,
+  Brain,
+  Users,
   Cloud,
-  Smartphone,
-  Cpu,
-  Database,
   Server,
-  GitBranch,
-  Terminal,
   Layers,
   Activity,
-  Zap,
-  Shield,
+  Grid3X3,
   Rocket,
-  Monitor,
-  Cpu as CpuIcon,
-  Database as DatabaseIcon,
-  Server as ServerIcon
+  Clock,
+  Eye,
+  Mail,
+  FileText,
+  X,
+  Target,
+  CheckCircle,
+  BarChart3
 } from 'lucide-react';
 
 interface Project {
@@ -82,7 +64,7 @@ const AIProjects: React.FC = () => {
       technologies: ['React', 'Python', 'OpenAI GPT', 'Azure AI', 'Machine Learning', 'NLP', 'FastAPI', 'PostgreSQL'],
       category: 'ai-ml',
       difficulty: 'expert',
-      githubUrl: 'https://github.com/NickiMash17/ai-resume-analyzer',
+      githubUrl: 'https://github.com/NickiMash17/portfolio-website-ai',
       features: [
         'AI-powered resume parsing and analysis',
         'Skill gap identification and recommendations',
@@ -123,7 +105,7 @@ const AIProjects: React.FC = () => {
       technologies: ['React', 'PWA', 'AI/ML', 'Offline-First', 'Gamification', 'Weather API'],
       category: 'ai-ml',
       difficulty: 'advanced',
-      githubUrl: 'https://github.com/NickiMash17/meteora-weather',
+      githubUrl: 'https://github.com/NickiMash17/Meteora-Weather-App',
       features: [
         'AI-powered weather insights and predictions',
         'Progressive Web App (PWA) functionality',
@@ -164,7 +146,7 @@ const AIProjects: React.FC = () => {
       technologies: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'Stripe', 'MongoDB'],
       category: 'full-stack',
       difficulty: 'advanced',
-      githubUrl: 'https://github.com/NickiMash17/techshop-pro',
+      githubUrl: 'https://github.com/NickiMash17/TechShop-Pro',
       features: [
         'Secure user authentication and authorization',
         'Comprehensive product catalog management',
@@ -373,11 +355,141 @@ const AIProjects: React.FC = () => {
 
   return (
     <section id="projects" className="py-20 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 z-0">
-        <div className="ai-data-flow absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-10" />
-        <div className="devops-pipeline absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full opacity-10" />
-        <div className="particle-system absolute inset-0" />
+      {/* Advanced Tech Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950" />
+      
+      {/* Azure Cloud Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,#0078d4_0%,transparent_50%),radial-gradient(circle_at_75%_75%,#00bcf2_0%,transparent_50%),radial-gradient(circle_at_50%_50%,#40e0d0_0%,transparent_50%)]" />
+      </div>
+      
+      {/* DevOps Pipeline Visualization */}
+      <div className="absolute inset-0 opacity-20">
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+            style={{
+              left: '0%',
+              top: `${15 + i * 12}%`,
+              width: '100%',
+            }}
+            animate={{
+              opacity: [0, 1, 0],
+              scaleX: [0, 1, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              delay: i * 0.8,
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Code Matrix Effect */}
+      <div className="absolute inset-0 opacity-15">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-green-400 font-mono text-xs"
+            style={{
+              left: `${(i * 5) % 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -100, 0],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              delay: i * 0.2,
+            }}
+          >
+            {['const', 'function', 'async', 'await', 'import', 'export', 'class', 'interface'][i % 8]}
+          </motion.div>
+        ))}
+      </div>
+      
+      {/* Advanced Neural Network Grid */}
+      <div className="absolute inset-0 opacity-25">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,120,212,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(0,120,212,0.15)_1px,transparent_1px)] bg-[size:60px_60px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.1)_1px,transparent_1px)] bg-[size:20px_20px] animate-pulse" />
+      </div>
+
+      {/* Tech Stack Floating Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Azure Hexagons */}
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={`azure-${i}`}
+            className="absolute w-24 h-24 border-2 border-blue-500/20"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
+            }}
+            animate={{
+              x: [0, 50, 0],
+              y: [0, -75, 0],
+              rotate: [0, 180, 360],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: 15 + i * 2,
+              repeat: Infinity,
+              delay: i * 0.7,
+            }}
+          />
+        ))}
+        
+        {/* DevOps Gears */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={`gear-${i}`}
+            className="absolute w-16 h-16 border border-green-400/25 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 12 + i,
+              repeat: Infinity,
+              delay: i * 0.4,
+            }}
+          >
+            <div className="absolute inset-2 border border-green-400/25 rounded-full" />
+            <div className="absolute inset-4 border border-green-400/25 rounded-full" />
+          </motion.div>
+        ))}
+        
+        {/* AI Neural Nodes */}
+        {[...Array(10)].map((_, i) => (
+          <motion.div
+            key={`node-${i}`}
+            className="absolute w-8 h-8 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.3, 0.8, 0.3],
+              x: [0, 30, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{
+              duration: 8 + i,
+              repeat: Infinity,
+              delay: i * 0.3,
+            }}
+          />
+        ))}
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">

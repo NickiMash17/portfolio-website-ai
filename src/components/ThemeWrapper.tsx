@@ -16,7 +16,7 @@ const ThemeWrapper: React.FC<ThemeWrapperProps> = ({ children, className = '' })
 
   useEffect(() => {
     // Listen for theme changes and update component state
-    const handleThemeChange = (event: CustomEvent) => {
+    const handleThemeChange = (_event: CustomEvent) => {
       // Force re-render when theme changes
       setMounted(false);
       setTimeout(() => setMounted(true), 0);
