@@ -4,7 +4,8 @@ import AIHero from './components/AIHero';
 import AIAbout from './components/AIAbout';
 import NeuralBackground from './components/NeuralBackground';
 import PerformanceOptimizer from './components/PerformanceOptimizer';
-import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Code, Mail as MailIcon, Heart, Zap, Sun, Moon, Github, Linkedin } from 'lucide-react';
+import FloatingActionMenu from './components/FloatingActionMenu';
+import { ChevronUp, Menu, X, Home, User, Briefcase, FileText, Mail, Code, Mail as MailIcon, Heart, Zap, Sun, Moon, Github, Linkedin, Brain, Cloud, Database, Server, Terminal, Layers, Activity } from 'lucide-react';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { usePerformance } from './hooks/usePerformance';
 
@@ -17,7 +18,7 @@ const Contact = lazy(() => import('./components/Contact'));
 // Loading component for lazy-loaded components
 const LoadingSpinner: React.FC = () => (
   <div className="flex items-center justify-center p-8">
-    <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+    <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
 
@@ -25,7 +26,6 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
   const { toggleTheme, isLight } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState('home');
-  // Lockout to prevent scroll handler from overriding activeSection after hashchange/click
   const lockoutRef = React.useRef(false);
 
   const navItems = [
@@ -38,7 +38,6 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
 
   // Track active section on scroll with performance optimization and lockout
   React.useEffect(() => {
-    // More aggressive debounce (200ms)
     const handleScroll = throttleScroll(() => {
       if (lockoutRef.current) return;
       const sections = navItems.map(item => item.href.substring(1));
@@ -55,7 +54,6 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
           }
         }
       }
-      // Only update if changed
       setActiveSection(prev => prev !== foundSection ? foundSection : prev);
     }, 200);
 
@@ -96,19 +94,24 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-dark-900/95 backdrop-blur-xl border-b border-dark-700/50 shadow-azure"
+      className="fixed top-0 left-0 right-0 z-50 glass-ai border-b border-cyan-500/20 shadow-2xl"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-20">
+          {/* Enhanced Logo */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex items-center space-x-2"
+            className="flex items-center space-x-3"
           >
-            <Code className="w-8 h-8 text-azure-400" />
-            <span className="text-xl font-bold text-white">Nicolette</span>
+            <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 via-blue-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <Brain className="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <span className="text-2xl font-bold text-white font-orbitron tracking-wider">NICOLETTE</span>
+              <p className="text-xs text-cyan-400 font-semibold">AI ENGINEER</p>
+            </div>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -116,7 +119,7 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="hidden md:flex items-center space-x-8"
+            className="hidden md:flex items-center space-x-2"
           >
             {navItems.map((item) => (
               <a
@@ -127,10 +130,10 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
                   lockoutRef.current = true;
                   setTimeout(() => { lockoutRef.current = false; }, 400);
                 }}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                className={`flex items-center space-x-2 px-6 py-3 rounded-2xl text-lg font-semibold transition-all duration-300 ${
                   activeSection === item.href.substring(1)
-                    ? 'text-azure-400 bg-azure-400/10 border border-azure-400/20'
-                    : 'text-light-300 hover:text-azure-400 hover:bg-dark-700/50'
+                    ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg'
+                    : 'text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10'
                 }`}
               >
                 {item.icon}
@@ -146,10 +149,10 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-dark-800 text-light-300 hover:text-azure-400 hover:bg-dark-700 transition-all duration-300"
+              className="p-3 rounded-2xl glass-ai text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-300"
               aria-label="Toggle theme"
             >
-              {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+              {isLight ? <Moon className="w-6 h-6" /> : <Sun className="w-6 h-6" />}
             </motion.button>
 
             <motion.button
@@ -157,10 +160,10 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg bg-dark-800 text-light-300 hover:text-azure-400 hover:bg-dark-700 transition-all duration-300"
+              className="md:hidden p-3 rounded-2xl glass-ai text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-300"
               aria-label="Toggle mobile menu"
             >
-              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </motion.button>
           </div>
         </div>
@@ -173,9 +176,9 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden border-t border-dark-700/50"
+              className="md:hidden border-t border-cyan-500/20"
             >
-              <div className="px-2 pt-2 pb-3 space-y-1">
+              <div className="px-2 pt-4 pb-6 space-y-2">
                 {navItems.map((item) => (
                   <a
                     key={item.href}
@@ -186,10 +189,10 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
                       lockoutRef.current = true;
                       setTimeout(() => { lockoutRef.current = false; }, 400);
                     }}
-                    className={`flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium transition-all duration-300 ${
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-2xl text-lg font-semibold transition-all duration-300 ${
                       activeSection === item.href.substring(1)
-                        ? 'text-azure-400 bg-azure-400/10 border border-azure-400/20'
-                        : 'text-light-300 hover:text-azure-400 hover:bg-dark-700/50'
+                        ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg'
+                        : 'text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10'
                     }`}
                   >
                     {item.icon}
@@ -207,8 +210,8 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative z-10 bg-dark-900/50 backdrop-blur-xl border-t border-dark-700/50 theme-transition">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <footer className="relative z-10 glass-ai border-t border-cyan-500/20 theme-transition">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* Top Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
@@ -219,19 +222,23 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-azure-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <Code className="w-6 h-6 text-white" />
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <Brain className="w-8 h-8 text-white" />
               </div>
-              <span className="text-2xl font-bold text-white">Nicolette</span>
+              <div>
+                <span className="text-2xl font-bold text-white font-orbitron">NICOLETTE</span>
+                <p className="text-sm text-cyan-400 font-semibold">AI ENGINEER</p>
+              </div>
             </div>
-            <p className="text-light-300 max-w-md leading-relaxed">
-              Software Engineering student passionate about creating innovative solutions and pushing the boundaries of web technology. Microsoft Azure certified and ready to build the future.
+            <p className="text-lg text-gray-300 max-w-md leading-relaxed">
+              Software Engineering student passionate about creating innovative solutions and pushing the boundaries of web technology. 
+              Microsoft Azure certified and ready to build the future.
             </p>
             {/* Status indicator */}
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-neon-400 rounded-full animate-pulse" />
-              <span className="text-neon-400 text-sm font-medium">Available for opportunities</span>
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse" />
+              <span className="text-cyan-400 text-sm font-semibold">Available for opportunities</span>
             </div>
           </motion.div>
 
@@ -243,18 +250,33 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
-              <div className="w-6 h-6 bg-gradient-to-r from-purple-600 to-neon-500 rounded-md flex items-center justify-center">
-                <Zap className="w-3 h-3 text-white" />
+            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                <Zap className="w-4 h-4 text-white" />
               </div>
               Quick Links
             </h3>
-            <div className="space-y-3">
-              <a href="#home" className="block text-light-300 hover:text-azure-400 transition-colors duration-300 hover:translate-x-1 transform">Home</a>
-              <a href="#about" className="block text-light-300 hover:text-azure-400 transition-colors duration-300 hover:translate-x-1 transform">About</a>
-              <a href="#projects" className="block text-light-300 hover:text-azure-400 transition-colors duration-300 hover:translate-x-1 transform">Projects</a>
-              <a href="#resume" className="block text-light-300 hover:text-azure-400 transition-colors duration-300 hover:translate-x-1 transform">Resume</a>
-              <a href="#contact" className="block text-light-300 hover:text-azure-400 transition-colors duration-300 hover:translate-x-1 transform">Contact</a>
+            <div className="space-y-4">
+              <a href="#home" className="text-lg text-gray-300 hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+                <Home className="w-4 h-4" />
+                Home
+              </a>
+              <a href="#about" className="text-lg text-gray-300 hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+                <User className="w-4 h-4" />
+                About
+              </a>
+              <a href="#projects" className="text-lg text-gray-300 hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+                <Briefcase className="w-4 h-4" />
+                Projects
+              </a>
+              <a href="#resume" className="text-lg text-gray-300 hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+                <FileText className="w-4 h-4" />
+                Resume
+              </a>
+              <a href="#contact" className="text-lg text-gray-300 hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+                <Mail className="w-4 h-4" />
+                Contact
+              </a>
             </div>
           </motion.div>
 
@@ -266,63 +288,51 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <motion.h3
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="text-lg font-semibold text-white mb-6 flex items-center gap-2"
-            >
-              <div className="w-6 h-6 bg-gradient-to-r from-azure-600 to-purple-600 rounded-md flex items-center justify-center">
-                <MailIcon className="w-3 h-3 text-white" />
+            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center">
+                <MailIcon className="w-4 h-4 text-white" />
               </div>
               Get In Touch
-            </motion.h3>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              viewport={{ once: true }}
-              className="space-y-4"
-            >
-              <div className="flex items-center gap-3 text-light-300 group">
-                <div className="w-8 h-8 bg-gradient-to-r from-azure-500/20 to-purple-500/20 rounded-lg flex items-center justify-center group-hover:from-azure-500/30 group-hover:to-purple-500/30 transition-all duration-300">
-                  <MailIcon className="w-4 h-4 text-azure-400" />
+            </h3>
+            <div className="space-y-6">
+              <div className="flex items-center gap-4 text-gray-300 group">
+                <div className="w-12 h-12 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center group-hover:from-cyan-500/30 group-hover:to-blue-500/30 transition-all duration-300">
+                  <MailIcon className="w-6 h-6 text-cyan-400" />
                 </div>
-                <a href="mailto:nene171408@gmail.com" className="hover:text-azure-400 transition-colors duration-300">
+                <a href="mailto:nene171408@gmail.com" className="text-lg hover:text-cyan-400 transition-colors duration-300">
                   nene171408@gmail.com
                 </a>
               </div>
               
               {/* Social Links */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-medium text-light-400 uppercase tracking-wider">Connect</h4>
-                <div className="flex items-center gap-4">
+              <div className="space-y-4">
+                <h4 className="text-lg font-bold text-white">Connect</h4>
+                <div className="flex flex-col gap-4">
                   <a 
                     href="https://github.com/NickiMash17" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-light-300 hover:text-azure-400 transition-all duration-300 hover:scale-105 group"
+                    className="flex items-center gap-3 text-gray-300 hover:text-cyan-400 transition-all duration-300 hover:translate-x-2 transform group"
                   >
-                    <div className="w-8 h-8 bg-gradient-to-r from-dark-700 to-dark-800 rounded-lg flex items-center justify-center group-hover:from-azure-500/20 group-hover:to-purple-500/20 transition-all duration-300">
-                      <Github className="w-4 h-4" />
+                    <div className="w-12 h-12 bg-gradient-to-r from-gray-700 to-gray-800 rounded-2xl flex items-center justify-center group-hover:from-cyan-500/20 group-hover:to-blue-500/20 transition-all duration-300">
+                      <Github className="w-6 h-6" />
                     </div>
-                    <span>GitHub</span>
+                    <span className="text-lg font-semibold">GitHub</span>
                   </a>
                   <a 
                     href="https://linkedin.com/in/nicolette-mashaba" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-light-300 hover:text-azure-400 transition-all duration-300 hover:scale-105 group"
+                    className="flex items-center gap-3 text-gray-300 hover:text-cyan-400 transition-all duration-300 hover:translate-x-2 transform group"
                   >
-                    <div className="w-8 h-8 bg-gradient-to-r from-dark-700 to-dark-800 rounded-lg flex items-center justify-center group-hover:from-azure-500/20 group-hover:to-purple-500/20 transition-all duration-300">
-                      <Linkedin className="w-4 h-4" />
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl flex items-center justify-center group-hover:from-cyan-500/20 group-hover:to-blue-500/20 transition-all duration-300">
+                      <Linkedin className="w-6 h-6" />
                     </div>
-                    <span>LinkedIn</span>
+                    <span className="text-lg font-semibold">LinkedIn</span>
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
 
@@ -332,21 +342,21 @@ const Footer: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           viewport={{ once: true }}
-          className="mt-16 pt-8 border-t border-dark-700/50"
+          className="mt-16 pt-8 border-t border-cyan-500/20"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-3 text-light-400 text-sm">
+            <div className="flex items-center gap-4 text-gray-400 text-lg">
               <span>© 2024 Nicolette Mashaba. Made with</span>
-              <Heart className="w-4 h-4 text-red-400 animate-pulse" />
+              <Heart className="w-5 h-5 text-red-400 animate-pulse" />
               <span>and lots of</span>
-              <Zap className="w-4 h-4 text-emerald-400" />
+              <Zap className="w-5 h-5 text-cyan-400" />
             </div>
             
-            <div className="flex items-center gap-6 text-sm">
-              <a href="#privacy" className="text-light-400 hover:text-neon-400 transition-colors duration-300 hover:underline">
+            <div className="flex items-center gap-8 text-lg">
+              <a href="#privacy" className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 hover:underline">
                 Privacy Policy
               </a>
-              <a href="#terms" className="text-light-400 hover:text-neon-400 transition-colors duration-300 hover:underline">
+              <a href="#terms" className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 hover:underline">
                 Terms of Service
               </a>
             </div>
@@ -376,7 +386,7 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 100);
 
-  // Unique particle background: dynamic shapes, color gradients, mouse-reactive clustering
+  // Enhanced particle background with AI/tech themes
   React.useEffect(() => {
     const canvas = document.getElementById('global-particle-canvas') as HTMLCanvasElement;
     if (!canvas) return;
@@ -394,19 +404,20 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
     };
     canvas.onmouseleave = () => { mouse.active = false; };
 
-    // Particle shapes: 0=circle, 1=polygon, 2=star
+    // Enhanced particle shapes with tech themes
     function drawShape(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, type: number, color: string) {
       ctx.save();
       ctx.translate(x, y);
       ctx.fillStyle = color;
       ctx.shadowColor = color;
-      ctx.shadowBlur = 10;
+      ctx.shadowBlur = 15;
       if (type === 0) {
+        // Circle (AI/ML node)
         ctx.beginPath();
         ctx.arc(0, 0, size, 0, Math.PI * 2);
         ctx.fill();
       } else if (type === 1) {
-        // Polygon (hexagon)
+        // Hexagon (Cloud/DevOps)
         ctx.beginPath();
         for (let i = 0; i < 6; i++) {
           const angle = (Math.PI * 2 * i) / 6;
@@ -415,7 +426,7 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
         ctx.closePath();
         ctx.fill();
       } else if (type === 2) {
-        // Star
+        // Star (Innovation)
         ctx.beginPath();
         for (let i = 0; i < 5; i++) {
           let angle = (Math.PI * 2 * i) / 5;
@@ -425,31 +436,33 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
         }
         ctx.closePath();
         ctx.fill();
+      } else if (type === 3) {
+        // Square (Code/Development)
+        ctx.fillRect(-size, -size, size * 2, size * 2);
       }
       ctx.restore();
     }
 
-    // Gradient color generator
+    // Enhanced gradient color generator with tech themes
     function getGradientColor(t: number): string {
-      // t in [0,1]
-      const r = Math.floor(120 + 120 * Math.sin(2 * Math.PI * t));
-      const g = Math.floor(50 + 205 * Math.sin(2 * Math.PI * t + 2));
+      const r = Math.floor(0 + 255 * Math.sin(2 * Math.PI * t));
+      const g = Math.floor(120 + 135 * Math.sin(2 * Math.PI * t + 2));
       const b = Math.floor(200 + 55 * Math.sin(2 * Math.PI * t + 4));
-      return `rgba(${r},${g},${b},0.8)`;
+      return `rgba(${r},${g},${b},0.6)`;
     }
 
     const particles: Particle[] = [];
-    const particleCount = 80;
-    const connectionDistance = 200;
+    const particleCount = 100;
+    const connectionDistance = 250;
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2 + 1.5,
-        shape: Math.floor(Math.random() * 3),
-        t: Math.random(), // for color gradient
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        size: Math.random() * 3 + 2,
+        shape: Math.floor(Math.random() * 4),
+        t: Math.random(),
         connections: []
       });
     }
@@ -476,6 +489,7 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
     function animate() {
       if (!ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
       // Update particle positions and color
       particles.forEach((particle) => {
         // Mouse clustering effect
@@ -483,16 +497,16 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
           const dx = mouse.x - particle.x;
           const dy = mouse.y - particle.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 150) {
-            particle.vx += dx * 0.0005;
-            particle.vy += dy * 0.0005;
+          if (dist < 200) {
+            particle.vx += dx * 0.0008;
+            particle.vy += dy * 0.0008;
           }
         }
 
         // Update position
         particle.x += particle.vx;
         particle.y += particle.vy;
-        particle.t += 0.01;
+        particle.t += 0.008;
 
         // Bounce off edges
         if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
@@ -513,9 +527,9 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
             const opacity = 1 - (distance / connectionDistance);
             if (ctx) {
               ctx.save();
-              ctx.globalAlpha = opacity * 0.7;
+              ctx.globalAlpha = opacity * 0.8;
               ctx.strokeStyle = getGradientColor((particle.t + connectedParticle.t) / 2);
-              ctx.lineWidth = 1.2;
+              ctx.lineWidth = 1.5;
               ctx.beginPath();
               ctx.moveTo(particle.x, particle.y);
               ctx.lineTo(connectedParticle.x, connectedParticle.y);
@@ -525,7 +539,8 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
           }
         });
       });
-      // Draw particles with dynamic shapes and animated color
+      
+      // Draw particles with enhanced shapes and animated color
       particles.forEach((particle) => {
         if (ctx) {
           drawShape(ctx, particle.x, particle.y, particle.size, particle.shape, getGradientColor(particle.t));
@@ -535,6 +550,7 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
       animationId = requestAnimationFrame(animate);
     }
     animate();
+    
     // Handle window resize
     const handleResize = () => {
       canvas.width = window.innerWidth;
@@ -558,8 +574,8 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
   }, [optimizeElement]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-950 via-dark-900 to-azure-950 font-inter transition-colors duration-300 relative overflow-hidden">
-      {/* Particle Canvas for Genius Background */}
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 font-inter transition-colors duration-300 relative overflow-hidden">
+      {/* Enhanced Particle Canvas */}
       <canvas
         id="global-particle-canvas"
         style={{
@@ -572,7 +588,8 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
           pointerEvents: 'none',
         }}
       />
-      {/* Neural Background - Clean and Simple */}
+      
+      {/* Neural Background */}
       <NeuralBackground />
       
       {/* Navigation */}
@@ -603,13 +620,16 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
         </PerformanceOptimizer>
       </main>
 
-      {/* Magical Footer */}
+      {/* Enhanced Footer */}
       <Footer />
 
       {/* AI Assistant */}
       <Suspense fallback={<LoadingSpinner />}>
         <Chatbot />
       </Suspense>
+
+      {/* Floating Action Menu */}
+      <FloatingActionMenu />
 
       {/* Enhanced Scroll to Top Button */}
       <motion.button
@@ -619,10 +639,10 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
         transition={{ duration: 0.5, delay: 1 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-8 left-8 z-40 w-12 h-12 bg-gradient-to-r from-azure-600 to-purple-600 text-white rounded-full shadow-azure hover:shadow-neon transition-all duration-300 backdrop-blur-sm border border-white/20 performance-critical"
+        className="fixed bottom-8 left-8 z-40 w-16 h-16 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 text-white rounded-2xl shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 backdrop-blur-sm border border-white/20 performance-critical"
         aria-label="Scroll to top"
       >
-        <ChevronUp className="w-6 h-6 mx-auto" />
+        <ChevronUp className="w-8 h-8 mx-auto" />
       </motion.button>
     </div>
   );
@@ -641,4 +661,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App; 
+export default App;

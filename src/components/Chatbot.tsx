@@ -110,8 +110,8 @@ const Chatbot: React.FC = () => {
                   <Bot className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold">AI Assistant</h3>
-                  <p className="text-neon-400 text-xs">Online</p>
+                  <h3 className="text-white font-semibold text-body">AI Assistant</h3>
+                  <p className="text-neon-400 text-sm">Online</p>
                 </div>
               </div>
               <button
@@ -133,7 +133,7 @@ const Chatbot: React.FC = () => {
                   className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
                 >
                   <div
-                    className={`max-w-xs px-3 py-2 rounded-lg ${
+                    className={`max-w-xs px-3 py-2 rounded-lg text-body ${
                       message.isBot
                         ? 'bg-dark-700/80 text-white'
                         : 'bg-gradient-to-r from-azure-600 to-purple-600 text-white'
@@ -154,7 +154,7 @@ const Chatbot: React.FC = () => {
                     onClick={() => handleQuickReply(reply)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-3 py-1 bg-dark-700/80 text-light-300 text-xs rounded-full hover:bg-gradient-to-r hover:from-azure-600 hover:to-purple-600 hover:text-white transition-all duration-300"
+                    className="px-3 py-1 bg-dark-700/80 text-light-300 text-sm rounded-full hover:bg-gradient-to-r hover:from-azure-600 hover:to-purple-600 hover:text-white transition-all duration-300"
                   >
                     {reply}
                   </motion.button>
@@ -173,7 +173,7 @@ const Chatbot: React.FC = () => {
                     }
                   }}
                   placeholder="Type your message..."
-                  className="flex-1 px-3 py-2 bg-dark-700/80 border border-dark-600/50 rounded-lg text-white text-sm placeholder-light-400 focus:ring-2 focus:ring-azure-400 focus:border-transparent backdrop-blur-sm"
+                  className="flex-1 px-3 py-2 bg-dark-700/80 border border-dark-600/50 rounded-lg text-white text-body placeholder-light-400 focus:ring-2 focus:ring-azure-400 focus:border-transparent backdrop-blur-sm"
                 />
                 <motion.button
                   onClick={() => handleSendMessage(inputValue)}

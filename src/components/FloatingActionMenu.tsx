@@ -7,12 +7,22 @@ import {
   Mail, 
   Github, 
   Linkedin, 
-  Twitter,
   X,
   FileText,
   User,
   Briefcase,
-  Sparkles
+  Sparkles,
+  Brain,
+  Cloud,
+  Code,
+  Database,
+  Server,
+  Terminal,
+  Layers,
+  Activity,
+  Zap,
+  Rocket,
+  Shield
 } from 'lucide-react';
 
 interface FloatingActionMenuProps {
@@ -28,9 +38,9 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       id: 'chat',
       icon: MessageCircle,
       label: 'AI Chat',
-      color: 'from-azure-600 to-purple-600',
+      color: 'from-cyan-500 to-blue-500',
+      category: 'ai',
       action: () => {
-        // Scroll to chatbot section
         document.getElementById('chatbot')?.scrollIntoView({ behavior: 'smooth' });
         setActiveAction('chat');
         setTimeout(() => setActiveAction(null), 2000);
@@ -40,7 +50,8 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       id: 'resume',
       icon: FileText,
       label: 'Resume',
-      color: 'from-purple-600 to-neon-500',
+      color: 'from-blue-500 to-purple-500',
+      category: 'code',
       action: () => {
         document.getElementById('resume')?.scrollIntoView({ behavior: 'smooth' });
         setActiveAction('resume');
@@ -51,7 +62,8 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       id: 'projects',
       icon: Briefcase,
       label: 'Projects',
-      color: 'from-neon-500 to-azure-600',
+      color: 'from-purple-500 to-cyan-500',
+      category: 'innovation',
       action: () => {
         document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
         setActiveAction('projects');
@@ -62,7 +74,8 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       id: 'contact',
       icon: Mail,
       label: 'Contact',
-      color: 'from-azure-600 to-purple-600',
+      color: 'from-cyan-500 to-blue-500',
+      category: 'communication',
       action: () => {
         document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
         setActiveAction('contact');
@@ -73,7 +86,8 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       id: 'github',
       icon: Github,
       label: 'GitHub',
-      color: 'from-dark-600 to-dark-800',
+      color: 'from-gray-600 to-gray-800',
+      category: 'code',
       action: () => {
         window.open('https://github.com/NickiMash17', '_blank');
         setActiveAction('github');
@@ -84,13 +98,23 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       id: 'linkedin',
       icon: Linkedin,
       label: 'LinkedIn',
-      color: 'from-azure-600 to-azure-800',
+      color: 'from-blue-600 to-blue-800',
+      category: 'professional',
       action: () => {
         window.open('https://linkedin.com/in/nicolette-mashaba', '_blank');
         setActiveAction('linkedin');
         setTimeout(() => setActiveAction(null), 2000);
       }
     }
+  ];
+
+  const techIcons = [
+    { icon: Brain, color: 'text-cyan-400', label: 'AI/ML' },
+    { icon: Cloud, color: 'text-blue-400', label: 'Cloud' },
+    { icon: Code, color: 'text-purple-400', label: 'Code' },
+    { icon: Database, color: 'text-emerald-400', label: 'Data' },
+    { icon: Server, color: 'text-orange-400', label: 'DevOps' },
+    { icon: Terminal, color: 'text-red-400', label: 'Tools' }
   ];
 
   const toggleMenu = () => {
@@ -106,13 +130,43 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
             initial={{ opacity: 0, y: 20, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.8 }}
-            className="absolute bottom-20 right-0 bg-dark-800/90 backdrop-blur-md text-white px-4 py-2 rounded-lg border border-dark-600/50 shadow-xl"
+            className="absolute bottom-24 right-0 glass-ai text-cyan-400 px-6 py-3 rounded-2xl border border-cyan-500/20 shadow-2xl"
           >
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-neon-400" />
-              <span className="text-sm font-medium">
+            <div className="flex items-center gap-3">
+              <Sparkles className="w-5 h-5 text-cyan-400" />
+              <span className="text-sm font-semibold">
                 {actions.find(a => a.id === activeAction)?.label} opened!
               </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Tech Stack Visualization */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="absolute bottom-32 right-0 mb-4 glass-ai rounded-2xl p-6 border border-cyan-500/20"
+          >
+            <h3 className="text-sm font-bold text-white mb-4 text-center">Tech Stack</h3>
+            <div className="grid grid-cols-3 gap-3">
+              {techIcons.map((tech, index) => (
+                <motion.div
+                  key={tech.label}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="text-center group"
+                >
+                  <div className={`w-12 h-12 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300 ${tech.color} rounded-xl flex items-center justify-center glass-ai`}>
+                    <tech.icon className="w-6 h-6" />
+                  </div>
+                  <p className="text-xs text-gray-300 font-medium">{tech.label}</p>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         )}
@@ -121,7 +175,7 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
       {/* Action Menu Items */}
       <AnimatePresence>
         {isOpen && (
-          <div className="absolute bottom-16 right-0 mb-4">
+          <div className="absolute bottom-20 right-0 mb-4">
             {actions.map((action, index) => (
               <motion.div
                 key={action.id}
@@ -129,28 +183,29 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 50, scale: 0.8 }}
                 transition={{ delay: index * 0.1 }}
-                className="mb-3"
+                className="mb-4"
               >
                 <motion.button
-                  whileHover={{ scale: 1.1, x: -5 }}
+                  whileHover={{ scale: 1.05, x: -5 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={action.action}
                   className={`
-                    group relative flex items-center gap-3 px-4 py-3 
+                    group relative flex items-center gap-4 px-6 py-4 
                     bg-gradient-to-r ${action.color} 
-                    text-white rounded-full shadow-lg 
+                    text-white rounded-2xl shadow-2xl 
                     border border-white/20 backdrop-blur-sm
-                    transition-all duration-300 hover:shadow-xl
+                    transition-all duration-300 hover:shadow-cyan-500/25
+                    w-56 h-16
                   `}
                 >
                   {/* Label */}
-                  <span className="text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-sm font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {action.label}
                   </span>
                   
                   {/* Icon */}
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <action.icon className="w-5 h-5" />
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center ml-auto">
+                    <action.icon className="w-6 h-6" />
                   </div>
                 </motion.button>
               </motion.div>
@@ -165,13 +220,17 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
         whileTap={{ scale: 0.9 }}
         onClick={toggleMenu}
         className={`
-          w-16 h-16 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 
-          rounded-full shadow-2xl border-2 border-white/20 
+          w-20 h-20 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 
+          rounded-2xl shadow-2xl border-2 border-white/20 
           flex items-center justify-center text-white
-          transition-all duration-300 hover:shadow-blue-400/25
+          transition-all duration-300 hover:shadow-cyan-500/25
           ${isOpen ? 'rotate-45' : 'rotate-0'}
+          relative overflow-hidden
         `}
       >
+        {/* Holographic Effect */}
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-blue-400/20 to-purple-400/20 animate-pulse" />
+        
         <AnimatePresence mode="wait">
           {isOpen ? (
             <motion.div
@@ -180,8 +239,9 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
               animate={{ opacity: 1, rotate: 0 }}
               exit={{ opacity: 0, rotate: 90 }}
               transition={{ duration: 0.2 }}
+              className="relative z-10"
             >
-              <X className="w-6 h-6" />
+              <X className="w-8 h-8" />
             </motion.div>
           ) : (
             <motion.div
@@ -190,8 +250,9 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
               animate={{ opacity: 1, rotate: 0 }}
               exit={{ opacity: 0, rotate: -90 }}
               transition={{ duration: 0.2 }}
+              className="relative z-10"
             >
-              <Plus className="w-6 h-6" />
+              <Plus className="w-8 h-8" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -202,21 +263,20 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => {
-          // Trigger resume download
           const link = document.createElement('a');
-          link.href = '/resume.pdf'; // Update with actual resume path
+          link.href = '/resume.pdf';
           link.download = 'Nicolette_Mashaba_Resume.pdf';
           link.click();
         }}
-        className="absolute bottom-20 right-0 mb-4 px-4 py-2 bg-gradient-to-r from-emerald-400 to-blue-400 text-white rounded-full shadow-lg border border-white/20 backdrop-blur-sm transition-all duration-300 hover:shadow-emerald-400/25"
+        className="absolute bottom-24 right-0 mb-4 px-6 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm transition-all duration-300 hover:shadow-cyan-500/25 w-56 h-16 flex items-center justify-center group"
       >
-        <div className="flex items-center gap-2">
-          <Download className="w-4 h-4" />
-          <span className="text-sm font-medium">Download Resume</span>
+        <div className="flex items-center gap-3">
+          <Download className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+          <span className="text-sm font-semibold">Download Resume</span>
         </div>
       </motion.button>
     </div>
   );
 };
 
-export default FloatingActionMenu; 
+export default FloatingActionMenu;

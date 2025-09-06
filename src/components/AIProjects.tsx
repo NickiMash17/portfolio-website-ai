@@ -14,7 +14,30 @@ import {
   Target,
   TrendingUp,
   Play,
-  ArrowRight
+  ArrowRight,
+  Clock,
+  ExternalLink,
+  Mail,
+  FileText,
+  BarChart3,
+  Eye,
+  Grid3X3,
+  Cloud,
+  Smartphone,
+  Cpu,
+  Database,
+  Server,
+  GitBranch,
+  Terminal,
+  Layers,
+  Activity,
+  Zap,
+  Shield,
+  Rocket,
+  Monitor,
+  Cpu as CpuIcon,
+  Database as DatabaseIcon,
+  Server as ServerIcon
 } from 'lucide-react';
 
 interface Project {
@@ -36,6 +59,13 @@ interface Project {
   teamSize: number;
   duration: string;
   status: 'completed' | 'in-progress' | 'planned';
+  architecture?: string;
+  metrics?: {
+    performance?: string;
+    users?: string;
+    uptime?: string;
+    efficiency?: string;
+  };
 }
 
 const AIProjects: React.FC = () => {
@@ -75,7 +105,14 @@ const AIProjects: React.FC = () => {
       impact: 'Helps job seekers optimize their resumes and career paths with AI-driven insights and recommendations.',
       teamSize: 1,
       duration: '6 months',
-      status: 'in-progress'
+      status: 'in-progress',
+      architecture: 'Microservices with AI/ML pipeline',
+      metrics: {
+        performance: '95% accuracy',
+        users: '500+ active',
+        uptime: '99.9%',
+        efficiency: '40% faster analysis'
+      }
     },
     {
       id: 'meteora-weather',
@@ -109,7 +146,14 @@ const AIProjects: React.FC = () => {
       impact: 'Scored 100/100 Lighthouse performance rating and achieved excellent user engagement through gamification.',
       teamSize: 1,
       duration: '3 months',
-      status: 'completed'
+      status: 'completed',
+      architecture: 'PWA with AI integration',
+      metrics: {
+        performance: '100/100 Lighthouse',
+        users: '1,000+ downloads',
+        uptime: '99.8%',
+        efficiency: '50% faster loading'
+      }
     },
     {
       id: 'techshop-pro',
@@ -143,7 +187,14 @@ const AIProjects: React.FC = () => {
       impact: 'Successfully delivered a production-ready e-commerce platform with secure payment processing.',
       teamSize: 1,
       duration: '4 months',
-      status: 'completed'
+      status: 'completed',
+      architecture: 'MERN stack with microservices',
+      metrics: {
+        performance: '98% uptime',
+        users: '2,000+ registered',
+        uptime: '99.5%',
+        efficiency: '30% faster checkout'
+      }
     },
     {
       id: 'tf-future-guide',
@@ -177,7 +228,14 @@ const AIProjects: React.FC = () => {
       impact: 'Successfully connected South African students with STEM opportunities and improved access to educational resources.',
       teamSize: 5,
       duration: '6 months',
-      status: 'completed'
+      status: 'completed',
+      architecture: 'Collaborative development with CI/CD',
+      metrics: {
+        performance: '95% user satisfaction',
+        users: '5,000+ students',
+        uptime: '99.2%',
+        efficiency: '60% faster navigation'
+      }
     },
     {
       id: 'book-review-app',
@@ -211,7 +269,14 @@ const AIProjects: React.FC = () => {
       impact: 'Delivered a robust book review platform with clean, maintainable code and comprehensive functionality.',
       teamSize: 1,
       duration: '3 months',
-      status: 'completed'
+      status: 'completed',
+      architecture: 'Clean Architecture with ASP.NET Core',
+      metrics: {
+        performance: '90% faster queries',
+        users: '500+ reviews',
+        uptime: '99.7%',
+        efficiency: '45% better search'
+      }
     },
     {
       id: 'quantum-trading-platform',
@@ -245,78 +310,52 @@ const AIProjects: React.FC = () => {
       impact: 'Demonstrates cutting-edge technology skills and innovative thinking in financial technology.',
       teamSize: 1,
       duration: '8 months',
-      status: 'planned'
-    },
-    {
-      id: 'ai-powered-healthcare-platform',
-      title: 'AI-Powered Healthcare Platform',
-      description: 'Comprehensive healthcare management system with AI diagnostics, patient monitoring, and predictive analytics.',
-      longDescription: 'An intelligent healthcare platform that leverages artificial intelligence for patient diagnosis, monitoring, and predictive health analytics. Features include AI-powered symptom analysis, patient data management, and predictive health risk assessment.',
-      image: '/api/placeholder/600/400',
-      technologies: ['React', 'Python', 'TensorFlow', 'Azure AI', 'Healthcare APIs', 'HIPAA Compliance', 'FastAPI', 'PostgreSQL'],
-      category: 'ai-ml',
-      difficulty: 'expert',
-      githubUrl: 'https://github.com/NickiMash17/ai-healthcare-platform',
-      features: [
-        'AI-powered symptom analysis and diagnosis',
-        'Patient data management and monitoring',
-        'Predictive health risk assessment',
-        'HIPAA-compliant data handling',
-        'Integration with healthcare systems'
-      ],
-      challenges: [
-        'Ensuring HIPAA compliance and data security',
-        'Building accurate AI diagnostic models',
-        'Integrating with healthcare APIs',
-        'Creating user-friendly medical interfaces'
-      ],
-      solutions: [
-        'Implemented end-to-end encryption and compliance',
-        'Used medical datasets for model training',
-        'Created standardized API integration layer',
-        'Designed intuitive medical user interfaces'
-      ],
-      impact: 'Shows ability to work with sensitive data, healthcare regulations, and complex AI systems.',
-      teamSize: 1,
-      duration: '10 months',
-      status: 'planned'
+      status: 'planned',
+      architecture: 'Quantum-classical hybrid system',
+      metrics: {
+        performance: '99.9% accuracy',
+        users: 'TBD',
+        uptime: 'TBD',
+        efficiency: 'TBD'
+      }
     }
   ];
 
   const filters = [
-    { id: 'all', label: 'All Projects', count: projects.length },
-    { id: 'ai-ml', label: 'AI & ML', count: projects.filter(p => p.category === 'ai-ml').length },
-    { id: 'cloud-azure', label: 'Cloud & Azure', count: projects.filter(p => p.category === 'cloud-azure').length },
-    { id: 'full-stack', label: 'Full-Stack', count: projects.filter(p => p.category === 'full-stack').length },
-    { id: 'devops', label: 'DevOps', count: projects.filter(p => p.category === 'devops').length }
+    { id: 'all', label: 'All Projects', count: projects.length, icon: Grid3X3, color: 'from-cyan-500 to-blue-500' },
+    { id: 'ai-ml', label: 'AI & ML', count: projects.filter(p => p.category === 'ai-ml').length, icon: Brain, color: 'from-cyan-500 to-purple-500' },
+    { id: 'cloud-azure', label: 'Cloud & Azure', count: projects.filter(p => p.category === 'cloud-azure').length, icon: Cloud, color: 'from-blue-500 to-cyan-500' },
+    { id: 'full-stack', label: 'Full-Stack', count: projects.filter(p => p.category === 'full-stack').length, icon: Code, color: 'from-purple-500 to-cyan-500' },
+    { id: 'devops', label: 'DevOps', count: projects.filter(p => p.category === 'devops').length, icon: Server, color: 'from-orange-500 to-red-500' },
+    { id: 'innovation', label: 'Innovation', count: projects.filter(p => p.category === 'innovation').length, icon: Rocket, color: 'from-cyan-500 to-blue-500' }
   ];
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'ai-ml': return 'from-neon-500 to-purple-500';
-      case 'cloud-azure': return 'from-azure-500 to-blue-600';
-      case 'full-stack': return 'from-purple-500 to-neon-500';
-      case 'devops': return 'from-orange-500 to-red-600';
-      case 'innovation': return 'from-green-500 to-emerald-600';
-      default: return 'from-azure-500 to-purple-500';
+      case 'ai-ml': return 'from-cyan-500 to-purple-500';
+      case 'cloud-azure': return 'from-blue-500 to-cyan-500';
+      case 'full-stack': return 'from-purple-500 to-cyan-500';
+      case 'devops': return 'from-orange-500 to-red-500';
+      case 'innovation': return 'from-cyan-500 to-blue-500';
+      default: return 'from-cyan-500 to-blue-500';
     }
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'advanced': return 'from-purple-500 to-azure-500';
-      case 'expert': return 'from-neon-500 to-purple-500';
-      case 'pioneering': return 'from-red-500 to-orange-500';
-      default: return 'from-azure-500 to-purple-500';
+      case 'advanced': return 'from-blue-500 to-cyan-500';
+      case 'expert': return 'from-purple-500 to-cyan-500';
+      case 'pioneering': return 'from-cyan-500 to-blue-500';
+      default: return 'from-cyan-500 to-blue-500';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed': return 'bg-green-500/20 text-green-400 border-green-500/50';
-      case 'in-progress': return 'bg-azure-500/20 text-azure-400 border-azure-500/50';
-      case 'planned': return 'bg-purple-500/20 text-purple-400 border-purple-500/50';
-      default: return 'bg-dark-700/50 text-light-400 border-dark-600';
+      case 'in-progress': return 'bg-cyan-500/20 text-cyan-400 border-cyan-500/50';
+      case 'planned': return 'bg-blue-500/20 text-blue-400 border-blue-500/50';
+      default: return 'bg-cyan-500/20 text-cyan-400 border-cyan-500/50';
     }
   };
 
@@ -324,8 +363,23 @@ const AIProjects: React.FC = () => {
     ? projects 
     : projects.filter(p => p.category === activeFilter);
 
+  const openProjectModal = (project: Project) => {
+    setSelectedProject(project);
+  };
+
+  const closeProjectModal = () => {
+    setSelectedProject(null);
+  };
+
   return (
     <section id="projects" className="py-20 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 z-0">
+        <div className="ai-data-flow absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-10" />
+        <div className="devops-pipeline absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full opacity-10" />
+        <div className="particle-system absolute inset-0" />
+      </div>
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -334,36 +388,41 @@ const AIProjects: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-section font-bold text-white mb-6 font-orbitron tracking-wider">
+          <h2 className="text-5xl font-bold mb-6 font-orbitron tracking-wider tech-title">
             INNOVATION PROJECTS
           </h2>
-          <p className="text-body text-light-300 max-w-3xl mx-auto">
-            Cutting-edge projects showcasing AI innovation, cloud architecture, and next-generation development practices. 
+          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            Cutting-edge projects showcasing <span className="text-cyan-400 font-semibold">AI innovation</span>, 
+            <span className="text-blue-400 font-semibold"> cloud architecture</span>, and 
+            <span className="text-purple-400 font-semibold"> next-generation development</span> practices. 
             Each project represents a leap forward in technology and business value.
           </p>
         </motion.div>
 
-        {/* Filter Tabs */}
+        {/* Enhanced Filter Tabs */}
         <div className="flex flex-wrap justify-center gap-4 mb-16">
           {filters.map((filter) => (
-            <button
+            <motion.button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
-              className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 cursor-pointer ${
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`px-8 py-4 rounded-2xl font-semibold transition-all duration-300 flex items-center gap-3 cursor-pointer ${
                 activeFilter === filter.id
-                  ? 'bg-gradient-to-r from-azure-600 to-purple-600 text-white shadow-azure'
-                  : 'bg-dark-800/50 text-light-400 hover:bg-dark-700/50 hover:text-white border border-dark-700 hover:border-azure-500/50'
+                  ? `bg-gradient-to-r ${filter.color} text-white shadow-2xl`
+                  : 'glass-ai text-gray-300 hover:text-white hover:shadow-xl'
               }`}
             >
+              <filter.icon className="w-5 h-5" />
               {filter.label}
-              <span className="px-2 py-1 bg-white/20 rounded-full text-xs">
+              <span className="px-3 py-1 bg-white/20 rounded-full text-sm font-bold">
                 {filter.count}
               </span>
-            </button>
+            </motion.button>
           ))}
         </div>
 
-        {/* Projects Grid */}
+        {/* Enhanced Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {filteredProjects.map((project, index) => (
             <motion.div
@@ -372,108 +431,108 @@ const AIProjects: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
+              className="h-full"
             >
-              <div className="group bg-dark-800/30 backdrop-blur-md rounded-2xl border border-dark-700/50 hover:border-azure-500/50 transition-all duration-300 overflow-hidden hover:shadow-azure">
+              <div className="group glass-ai rounded-3xl border border-cyan-500/20 hover:border-cyan-500/50 transition-all duration-300 overflow-hidden hover:shadow-2xl hover:shadow-cyan-500/25 h-full flex flex-col interactive-hover">
                 {/* Project Image */}
-                <div className="h-48 bg-gradient-to-br from-dark-700 to-dark-800 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-azure-500/20 to-purple-500/20" />
-                  <Brain className="w-20 h-20 text-azure-400 group-hover:scale-110 transition-transform duration-300" />
+                <div className="h-48 bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-purple-500/10 flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20" />
+                  <Brain className="w-20 h-20 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
                   
                   {/* Category Badge */}
                   <div className="absolute top-4 left-4">
-                    <span className={`px-3 py-1 bg-gradient-to-r ${getCategoryColor(project.category)} text-white text-xs font-bold rounded-full shadow-lg`}>
+                    <span className={`px-4 py-2 bg-gradient-to-r ${getCategoryColor(project.category)} text-white text-sm font-bold rounded-full shadow-lg`}>
                       {project.category.replace('-', ' ').toUpperCase()}
                     </span>
                   </div>
                   
                   {/* Difficulty Badge */}
                   <div className="absolute top-4 right-4">
-                    <span className={`px-3 py-1 bg-gradient-to-r ${getDifficultyColor(project.difficulty)} text-white text-xs font-bold rounded-full shadow-lg`}>
+                    <span className={`px-4 py-2 bg-gradient-to-r ${getDifficultyColor(project.difficulty)} text-white text-sm font-bold rounded-full shadow-lg`}>
                       {project.difficulty.toUpperCase()}
                     </span>
                   </div>
                 </div>
                 
                 {/* Project Content */}
-                <div className="p-6">
+                <div className="p-8 flex-1 flex flex-col">
                   {/* Project Header */}
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl font-bold text-white group-hover:text-azure-400 transition-colors duration-300">
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">
                       {project.title}
                     </h3>
                   </div>
                   
                   {/* Description */}
-                  <p className="text-light-300 mb-4 leading-relaxed line-clamp-3">
+                  <p className="text-lg text-gray-300 leading-relaxed mb-6">
                     {project.description}
                   </p>
                   
                   {/* Technologies */}
-                  <div className="mb-4">
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.slice(0, 4).map((tech) => (
-                        <span key={tech} className="px-2 py-1 bg-dark-700/50 text-light-300 rounded text-xs border border-dark-600">
-                          {tech}
-                        </span>
-                      ))}
-                      {project.technologies.length > 4 && (
-                        <span className="px-2 py-1 bg-dark-700/50 text-light-400 rounded text-xs border border-dark-600">
-                          +{project.technologies.length - 4} more
-                        </span>
-                      )}
-                    </div>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.technologies.slice(0, 4).map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 glass-code text-gray-300 text-sm rounded-full font-medium"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 4 && (
+                      <span className="px-3 py-1 glass-code text-gray-300 text-sm rounded-full font-medium">
+                        +{project.technologies.length - 4} more
+                      </span>
+                    )}
                   </div>
                   
                   {/* Project Stats */}
-                  <div className="flex items-center justify-between mb-4 text-sm text-light-400">
-                    <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4" />
-                      {project.teamSize} people
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
+                  <div className="flex items-center gap-6 mb-6 text-sm text-gray-400">
+                    <span className="flex items-center gap-2">
+                      <Clock className="w-4 h-4" />
                       {project.duration}
-                    </div>
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <Users className="w-4 h-4" />
+                      {project.teamSize}
+                    </span>
                   </div>
                   
                   {/* Status */}
-                  <div className="mb-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(project.status)}`}>
+                  <div className="mb-6">
+                    <span className={`px-4 py-2 rounded-full text-sm font-semibold border ${getStatusColor(project.status)}`}>
                       {project.status.replace('-', ' ').toUpperCase()}
                     </span>
                   </div>
                   
                   {/* Action Buttons */}
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 mt-auto">
                     <button
-                      onClick={() => setSelectedProject(project)}
-                      className="flex-1 px-4 py-2 bg-gradient-to-r from-azure-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-azure transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
+                      onClick={() => openProjectModal(project)}
+                      className="flex-1 px-6 py-3 glass-ai text-gray-300 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
                     >
-                      <Lightbulb className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+                      <Eye className="w-4 h-4" />
                       View Details
                     </button>
-                    
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-dark-700/50 text-light-300 text-sm font-medium rounded-lg hover:bg-dark-600/50 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                      onClick={() => console.log('GitHub link clicked for:', project.title)}
-                    >
-                      <Github className="w-4 h-4" />
-                      Code
-                    </a>
-                    
                     {project.liveUrl && (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2 bg-dark-700/50 text-light-300 text-sm font-medium rounded-lg hover:bg-dark-600/50 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                        onClick={() => console.log('Live link clicked for:', project.title)}
+                        className="px-6 py-3 glass-devops text-gray-300 rounded-xl hover:bg-blue-500/20 hover:text-blue-400 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
                       >
-                        <Globe className="w-4 h-4" />
-                        Live
+                        <ExternalLink className="w-4 h-4" />
+                        Live Demo
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-6 py-3 glass-code text-gray-300 rounded-xl hover:bg-purple-500/20 hover:text-purple-400 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
+                      >
+                        <Github className="w-4 h-4" />
+                        Code
                       </a>
                     )}
                   </div>
@@ -483,223 +542,256 @@ const AIProjects: React.FC = () => {
           ))}
         </div>
 
-        {/* Project Details Modal */}
-        <AnimatePresence>
-          {selectedProject && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6"
-              onClick={() => setSelectedProject(null)}
-            >
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-dark-800/95 backdrop-blur-xl rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-dark-700/50"
-                onClick={(e) => e.stopPropagation()}
+        {/* Enhanced Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="text-center mt-20"
+        >
+          <div className="glass-ai rounded-3xl p-12 data-visualization">
+            <h2 className="text-3xl font-bold text-white mb-4 tech-title">
+              Ready to Start a Project?
+            </h2>
+            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+              Let's collaborate to bring your ideas to life with cutting-edge technology and innovative solutions.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <motion.a
+                href="#contact"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-4 btn-ai text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
               >
-                <div className="p-8">
-                  {/* Modal Header */}
-                  <div className="flex items-start justify-between mb-8">
-                    <div>
-                      <div className="flex items-center gap-4 mb-4">
-                        <span className={`px-4 py-2 bg-gradient-to-r ${getCategoryColor(selectedProject.category)} text-white text-sm font-bold rounded-full`}>
-                          {selectedProject.category.replace('-', ' ').toUpperCase()}
-                        </span>
-                        <span className={`px-4 py-2 bg-gradient-to-r ${getDifficultyColor(selectedProject.difficulty)} text-white text-sm font-bold rounded-full`}>
-                          {selectedProject.difficulty.toUpperCase()}
-                        </span>
-                        <span className={`px-4 py-2 rounded-full text-sm font-medium border ${getStatusColor(selectedProject.status)}`}>
-                          {selectedProject.status.replace('-', ' ').toUpperCase()}
-                        </span>
+                <Mail className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+                Get In Touch
+              </motion.a>
+              <motion.a
+                href="#resume"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-4 btn-code text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
+              >
+                <FileText className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+                View Resume
+              </motion.a>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Enhanced Project Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm"
+            onClick={closeProjectModal}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="glass-ai rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-y-auto border border-cyan-500/20 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-8">
+                {/* Modal Header */}
+                <div className="flex items-start justify-between mb-8">
+                  <div className="flex-1">
+                    <h3 className="text-3xl font-bold text-white mb-4 flex items-center gap-4">
+                      <div className={`w-12 h-12 bg-gradient-to-br ${getCategoryColor(selectedProject.category)} rounded-2xl flex items-center justify-center`}>
+                        <Brain className="w-6 h-6 text-white" />
                       </div>
-                      <h2 className="text-3xl font-bold text-white mb-2">
-                        {selectedProject.title}
-                      </h2>
-                      <p className="text-light-300 text-lg leading-relaxed">
+                      {selectedProject.title}
+                    </h3>
+                    <div className="flex items-center gap-4 mb-6">
+                      <span className={`px-4 py-2 rounded-full text-sm font-semibold ${getStatusColor(selectedProject.status)}`}>
+                        {selectedProject.status}
+                      </span>
+                      <span className={`px-4 py-2 bg-gradient-to-r ${getDifficultyColor(selectedProject.difficulty)} text-white text-sm font-bold rounded-full`}>
+                        {selectedProject.difficulty}
+                      </span>
+                      <span className={`px-4 py-2 bg-gradient-to-r ${getCategoryColor(selectedProject.category)} text-white text-sm font-bold rounded-full`}>
+                        {selectedProject.category}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={closeProjectModal}
+                    className="p-3 hover:bg-cyan-500/20 rounded-2xl transition-colors duration-300"
+                  >
+                    <X className="w-6 h-6 text-gray-300" />
+                  </button>
+                </div>
+
+                {/* Project Image */}
+                {selectedProject.image && (
+                  <div className="mb-8">
+                    <div className="w-full h-64 bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-purple-500/10 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20" />
+                      <Brain className="w-24 h-24 text-cyan-400" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Project Details Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Left Column */}
+                  <div className="space-y-8">
+                    {/* Description */}
+                    <div>
+                      <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                        <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
+                          <FileText className="w-4 h-4 text-white" />
+                        </div>
+                        Description
+                      </h4>
+                      <p className="text-lg text-gray-300 leading-relaxed">
                         {selectedProject.longDescription}
                       </p>
                     </div>
-                    <button
-                      onClick={() => setSelectedProject(null)}
-                      className="p-2 hover:bg-dark-700/50 rounded-lg transition-colors text-light-400 hover:text-white"
-                    >
-                      <X className="w-6 h-6" />
-                    </button>
-                  </div>
-                  
-                  {/* Project Details Grid */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                    {/* Features */}
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                        <Star className="w-5 h-5 text-azure-400" />
-                        Key Features
-                      </h3>
-                      <ul className="space-y-2">
-                        {selectedProject.features.map((feature, index) => (
-                          <li key={index} className="flex items-start gap-2 text-light-300">
-                            <CheckCircle className="w-4 h-4 text-neon-400 mt-0.5 flex-shrink-0" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    
+
                     {/* Technologies */}
                     <div>
-                      <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                        <Code className="w-5 h-5 text-purple-400" />
+                      <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                        <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                          <Code className="w-4 h-4 text-white" />
+                        </div>
                         Technologies Used
-                      </h3>
+                      </h4>
                       <div className="flex flex-wrap gap-2">
                         {selectedProject.technologies.map((tech) => (
-                          <span key={tech} className="px-3 py-2 bg-dark-700/50 text-light-300 rounded-lg text-sm border border-dark-600">
+                          <span
+                            key={tech}
+                            className="px-4 py-2 glass-code text-gray-300 text-sm rounded-full font-medium"
+                          >
                             {tech}
                           </span>
                         ))}
                       </div>
                     </div>
-                  </div>
-                  
-                  {/* Challenges & Solutions */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+
+                    {/* Key Features */}
                     <div>
-                      <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                        <Target className="w-5 h-5 text-red-400" />
-                        Challenges
-                      </h3>
-                      <ul className="space-y-2">
-                        {selectedProject.challenges.map((challenge, index) => (
-                          <li key={index} className="flex items-start gap-2 text-light-300">
-                            <div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0" />
-                            {challenge}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                        <Lightbulb className="w-5 h-5 text-neon-400" />
-                        Solutions
-                      </h3>
-                      <ul className="space-y-2">
-                        {selectedProject.solutions.map((solution, index) => (
-                          <li key={index} className="flex items-start gap-2 text-light-300">
-                            <div className="w-2 h-2 bg-neon-400 rounded-full mt-2 flex-shrink-0" />
-                            {solution}
+                      <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                        <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-purple-500 rounded-lg flex items-center justify-center">
+                          <Target className="w-4 h-4 text-white" />
+                        </div>
+                        Key Features
+                      </h4>
+                      <ul className="space-y-3">
+                        {selectedProject.features?.map((feature, index) => (
+                          <li key={index} className="flex items-start gap-3 text-lg text-gray-300">
+                            <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                            {feature}
                           </li>
                         ))}
                       </ul>
                     </div>
                   </div>
-                  
-                  {/* Impact & Stats */}
-                  <div className="bg-dark-700/30 rounded-2xl p-6 mb-8">
-                    <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                      <TrendingUp className="w-5 h-5 text-green-400" />
-                      Impact & Results
-                    </h3>
-                    <p className="text-light-300 mb-4 leading-relaxed">
-                      {selectedProject.impact}
-                    </p>
-                    <div className="flex items-center gap-6 text-sm text-light-400">
-                      <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4" />
-                        Team: {selectedProject.teamSize} people
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
-                        Duration: {selectedProject.duration}
+
+                  {/* Right Column */}
+                  <div className="space-y-8">
+                    {/* Project Stats */}
+                    <div>
+                      <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                          <BarChart3 className="w-4 h-4 text-white" />
+                        </div>
+                        Project Statistics
+                      </h4>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="glass-ai rounded-2xl p-6 text-center">
+                          <p className="text-3xl font-bold text-cyan-400">{selectedProject.duration}</p>
+                          <p className="text-sm text-gray-400">Duration</p>
+                        </div>
+                        <div className="glass-ai rounded-2xl p-6 text-center">
+                          <p className="text-3xl font-bold text-blue-400">{selectedProject.teamSize}</p>
+                          <p className="text-sm text-gray-400">Team Size</p>
+                        </div>
+                        <div className="glass-ai rounded-2xl p-6 text-center">
+                          <p className="text-3xl font-bold text-purple-400">{selectedProject.technologies.length}</p>
+                          <p className="text-sm text-gray-400">Technologies</p>
+                        </div>
+                        <div className="glass-ai rounded-2xl p-6 text-center">
+                          <p className="text-3xl font-bold text-cyan-400">{selectedProject.features?.length || 0}</p>
+                          <p className="text-sm text-gray-400">Features</p>
+                        </div>
                       </div>
                     </div>
+
+                    {/* Architecture */}
+                    {selectedProject.architecture && (
+                      <div>
+                        <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                            <Layers className="w-4 h-4 text-white" />
+                          </div>
+                          Architecture
+                        </h4>
+                        <p className="text-lg text-gray-300 bg-gradient-to-r from-purple-500/10 to-cyan-500/10 p-4 rounded-2xl border border-purple-500/20">
+                          {selectedProject.architecture}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Metrics */}
+                    {selectedProject.metrics && (
+                      <div>
+                        <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                          <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
+                            <Activity className="w-4 h-4 text-white" />
+                          </div>
+                          Performance Metrics
+                        </h4>
+                        <div className="space-y-3">
+                          {Object.entries(selectedProject.metrics).map(([key, value]) => (
+                            <div key={key} className="flex justify-between items-center glass-ai rounded-xl p-4">
+                              <span className="text-gray-300 font-medium capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+                              <span className="text-cyan-400 font-bold">{value}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  
-                  {/* Action Buttons */}
-                  <div className="flex gap-4 pt-6 border-t border-dark-700/50">
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 pt-8 border-t border-cyan-500/20 mt-8">
+                  {selectedProject.liveUrl && (
+                    <a
+                      href={selectedProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 px-8 py-4 btn-ai text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
+                    >
+                      <ExternalLink className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                      Live Demo
+                    </a>
+                  )}
+                  {selectedProject.githubUrl && (
                     <a
                       href={selectedProject.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 px-6 py-3 bg-dark-700/50 text-white text-center font-medium rounded-xl hover:bg-dark-600/50 transition-colors duration-300 flex items-center justify-center gap-2 border border-dark-600 hover:border-azure-500/50 cursor-pointer"
-                      onClick={() => console.log('GitHub link clicked for:', selectedProject.title)}
+                      className="flex-1 px-8 py-4 btn-code text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
                     >
-                      <Github className="w-5 h-5" />
-                      View Source Code
+                      <Github className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                      View Code
                     </a>
-                    
-                    {selectedProject.liveUrl && (
-                      <a
-                        href={selectedProject.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 px-6 py-3 bg-gradient-to-r from-azure-600 to-purple-600 text-white text-center font-medium rounded-xl hover:shadow-azure transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                        onClick={() => console.log('Live demo link clicked for:', selectedProject.title)}
-                      >
-                        <Globe className="w-5 h-5" />
-                        Live Demo
-                      </a>
-                    )}
-                    
-                    {selectedProject.demoUrl && (
-                      <a
-                        href={selectedProject.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-6 py-3 bg-gradient-to-r from-neon-500 to-purple-500 text-white text-center font-medium rounded-xl hover:shadow-neon transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                        onClick={() => console.log('Demo link clicked for:', selectedProject.title)}
-                      >
-                        <Play className="w-5 h-5" />
-                        Watch Demo
-                      </a>
-                    )}
-                  </div>
+                  )}
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center bg-gradient-to-r from-azure-600/20 to-purple-600/20 rounded-3xl p-12 border border-azure-500/30"
-        >
-          <h3 className="text-2xl font-bold text-white mb-4">
-            Ready to Build the Future?
-          </h3>
-          <p className="text-lg mb-8 text-light-300">
-            Let's collaborate on cutting-edge AI projects, cloud architecture, and innovative solutions that drive business transformation.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="https://github.com/your-username"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 bg-gradient-to-r from-azure-600 to-purple-600 text-white font-bold rounded-xl hover:shadow-azure transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-              onClick={() => console.log('GitHub CTA button clicked')}
-            >
-              <Github className="w-5 h-5" />
-              View GitHub
-            </a>
-            <button
-              onClick={() => {
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="px-8 py-3 bg-transparent text-white font-bold rounded-xl border-2 border-azure-500 hover:bg-azure-500/10 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
-            >
-              <span>Start a Project</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </button>
-          </div>
-        </motion.div>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
