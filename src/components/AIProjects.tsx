@@ -503,7 +503,7 @@ const AIProjects: React.FC = () => {
           <h2 className="text-5xl font-bold mb-6 font-orbitron tracking-wider tech-title">
             INNOVATION PROJECTS
           </h2>
-          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-white max-w-4xl mx-auto leading-relaxed">
             Cutting-edge projects showcasing <span className="text-cyan-400 font-semibold">AI innovation</span>, 
             <span className="text-blue-400 font-semibold"> cloud architecture</span>, and 
             <span className="text-purple-400 font-semibold"> next-generation development</span> practices. 
@@ -522,7 +522,7 @@ const AIProjects: React.FC = () => {
               className={`px-8 py-4 rounded-2xl font-semibold transition-all duration-300 flex items-center gap-3 cursor-pointer ${
                 activeFilter === filter.id
                   ? `bg-gradient-to-r ${filter.color} text-white shadow-2xl`
-                  : 'glass-ai text-gray-300 hover:text-white hover:shadow-xl'
+                  : 'glass-ai text-white hover:text-white hover:shadow-xl'
               }`}
             >
               <filter.icon className="w-5 h-5" />
@@ -576,7 +576,7 @@ const AIProjects: React.FC = () => {
                   </div>
                   
                   {/* Description */}
-                  <p className="text-lg text-gray-300 leading-relaxed mb-6">
+                  <p className="text-lg text-white leading-relaxed mb-6">
                     {project.description}
                   </p>
                   
@@ -585,20 +585,20 @@ const AIProjects: React.FC = () => {
                     {project.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 glass-code text-gray-300 text-sm rounded-full font-medium"
+                        className="px-3 py-1 glass-code text-white text-sm rounded-full font-medium"
                       >
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 4 && (
-                      <span className="px-3 py-1 glass-code text-gray-300 text-sm rounded-full font-medium">
+                      <span className="px-3 py-1 glass-code text-white text-sm rounded-full font-medium">
                         +{project.technologies.length - 4} more
                       </span>
                     )}
                   </div>
                   
                   {/* Project Stats */}
-                  <div className="flex items-center gap-6 mb-6 text-sm text-gray-400">
+                  <div className="flex items-center gap-6 mb-6 text-sm text-white">
                     <span className="flex items-center gap-2">
                       <Clock className="w-4 h-4" />
                       {project.duration}
@@ -620,7 +620,7 @@ const AIProjects: React.FC = () => {
                   <div className="flex gap-3 mt-auto">
                     <button
                       onClick={() => openProjectModal(project)}
-                      className="flex-1 px-6 py-3 glass-ai text-gray-300 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
+                      className="flex-1 px-6 py-3 glass-ai text-white rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
                     >
                       <Eye className="w-4 h-4" />
                       View Details
@@ -630,7 +630,7 @@ const AIProjects: React.FC = () => {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-6 py-3 glass-devops text-gray-300 rounded-xl hover:bg-blue-500/20 hover:text-blue-400 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
+                        className="px-6 py-3 glass-devops text-white rounded-xl hover:bg-blue-500/20 hover:text-blue-400 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
                       >
                         <ExternalLink className="w-4 h-4" />
                         Live Demo
@@ -641,7 +641,7 @@ const AIProjects: React.FC = () => {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-6 py-3 glass-code text-gray-300 rounded-xl hover:bg-purple-500/20 hover:text-purple-400 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
+                        className="px-6 py-3 glass-code text-white rounded-xl hover:bg-purple-500/20 hover:text-purple-400 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
                       >
                         <Github className="w-4 h-4" />
                         Code
@@ -666,7 +666,7 @@ const AIProjects: React.FC = () => {
             <h2 className="text-3xl font-bold text-white mb-4 tech-title">
               Ready to Start a Project?
             </h2>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-xl text-white mb-8 leading-relaxed">
               Let's collaborate to bring your ideas to life with cutting-edge technology and innovative solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -737,7 +737,7 @@ const AIProjects: React.FC = () => {
                     onClick={closeProjectModal}
                     className="p-3 hover:bg-cyan-500/20 rounded-2xl transition-colors duration-300"
                   >
-                    <X className="w-6 h-6 text-gray-300" />
+                    <X className="w-6 h-6 text-white" />
                   </button>
                 </div>
 
@@ -763,7 +763,7 @@ const AIProjects: React.FC = () => {
                         </div>
                         Description
                       </h4>
-                      <p className="text-lg text-gray-300 leading-relaxed">
+                      <p className="text-lg text-white leading-relaxed">
                         {selectedProject.longDescription}
                       </p>
                     </div>
@@ -780,7 +780,7 @@ const AIProjects: React.FC = () => {
                         {selectedProject.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="px-4 py-2 glass-code text-gray-300 text-sm rounded-full font-medium"
+                            className="px-4 py-2 glass-code text-white text-sm rounded-full font-medium"
                           >
                             {tech}
                           </span>
@@ -798,7 +798,7 @@ const AIProjects: React.FC = () => {
                       </h4>
                       <ul className="space-y-3">
                         {selectedProject.features?.map((feature, index) => (
-                          <li key={index} className="flex items-start gap-3 text-lg text-gray-300">
+                          <li key={index} className="flex items-start gap-3 text-lg text-white">
                             <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
                             {feature}
                           </li>
@@ -820,19 +820,19 @@ const AIProjects: React.FC = () => {
                       <div className="grid grid-cols-2 gap-4">
                         <div className="glass-ai rounded-2xl p-6 text-center">
                           <p className="text-3xl font-bold text-cyan-400">{selectedProject.duration}</p>
-                          <p className="text-sm text-gray-400">Duration</p>
+                          <p className="text-sm text-white">Duration</p>
                         </div>
                         <div className="glass-ai rounded-2xl p-6 text-center">
                           <p className="text-3xl font-bold text-blue-400">{selectedProject.teamSize}</p>
-                          <p className="text-sm text-gray-400">Team Size</p>
+                          <p className="text-sm text-white">Team Size</p>
                         </div>
                         <div className="glass-ai rounded-2xl p-6 text-center">
                           <p className="text-3xl font-bold text-purple-400">{selectedProject.technologies.length}</p>
-                          <p className="text-sm text-gray-400">Technologies</p>
+                          <p className="text-sm text-white">Technologies</p>
                         </div>
                         <div className="glass-ai rounded-2xl p-6 text-center">
                           <p className="text-3xl font-bold text-cyan-400">{selectedProject.features?.length || 0}</p>
-                          <p className="text-sm text-gray-400">Features</p>
+                          <p className="text-sm text-white">Features</p>
                         </div>
                       </div>
                     </div>
@@ -846,7 +846,7 @@ const AIProjects: React.FC = () => {
                           </div>
                           Architecture
                         </h4>
-                        <p className="text-lg text-gray-300 bg-gradient-to-r from-purple-500/10 to-cyan-500/10 p-4 rounded-2xl border border-purple-500/20">
+                        <p className="text-lg text-white bg-gradient-to-r from-purple-500/10 to-cyan-500/10 p-4 rounded-2xl border border-purple-500/20">
                           {selectedProject.architecture}
                         </p>
                       </div>
@@ -864,7 +864,7 @@ const AIProjects: React.FC = () => {
                         <div className="space-y-3">
                           {Object.entries(selectedProject.metrics).map(([key, value]) => (
                             <div key={key} className="flex justify-between items-center glass-ai rounded-xl p-4">
-                              <span className="text-gray-300 font-medium capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+                              <span className="text-white font-medium capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
                               <span className="text-cyan-400 font-bold">{value}</span>
                             </div>
                           ))}

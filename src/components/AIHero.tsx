@@ -235,7 +235,7 @@ const AIHero: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="mb-8"
             >
-              <div className="text-2xl md:text-3xl text-gray-300 mb-2">
+              <div className="text-2xl md:text-3xl text-white mb-2">
                 <motion.span 
                   className="inline-block"
                   animate={{ 
@@ -258,7 +258,7 @@ const AIHero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-lg text-gray-300 mb-8 max-w-2xl leading-relaxed relative"
+              className="text-lg text-white mb-8 max-w-2xl leading-relaxed relative"
             >
               <span className="relative z-10">
                 Architecting cutting-edge software solutions with precision and innovation. 
@@ -325,7 +325,7 @@ const AIHero: React.FC = () => {
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
-                <Github className="w-6 h-6 text-gray-300 group-hover:text-cyan-400 relative z-10" />
+                <Github className="w-6 h-6 text-white group-hover:text-cyan-400 relative z-10" />
               </motion.a>
               <motion.a
                 href="https://linkedin.com/in/nicolette-mashaba"

@@ -239,7 +239,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
               Get In Touch
             </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-white max-w-3xl mx-auto leading-relaxed">
             Ready to collaborate on your next project? Let's discuss how we can bring your ideas to life with cutting-edge technology.
           </p>
         </motion.div>
@@ -264,7 +264,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-semibold text-gray-300 mb-2">
+                    <label htmlFor="name" className="block text-sm font-semibold text-white mb-2">
                       Full Name
                     </label>
                     <input
@@ -279,7 +279,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-2">
+                    <label htmlFor="email" className="block text-sm font-semibold text-white mb-2">
                       Email Address
                     </label>
                     <input
@@ -296,7 +296,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                 </div>
                 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-semibold text-gray-300 mb-2">
+                  <label htmlFor="subject" className="block text-sm font-semibold text-white mb-2">
                     Subject
                   </label>
                   <input
@@ -312,7 +312,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-gray-300 mb-2">
+                  <label htmlFor="message" className="block text-sm font-semibold text-white mb-2">
                     Message
                   </label>
                   <textarea
@@ -397,7 +397,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                         <method.icon className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-400 font-semibold">{method.label}</p>
+                        <p className="text-sm text-white font-semibold">{method.label}</p>
                         <p className="text-white font-medium">{method.value}</p>
                       </div>
                     </div>
@@ -420,10 +420,10 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                   <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
                   <span className="text-green-400 font-semibold">Available for new projects</span>
                 </div>
-                <p className="text-gray-300 text-sm">
+                <p className="text-white text-sm">
                   I'm currently accepting new opportunities and would love to discuss your project requirements.
                 </p>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
+                <div className="flex items-center gap-2 text-sm text-white">
                   <Calendar className="w-4 h-4" />
                   <span>Response time: Usually within 24 hours</span>
                 </div>
@@ -444,28 +444,28 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                   <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Microsoft Azure Certified</p>
-                    <p className="text-gray-400 text-sm">Professional cloud computing expertise</p>
+                    <p className="text-white text-sm">Professional cloud computing expertise</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">AI/ML Specialization</p>
-                    <p className="text-gray-400 text-sm">Cutting-edge machine learning solutions</p>
+                    <p className="text-white text-sm">Cutting-edge machine learning solutions</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Full-Stack Development</p>
-                    <p className="text-gray-400 text-sm">End-to-end application development</p>
+                    <p className="text-white text-sm">End-to-end application development</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">DevOps Expertise</p>
-                    <p className="text-gray-400 text-sm">Scalable and maintainable solutions</p>
+                    <p className="text-white text-sm">Scalable and maintainable solutions</p>
                   </div>
                 </div>
               </div>

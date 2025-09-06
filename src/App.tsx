@@ -129,7 +129,7 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
                 className={`flex items-center space-x-2 px-6 py-3 rounded-2xl text-lg font-semibold transition-all duration-300 ${
                   activeSection === item.href.substring(1)
                     ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg'
-                    : 'text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10'
+                    : 'text-white hover:text-cyan-400 hover:bg-cyan-500/10'
                 }`}
               >
                 {item.icon}
@@ -145,7 +145,7 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-3 rounded-2xl glass-ai text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-300"
+              className="md:hidden p-3 rounded-2xl glass-ai text-white hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-300"
               aria-label="Toggle mobile menu"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -177,7 +177,7 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
                     className={`flex items-center space-x-3 px-4 py-3 rounded-2xl text-lg font-semibold transition-all duration-300 ${
                       activeSection === item.href.substring(1)
                         ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg'
-                        : 'text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10'
+                        : 'text-white hover:text-cyan-400 hover:bg-cyan-500/10'
                     }`}
                   >
                     {item.icon}
@@ -329,7 +329,7 @@ const Footer: React.FC = () => {
                 <p className="text-sm text-cyan-400 font-semibold">SOFTWARE DEVELOPER</p>
               </div>
             </div>
-            <p className="text-lg text-gray-300 max-w-md leading-relaxed">
+            <p className="text-lg text-white max-w-md leading-relaxed">
               Software Engineering student architecting innovative solutions and pushing the boundaries of web technology. 
               Microsoft Azure certified and ready to build the future.
             </p>
@@ -355,23 +355,23 @@ const Footer: React.FC = () => {
               Quick Links
             </h3>
             <div className="space-y-4">
-              <a href="#home" className="text-lg text-gray-300 hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+              <a href="#home" className="text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
                 <Home className="w-4 h-4" />
                 Home
               </a>
-              <a href="#about" className="text-lg text-gray-300 hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+              <a href="#about" className="text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
                 <User className="w-4 h-4" />
                 About
               </a>
-              <a href="#projects" className="text-lg text-gray-300 hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+              <a href="#projects" className="text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
                 <Briefcase className="w-4 h-4" />
                 Projects
               </a>
-              <a href="#resume" className="text-lg text-gray-300 hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+              <a href="#resume" className="text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
                 <FileText className="w-4 h-4" />
                 Resume
               </a>
-              <a href="#contact" className="text-lg text-gray-300 hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+              <a href="#contact" className="text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
                 <Mail className="w-4 h-4" />
                 Contact
               </a>
@@ -393,7 +393,7 @@ const Footer: React.FC = () => {
               Get In Touch
             </h3>
             <div className="space-y-6">
-              <div className="flex items-center gap-4 text-gray-300 group">
+              <div className="flex items-center gap-4 text-white group">
                 <div className="w-12 h-12 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center group-hover:from-cyan-500/30 group-hover:to-blue-500/30 transition-all duration-300">
                   <MailIcon className="w-6 h-6 text-cyan-400" />
                 </div>
@@ -410,7 +410,7 @@ const Footer: React.FC = () => {
                     href="https://github.com/NickiMash17" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-gray-300 hover:text-cyan-400 transition-all duration-300 hover:translate-x-2 transform group"
+                    className="flex items-center gap-3 text-white hover:text-cyan-400 transition-all duration-300 hover:translate-x-2 transform group"
                   >
                     <div className="w-12 h-12 bg-gradient-to-r from-gray-700 to-gray-800 rounded-2xl flex items-center justify-center group-hover:from-cyan-500/20 group-hover:to-blue-500/20 transition-all duration-300">
                       <Github className="w-6 h-6" />
@@ -421,7 +421,7 @@ const Footer: React.FC = () => {
                     href="https://linkedin.com/in/nicolette-mashaba" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-gray-300 hover:text-cyan-400 transition-all duration-300 hover:translate-x-2 transform group"
+                    className="flex items-center gap-3 text-white hover:text-cyan-400 transition-all duration-300 hover:translate-x-2 transform group"
                   >
                     <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl flex items-center justify-center group-hover:from-cyan-500/20 group-hover:to-blue-500/20 transition-all duration-300">
                       <Linkedin className="w-6 h-6" />
@@ -443,7 +443,7 @@ const Footer: React.FC = () => {
           className="mt-16 pt-8 border-t border-cyan-500/20"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-4 text-gray-400 text-lg">
+            <div className="flex items-center gap-4 text-white text-lg">
               <span>© 2024 Nicolette Mashaba. Made with</span>
               <Heart className="w-5 h-5 text-red-400 animate-pulse" />
               <span>and lots of</span>
@@ -451,10 +451,10 @@ const Footer: React.FC = () => {
             </div>
             
             <div className="flex items-center gap-8 text-lg">
-              <a href="#privacy" className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 hover:underline">
+              <a href="#privacy" className="text-white hover:text-cyan-400 transition-colors duration-300 hover:underline">
                 Privacy Policy
               </a>
-              <a href="#terms" className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 hover:underline">
+              <a href="#terms" className="text-white hover:text-cyan-400 transition-colors duration-300 hover:underline">
                 Terms of Service
               </a>
             </div>

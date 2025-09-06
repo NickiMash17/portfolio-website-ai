@@ -320,7 +320,7 @@ const AIAbout: React.FC = () => {
           <h2 className="text-5xl font-bold mb-6 font-orbitron tracking-wider tech-title">
             ABOUT ME
           </h2>
-          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-white max-w-4xl mx-auto leading-relaxed">
             Passionate <span className="code-text font-semibold">Software Engineering</span> student specializing in 
             <span className="text-cyan-400 font-semibold"> AI/ML</span>, 
             <span className="text-blue-400 font-semibold"> Cloud Computing</span>, and 
@@ -341,7 +341,7 @@ const AIAbout: React.FC = () => {
               className={`px-8 py-4 rounded-2xl font-semibold transition-all duration-300 flex items-center gap-3 cursor-pointer ${
                 activeTab === tab.id
                   ? `bg-gradient-to-r ${tab.color} text-white shadow-2xl`
-                  : 'glass-ai text-gray-300 hover:text-white hover:shadow-xl'
+                  : 'glass-ai text-white hover:text-white hover:shadow-xl'
               }`}
               aria-pressed={activeTab === tab.id}
             >
@@ -368,11 +368,11 @@ const AIAbout: React.FC = () => {
                   </div>
                   <h3 className="text-2xl font-bold text-white">Education & Achievements</h3>
                 </div>
-                <p className="text-lg text-gray-300 leading-relaxed mb-4">
+                <p className="text-lg text-white leading-relaxed mb-4">
                   Currently pursuing <span className="code-text font-semibold">Occupational Certificate: Software Engineering (NQF Level 6)</span> at CTU Training Solutions, 
                   graduating in 2026. Awarded <span className="text-cyan-400 font-semibold">Programming Foundation Top Performer</span> in 2023.
                 </p>
-                <p className="text-lg text-gray-300 leading-relaxed">
+                <p className="text-lg text-white leading-relaxed">
                   Completed <span className="text-blue-400 font-semibold">J.P. Morgan Midas Core Software Engineering Simulation</span> in 2024, demonstrating real-world 
                   software engineering skills and problem-solving abilities.
                 </p>
@@ -386,11 +386,11 @@ const AIAbout: React.FC = () => {
                   </div>
                   <h3 className="text-2xl font-bold text-white">Professional Journey</h3>
                 </div>
-                <p className="text-lg text-gray-300 leading-relaxed mb-4">
+                <p className="text-lg text-white leading-relaxed mb-4">
                   Transitioned from a successful <span className="text-orange-400 font-semibold">9-year career in the South African Navy</span> as a Junior Navigation Officer, 
                   where I developed strong leadership, problem-solving, and optimization skills.
                 </p>
-                <p className="text-lg text-gray-300 leading-relaxed">
+                <p className="text-lg text-white leading-relaxed">
                   Now focused on software development with recent experience as a <span className="text-cyan-400 font-semibold">Web Developer Intern</span> at CodeCatalyst 
                   and <span className="text-purple-400 font-semibold">AI Model Trainer</span> at Outlier, building modern web applications and improving AI model accuracy.
                 </p>
@@ -429,10 +429,10 @@ const AIAbout: React.FC = () => {
                         </span>
                       </div>
                       <p className="text-blue-400 font-semibold text-lg mb-4">{exp.company}</p>
-                      <p className="text-lg text-gray-300 mb-6 leading-relaxed">{exp.description}</p>
+                      <p className="text-lg text-white mb-6 leading-relaxed">{exp.description}</p>
                       <div className="flex flex-wrap gap-2">
                         {exp.technologies.map((tech) => (
-                          <span key={tech} className="px-4 py-2 glass-code text-gray-300 rounded-full text-sm font-medium">
+                          <span key={tech} className="px-4 py-2 glass-code text-white rounded-full text-sm font-medium">
                             {tech}
                           </span>
                         ))}
@@ -458,7 +458,7 @@ const AIAbout: React.FC = () => {
                   </div>
                   Technical Expertise
                 </h3>
-                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                <p className="text-xl text-white max-w-3xl mx-auto">
                   A comprehensive overview of my technical expertise and proficiency levels across different technology domains.
                 </p>
               </div>
@@ -489,7 +489,7 @@ const AIAbout: React.FC = () => {
                         >
                           <div className="flex items-center gap-3">
                             <skill.icon className={`w-5 h-5 ${skill.color.split(' ')[0].replace('from-', 'text-')}`} />
-                            <span className="text-lg text-gray-300 font-medium">{skill.name}</span>
+                            <span className="text-lg text-white font-medium">{skill.name}</span>
                           </div>
                           <div className="flex items-center gap-3">
                             <div className="w-24 h-3 bg-gray-700 rounded-full overflow-hidden">
@@ -500,7 +500,7 @@ const AIAbout: React.FC = () => {
                                 transition={{ duration: 1, delay: skillIndex * 0.1 }}
                               />
                             </div>
-                            <span className="text-sm text-gray-400 w-12 text-right font-semibold">{skill.level}%</span>
+                            <span className="text-sm text-white w-12 text-right font-semibold">{skill.level}%</span>
                           </div>
                         </motion.div>
                       ))}
@@ -525,7 +525,7 @@ const AIAbout: React.FC = () => {
                   </div>
                   Certifications & Achievements
                 </h3>
-                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                <p className="text-xl text-white max-w-3xl mx-auto">
                   Professional certifications and recognition that validate my expertise and commitment to continuous learning.
                 </p>
               </div>
@@ -553,12 +553,12 @@ const AIAbout: React.FC = () => {
                           {cert.badge}
                         </div>
                       </div>
-                      <p className="text-lg text-gray-300 mb-6 leading-relaxed">{cert.description}</p>
+                      <p className="text-lg text-white mb-6 leading-relaxed">{cert.description}</p>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-400 font-semibold">{cert.date}</span>
+                        <span className="text-sm text-white font-semibold">{cert.date}</span>
                         <div className="flex items-center gap-2">
-                          <CategoryIcon className="w-4 h-4 text-gray-400" />
-                          <span className="text-sm text-gray-400 font-medium">{cert.category.toUpperCase()}</span>
+                          <CategoryIcon className="w-4 h-4 text-white" />
+                          <span className="text-sm text-white font-medium">{cert.category.toUpperCase()}</span>
                         </div>
                       </div>
                     </motion.div>
