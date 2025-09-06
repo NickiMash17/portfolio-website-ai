@@ -13,49 +13,17 @@ export default defineConfig(({ command, mode }) => ({
     },
   },
   build: {
-    target: 'esnext',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn'],
-        passes: 3,
-        unsafe: true,
-        unsafe_comps: true,
-        unsafe_Function: true,
-        unsafe_math: true,
-        unsafe_proto: true,
-        unsafe_regexp: true,
-        unsafe_undefined: true,
-      },
-      mangle: {
-        toplevel: true,
-        safari10: true,
-      },
-    },
+    target: 'es2015',
+    minify: 'esbuild',
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom'],
-          'vendor-animations': ['framer-motion'],
-          'vendor': ['lucide-react']
-        },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
       },
     },
-    chunkSizeWarningLimit: 300,
+    chunkSizeWarningLimit: 1000,
     sourcemap: false,
-    assetsInlineLimit: 4096,
-    reportCompressedSize: false,
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion', 'lucide-react'],
-    esbuildOptions: {
-      target: 'esnext',
-    },
   },
   server: {
     port: 3000,
