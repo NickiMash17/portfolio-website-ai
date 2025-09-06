@@ -11,6 +11,9 @@
     "analyze": "vite-bundle-analyzer",
     "lighthouse": "lighthouse http://localhost:3000 --output html --output-path ./lighthouse-report.html"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "keywords": [
     "portfolio",
     "react",
