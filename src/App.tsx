@@ -290,7 +290,7 @@ const Footer: React.FC = () => {
           >
             <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
               <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center">
-                <MailIcon className="w-4 h-4 text-white" />
+                <MailIcon className="w-4 h-4" />
               </div>
               Get In Touch
             </h3>
@@ -367,6 +367,18 @@ const Footer: React.FC = () => {
   );
 };
 
+// Types for particle animation
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+  shape: number;
+  t: number;
+  connections: number[];
+}
+
 const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function, throttleScroll: Function }> = ({ optimizeElement, debounceScroll, throttleScroll }) => {
   console.log('AppContent component rendered!');
 
@@ -374,8 +386,209 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 100);
 
+  // Enhanced particle background with AI/tech themes
+  React.useEffect(() => {
+    const canvas = document.getElementById('global-particle-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Mouse position for clustering
+    let mouse = { x: canvas.width / 2, y: canvas.height / 2, active: false };
+    canvas.onmousemove = (e) => {
+      mouse.x = e.offsetX;
+      mouse.y = e.offsetY;
+      mouse.active = true;
+    };
+    canvas.onmouseleave = () => { mouse.active = false; };
+
+    // Enhanced particle shapes with tech themes
+    function drawShape(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, type: number, color: string) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.fillStyle = color;
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 15;
+      if (type === 0) {
+        // Circle (AI/ML node)
+        ctx.beginPath();
+        ctx.arc(0, 0, size, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (type === 1) {
+        // Hexagon (Cloud/DevOps)
+        ctx.beginPath();
+        for (let i = 0; i < 6; i++) {
+          const angle = (Math.PI * 2 * i) / 6;
+          ctx.lineTo(Math.cos(angle) * size, Math.sin(angle) * size);
+        }
+        ctx.closePath();
+        ctx.fill();
+      } else if (type === 2) {
+        // Star (Innovation)
+        ctx.beginPath();
+        for (let i = 0; i < 5; i++) {
+          let angle = (Math.PI * 2 * i) / 5;
+          ctx.lineTo(Math.cos(angle) * size, Math.sin(angle) * size);
+          angle += Math.PI / 5;
+          ctx.lineTo(Math.cos(angle) * size * 0.5, Math.sin(angle) * size * 0.5);
+        }
+        ctx.closePath();
+        ctx.fill();
+      } else if (type === 3) {
+        // Square (Code/Development)
+        ctx.fillRect(-size, -size, size * 2, size * 2);
+      }
+      ctx.restore();
+    }
+
+    // Enhanced gradient color generator with tech themes
+    function getGradientColor(t: number): string {
+      const r = Math.floor(0 + 255 * Math.sin(2 * Math.PI * t));
+      const g = Math.floor(120 + 135 * Math.sin(2 * Math.PI * t + 2));
+      const b = Math.floor(200 + 55 * Math.sin(2 * Math.PI * t + 4));
+      return `rgba(${r},${g},${b},0.6)`;
+    }
+
+    const particles: Particle[] = [];
+    const particleCount = 80;
+    const connectionDistance = 250;
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        size: Math.random() * 3 + 2,
+        shape: Math.floor(Math.random() * 4),
+        t: Math.random(),
+        connections: []
+      });
+    }
+
+    // Find connections between particles
+    function findConnections() {
+      particles.forEach((particle, i) => {
+        particle.connections = [];
+        particles.forEach((otherParticle, j) => {
+          if (i !== j) {
+            const distance = Math.sqrt(
+              Math.pow(particle.x - otherParticle.x, 2) +
+              Math.pow(particle.y - otherParticle.y, 2)
+            );
+            if (distance < connectionDistance) {
+              particle.connections.push(j);
+            }
+          }
+        });
+      });
+    }
+
+    let animationId: number;
+    function animate() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Update particle positions and color
+      particles.forEach((particle) => {
+        // Mouse clustering effect
+        if (mouse.active) {
+          const dx = mouse.x - particle.x;
+          const dy = mouse.y - particle.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 200) {
+            particle.vx += dx * 0.0008;
+            particle.vy += dy * 0.0008;
+          }
+        }
+
+        // Update position
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.t += 0.008;
+
+        // Bounce off edges
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+
+        // Keep particles in bounds
+        particle.x = Math.max(0, Math.min(canvas.width, particle.x));
+        particle.y = Math.max(0, Math.min(canvas.height, particle.y));
+
+        // Draw connections
+        particle.connections.forEach((connectedIndex) => {
+          const connectedParticle = particles[connectedIndex];
+          const distance = Math.sqrt(
+            Math.pow(particle.x - connectedParticle.x, 2) +
+            Math.pow(particle.y - connectedParticle.y, 2)
+          );
+          if (distance < connectionDistance) {
+            const opacity = 1 - (distance / connectionDistance);
+            if (ctx) {
+              ctx.save();
+              ctx.globalAlpha = opacity * 0.8;
+              ctx.strokeStyle = getGradientColor((particle.t + connectedParticle.t) / 2);
+              ctx.lineWidth = 1.5;
+              ctx.beginPath();
+              ctx.moveTo(particle.x, particle.y);
+              ctx.lineTo(connectedParticle.x, connectedParticle.y);
+              ctx.stroke();
+              ctx.restore();
+            }
+          }
+        });
+      });
+      
+      // Draw particles with enhanced shapes and animated color
+      particles.forEach((particle) => {
+        if (ctx) {
+          drawShape(ctx, particle.x, particle.y, particle.size, particle.shape, getGradientColor(particle.t));
+        }
+      });
+      findConnections();
+      animationId = requestAnimationFrame(animate);
+    }
+    animate();
+    
+    // Handle window resize
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      if (animationId) cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Optimize elements for performance
+  React.useEffect(() => {
+    const elements = document.querySelectorAll('.performance-critical');
+    elements.forEach(element => {
+      if (element instanceof HTMLElement) {
+        optimizeElement(element);
+      }
+    });
+  }, [optimizeElement]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 font-inter transition-colors duration-300 relative overflow-hidden">
+      {/* Enhanced Particle Canvas */}
+      <canvas
+        id="global-particle-canvas"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
+      
       {/* Neural Background */}
       <NeuralBackground />
       
