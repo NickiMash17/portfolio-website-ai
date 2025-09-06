@@ -3,11 +3,15 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/portfolio-website-ai/' : '/',
+  base: './',
   plugins: [react()],
   build: {
-    commonjsOptions: {
-      transformMixedEsModules: true
+    outDir: 'dist',
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
     }
   },
   server: {
