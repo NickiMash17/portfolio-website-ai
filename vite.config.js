@@ -7,7 +7,8 @@ export default defineConfig({
     alias: {
       'react': '/node_modules/react',
       'react-dom': '/node_modules/react-dom',
-      'framer-motion': '/node_modules/framer-motion'
+      'framer-motion': '/node_modules/framer-motion',
+      'lucide-react': '/node_modules/lucide-react'
     }
   }
 })
