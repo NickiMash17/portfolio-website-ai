@@ -20,9 +20,13 @@ jobs:
         run: npm ci
         
       - name: Build
-        run: npm run build
-        
+        run: |
+          npm run build
+          ls -la build/  # Debug: List build directory contents
+          
       - name: Deploy to Surge
         run: |
           npm install -g surge
+          ls -la  # Debug: List current directory
+          ls -la build/  # Debug: Verify build directory
           surge ./build nicolette-portfolio.surge.sh --token ${{ secrets.SURGE_TOKEN }}
