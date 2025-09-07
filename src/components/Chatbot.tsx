@@ -101,7 +101,7 @@ const Chatbot: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.8 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-4 right-4 z-50 w-[400px] max-h-[calc(100vh-120px)] bg-gradient-to-br from-slate-900/95 via-blue-950/95 to-indigo-950/95 backdrop-blur-xl rounded-3xl border-2 border-emerald-400/30 shadow-2xl overflow-hidden flex flex-col"
+            className="fixed bottom-0 right-0 z-50 w-full h-full sm:bottom-4 sm:right-4 sm:w-[400px] sm:max-h-[calc(100vh-120px)] bg-gradient-to-br from-slate-900/95 via-blue-950/95 to-indigo-950/95 backdrop-blur-xl rounded-none sm:rounded-3xl border-2 border-emerald-400/30 shadow-2xl overflow-hidden flex flex-col"
           >
             {/* Enhanced Neural Header */}
             <div className="relative p-6 border-b border-emerald-400/20">

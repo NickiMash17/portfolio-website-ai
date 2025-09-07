@@ -309,18 +309,18 @@ const Footer: React.FC = () => {
         ))}
       </div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
         {/* Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {/* Brand */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-6 text-center md:text-left"
           >
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center justify-center md:justify-start space-x-4">
               <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg">
                 <Brain className="w-8 h-8 text-white" />
               </div>
@@ -329,12 +329,12 @@ const Footer: React.FC = () => {
                 <p className="text-sm text-cyan-400 font-semibold">SOFTWARE DEVELOPER</p>
               </div>
             </div>
-            <p className="text-lg text-white max-w-md leading-relaxed">
+            <p className="text-base sm:text-lg text-white max-w-md leading-relaxed mx-auto md:mx-0">
               Software Engineering student architecting innovative solutions and pushing the boundaries of web technology. 
               Microsoft Azure certified and ready to build the future.
             </p>
             {/* Status indicator */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center md:justify-start gap-3">
               <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse" />
               <span className="text-cyan-400 text-sm font-semibold">Available for opportunities</span>
             </div>
@@ -346,32 +346,32 @@ const Footer: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-6 text-center md:text-left"
           >
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+            <h3 className="text-xl font-bold text-white mb-6 flex items-center justify-center md:justify-start gap-3">
               <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-xl flex items-center justify-center">
                 <Zap className="w-4 h-4 text-white" />
               </div>
               Quick Links
             </h3>
             <div className="space-y-4">
-              <a href="#home" className="text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+              <a href="#home" className="text-base sm:text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <Home className="w-4 h-4" />
                 Home
               </a>
-              <a href="#about" className="text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+              <a href="#about" className="text-base sm:text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <User className="w-4 h-4" />
                 About
               </a>
-              <a href="#projects" className="text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+              <a href="#projects" className="text-base sm:text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <Briefcase className="w-4 h-4" />
                 Projects
               </a>
-              <a href="#resume" className="text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+              <a href="#resume" className="text-base sm:text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <FileText className="w-4 h-4" />
                 Resume
               </a>
-              <a href="#contact" className="text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center gap-2">
+              <a href="#contact" className="text-base sm:text-lg text-white hover:text-cyan-400 transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <Mail className="w-4 h-4" />
                 Contact
               </a>
@@ -384,20 +384,20 @@ const Footer: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-6 text-center md:text-left"
           >
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+            <h3 className="text-xl font-bold text-white mb-6 flex items-center justify-center md:justify-start gap-3">
               <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center">
                 <MailIcon className="w-4 h-4" />
               </div>
               Get In Touch
             </h3>
             <div className="space-y-6">
-              <div className="flex items-center gap-4 text-white group">
+              <div className="flex items-center justify-center md:justify-start gap-4 text-white group">
                 <div className="w-12 h-12 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center group-hover:from-cyan-500/30 group-hover:to-blue-500/30 transition-all duration-300">
                   <MailIcon className="w-6 h-6 text-cyan-400" />
                 </div>
-                <a href="mailto:nene171408@gmail.com" className="text-lg hover:text-cyan-400 transition-colors duration-300">
+                <a href="mailto:nene171408@gmail.com" className="text-base sm:text-lg hover:text-cyan-400 transition-colors duration-300">
                   nene171408@gmail.com
                 </a>
               </div>
@@ -405,7 +405,7 @@ const Footer: React.FC = () => {
               {/* Social Links */}
               <div className="space-y-4">
                 <h4 className="text-lg font-bold text-white">Connect</h4>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col items-center md:items-start gap-4">
                   <a 
                     href="https://github.com/NickiMash17" 
                     target="_blank" 
@@ -440,17 +440,17 @@ const Footer: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           viewport={{ once: true }}
-          className="mt-16 pt-8 border-t border-cyan-500/20"
+          className="mt-12 sm:mt-16 pt-8 border-t border-cyan-500/20"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-4 text-white text-lg">
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-white text-base sm:text-lg">
               <span>© 2024 Nicolette Mashaba. Made with</span>
               <Heart className="w-5 h-5 text-red-400 animate-pulse" />
               <span>and lots of</span>
               <Zap className="w-5 h-5 text-cyan-400" />
             </div>
             
-            <div className="flex items-center gap-8 text-lg">
+            <div className="flex items-center gap-4 sm:gap-8 text-base sm:text-lg">
               <a href="#privacy" className="text-white hover:text-cyan-400 transition-colors duration-300 hover:underline">
                 Privacy Policy
               </a>
