@@ -500,7 +500,7 @@ const AIProjects: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl font-bold mb-6 font-orbitron tracking-wider tech-title">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-orbitron tracking-wider tech-title">
             INNOVATION PROJECTS
           </h2>
           <p className="text-xl text-white max-w-4xl mx-auto leading-relaxed">
@@ -512,7 +512,7 @@ const AIProjects: React.FC = () => {
         </motion.div>
 
         {/* Enhanced Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-4 mb-16">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mb-16">
           {filters.map((filter) => (
             <motion.button
               key={filter.id}
@@ -535,7 +535,7 @@ const AIProjects: React.FC = () => {
         </div>
 
         {/* Enhanced Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -708,7 +708,7 @@ const AIProjects: React.FC = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="glass-ai rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-y-auto border border-cyan-500/20 shadow-2xl"
+              className="glass-ai rounded-3xl max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-6xl w-full max-h-[90vh] overflow-y-auto border border-cyan-500/20 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="p-8">

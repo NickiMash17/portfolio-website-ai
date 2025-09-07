@@ -234,7 +234,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 font-orbitron">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 font-orbitron">
             <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
               Get In Touch
             </span>
@@ -244,7 +244,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -262,7 +262,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
               </h3>
               
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-semibold text-white mb-2">
                       Full Name

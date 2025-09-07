@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Code, Mail, Github, Linkedin, ChevronDown, Brain, Cloud, Database, Server, Terminal, Layers, Zap, Cpu, Network } from 'lucide-react';
 
 const AIHero: React.FC = () => {
+  const [radius, setRadius] = useState(200);
+
+  useEffect(() => {
+    const updateRadius = () => {
+      if (window.innerWidth < 768) {
+        setRadius(150);
+      } else {
+        setRadius(200);
+      }
+    };
+
+    window.addEventListener('resize', updateRadius);
+    updateRadius();
+
+    return () => window.removeEventListener('resize', updateRadius);
+  }, []);
+
   const scrollToAbout = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -177,7 +194,7 @@ const AIHero: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -207,7 +224,7 @@ const AIHero: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 relative"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 relative"
             >
               <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent font-orbitron relative">
                 Nicolette
@@ -350,7 +367,7 @@ const AIHero: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="relative flex justify-center lg:justify-end"
           >
-            <div className="relative w-80 h-80 lg:w-96 lg:h-96 z-10">
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 z-10">
               {/* Glowing Ring */}
               <motion.div
                 className="absolute inset-0 rounded-full border-4 border-cyan-400/30"
@@ -412,7 +429,6 @@ const AIHero: React.FC = () => {
               {/* Enhanced Orbiting Tech Icons */}
               {techIcons.map((tech, index) => {
                 const angle = (index / techIcons.length) * Math.PI * 2;
-                const radius = 200;
                 const x = Math.cos(angle) * radius;
                 const y = Math.sin(angle) * radius;
 

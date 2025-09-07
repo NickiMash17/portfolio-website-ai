@@ -27,7 +27,7 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
   };
 
   return (
-    <div className={`fixed bottom-8 right-8 z-50 ${className}`}>
+    <div className={`fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 ${className}`}>
       {/* Action Feedback */}
       <AnimatePresence>
         {activeAction && (

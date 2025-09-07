@@ -317,7 +317,7 @@ const AIAbout: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl font-bold mb-6 font-orbitron tracking-wider tech-title">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-orbitron tracking-wider tech-title">
             ABOUT ME
           </h2>
           <p className="text-xl text-white max-w-4xl mx-auto leading-relaxed">
@@ -330,7 +330,7 @@ const AIAbout: React.FC = () => {
         </motion.div>
 
         {/* Enhanced Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-4 mb-16">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mb-16">
           {tabs.map((tab) => (
             <motion.button
               key={tab.id}
@@ -358,7 +358,7 @@ const AIAbout: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
             >
               {/* Education & Background */}
               <div className="glass-ai rounded-3xl p-8 data-visualization">
@@ -463,7 +463,7 @@ const AIAbout: React.FC = () => {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {skills.map((category, categoryIndex) => (
                   <motion.div
                     key={category.category}
@@ -530,7 +530,7 @@ const AIAbout: React.FC = () => {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {certifications.map((cert, index) => {
                   const CategoryIcon = getCategoryIcon(cert.category);
                   return (
