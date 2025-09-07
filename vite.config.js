@@ -6,7 +6,8 @@ export default defineConfig({
   resolve: {
     alias: {
       'react': '/node_modules/react',
-      'react-dom': '/node_modules/react-dom'
+      'react-dom': '/node_modules/react-dom',
+      'framer-motion': '/node_modules/framer-motion'
     }
   }
 })
