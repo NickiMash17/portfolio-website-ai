@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
   // Performance hints
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.getRegistrations().then(r=>r.forEach(x=>x.unregister())).catch(()=>{});
+      // SW disabled for deploy freshness
     });
   }
 }
