@@ -1,8 +1,6 @@
 const CACHE_NAME = 'portfolio-cache-v2';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/src/main.tsx',
+    '/src/main.tsx',
   '/src/App.tsx',
   '/src/index.css',
   '/manifest.json',
@@ -17,6 +15,7 @@ const urlsToCache = [
 
 // Install event - cache resources
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
@@ -26,24 +25,25 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Fetch event - serve from cache when offline
 self.addEventListener('fetch', (event) => {
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match('/index.html'))
+    );
+    return;
+  }
   event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Return cached version or fetch from network
-        return response || fetch(event.request)
-          .then((response) => {
-            // Cache new resources
-            if (response.status === 200) {
-              const responseClone = response.clone();
-              caches.open(CACHE_NAME)
-                .then((cache) => {
-                  cache.put(event.request, responseClone);
-                });
-            }
-            return response;
-          });
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request).then((netRes) => {
+        if (netRes && netRes.status === 200 && netRes.type === 'basic') {
+          const copy = netRes.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        }
+        return netRes;
+      });
+    })
+  );
+});
       })
       .catch(() => {
         // Return offline page for navigation requests
@@ -56,6 +56,7 @@ self.addEventListener('fetch', (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
+  event.waitUntil(self.clients.claim());
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
