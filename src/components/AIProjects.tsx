@@ -75,7 +75,6 @@ const AIProjects: React.FC = () => {
       category: 'ai-ml',
       difficulty: 'expert',
       githubUrl: 'https://github.com/NickiMash17/resume-analyzer-api',
-      liveUrl: 'https://bookreviewapp-1755367448.azurewebsites.net/',
       features: [
         'AI-powered resume parsing and analysis',
         'Skill gap identification and recommendations',
@@ -123,7 +122,7 @@ const AIProjects: React.FC = () => {
       category: 'ai-ml',
       difficulty: 'advanced',
       githubUrl: 'https://github.com/NickiMash17/meteora-weather',
-      liveUrl: 'https://meteora-weather-smoky.vercel.app',
+      liveUrl: 'https://meteora-weather-smoky.vercel.app/',
       features: [
         'AI-powered weather insights and predictions',
         'Progressive Web App (PWA) functionality',
@@ -270,7 +269,7 @@ const AIProjects: React.FC = () => {
       category: 'full-stack',
       difficulty: 'advanced',
       githubUrl: 'https://github.com/NickiMash17/BookReviewApp',
-      liveUrl: 'https://book-review-demo.azurewebsites.net',
+      liveUrl: 'https://bookreviewapp-1755367448.azurewebsites.net/',
       features: [
         'Complete CRUD operations for book reviews',
         'Advanced search and filtering capabilities',
@@ -686,23 +685,27 @@ const AIProjects: React.FC = () => {
                     </div>
                     
                     {/* Action Buttons */}
-                    <div className="flex gap-3 mt-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-auto">
                       <button
                         onClick={() => openProjectModal(project)}
-                        className="flex-1 px-6 py-3 glass-ai text-white rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
+                        className="w-full h-12 px-5 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all duration-300 ring-1 ring-white/10 glass-ai hover:bg-cyan-500/15 hover:text-cyan-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98]"
+                        aria-label={`View details for ${project.title}`}
+                        title="View Details"
                       >
-                        <Eye className="w-4 h-4" />
-                        View Details
+                        <Eye className="w-6 h-6" />
+                        <span>View Details</span>
                       </button>
                       {project.liveUrl && (
                         <a
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 px-6 py-3 glass-devops text-white rounded-xl hover:bg-blue-500/20 hover:text-blue-400 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
+                          className="w-full h-12 px-5 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all duration-300 ring-1 ring-white/10 glass-devops hover:bg-blue-500/15 hover:text-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98]"
+                          aria-label={`Open live demo: ${project.title}`}
+                          title="Live Demo"
                         >
-                          <ExternalLink className="w-4 h-4" />
-                          Live Demo
+                          <ExternalLink className="w-6 h-6" />
+                          <span>Live Demo</span>
                         </a>
                       )}
                       {project.githubUrl && (
@@ -710,10 +713,12 @@ const AIProjects: React.FC = () => {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 px-6 py-3 glass-code text-white rounded-xl hover:bg-purple-500/20 hover:text-purple-400 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
+                          className="w-full h-12 px-5 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all duration-300 ring-1 ring-white/10 glass-code hover:bg-purple-500/15 hover:text-purple-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98]"
+                          aria-label={`View source code: ${project.title}`}
+                          title="View Code"
                         >
-                          <Github className="w-4 h-4" />
-                          Code
+                          <Github className="w-6 h-6" />
+                          <span>Code</span>
                         </a>
                       )}
                     </div>
