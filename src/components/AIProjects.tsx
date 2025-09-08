@@ -1,3 +1,4 @@
+import EnhancedProjectCard from "./EnhancedProjectCard";
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -413,14 +414,17 @@ const AIProjects: React.FC = () => {
 
   const openProjectModal = (project: Project) => {
     setSelectedProject(project);
+    // prevent background scroll on mobile when modal is open
+    document.body.style.overflow = 'hidden';
   };
 
   const closeProjectModal = () => {
     setSelectedProject(null);
+    document.body.style.overflow = '';
   };
 
   return (
-    <section id="projects" className="py-20 relative overflow-hidden">
+    <section id="projects" className="py-16 sm:py-20 relative overflow-hidden">
       {/* Advanced Tech Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950" />
       
@@ -458,7 +462,7 @@ const AIProjects: React.FC = () => {
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute text-green-400 font-mono text-xs"
+            className="absolute text-green-400 font-mono text-[10px] sm:text-xs"
             style={{
               left: `${(i * 5) % 100}%`,
               top: `${Math.random() * 100}%`,
@@ -490,7 +494,7 @@ const AIProjects: React.FC = () => {
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={`azure-${i}`}
-            className="absolute w-24 h-24 border-2 border-blue-500/20"
+            className="absolute w-16 h-16 sm:w-20 sm:h-20 border-2 border-blue-500/20"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -514,7 +518,7 @@ const AIProjects: React.FC = () => {
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={`gear-${i}`}
-            className="absolute w-16 h-16 border border-green-400/25 rounded-full"
+            className="absolute w-12 h-12 sm:w-16 sm:h-16 border border-green-400/25 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -538,7 +542,7 @@ const AIProjects: React.FC = () => {
         {[...Array(10)].map((_, i) => (
           <motion.div
             key={`node-${i}`}
-            className="absolute w-8 h-8 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full"
+            className="absolute w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -558,18 +562,18 @@ const AIProjects: React.FC = () => {
         ))}
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-20"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-orbitron tracking-wider tech-title">
+          <h2 className="tech-title leading-tight-mobile text-fluid-3xl sm:text-5xl font-bold mb-4 sm:mb-6">
             INNOVATION PROJECTS
           </h2>
-          <p className="text-xl text-white max-w-4xl mx-auto leading-relaxed">
+          <p className="text-fluid-lg sm:text-xl text-white/90 max-w-4xl mx-auto leading-relaxed px-2">
             Cutting-edge projects showcasing <span className="text-cyan-400 font-semibold">AI innovation</span>, 
             <span className="text-blue-400 font-semibold"> cloud architecture</span>, and 
             <span className="text-purple-400 font-semibold"> next-generation development</span> practices. 
@@ -578,22 +582,22 @@ const AIProjects: React.FC = () => {
         </motion.div>
 
         {/* Enhanced Filter Tabs */}
-        <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mb-16">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-12 sm:mb-16">
           {filters.map((filter) => (
             <motion.button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-8 py-4 rounded-2xl font-semibold transition-all duration-300 flex items-center gap-3 cursor-pointer ${
+              className={`px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-semibold transition-all duration-300 flex items-center gap-3 cursor-pointer ${
                 activeFilter === filter.id
                   ? `bg-gradient-to-r ${filter.color} text-white shadow-2xl`
                   : 'glass-ai text-white hover:text-white hover:shadow-xl'
               }`}
             >
               <filter.icon className="w-5 h-5" />
-              {filter.label}
-              <span className="px-3 py-1 bg-white/20 rounded-full text-sm font-bold">
+              <span className="text-fluid-base sm:text-base">{filter.label}</span>
+              <span className="px-2.5 py-1 bg-white/20 rounded-full text-xs sm:text-sm font-bold">
                 {filter.count}
               </span>
             </motion.button>
@@ -601,132 +605,15 @@ const AIProjects: React.FC = () => {
         </div>
 
         {/* Enhanced Projects Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {filteredProjects.map((project, index) => {
-            const CategoryIcon = getCategoryIcon(project.category);
-            return (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="h-full"
-              >
-                <div className="group glass-ai rounded-3xl border border-cyan-500/20 hover:border-cyan-500/50 transition-all duration-300 overflow-hidden hover:shadow-2xl hover:shadow-cyan-500/25 h-full flex flex-col interactive-hover">
-                  {/* Project Image */}
-                  <div className="h-48 bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-purple-500/10 flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20" />
-                    <CategoryIcon className="w-20 h-20 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
-                    
-                    {/* Category Badge */}
-                    <div className="absolute top-4 left-4">
-                      <span className={`px-4 py-2 bg-gradient-to-r ${getCategoryColor(project.category)} text-white text-sm font-bold rounded-full shadow-lg`}>
-                        {project.category.replace('-', ' ').toUpperCase()}
-                      </span>
-                    </div>
-                    
-                    {/* Difficulty Badge */}
-                    <div className="absolute top-4 right-4">
-                      <span className={`px-4 py-2 bg-gradient-to-r ${getDifficultyColor(project.difficulty)} text-white text-sm font-bold rounded-full shadow-lg`}>
-                        {project.difficulty.toUpperCase()}
-                      </span>
-                    </div>
-
-                    {/* Status Indicator */}
-                    <div className="absolute bottom-4 left-4">
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(project.status)}`}>
-                        {project.status.replace('-', ' ').toUpperCase()}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  {/* Project Content */}
-                  <div className="p-8 flex-1 flex flex-col">
-                    {/* Project Header */}
-                    <div className="flex items-start justify-between mb-4">
-                      <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">
-                        {project.title}
-                      </h3>
-                    </div>
-                    
-                    {/* Description */}
-                    <p className="text-lg text-white leading-relaxed mb-6">
-                      {project.description}
-                    </p>
-                    
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.technologies.slice(0, 4).map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 glass-code text-white text-sm rounded-full font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.technologies.length > 4 && (
-                        <span className="px-3 py-1 glass-code text-white text-sm rounded-full font-medium">
-                          +{project.technologies.length - 4} more
-                        </span>
-                      )}
-                    </div>
-                    
-                    {/* Project Stats */}
-                    <div className="flex items-center gap-6 mb-6 text-sm text-white">
-                      <span className="flex items-center gap-2">
-                        <Clock className="w-4 h-4" />
-                        {project.duration}
-                      </span>
-                      <span className="flex items-center gap-2">
-                        <Users className="w-4 h-4" />
-                        {project.teamSize}
-                      </span>
-                    </div>
-                    
-                    {/* Action Buttons */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-auto">
-                      <button
-                        onClick={() => openProjectModal(project)}
-                        className="w-full h-12 px-5 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all duration-300 ring-1 ring-white/10 glass-ai hover:bg-cyan-500/15 hover:text-cyan-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98]"
-                        aria-label={`View details for ${project.title}`}
-                        title="View Details"
-                      >
-                        <Eye className="w-6 h-6" />
-                        <span>View Details</span>
-                      </button>
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full h-12 px-5 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all duration-300 ring-1 ring-white/10 glass-devops hover:bg-blue-500/15 hover:text-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98]"
-                          aria-label={`Open live demo: ${project.title}`}
-                          title="Live Demo"
-                        >
-                          <ExternalLink className="w-6 h-6" />
-                          <span>Live Demo</span>
-                        </a>
-                      )}
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full h-12 px-5 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all duration-300 ring-1 ring-white/10 glass-code hover:bg-purple-500/15 hover:text-purple-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98]"
-                          aria-label={`View source code: ${project.title}`}
-                          title="View Code"
-                        >
-                          <Github className="w-6 h-6" />
-                          <span>Code</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+          {filteredProjects.map((project, index) => (
+            <EnhancedProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              onViewDetails={openProjectModal}
+            />
+          ))}
         </div>
 
         {/* Enhanced Call to Action */}
@@ -735,32 +622,32 @@ const AIProjects: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-20"
+          className="text-center mt-12 sm:mt-20"
         >
-          <div className="glass-ai rounded-3xl p-12 data-visualization">
-            <h2 className="text-3xl font-bold text-white mb-4 tech-title">
+          <div className="glass-ai rounded-3xl p-8 sm:p-12 data-visualization">
+            <h2 className="tech-title text-fluid-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
               Ready to Start a Project?
             </h2>
-            <p className="text-xl text-white mb-8 leading-relaxed">
+            <p className="text-fluid-lg sm:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed">
               Let's collaborate to bring your ideas to life with cutting-edge technology and innovative solutions.
             </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
               <motion.a
                 href="#contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-10 py-4 btn-ai text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
+                className="px-8 sm:px-10 py-3.5 sm:py-4 btn-ai text-fluid-base sm:text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
               >
-                <Mail className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+                <Mail className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform duration-300" />
                 Get In Touch
               </motion.a>
               <motion.a
                 href="#resume"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-10 py-4 btn-code text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
+                className="px-8 sm:px-10 py-3.5 sm:py-4 btn-code text-fluid-base sm:text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
               >
-                <FileText className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+                <FileText className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform duration-300" />
                 View Resume
               </motion.a>
             </div>
@@ -775,79 +662,83 @@ const AIProjects: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-6 bg-black/50 backdrop-blur-sm"
             onClick={closeProjectModal}
           >
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="glass-ai rounded-3xl max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-6xl w-full max-h-[90vh] overflow-y-auto border border-cyan-500/20 shadow-2xl"
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="glass-ai rounded-t-3xl sm:rounded-3xl w-full sm:max-w-3xl md:max-w-4xl lg:max-w-6xl max-h-[92vh] sm:max-h-[90vh] overflow-hidden border border-cyan-500/20 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="p-8">
                 {/* Modal Header */}
-                <div className="flex items-start justify-between mb-8">
-                  <div className="flex-1">
-                    <h3 className="text-3xl font-bold text-white mb-4 flex items-center gap-4">
-                      <div className={`w-12 h-12 bg-gradient-to-br ${getCategoryColor(selectedProject.category)} rounded-2xl flex items-center justify-center`}>
-                        {React.createElement(getCategoryIcon(selectedProject.category), { className: "w-6 h-6 text-white" })}
+              <div className="p-6 sm:p-8 border-b border-cyan-500/20">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-fluid-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3 sm:gap-4">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${getCategoryColor(selectedProject.category)} rounded-2xl flex items-center justify-center flex-shrink-0`}>
+                        {React.createElement(getCategoryIcon(selectedProject.category), { className: 'w-5 h-5 sm:w-6 sm:h-6 text-white' })}
                       </div>
-                      {selectedProject.title}
+                      <span className="truncate">{selectedProject.title}</span>
                     </h3>
-                    <div className="flex items-center gap-4 mb-6">
-                      <span className={`px-4 py-2 rounded-full text-sm font-semibold ${getStatusColor(selectedProject.status)}`}>
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-4">
+                      <span className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold ${getStatusColor(selectedProject.status)}`}>
                         {selectedProject.status}
                       </span>
-                      <span className={`px-4 py-2 bg-gradient-to-r ${getDifficultyColor(selectedProject.difficulty)} text-white text-sm font-bold rounded-full`}>
+                      <span className={`px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r ${getDifficultyColor(selectedProject.difficulty)} text-white text-xs sm:text-sm font-bold rounded-full`}>
                         {selectedProject.difficulty}
                       </span>
-                      <span className={`px-4 py-2 bg-gradient-to-r ${getCategoryColor(selectedProject.category)} text-white text-sm font-bold rounded-full`}>
+                      <span className={`px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r ${getCategoryColor(selectedProject.category)} text-white text-xs sm:text-sm font-bold rounded-full`}>
                         {selectedProject.category}
                       </span>
                     </div>
                   </div>
                   <button
                     onClick={closeProjectModal}
-                    className="p-3 hover:bg-cyan-500/20 rounded-2xl transition-colors duration-300"
+                    className="p-2.5 sm:p-3 hover:bg-cyan-500/20 rounded-2xl transition-colors duration-300"
+                    aria-label="Close project details"
                   >
-                    <X className="w-6 h-6 text-white" />
+                    <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </button>
                 </div>
+                </div>
 
+              {/* Scrollable Content */}
+              <div className="overflow-y-auto px-6 sm:px-8 pt-6 pb-24 sm:pb-8">
                 {/* Project Image */}
                 {selectedProject.image && (
-                  <div className="mb-8">
-                    <div className="w-full h-64 bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-purple-500/10 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                  <div className="mb-6 sm:mb-8">
+                    <div className="w-full h-44 sm:h-64 bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-purple-500/10 rounded-2xl flex items-center justify-center relative overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20" />
-                      {React.createElement(getCategoryIcon(selectedProject.category), { className: "w-24 h-24 text-cyan-400" })}
+                      {React.createElement(getCategoryIcon(selectedProject.category), { className: 'w-16 h-16 sm:w-24 sm:h-24 text-cyan-400' })}
                     </div>
                   </div>
                 )}
 
                 {/* Project Details Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
                   {/* Left Column */}
-                  <div className="space-y-8">
+                  <div className="space-y-6 sm:space-y-8">
                     {/* Description */}
                     <div>
-                      <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
-                          <FileText className="w-4 h-4 text-white" />
+                      <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
+                          <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
                         Description
                       </h4>
-                      <p className="text-lg text-white leading-relaxed">
+                      <p className="text-fluid-base sm:text-lg text-white/90 leading-relaxed">
                         {selectedProject.longDescription}
                       </p>
                     </div>
 
                     {/* Technologies */}
                     <div>
-                      <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                          <Code className="w-4 h-4 text-white" />
+                      <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                          <Code className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
                         Technologies Used
                       </h4>
@@ -855,7 +746,7 @@ const AIProjects: React.FC = () => {
                         {selectedProject.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="px-4 py-2 glass-code text-white text-sm rounded-full font-medium"
+                            className="px-3 sm:px-4 py-1.5 glass-code text-white text-xs sm:text-sm rounded-full font-medium"
                           >
                             {tech}
                           </span>
@@ -865,16 +756,16 @@ const AIProjects: React.FC = () => {
 
                     {/* Key Features */}
                     <div>
-                      <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-purple-500 rounded-lg flex items-center justify-center">
-                          <Target className="w-4 h-4 text-white" />
+                      <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-cyan-500 to-purple-500 rounded-lg flex items-center justify-center">
+                          <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
                         Key Features
                       </h4>
-                      <ul className="space-y-3">
+                      <ul className="space-y-2.5 sm:space-y-3">
                         {selectedProject.features?.map((feature, index) => (
-                          <li key={index} className="flex items-start gap-3 text-lg text-white">
-                            <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                          <li key={index} className="flex items-start gap-2.5 sm:gap-3 text-fluid-base sm:text-lg text-white/90">
+                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 mt-1 flex-shrink-0" />
                             {feature}
                           </li>
                         ))}
@@ -883,31 +774,31 @@ const AIProjects: React.FC = () => {
                   </div>
 
                   {/* Right Column */}
-                  <div className="space-y-8">
+                  <div className="space-y-6 sm:space-y-8">
                     {/* Project Stats */}
                     <div>
-                      <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                          <BarChart3 className="w-4 h-4 text-white" />
+                      <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                          <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
                         Project Statistics
                       </h4>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="glass-ai rounded-2xl p-6 text-center">
-                          <p className="text-3xl font-bold text-cyan-400">{selectedProject.duration}</p>
-                          <p className="text-sm text-white">Duration</p>
+                      <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div className="glass-ai rounded-2xl p-4 sm:p-6 text-center">
+                          <p className="text-fluid-xl sm:text-3xl font-bold text-cyan-400">{selectedProject.duration}</p>
+                          <p className="text-xs sm:text-sm text-white/90">Duration</p>
                         </div>
-                        <div className="glass-ai rounded-2xl p-6 text-center">
-                          <p className="text-3xl font-bold text-blue-400">{selectedProject.teamSize}</p>
-                          <p className="text-sm text-white">Team Size</p>
+                        <div className="glass-ai rounded-2xl p-4 sm:p-6 text-center">
+                          <p className="text-fluid-xl sm:text-3xl font-bold text-blue-400">{selectedProject.teamSize}</p>
+                          <p className="text-xs sm:text-sm text-white/90">Team Size</p>
                         </div>
-                        <div className="glass-ai rounded-2xl p-6 text-center">
-                          <p className="text-3xl font-bold text-purple-400">{selectedProject.technologies.length}</p>
-                          <p className="text-sm text-white">Technologies</p>
+                        <div className="glass-ai rounded-2xl p-4 sm:p-6 text-center">
+                          <p className="text-fluid-xl sm:text-3xl font-bold text-purple-400">{selectedProject.technologies.length}</p>
+                          <p className="text-xs sm:text-sm text-white/90">Technologies</p>
                         </div>
-                        <div className="glass-ai rounded-2xl p-6 text-center">
-                          <p className="text-3xl font-bold text-cyan-400">{selectedProject.features?.length || 0}</p>
-                          <p className="text-sm text-white">Features</p>
+                        <div className="glass-ai rounded-2xl p-4 sm:p-6 text-center">
+                          <p className="text-fluid-xl sm:text-3xl font-bold text-cyan-400">{selectedProject.features?.length || 0}</p>
+                          <p className="text-xs sm:text-sm text-white/90">Features</p>
                         </div>
                       </div>
                     </div>
@@ -915,13 +806,13 @@ const AIProjects: React.FC = () => {
                     {/* Architecture */}
                     {selectedProject.architecture && (
                       <div>
-                        <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                            <Layers className="w-4 h-4 text-white" />
+                        <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                            <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                           </div>
                           Architecture
                         </h4>
-                        <p className="text-lg text-white bg-gradient-to-r from-purple-500/10 to-cyan-500/10 p-4 rounded-2xl border border-purple-500/20">
+                        <p className="text-fluid-base sm:text-lg text-white/90 bg-gradient-to-r from-purple-500/10 to-cyan-500/10 p-3 sm:p-4 rounded-2xl border border-purple-500/20">
                           {selectedProject.architecture}
                         </p>
                       </div>
@@ -930,17 +821,17 @@ const AIProjects: React.FC = () => {
                     {/* Metrics */}
                     {selectedProject.metrics && (
                       <div>
-                        <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                          <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
-                            <Activity className="w-4 h-4 text-white" />
+                        <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
+                            <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                           </div>
                           Performance Metrics
                         </h4>
-                        <div className="space-y-3">
+                        <div className="space-y-2.5 sm:space-y-3">
                           {Object.entries(selectedProject.metrics).map(([key, value]) => (
-                            <div key={key} className="flex justify-between items-center glass-ai rounded-xl p-4">
-                              <span className="text-white font-medium capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
-                              <span className="text-cyan-400 font-bold">{value}</span>
+                            <div key={key} className="flex justify-between items-center glass-ai rounded-xl p-3 sm:p-4">
+                              <span className="text-fluid-base sm:text-base text-white font-medium capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+                              <span className="text-cyan-400 font-bold text-fluid-base sm:text-base">{value}</span>
                             </div>
                           ))}
                         </div>
@@ -949,21 +840,50 @@ const AIProjects: React.FC = () => {
 
                     {/* Impact */}
                     <div>
-                      <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                          <Award className="w-4 h-4 text-white" />
+                      <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-green-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                          <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
                         Impact & Results
                       </h4>
-                      <p className="text-lg text-white bg-gradient-to-r from-green-500/10 to-cyan-500/10 p-4 rounded-2xl border border-green-500/20">
+                      <p className="text-fluid-base sm:text-lg text-white/90 bg-gradient-to-r from-green-500/10 to-cyan-500/10 p-3 sm:p-4 rounded-2xl border border-green-500/20">
                         {selectedProject.impact}
                       </p>
+                    </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 pt-8 border-t border-cyan-500/20 mt-8">
+              {/* Sticky Action Bar on Mobile */}
+              <div className="sticky bottom-0 inset-x-0 bg-gradient-to-br from-slate-900/80 via-blue-950/80 to-indigo-950/80 backdrop-blur-md border-t border-cyan-500/20 p-4 sm:hidden">
+                <div className="grid grid-cols-2 gap-3">
+                  {selectedProject.liveUrl && (
+                    <a
+                      href={selectedProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-3 btn-ai text-center text-sm font-bold rounded-xl flex items-center justify-center gap-2 group"
+                    >
+                      <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+                      Live
+                    </a>
+                  )}
+                  {selectedProject.githubUrl && (
+                    <a
+                      href={selectedProject.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-3 btn-code text-center text-sm font-bold rounded-xl flex items-center justify-center gap-2 group"
+                    >
+                      <Github className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+                      Code
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              {/* Desktop Action Buttons */}
+              <div className="hidden sm:flex flex-col sm:flex-row gap-4 p-6 sm:p-8 border-t border-cyan-500/20">
                   {selectedProject.liveUrl && (
                     <a
                       href={selectedProject.liveUrl}
@@ -971,7 +891,7 @@ const AIProjects: React.FC = () => {
                       rel="noopener noreferrer"
                       className="flex-1 px-8 py-4 btn-ai text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
                     >
-                      <ExternalLink className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                      <ExternalLink className="w-6 h-6 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform duration-300" />
                       Live Demo
                     </a>
                   )}
@@ -982,11 +902,10 @@ const AIProjects: React.FC = () => {
                       rel="noopener noreferrer"
                       className="flex-1 px-8 py-4 btn-code text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
                     >
-                      <Github className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                      <Github className="w-6 h-6 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform duration-300" />
                       View Code
                     </a>
                   )}
-                </div>
               </div>
             </motion.div>
           </motion.div>

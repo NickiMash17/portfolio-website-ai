@@ -46,6 +46,16 @@
   --animation-duration: 0.3s;
   --animation-delay: 0.1s;
   --scroll-behavior: smooth;
+
+  /* Fluid type scale */
+  --step--2: clamp(0.73rem, calc(0.71rem + 0.10vw), 0.80rem);
+  --step--1: clamp(0.85rem, calc(0.81rem + 0.20vw), 0.95rem);
+  --step-0: clamp(1.00rem, calc(0.96rem + 0.30vw), 1.10rem);
+  --step-1: clamp(1.25rem, calc(1.15rem + 0.60vw), 1.50rem);
+  --step-2: clamp(1.50rem, calc(1.33rem + 1.00vw), 2.00rem);
+  --step-3: clamp(1.88rem, calc(1.62rem + 1.50vw), 2.50rem);
+  --step-4: clamp(2.25rem, calc(1.90rem + 2.20vw), 3.00rem);
+  --step-5: clamp(3.00rem, calc(2.40rem + 3.60vw), 4.00rem);
 }
 
 /* Light theme overrides */
@@ -607,4 +617,19 @@ textarea:focus {
     -webkit-text-fill-color: initial;
     color: var(--text-primary);
   }
+}
+
+/* Fluid typography utility classes */
+.text-fluid-xs { font-size: var(--step--2); }
+.text-fluid-sm { font-size: var(--step--1); }
+.text-fluid-base { font-size: var(--step-0); }
+.text-fluid-lg { font-size: var(--step-1); }
+.text-fluid-xl { font-size: var(--step-2); }
+.text-fluid-2xl { font-size: var(--step-3); }
+.text-fluid-3xl { font-size: var(--step-4); }
+.text-fluid-4xl { font-size: var(--step-5); }
+
+/* Tighten line-heights for headings on mobile */
+@media (max-width: 640px) {
+  .leading-tight-mobile { line-height: 1.15; }
 }
