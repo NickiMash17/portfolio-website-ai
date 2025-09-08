@@ -25,6 +25,27 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
   const [activeSection, setActiveSection] = React.useState('home');
   const lockoutRef = React.useRef(false);
 
+  // Accurate active section using IntersectionObserver
+  React.useEffect(() => {
+    const sections = ['home','about','projects','resume','contact'];
+    const elements = sections
+      .map(id => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      if (lockoutRef.current) return;
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => (b.intersectionRatio - a.intersectionRatio));
+      const target = (visible[0]?.target as HTMLElement | undefined);
+      if (target?.id) setActiveSection(prev => prev !== target.id ? target.id : prev);
+    }, { root: null, rootMargin: '-20% 0px -60% 0px', threshold: [0,0.25,0.5,0.75,1] });
+
+    elements.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   const navItems = [
     { href: '#home', label: 'Home', icon: <Home className="w-4 h-4" /> },
     { href: '#about', label: 'About', icon: <User className="w-4 h-4" /> },
@@ -33,58 +54,16 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
     { href: '#contact', label: 'Contact', icon: <Mail className="w-4 h-4" /> }
   ];
 
-  // Track active section on scroll with performance optimization and lockout
+  // Track active section handled by IntersectionObserver
   React.useEffect(() => {
-    const handleScroll = throttleScroll(() => {
-      if (lockoutRef.current) return;
-      const sections = navItems.map(item => item.href.substring(1));
-      const scrollPosition = window.scrollY + 100;
+    return () => {};
+  }, []);
 
-      let foundSection = '';
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            foundSection = section;
-            break;
-          }
-        }
-      }
-      setActiveSection(prev => prev !== foundSection ? foundSection : prev);
-    }, 200);
+  // Hash change handling disabled; IntersectionObserver manages state
+  React.useEffect(() => { return () => {}; }, []);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [navItems, throttleScroll]);
-
-  // Update active section on hash change, with lockout
-  React.useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
-      const sections = navItems.map(item => item.href.substring(1));
-      if (sections.includes(hash)) {
-        setActiveSection(prev => prev !== hash ? hash : prev);
-        lockoutRef.current = true;
-        setTimeout(() => { lockoutRef.current = false; }, 400);
-      }
-    };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, [navItems]);
-
-  // On initial mount, set active section based on hash
-  React.useEffect(() => {
-    const hash = window.location.hash.replace('#', '');
-    const sections = navItems.map(item => item.href.substring(1));
-    if (sections.includes(hash)) {
-      setActiveSection(hash);
-      lockoutRef.current = true;
-      setTimeout(() => { lockoutRef.current = false; }, 400);
-    } else {
-      setActiveSection('home');
-    }
-  }, [navItems]);
+  // Initial active section set to home; observer will update
+  React.useEffect(() => { setActiveSection("home"); }, []);
 
   return (
     <motion.nav

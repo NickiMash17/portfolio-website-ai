@@ -14,23 +14,13 @@ import {
   Grid3X3,
   Rocket,
   Clock,
-  Eye,
   Mail,
   FileText,
   X,
   Target,
   CheckCircle,
   BarChart3,
-  Star,
-  Award,
-  Zap,
-  Shield,
-  Cpu,
-  Database,
-  Globe,
-  Smartphone,
-  Monitor,
-  Laptop
+  Award
 } from 'lucide-react';
 
 interface Project {
@@ -414,6 +404,11 @@ const AIProjects: React.FC = () => {
 
   const openProjectModal = (project: Project) => {
     setSelectedProject(project);
+    setTimeout(() => {
+      const el = document.getElementById("project-modal-title");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 0);
     // prevent background scroll on mobile when modal is open
     document.body.style.overflow = 'hidden';
   };
@@ -677,7 +672,7 @@ const AIProjects: React.FC = () => {
               <div className="p-6 sm:p-8 border-b border-cyan-500/20">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-fluid-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3 sm:gap-4">
+                    <h3 id="project-modal-title" className="text-fluid-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3 sm:gap-4">
                       <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${getCategoryColor(selectedProject.category)} rounded-2xl flex items-center justify-center flex-shrink-0`}>
                         {React.createElement(getCategoryIcon(selectedProject.category), { className: 'w-5 h-5 sm:w-6 sm:h-6 text-white' })}
                       </div>
@@ -864,7 +859,7 @@ const AIProjects: React.FC = () => {
                       rel="noopener noreferrer"
                       className="px-4 py-3 btn-ai text-center text-sm font-bold rounded-xl flex items-center justify-center gap-2 group"
                     >
-                      <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+                      <ExternalLink className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
                       Live
                     </a>
                   )}
@@ -875,7 +870,7 @@ const AIProjects: React.FC = () => {
                       rel="noopener noreferrer"
                       className="px-4 py-3 btn-code text-center text-sm font-bold rounded-xl flex items-center justify-center gap-2 group"
                     >
-                      <Github className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+                      <Github className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
                       Code
                     </a>
                   )}
@@ -891,7 +886,7 @@ const AIProjects: React.FC = () => {
                       rel="noopener noreferrer"
                       className="flex-1 px-8 py-4 btn-ai text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
                     >
-                      <ExternalLink className="w-6 h-6 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform duration-300" />
+                      <ExternalLink className="w-8 h-8 sm:w-9 sm:h-9 group-hover:scale-110 transition-transform duration-300" />
                       Live Demo
                     </a>
                   )}
@@ -902,7 +897,7 @@ const AIProjects: React.FC = () => {
                       rel="noopener noreferrer"
                       className="flex-1 px-8 py-4 btn-code text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
                     >
-                      <Github className="w-6 h-6 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform duration-300" />
+                      <Github className="w-8 h-8 sm:w-9 sm:h-9 group-hover:scale-110 transition-transform duration-300" />
                       View Code
                     </a>
                   )}

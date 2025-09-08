@@ -17,14 +17,28 @@ interface Project {
   id: string;
   title: string;
   description: string;
+  longDescription: string;
+  image: string;
   technologies: string[];
   category: 'ai-ml' | 'cloud-azure' | 'full-stack' | 'devops' | 'innovation';
   difficulty: 'advanced' | 'expert' | 'pioneering';
   githubUrl: string;
   liveUrl?: string;
+  demoUrl?: string;
+  features: string[];
+  challenges: string[];
+  solutions: string[];
+  impact: string;
   teamSize: number;
   duration: string;
   status: 'completed' | 'in-progress' | 'planned';
+  architecture?: string;
+  metrics?: {
+    performance?: string;
+    users?: string;
+    uptime?: string;
+    efficiency?: string;
+  };
 }
 
 interface EnhancedProjectCardProps {
@@ -178,53 +192,39 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
             </span>
           </div>
           
-          {/* Enhanced Action Buttons with Better Accessibility */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-auto">
-            <motion.button
-              onClick={() => onViewDetails(project)}
-              className="w-full h-11 sm:h-12 px-5 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all duration-300 ring-1 ring-white/10 glass-ai hover:bg-cyan-500/15 hover:text-cyan-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98] group/btn"
-              aria-label={`View details for ${project.title}`}
-              title="View Details"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Eye className="w-7 h-7 sm:w-8 sm:h-8 group-hover/btn:scale-110 transition-transform duration-300" />
-              <span className="text-fluid-base sm:text-base">View Details</span>
-            </motion.button>
-            
+          {/* Primary Actions: Live and Code only */}
+          <div className="grid grid-cols-2 gap-3 mt-auto">
             {project.liveUrl && (
               <motion.a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full h-11 sm:h-12 px-5 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all duration-300 ring-1 ring-white/10 glass-devops hover:bg-blue-500/15 hover:text-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98] group/btn"
+                className="w-full h-12 sm:h-14 px-6 rounded-xl font-semibold text-white flex items-center justify-center gap-3 transition-all duration-300 ring-1 ring-white/10 glass-devops hover:bg-blue-500/20 hover:text-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98] group/btn"
                 aria-label={`Open live demo: ${project.title}`}
                 title="Live Demo"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <ExternalLink className="w-7 h-7 sm:w-8 sm:h-8 group-hover/btn:scale-110 transition-transform duration-300" />
-                <span className="text-fluid-base sm:text-base">Live Demo</span>
+                <ExternalLink className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.5] group-hover/btn:scale-110 transition-transform duration-300" />
+                <span className="text-base sm:text-lg font-bold">Live</span>
               </motion.a>
             )}
-            
             {project.githubUrl && (
               <motion.a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full h-11 sm:h-12 px-5 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all duration-300 ring-1 ring-white/10 glass-code hover:bg-purple-500/15 hover:text-purple-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98] group/btn"
+                className="w-full h-12 sm:h-14 px-6 rounded-xl font-semibold text-white flex items-center justify-center gap-3 transition-all duration-300 ring-1 ring-white/10 glass-code hover:bg-purple-500/20 hover:text-purple-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98] group/btn"
                 aria-label={`View source code: ${project.title}`}
-                title="View Code"
+                title="Code"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Github className="w-7 h-7 sm:w-8 sm:h-8 group-hover/btn:scale-110 transition-transform duration-300" />
-                <span className="text-fluid-base sm:text-base">Code</span>
+                <Github className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.5] group-hover/btn:scale-110 transition-transform duration-300" />
+                <span className="text-base sm:text-lg font-bold">Code</span>
               </motion.a>
             )}
-          </div>
-        </div>
+          </div></div>
       </div>
     </motion.div>
   );
