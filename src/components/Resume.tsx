@@ -56,7 +56,7 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
       {
         title: 'AI Model Trainer',
         company: 'Outlier, Remote',
-        period: 'October 2025 – December 2025',
+        period: 'October 2024 – December 2024',
         description: 'Created and refined 100+ AI prompts, improving model accuracy by 25%. Reduced debugging time for developers by 10 hours/week.'
       },
       {

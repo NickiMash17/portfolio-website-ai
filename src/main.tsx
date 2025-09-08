@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
+import ErrorBoundary from './components/ErrorBoundary';
 import './index.css'
 
 console.log('main.tsx starting...');
@@ -62,7 +63,9 @@ if (process.env.NODE_ENV === 'development') {
   console.log('Rendering in development mode with StrictMode...');
   root.render(
     <React.StrictMode>
+      <ErrorBoundary>
       <App />
+    </ErrorBoundary>
     </React.StrictMode>
   );
 } else {

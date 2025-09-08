@@ -5,6 +5,7 @@ import AIAbout from './components/AIAbout';
 import PerformanceOptimizer from './components/PerformanceOptimizer';
 import { Menu, X, Home, User, Briefcase, FileText, Mail, Mail as MailIcon, Heart, Zap, Github, Linkedin, Brain, MessageCircle, Sparkles, ArrowUp } from 'lucide-react';
 import { usePerformance } from './hooks/usePerformance';
+import AIPreloader from './components/AIPreloader';
 
 // Lazy load heavy components
 const Chatbot = lazy(() => import('./components/Chatbot'));
@@ -444,7 +445,7 @@ const Footer: React.FC = () => {
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-white text-base sm:text-lg">
-              <span>© 2024 Nicolette Mashaba. Made with</span>
+              <span>© 2025 Nicolette Mashaba. Made with</span>
               <Heart className="w-5 h-5 text-red-400 animate-pulse" />
               <span>and lots of</span>
               <Zap className="w-5 h-5 text-cyan-400" />
@@ -1073,10 +1074,18 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
 
 const App: React.FC = () => {
   console.log('App component mounting...');
+  const [showPreloader, setShowPreloader] = React.useState(true);
+  React.useEffect(() => {
+    const timer = setTimeout(() => setShowPreloader(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
   const { optimizeElement, debounceScroll, throttleScroll } = usePerformance({
     enableMonitoring: true,
     enableScrollOptimization: true
   });
+  if (showPreloader) {
+    return <AIPreloader onComplete={() => setShowPreloader(false)} />;
+  }
   return (
     <AppContent optimizeElement={optimizeElement} debounceScroll={debounceScroll} throttleScroll={throttleScroll} />
   );
