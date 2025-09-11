@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import ErrorBoundary from './components/ErrorBoundary';
 import './index.css'
+import { HelmetProvider } from 'react-helmet-async';
 
 console.log('main.tsx starting...');
 
@@ -63,12 +64,18 @@ if (process.env.NODE_ENV === 'development') {
   console.log('Rendering in development mode with StrictMode...');
   root.render(
     <React.StrictMode>
-      <ErrorBoundary>
-      <App />
-    </ErrorBoundary>
+      <HelmetProvider>
+        <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+      </HelmetProvider>
     </React.StrictMode>
   );
 } else {
   console.log('Rendering in production mode...');
-  root.render(<App />);
+  root.render(
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
+  );
 }

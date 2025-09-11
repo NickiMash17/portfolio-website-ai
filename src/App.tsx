@@ -6,6 +6,7 @@ import PerformanceOptimizer from './components/PerformanceOptimizer';
 import { Menu, X, Home, User, Briefcase, FileText, Mail, Mail as MailIcon, Heart, Zap, Github, Linkedin, Brain, MessageCircle, Sparkles, ArrowUp } from 'lucide-react';
 import { usePerformance } from './hooks/usePerformance';
 import AIPreloader from './components/AIPreloader';
+import { Helmet } from 'react-helmet-async';
 
 // Lazy load heavy components
 const Chatbot = lazy(() => import('./components/Chatbot'));
@@ -1054,9 +1055,20 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
 const App: React.FC = () => {
   console.log('App component mounting...');
   const [showPreloader, setShowPreloader] = React.useState(true);
+  const [currentSection, setCurrentSection] = React.useState<string>('');
   React.useEffect(() => {
     const timer = setTimeout(() => setShowPreloader(false), 1500);
     return () => clearTimeout(timer);
+  }, []);
+  // Track URL hash for per-section SEO
+  React.useEffect(() => {
+    const updateSectionFromHash = () => {
+      const hash = (window.location.hash || '').replace('#', '');
+      setCurrentSection(hash);
+    };
+    updateSectionFromHash();
+    window.addEventListener('hashchange', updateSectionFromHash);
+    return () => window.removeEventListener('hashchange', updateSectionFromHash);
   }, []);
   const { optimizeElement, debounceScroll, throttleScroll } = usePerformance({
     enableMonitoring: true,
@@ -1065,8 +1077,73 @@ const App: React.FC = () => {
   if (showPreloader) {
     return <AIPreloader onComplete={() => setShowPreloader(false)} />;
   }
+  const sectionMeta: Record<string, { title: string; description: string }> = {
+    home: {
+      title: 'Home | Nicolette Mashaba',
+      description: 'Explore my featured projects, skills, and how I build with Azure and AI.'
+    },
+    about: {
+      title: 'About | Nicolette Mashaba',
+      description: 'Software developer focused on full‑stack, Azure cloud, and AI-powered solutions.'
+    },
+    projects: {
+      title: 'Projects | Nicolette Mashaba',
+      description: 'Selected projects showcasing modern web, cloud, and AI implementations.'
+    },
+    resume: {
+      title: 'Resume | Nicolette Mashaba',
+      description: 'Experience, certifications, and education of a Microsoft Azure–certified developer.'
+    },
+    contact: {
+      title: 'Contact | Nicolette Mashaba',
+      description: 'Get in touch about software engineering roles, collaborations, or freelance work.'
+    }
+  };
+  const meta = sectionMeta[currentSection || ''];
   return (
-    <AppContent optimizeElement={optimizeElement} debounceScroll={debounceScroll} throttleScroll={throttleScroll} />
+    <>
+      <Helmet prioritizeSeoTags>
+        <title>Nicolette Mashaba | Software Developer & Microsoft Azure Certified</title>
+        <meta name="description" content="Software developer specializing in full‑stack development, cloud (Azure), AI solutions, and high‑performance web apps. View projects, resume, and contact Nicolette." />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://portfolio-ai-nicolette.surge.sh/" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://portfolio-ai-nicolette.surge.sh/" />
+        <meta property="og:site_name" content="Nicolette Mashaba" />
+        <meta property="og:title" content="Nicolette Mashaba | Software Developer" />
+        <meta property="og:description" content="Full‑stack & cloud (Azure) developer building performant, modern web apps with AI." />
+        <meta property="og:image" content="/images/nicolette-profile.jpg" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Nicolette Mashaba | Software Developer" />
+        <meta name="twitter:description" content="Full‑stack & cloud (Azure) developer building performant, modern web apps with AI." />
+        <meta name="twitter:image" content="/images/nicolette-profile.jpg" />
+
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Nicolette Mashaba',
+          url: 'https://portfolio-ai-nicolette.surge.sh/',
+          sameAs: [
+            'https://github.com/NickiMash17'
+          ],
+          jobTitle: 'Software Developer',
+          description: 'Full‑stack and Azure cloud developer building AI-powered, high‑performance web apps.'
+        })}</script>
+      </Helmet>
+      {meta && (
+        <Helmet prioritizeSeoTags>
+          <title>{meta.title}</title>
+          <meta name="description" content={meta.description} />
+          <meta property="og:title" content={meta.title} />
+          <meta property="og:description" content={meta.description} />
+          <meta name="twitter:title" content={meta.title} />
+          <meta name="twitter:description" content={meta.description} />
+        </Helmet>
+      )}
+      <AppContent optimizeElement={optimizeElement} debounceScroll={debounceScroll} throttleScroll={throttleScroll} />
+    </>
   );
 };
 

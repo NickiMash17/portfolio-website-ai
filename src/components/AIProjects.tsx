@@ -22,6 +22,7 @@ import {
   BarChart3,
   Award
 } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 interface Project {
   id: string;
@@ -418,8 +419,35 @@ const AIProjects: React.FC = () => {
     document.body.style.overflow = '';
   };
 
+  // Build JSON-LD for projects as an ItemList of CreativeWork
+  const siteBase = 'https://portfolio-ai-nicolette.surge.sh';
+  const projectsJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: projects.map((p, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      url: p.liveUrl || p.githubUrl || siteBase,
+      item: {
+        '@type': 'CreativeWork',
+        name: p.title,
+        description: p.description,
+        url: p.liveUrl || p.githubUrl || siteBase,
+        image: p.image && p.image.startsWith('http') ? p.image : (p.image || '/images/nicolette-profile.jpg'),
+        author: {
+          '@type': 'Person',
+          name: 'Nicolette Mashaba',
+          url: siteBase
+        }
+      }
+    }))
+  };
+
   return (
     <section id="projects" className="py-16 sm:py-20 relative overflow-hidden">
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(projectsJsonLd)}</script>
+      </Helmet>
       {/* Advanced Tech Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950" />
       
