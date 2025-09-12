@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Plus, 
   MessageCircle, 
   X,
+  Plus,
   Sparkles
 } from 'lucide-react';
 
@@ -12,6 +12,10 @@ interface FloatingActionMenuProps {
 }
 
 const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' }) => {
+  const [isTouchDevice] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  });
   const [isOpen, setIsOpen] = useState(false);
   const [activeAction, setActiveAction] = useState<string | null>(null);
 
@@ -57,15 +61,17 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
             className="absolute bottom-20 right-0 mb-4"
           >
             <motion.button
-              whileHover={{ scale: 1.05, x: -5 }}
-              whileTap={{ scale: 0.95 }}
+              {...(!isTouchDevice && {
+                whileHover: { scale: 1.05, x: -5 },
+                whileTap: { scale: 0.95 }
+              })}
               onClick={openChatbot}
               className="group relative flex items-center gap-4 px-6 py-4 
                 bg-gradient-to-r from-cyan-500 to-blue-500 
                 text-white rounded-2xl shadow-2xl 
                 border border-white/20 backdrop-blur-sm
                 transition-all duration-300 hover:shadow-cyan-500/25
-                w-56 h-16"
+                w-full sm:w-56 h-16"
             >
               {/* Label */}
               <span className="text-sm font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -83,11 +89,14 @@ const FloatingActionMenu: React.FC<FloatingActionMenuProps> = ({ className = '' 
 
       {/* Main Toggle Button */}
       <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        {...(!isTouchDevice && {
+          whileHover: { scale: 1.1 },
+          whileTap: { scale: 0.9 }
+        })}
         onClick={toggleMenu}
+        aria-label={isOpen ? "Close menu" : "Open menu"}
         className={`
-          w-20 h-20 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 
+          w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 
           rounded-2xl shadow-2xl border-2 border-white/20 
           flex items-center justify-center text-white
           transition-all duration-300 hover:shadow-cyan-500/25

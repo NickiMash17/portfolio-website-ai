@@ -4,9 +4,17 @@ import AIHero from './components/AIHero';
 import AIAbout from './components/AIAbout';
 import PerformanceOptimizer from './components/PerformanceOptimizer';
 import { Menu, X, Home, User, Briefcase, FileText, Mail, Mail as MailIcon, Heart, Zap, Github, Linkedin, Brain, MessageCircle, Sparkles, ArrowUp } from 'lucide-react';
-import { usePerformance } from './hooks/usePerformance';
 import AIPreloader from './components/AIPreloader';
 import { Helmet } from 'react-helmet-async';
+import { usePerformance } from './hooks/usePerformance';
+
+// Custom Types
+interface NavigationProps {}
+
+interface AppContentProps {
+  optimizeElement: (element: HTMLElement) => void;
+  debounceScroll: (callback: () => void, delay?: number) => void;
+}
 
 // Lazy load heavy components
 const Chatbot = lazy(() => import('./components/Chatbot'));
@@ -21,7 +29,7 @@ const LoadingSpinner: React.FC = () => (
   </div>
 );
 
-const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) => {
+const Navigation: React.FC<NavigationProps> = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState('home');
   const lockoutRef = React.useRef(false);
@@ -86,8 +94,8 @@ const Navigation: React.FC<{ throttleScroll: Function }> = ({ throttleScroll }) 
               <Brain className="w-7 h-7 text-white" />
             </div>
             <div>
-              <span className="text-2xl font-bold text-white font-orbitron tracking-wider">NICOLETTE</span>
-              <p className="text-xs text-cyan-400 font-semibold">SOFTWARE DEVELOPER</p>
+              <span className="text-xl sm:text-2xl font-bold text-white font-orbitron tracking-wider">NICOLETTE</span>
+              <p className="text-xs sm:text-sm text-cyan-400 font-semibold tracking-wide">SOFTWARE DEVELOPER</p>
             </div>
           </motion.div>
 
@@ -290,9 +298,9 @@ const Footer: React.FC = () => {
         ))}
       </div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-20">
         {/* Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
           {/* Brand */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -458,12 +466,15 @@ interface Particle {
   connections: number[];
 }
 
-const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function, throttleScroll: Function }> = ({ optimizeElement, debounceScroll, throttleScroll }) => {
+const AppContent: React.FC<AppContentProps> = ({ optimizeElement, debounceScroll }) => {
   console.log('AppContent component rendered!');
 
-  const scrollToTop = debounceScroll(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 100);
+  const scrollToTop = React.useCallback((e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    debounceScroll(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  }, [debounceScroll]);
 
   // Enhanced particle background with AI/tech themes
   React.useEffect(() => {
@@ -657,7 +668,7 @@ const AppContent: React.FC<{ optimizeElement: Function, debounceScroll: Function
       
       
       {/* Navigation */}
-      <Navigation throttleScroll={throttleScroll} />
+      <Navigation />
 
       {/* Main Content */}
       <main className="relative z-10">
@@ -1070,9 +1081,10 @@ const App: React.FC = () => {
     window.addEventListener('hashchange', updateSectionFromHash);
     return () => window.removeEventListener('hashchange', updateSectionFromHash);
   }, []);
-  const { optimizeElement, debounceScroll, throttleScroll } = usePerformance({
+  const { optimizeElement, debounceScroll } = usePerformance({
     enableMonitoring: true,
-    enableScrollOptimization: true
+    enableScrollOptimization: true,
+    enableMemoryCleanup: true
   });
   if (showPreloader) {
     return <AIPreloader onComplete={() => setShowPreloader(false)} />;
@@ -1142,7 +1154,7 @@ const App: React.FC = () => {
           <meta name="twitter:description" content={meta.description} />
         </Helmet>
       )}
-      <AppContent optimizeElement={optimizeElement} debounceScroll={debounceScroll} throttleScroll={throttleScroll} />
+      <AppContent optimizeElement={optimizeElement} debounceScroll={debounceScroll} />
     </>
   );
 };

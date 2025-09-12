@@ -376,10 +376,40 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
   scroll-behavior: smooth;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  /* Improve touch targets */
+  a, button {
+    padding: 0.75rem;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Reduce motion on mobile */
+  .animate-pulse {
+    animation-duration: 3s;
+  }
+
+  /* Better text spacing */
+  p, li {
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  /* Improved mobile scrolling */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 body {
@@ -573,7 +603,7 @@ textarea:focus {
   }
 }
 
-/* Responsive Design */
+/* Enhanced Responsive Design */
 @media (max-width: 768px) {
   .ai-neural-glow,
   .ai-data-flow,
@@ -587,6 +617,34 @@ textarea:focus {
   
   .neural-node {
     animation-duration: 4s;
+  }
+
+  /* Enhanced touch targets */
+  button, 
+  a, 
+  input, 
+  select, 
+  textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Improved spacing for mobile */
+  .section-padding {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  /* Better text readability */
+  p {
+    font-size: var(--step-0);
+    line-height: 1.6;
+  }
+
+  /* Improved navigation spacing */
+  nav a {
+    padding: 0.75rem;
+    margin: 0.25rem 0;
   }
 }
 

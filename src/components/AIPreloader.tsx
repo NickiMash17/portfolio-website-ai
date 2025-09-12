@@ -127,7 +127,7 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
         </div>
         
         {/* Enhanced Text with Professional Typography */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 sm:mb-3 tracking-tight">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 tracking-tight">
           Nicolette Mashaba
         </h2>
         <p className="text-base sm:text-lg md:text-xl text-cyan-300 mb-8 sm:mb-10 font-medium">
