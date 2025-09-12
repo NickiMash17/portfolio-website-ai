@@ -4,6 +4,8 @@ import App from './App.tsx'
 import ErrorBoundary from './components/ErrorBoundary';
 import './index.css'
 import { HelmetProvider } from 'react-helmet-async';
+import { ThemeProvider } from './contexts/ThemeContext';
+import ThemeWrapper from './components/ThemeWrapper';
 
 console.log('main.tsx starting...');
 
@@ -28,8 +30,9 @@ const initializeTheme = () => {
   const savedTheme = localStorage.getItem('theme');
   const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   
-  // Default to light mode for better UX
-  const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+  // Force single brand theme (LockedIn AI style) — ignore any saved theme
+  const theme = 'dark';
+  try { localStorage.setItem('theme', theme); } catch {}
   
   // Set initial theme
   document.documentElement.setAttribute('data-theme', theme);
@@ -66,8 +69,12 @@ if (process.env.NODE_ENV === 'development') {
     <React.StrictMode>
       <HelmetProvider>
         <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
+          <ThemeProvider>
+            <ThemeWrapper>
+              <App />
+            </ThemeWrapper>
+          </ThemeProvider>
+        </ErrorBoundary>
       </HelmetProvider>
     </React.StrictMode>
   );
@@ -75,7 +82,11 @@ if (process.env.NODE_ENV === 'development') {
   console.log('Rendering in production mode...');
   root.render(
     <HelmetProvider>
-      <App />
+      <ThemeProvider>
+        <ThemeWrapper>
+          <App />
+        </ThemeWrapper>
+      </ThemeProvider>
     </HelmetProvider>
   );
 }

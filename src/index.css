@@ -10,9 +10,9 @@
 /* CSS Custom Properties for theming */
 :root {
   /* Dark theme defaults */
-  --bg-primary: transparent;
-  --bg-secondary: transparent;
-  --bg-tertiary: transparent;
+  --bg-primary: #0B1220;
+  --bg-secondary: #0E1726;
+  --bg-tertiary: #102038;
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
   --text-muted: #94a3b8;
@@ -21,26 +21,26 @@
   --shadow-color: rgba(0, 0, 0, 0.3);
   --shadow-hover: rgba(0, 0, 0, 0.4);
   
-  /* AI/ML Color Palette */
-  --ai-primary: #00d4ff;
-  --ai-secondary: #38e8f8;
-  --ai-accent: #2dd4bf;
-  --ai-glow: rgba(0, 212, 255, 0.3);
-  --ai-pulse: rgba(56, 232, 248, 0.5);
+  /* LockedIn AI-inspired palette */
+  --ai-primary: #00E5FF;      /* electric cyan */
+  --ai-secondary: #00C2FF;    /* bright blue */
+  --ai-accent: #8B5CF6;       /* purple accent */
+  --ai-glow: rgba(0, 229, 255, 0.35);
+  --ai-pulse: rgba(0, 194, 255, 0.5);
   
-  /* DevOps Color Palette */
-  --devops-primary: #0078d4;
-  --devops-secondary: #106ebe;
-  --devops-accent: #005a9e;
+  /* Map DevOps tones to brand blues */
+  --devops-primary: #00C2FF;
+  --devops-secondary: #0099E6;
+  --devops-accent: #0077CC;
   --devops-success: #107c10;
   --devops-warning: #ff8c00;
   --devops-error: #d13438;
   
-  /* Code/Engineering Palette */
-  --code-primary: #9333ea;
-  --code-secondary: #c084fc;
-  --code-accent: #a855f7;
-  --code-syntax: #e879f9;
+  /* Map code tones to brand purple */
+  --code-primary: #8B5CF6;
+  --code-secondary: #A78BFA;
+  --code-accent: #7C3AED;
+  --code-syntax: #C4B5FD;
   
   /* Animation variables */
   --animation-duration: 0.3s;
@@ -691,3 +691,43 @@ textarea:focus {
 @media (max-width: 640px) {
   .leading-tight-mobile { line-height: 1.15; }
 }
+
+/* =============================
+  Brand Utilities (LockedIn AI)
+  ============================= */
+/* App background gradient using theme bg tokens */
+.bg-app-gradient {
+  background: linear-gradient(135deg,
+    var(--bg-primary) 0%,
+    var(--bg-secondary) 50%,
+    var(--bg-tertiary) 100%
+  );
+}
+
+/* Brand surface and accents */
+.text-brand { color: var(--ai-primary) !important; }
+.border-brand { border-color: var(--ai-secondary) !important; }
+.bg-brand { background-color: var(--ai-primary) !important; }
+.bg-brand-secondary { background-color: var(--ai-secondary) !important; }
+
+/* Brand gradient for buttons/active states */
+.bg-brand-gradient {
+  background-image: linear-gradient(135deg, var(--ai-primary), var(--ai-secondary));
+}
+
+/* Simple hover helpers */
+.hover-brand:hover { color: var(--ai-primary) !important; }
+.hover-bg-brand:hover { background-color: var(--ai-glow) !important; }
+
+/* Subtle grid background like LockedIn AI */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px;
+  background-position: -1px -1px, -1px -1px;
+}
+
+/* Brand ring / border helpers */
+.ring-brand { box-shadow: 0 0 0 3px var(--ai-primary) inset; }
+.border-brand-20 { border-color: color-mix(in oklab, var(--ai-primary) 20%, transparent); }

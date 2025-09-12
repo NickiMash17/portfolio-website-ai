@@ -88,140 +88,80 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
 
   return (
     <section id="contact" className={`py-20 relative overflow-hidden ${className}`}>
-      {/* Advanced Tech Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950" />
+      {/* Background Layers */}
+      <div className="absolute inset-0 bg-app-gradient -z-10" />
       
-      {/* Azure Cloud Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,#0078d4_0%,transparent_50%),radial-gradient(circle_at_75%_75%,#00bcf2_0%,transparent_50%),radial-gradient(circle_at_50%_50%,#40e0d0_0%,transparent_50%)]" />
-      </div>
-      
-      {/* DevOps Pipeline Visualization */}
-      <div className="absolute inset-0 opacity-20">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
-            style={{
-              left: '0%',
-              top: `${15 + i * 12}%`,
-              width: '100%',
-            }}
-            animate={{
-              opacity: [0, 1, 0],
-              scaleX: [0, 1, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              delay: i * 0.8,
-            }}
-          />
-        ))}
-      </div>
-      
-      {/* Code Matrix Effect */}
-      <div className="absolute inset-0 opacity-15">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-green-400 font-mono text-xs"
-            style={{
-              left: `${(i * 5) % 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-          >
-            {['const', 'function', 'async', 'await', 'import', 'export', 'class', 'interface'][i % 8]}
-          </motion.div>
-        ))}
-      </div>
-      
-      {/* Advanced Neural Network Grid */}
-      <div className="absolute inset-0 opacity-25">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,120,212,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(0,120,212,0.15)_1px,transparent_1px)] bg-[size:60px_60px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.1)_1px,transparent_1px)] bg-[size:20px_20px] animate-pulse" />
+      {/* Network Connectivity Visualization */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <svg className="w-full h-full">
+          {/* Communication Network */}
+          {[...Array(8)].map((_, i) => (
+            <motion.circle
+              key={`network-${i}`}
+              cx={`${25 + (i % 3) * 25}%`}
+              cy={`${30 + Math.floor(i / 3) * 20}%`}
+              r="6"
+              fill="none"
+              stroke="var(--ai-secondary)"
+              strokeWidth="2"
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.3, 0.7, 0.3]
+              }}
+              transition={{
+                duration: 3 + i * 0.3,
+                delay: i * 0.4,
+                repeat: Infinity
+              }}
+            />
+          ))}
+          {/* Connection Lines */}
+          {[...Array(6)].map((_, i) => (
+            <motion.line
+              key={`net-line-${i}`}
+              x1={`${25 + (i % 2) * 25}%`}
+              y1={`${30 + i * 10}%`}
+              x2={`${50 + (i % 2) * 25}%`}
+              y2={`${50 + i * 8}%`}
+              stroke="var(--ai-secondary)"
+              strokeWidth="1"
+              strokeDasharray="6,6"
+              animate={{
+                pathLength: [0, 1, 0],
+                opacity: [0.2, 0.6, 0.2]
+              }}
+              transition={{
+                duration: 5,
+                delay: i * 0.7,
+                repeat: Infinity
+              }}
+            />
+          ))}
+        </svg>
       </div>
 
-      {/* Tech Stack Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Azure Hexagons */}
-        {[...Array(8)].map((_, i) => (
+      {/* Floating Communication Tech */}
+      <div className="absolute inset-0 pointer-events-none">
+        {['GitHub', 'LinkedIn', 'Email', 'Slack', 'Teams', 'Discord'].map((platform, i) => (
           <motion.div
-            key={`azure-${i}`}
-            className="absolute w-24 h-24 border-2 border-blue-500/20"
+            key={platform}
+            className="absolute text-xs font-mono text-[var(--ai-secondary)]/60 bg-[var(--ai-secondary)]/10 px-2 py-1 rounded border border-[var(--ai-secondary)]/40"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
+              right: `${10 + (i * 13)}%`,
+              top: `${25 + (i % 2) * 35}%`,
             }}
             animate={{
-              x: [0, 50, 0],
-              y: [0, -75, 0],
-              rotate: [0, 180, 360],
-              scale: [1, 1.3, 1],
+              y: [-5, 5, -5],
+              opacity: [0.6, 0.9, 0.6],
             }}
             transition={{
-              duration: 15 + i * 2,
+              duration: 4 + i * 0.3,
               repeat: Infinity,
-              delay: i * 0.7,
-            }}
-          />
-        ))}
-        
-        {/* DevOps Gears */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={`gear-${i}`}
-            className="absolute w-16 h-16 border border-green-400/25 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 12 + i,
-              repeat: Infinity,
-              delay: i * 0.4,
+              ease: "easeInOut"
             }}
           >
-            <div className="absolute inset-2 border border-green-400/25 rounded-full" />
-            <div className="absolute inset-4 border border-green-400/25 rounded-full" />
+            {platform}
           </motion.div>
-        ))}
-        
-        {/* AI Neural Nodes */}
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={`node-${i}`}
-            className="absolute w-8 h-8 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.3, 0.8, 0.3],
-              x: [0, 30, 0],
-              y: [0, -30, 0],
-            }}
-            transition={{
-              duration: 8 + i,
-              repeat: Infinity,
-              delay: i * 0.3,
-            }}
-          />
         ))}
       </div>
       
@@ -234,10 +174,8 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 font-orbitron">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Get In Touch
-            </span>
+          <h2 className="tech-title leading-tight-mobile text-fluid-3xl sm:text-5xl font-bold mb-4 sm:mb-6">
+            CONTACT
           </h2>
           <p className="text-xl text-white max-w-3xl mx-auto leading-relaxed">
             Ready to collaborate on your next project? Let's discuss how we can bring your ideas to life with cutting-edge technology.
@@ -253,9 +191,9 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            <div className="glass-ai rounded-3xl p-8 border border-cyan-500/20 shadow-2xl">
+            <div className="glass-ai rounded-3xl p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center">
+                <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
                   <Send className="w-4 h-4 text-white" />
                 </div>
                 Send Message
@@ -274,7 +212,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300"
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--ai-primary)] focus:border-transparent transition-all duration-300"
                       placeholder="Your full name"
                     />
                   </div>
@@ -289,7 +227,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300"
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--ai-primary)] focus:border-transparent transition-all duration-300"
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -306,7 +244,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300"
+                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--ai-primary)] focus:border-transparent transition-all duration-300"
                     placeholder="What's this about?"
                   />
                 </div>
@@ -322,7 +260,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                     onChange={handleInputChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300 resize-none"
+                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--ai-primary)] focus:border-transparent transition-all duration-300 resize-none"
                     placeholder="Tell me about your project..."
                   />
                 </div>
@@ -332,7 +270,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-xl hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                  className="w-full py-4 bg-brand-gradient text-white font-bold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                 >
                   {isSubmitting ? (
                     <>
@@ -374,9 +312,9 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
             className="space-y-8"
           >
             {/* Contact Methods */}
-            <div className="glass-ai rounded-3xl p-8 border border-cyan-500/20 shadow-2xl">
+            <div className="glass-ai rounded-3xl p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
                   <Mail className="w-4 h-4 text-white" />
                 </div>
                 Contact Information
@@ -390,10 +328,10 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                     target={method.href.startsWith('http') ? '_blank' : undefined}
                     rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     whileHover={{ scale: 1.02, x: 10 }}
-                    className="block p-4 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-xl border border-gray-600/50 hover:border-cyan-500/50 transition-all duration-300 group"
+                    className="block p-4 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-xl border border-gray-600/50 hover:border-[var(--ai-primary)]/50 transition-all duration-300 group"
                   >
                     <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 bg-gradient-to-r ${method.color} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                      <div className={`w-12 h-12 bg-brand-gradient rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                         <method.icon className="w-6 h-6 text-white" />
                       </div>
                       <div>
@@ -407,9 +345,9 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
             </div>
 
             {/* Availability Status */}
-            <div className="glass-ai rounded-3xl p-8 border border-cyan-500/20 shadow-2xl">
+            <div className="glass-ai rounded-3xl p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
                   <Clock className="w-4 h-4 text-white" />
                 </div>
                 Availability
@@ -431,9 +369,9 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
             </div>
 
             {/* Additional Information */}
-            <div className="glass-ai rounded-3xl p-8 border border-cyan-500/20 shadow-2xl">
+            <div className="glass-ai rounded-3xl p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+                <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
                   <Sparkles className="w-4 h-4 text-white" />
                 </div>
                 Why Work With Me?
@@ -441,28 +379,28 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
               
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Microsoft Azure Certified</p>
                     <p className="text-white text-sm">Professional cloud computing expertise</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">AI/ML Specialization</p>
                     <p className="text-white text-sm">Cutting-edge machine learning solutions</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Full-Stack Development</p>
                     <p className="text-white text-sm">End-to-end application development</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">DevOps Expertise</p>
                     <p className="text-white text-sm">Scalable and maintainable solutions</p>

@@ -16,7 +16,6 @@ import {
   Rocket,
   Lightbulb
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 type TabId = 'overview' | 'experience' | 'skills' | 'certifications';
 
@@ -171,90 +170,15 @@ const AIAbout: React.FC = () => {
   };
 
   return (
-    <section id="about" className="py-20 relative overflow-hidden">
-      {/* Background Layers */}
-      <div className="absolute inset-0 bg-app-gradient -z-10" />
-      
-      {/* AI Neural Network Visualization */}
-      <div className="absolute inset-0 pointer-events-none opacity-20">
-        <svg className="w-full h-full">
-          {/* Neural Network Nodes */}
-          {[...Array(12)].map((_, i) => (
-            <motion.circle
-              key={`neural-${i}`}
-              cx={`${20 + (i % 4) * 20}%`}
-              cy={`${25 + Math.floor(i / 4) * 25}%`}
-              r="4"
-              fill="var(--ai-primary)"
-              animate={{
-                scale: [1, 1.4, 1],
-                opacity: [0.4, 0.8, 0.4]
-              }}
-              transition={{
-                duration: 3 + i * 0.2,
-                delay: i * 0.3,
-                repeat: Infinity
-              }}
-            />
-          ))}
-          {/* Neural Connections */}
-          {[...Array(8)].map((_, i) => (
-            <motion.line
-              key={`connection-${i}`}
-              x1={`${20 + (i % 3) * 20}%`}
-              y1={`${25 + Math.floor(i / 3) * 25}%`}
-              x2={`${40 + (i % 3) * 20}%`}
-              y2={`${50 + Math.floor(i / 3) * 25}%`}
-              stroke="var(--ai-accent)"
-              strokeWidth="1"
-              strokeDasharray="3,3"
-              animate={{
-                pathLength: [0, 1, 0],
-                opacity: [0.2, 0.6, 0.2]
-              }}
-              transition={{
-                duration: 4,
-                delay: i * 0.5,
-                repeat: Infinity
-              }}
-            />
-          ))}
-        </svg>
-      </div>
-
-      {/* Floating Data Science Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {['TensorFlow', 'PyTorch', 'Scikit-learn', 'Pandas', 'NumPy', 'OpenAI'].map((lib, i) => (
-          <motion.div
-            key={lib}
-            className="absolute text-xs font-mono text-[var(--ai-accent)]/30 bg-[var(--ai-accent)]/5 px-2 py-1 rounded border border-[var(--ai-accent)]/20"
-            style={{
-              right: `${5 + (i * 12)}%`,
-              top: `${20 + (i % 3) * 20}%`,
-            }}
-            animate={{
-              y: [-6, 6, -6],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 5 + i * 0.3,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            {lib}
-          </motion.div>
-        ))}
-      </div>
-
+    <section id="about" className="py-20 relative">
       {/* Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="tech-title leading-tight-mobile text-fluid-3xl sm:text-5xl font-bold mb-4 sm:mb-6">
-            ABOUT ME
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+            About Me
           </h2>
-          <p className="mt-4 text-lg sm:text-xl text-secondary">
+          <p className="mt-4 text-lg sm:text-xl text-slate-300">
             Software developer with a passion for AI and cloud technologies.
           </p>
         </div>
@@ -285,16 +209,16 @@ const AIAbout: React.FC = () => {
               {/* Overview Content */}
               <div className="space-y-6">
                 <div className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50">
-                  <h3 className="text-2xl font-bold text-primary mb-4">Career Focus</h3>
-                  <p className="text-secondary leading-relaxed">
+                  <h3 className="text-2xl font-bold text-white mb-4">Career Focus</h3>
+                  <p className="text-slate-300 leading-relaxed">
                     Specializing in full-stack development with a focus on AI integration and cloud architecture. 
                     I blend technical expertise with creative problem-solving to build innovative solutions.
                   </p>
                 </div>
                 
                 <div className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50">
-                  <h3 className="text-2xl font-bold text-primary mb-4">Technical Vision</h3>
-                  <p className="text-secondary leading-relaxed">
+                  <h3 className="text-2xl font-bold text-white mb-4">Technical Vision</h3>
+                  <p className="text-slate-300 leading-relaxed">
                     Leveraging Azure cloud services and AI technologies to create scalable, intelligent applications. 
                     Committed to writing clean, maintainable code and implementing best practices.
                   </p>
@@ -308,14 +232,14 @@ const AIAbout: React.FC = () => {
                     key={idx}
                     className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50"
                   >
-                    <h4 className="text-lg font-semibold text-primary mb-3">{category.category}</h4>
+                    <h4 className="text-lg font-semibold text-white mb-3">{category.category}</h4>
                     <div className="space-y-3">
                       {category.items.slice(0, 2).map((skill, skillIdx) => (
                         <div key={skillIdx} className="flex items-center gap-3">
                           <div className={`w-8 h-8 rounded-lg bg-gradient-to-r ${skill.color} flex items-center justify-center`}>
                             <skill.icon className="w-4 h-4 text-white" />
                           </div>
-                          <span className="text-secondary">{skill.name}</span>
+                          <span className="text-slate-300">{skill.name}</span>
                         </div>
                       ))}
                     </div>
@@ -338,17 +262,17 @@ const AIAbout: React.FC = () => {
                       <job.icon className="w-6 h-6 text-white" />
                     </div>
                     <div className="space-y-2">
-                      <h3 className="text-xl font-bold text-primary">{job.title}</h3>
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-secondary">
+                      <h3 className="text-xl font-bold text-white">{job.title}</h3>
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-300">
                         <span>{job.company}</span>
                         <span className="text-[var(--ai-primary)]">{job.year}</span>
                       </div>
-                      <p className="text-secondary">{job.description}</p>
+                      <p className="text-slate-300">{job.description}</p>
                       <div className="flex flex-wrap gap-2 mt-4">
                         {job.technologies.map((tech, techIdx) => (
                           <span
                             key={techIdx}
-                            className="px-3 py-1 text-sm bg-slate-700/50 text-secondary rounded-lg"
+                            className="px-3 py-1 text-sm bg-slate-700/50 text-slate-300 rounded-lg"
                           >
                             {tech}
                           </span>
@@ -366,7 +290,7 @@ const AIAbout: React.FC = () => {
             <div className="space-y-10">
               {skills.map((category, idx) => (
                 <div key={idx} className="space-y-6">
-                  <h3 className="text-2xl font-bold text-primary">{category.category}</h3>
+                  <h3 className="text-2xl font-bold text-white">{category.category}</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {category.items.map((skill, skillIdx) => (
                       <div
@@ -378,7 +302,7 @@ const AIAbout: React.FC = () => {
                             <skill.icon className="w-6 h-6 text-white" />
                           </div>
                           <div>
-                            <h4 className="font-semibold text-primary">{skill.name}</h4>
+                            <h4 className="font-semibold text-white">{skill.name}</h4>
                             <div className="mt-1 bg-slate-700/50 rounded-full h-2">
                               <div
                                 className={`h-full rounded-full bg-gradient-to-r ${skill.color}`}
@@ -408,13 +332,13 @@ const AIAbout: React.FC = () => {
                       <cert.icon className="w-6 h-6 text-white" />
                     </div>
                     <div className="space-y-2">
-                      <h3 className="text-xl font-bold text-primary">{cert.name}</h3>
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-secondary">
+                      <h3 className="text-xl font-bold text-white">{cert.name}</h3>
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-300">
                         <span>{cert.issuer}</span>
                         <span className="text-[var(--ai-primary)]">{cert.date}</span>
                         <span className="px-2 py-1 bg-slate-700/50 rounded-lg">{cert.badge}</span>
                       </div>
-                      <p className="text-secondary">{cert.description}</p>
+                      <p className="text-slate-300">{cert.description}</p>
                       {cert.url && (
                         <a
                           href={cert.url}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Download,
   Mail,
@@ -114,158 +114,73 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
 
   return (
     <section id="resume" className={`py-20 relative overflow-hidden ${className}`}>
-      {/* Advanced Tech Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950" />
+      {/* Background Layers */}
+      <div className="absolute inset-0 bg-app-gradient -z-10" />
       
-      {/* Azure Cloud Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,#0078d4_0%,transparent_50%),radial-gradient(circle_at_75%_75%,#00bcf2_0%,transparent_50%),radial-gradient(circle_at_50%_50%,#40e0d0_0%,transparent_50%)]" />
-      </div>
-      
-      {/* DevOps Pipeline Visualization */}
-      <div className="absolute inset-0 opacity-20">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
-            style={{
-              left: '0%',
-              top: `${15 + i * 12}%`,
-              width: '100%',
-            }}
-            animate={{
-              opacity: [0, 1, 0],
-              scaleX: [0, 1, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              delay: i * 0.8,
-            }}
-          />
-        ))}
-      </div>
-      
-      {/* Code Matrix Effect */}
-      <div className="absolute inset-0 opacity-15">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-green-400 font-mono text-xs"
-            style={{
-              left: `${(i * 5) % 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-          >
-            {['const', 'function', 'async', 'await', 'import', 'export', 'class', 'interface'][i % 8]}
-          </motion.div>
-        ))}
-      </div>
-      
-      {/* Advanced Neural Network Grid */}
-      <div className="absolute inset-0 opacity-25">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,120,212,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(0,120,212,0.15)_1px,transparent_1px)] bg-[size:60px_60px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.1)_1px,transparent_1px)] bg-[size:20px_20px] animate-pulse" />
+      {/* Azure Cloud Architecture Visualization */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <svg className="w-full h-full">
+          {/* Cloud Service Connections */}
+          {[...Array(6)].map((_, i) => (
+            <motion.rect
+              key={`service-${i}`}
+              x={`${15 + i * 12}%`}
+              y={`${30 + (i % 2) * 30}%`}
+              width="60"
+              height="20"
+              rx="4"
+              fill="none"
+              stroke="var(--ai-primary)"
+              strokeWidth="1"
+              strokeDasharray="4,4"
+              animate={{
+                strokeDashoffset: [0, -8, 0],
+                opacity: [0.3, 0.7, 0.3]
+              }}
+              transition={{
+                duration: 4,
+                delay: i * 0.6,
+                repeat: Infinity
+              }}
+            />
+          ))}
+        </svg>
       </div>
 
-      {/* Tech Stack Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Azure Hexagons */}
-        {[...Array(8)].map((_, i) => (
+      {/* Floating Certifications */}
+      <div className="absolute inset-0 pointer-events-none">
+        {['AZ-204', 'DP-900', 'Azure DevOps', 'Kubernetes', 'Docker Certified', 'AWS'].map((cert, i) => (
           <motion.div
-            key={`azure-${i}`}
-            className="absolute w-24 h-24 border-2 border-blue-500/20"
+            key={cert}
+            className="absolute text-xs font-mono text-[var(--ai-primary)]/60 bg-[var(--ai-primary)]/100 px-2 py-1 rounded border border-[var(--ai-primary)]440"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
+              left: `${8 + (i * 14)}%`,
+              bottom: `${15 + (i % 2) * 25}%`,
             }}
             animate={{
-              x: [0, 50, 0],
-              y: [0, -75, 0],
-              rotate: [0, 180, 360],
-              scale: [1, 1.3, 1],
+              y: [-4, 4, -4],
+              opacity: [0.6, 0.9, 0.6],
             }}
             transition={{
-              duration: 15 + i * 2,
+              duration: 4 + i * 0.2,
               repeat: Infinity,
-              delay: i * 0.7,
-            }}
-          />
-        ))}
-        
-        {/* DevOps Gears */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={`gear-${i}`}
-            className="absolute w-16 h-16 border border-green-400/25 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 12 + i,
-              repeat: Infinity,
-              delay: i * 0.4,
+              ease: "easeInOut"
             }}
           >
-            <div className="absolute inset-2 border border-green-400/25 rounded-full" />
-            <div className="absolute inset-4 border border-green-400/25 rounded-full" />
+            {cert}
           </motion.div>
         ))}
-        
-        {/* AI Neural Nodes */}
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={`node-${i}`}
-            className="absolute w-8 h-8 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.3, 0.8, 0.3],
-              x: [0, 30, 0],
-              y: [0, -30, 0],
-            }}
-            transition={{
-              duration: 8 + i,
-              repeat: Infinity,
-              delay: i * 0.3,
-            }}
-          />
-        ))}
       </div>
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 font-orbitron">
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              Resume
-            </span>
+          <h2 className="tech-title leading-tight-mobile text-fluid-3xl sm:text-5xl font-bold mb-4 sm:mb-6">
+            RESUME
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
             Download my resume to learn more about my experience, skills, and achievements in software engineering and AI.
           </p>
         </motion.div>
@@ -279,17 +194,17 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
             viewport={{ once: true }}
             className="lg:col-span-2"
           >
-            <div className="glass-ai rounded-3xl p-8 border border-cyan-500/20 shadow-2xl">
+            <div className="glass-ai rounded-3xl p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
+                  <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
                     <FileText className="w-4 h-4 text-white" />
                   </div>
                   Resume Preview
                 </h3>
                 <div className="flex items-center gap-2">
-                  <Eye className="w-5 h-5 text-cyan-400" />
-                  <span className="text-cyan-400 text-sm font-semibold">Interactive Preview</span>
+                  <Eye className="w-5 h-5 text-[var(--ai-primary)]" />
+                  <span className="text-[var(--ai-primary)] text-sm font-semibold">Interactive Preview</span>
                 </div>
               </div>
 
@@ -432,9 +347,9 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
             className="space-y-6"
           >
             {/* Format Selection */}
-            <div className="glass-ai rounded-3xl p-6 border border-cyan-500/20 shadow-2xl">
+            <div className="glass-ai rounded-3xl p-6 border border-[var(--ai-primary)]/20 shadow-2xl">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                <div className="w-6 h-6 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
+                <div className="w-6 h-6 bg-brand-gradient rounded-lg flex items-center justify-center">
                   <Download className="w-3 h-3 text-white" />
                 </div>
                 Download Format
@@ -445,8 +360,8 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
                   onClick={() => setSelectedFormat('pdf')}
                   className={`w-full p-3 rounded-xl border-2 transition-all duration-300 flex items-center gap-3 ${
                     selectedFormat === 'pdf'
-                      ? 'border-cyan-500 bg-cyan-500/20 text-cyan-400'
-                      : 'border-gray-600 bg-gray-800/50 text-gray-300 hover:border-cyan-500/50'
+                      ? 'border-[var(--ai-primary)] bg-[var(--ai-primary)]/15 text-[var(--ai-primary)]'
+                      : 'border-gray-600 bg-gray-800/50 text-gray-300 hover:border-[var(--ai-primary)]/50'
                   }`}
                 >
                   <FileText className="w-5 h-5" />
@@ -458,8 +373,8 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
                   onClick={() => setSelectedFormat('docx')}
                   className={`w-full p-3 rounded-xl border-2 transition-all duration-300 flex items-center gap-3 ${
                     selectedFormat === 'docx'
-                      ? 'border-cyan-500 bg-cyan-500/20 text-cyan-400'
-                      : 'border-gray-600 bg-gray-800/50 text-gray-300 hover:border-cyan-500/50'
+                      ? 'border-[var(--ai-primary)] bg-[var(--ai-primary)]/15 text-[var(--ai-primary)]'
+                      : 'border-gray-600 bg-gray-800/50 text-gray-300 hover:border-[var(--ai-primary)]/50'
                   }`}
                 >
                   <FileText className="w-5 h-5" />
@@ -475,7 +390,7 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
               disabled={isDownloading}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-xl hover:from-blue-600 hover:to-purple-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+              className="w-full py-4 bg-brand-gradient text-white font-bold rounded-xl hover:bg-brand-gradient transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
             >
               {isDownloading ? (
                 <>
@@ -491,9 +406,9 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
             </motion.button>
 
             {/* Resume Info */}
-            <div className="glass-ai rounded-3xl p-6 border border-cyan-500/20 shadow-2xl">
+            <div className="glass-ai rounded-3xl p-6 border border-[var(--ai-primary)]/20 shadow-2xl">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                <div className="w-6 h-6 bg-brand-gradient rounded-lg flex items-center justify-center">
                   <Award className="w-3 h-3 text-white" />
                 </div>
                 Resume Highlights
@@ -501,28 +416,28 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
               
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Microsoft Azure Certified</p>
                     <p className="text-gray-400 text-sm">Azure Developer Associate & Data Fundamentals</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Top Academic Performer</p>
                     <p className="text-gray-400 text-sm">Programming Foundation Top Performer 2023</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Full-Stack Development</p>
                     <p className="text-gray-400 text-sm">React.js, Node.js, .NET, MongoDB expertise</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Industry Experience</p>
                     <p className="text-gray-400 text-sm">Web development & AI model training roles</p>
@@ -532,9 +447,9 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
             </div>
 
             {/* Additional Information */}
-            <div className="glass-ai rounded-3xl p-6 border border-cyan-500/20 shadow-2xl">
+            <div className="glass-ai rounded-3xl p-6 border border-[var(--ai-primary)]/20 shadow-2xl">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                <div className="w-6 h-6 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                <div className="w-6 h-6 bg-brand-gradient rounded-lg flex items-center justify-center">
                   <Star className="w-3 h-3 text-white" />
                 </div>
                 Additional Information
@@ -542,15 +457,15 @@ const Resume: React.FC<ResumeProps> = ({ className = '' }) => {
               
               <div className="space-y-3 text-sm text-gray-300">
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-cyan-400" />
+                  <Calendar className="w-4 h-4 text-[var(--ai-primary)]" />
                   <span>Last updated: December 2024</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-cyan-400" />
+                  <FileText className="w-4 h-4 text-[var(--ai-primary)]" />
                   <span>2 pages • Professional format</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <ExternalLink className="w-4 h-4 text-cyan-400" />
+                  <ExternalLink className="w-4 h-4 text-[var(--ai-primary)]" />
                   <span>Optimized for ATS systems</span>
                 </div>
               </div>

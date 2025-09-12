@@ -25,171 +25,140 @@ const AIHero: React.FC = () => {
   };
 
   const techIcons = [
-    { icon: Brain, label: 'AI/ML', color: 'from-cyan-500 to-blue-500' },
-    { icon: Cloud, label: 'Cloud', color: 'from-blue-500 to-purple-500' },
-    { icon: Database, label: 'Database', color: 'from-purple-500 to-pink-500' },
-    { icon: Server, label: 'DevOps', color: 'from-green-500 to-teal-500' },
-    { icon: Terminal, label: 'Tools', color: 'from-orange-500 to-red-500' },
-    { icon: Layers, label: 'Architecture', color: 'from-indigo-500 to-purple-500' },
-    { icon: Cpu, label: 'Processing', color: 'from-cyan-400 to-emerald-400' },
-    { icon: Network, label: 'Networking', color: 'from-violet-500 to-purple-500' }
+    { icon: Brain, label: 'AI/ML', color: 'from-[var(--ai-primary)] to-[var(--ai-secondary)]' },
+    { icon: Cloud, label: 'Cloud', color: 'from-[var(--ai-secondary)] to-[var(--ai-accent)]' },
+    { icon: Database, label: 'Database', color: 'from-[var(--ai-accent)] to-[var(--ai-secondary)]' },
+    { icon: Server, label: 'DevOps', color: 'from-[var(--ai-secondary)] to-[var(--ai-primary)]' },
+    { icon: Terminal, label: 'Tools', color: 'from-[var(--ai-primary)] to-[var(--ai-accent)]' },
+    { icon: Layers, label: 'Architecture', color: 'from-[var(--ai-accent)] to-[var(--ai-secondary)]' },
+    { icon: Cpu, label: 'Processing', color: 'from-[var(--ai-primary)] to-[var(--ai-secondary)]' },
+    { icon: Network, label: 'Networking', color: 'from-[var(--ai-secondary)] to-[var(--ai-accent)]' }
   ];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Advanced Tech Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950" />
+      <div className="absolute inset-0 bg-app-gradient" />
       
-      {/* Azure Cloud Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,#0078d4_0%,transparent_50%),radial-gradient(circle_at_75%_75%,#00bcf2_0%,transparent_50%),radial-gradient(circle_at_50%_50%,#40e0d0_0%,transparent_50%)]" />
+      {/* Azure Cloud Services Floating Animation */}
+      <div className="absolute inset-0 pointer-events-none">
+        {['Azure Functions', 'Kubernetes', 'Docker', 'CI/CD', 'ML Studio', 'DevOps'].map((service, i) => (
+          <motion.div
+            key={service}
+            className="absolute text-xs font-mono text-[var(--ai-primary)]/30 bg-[var(--ai-primary)]/5 px-2 py-1 rounded border border-[var(--ai-primary)]/20"
+            style={{
+              left: `${15 + (i * 12)}%`,
+              top: `${20 + (i % 3) * 25}%`,
+            }}
+            animate={{
+              y: [-10, 10, -10],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{
+              duration: 4 + i * 0.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            {service}
+          </motion.div>
+        ))}
       </div>
-      
+
+      {/* Neural Network Connections */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <svg className="w-full h-full">
+          {[...Array(8)].map((_, i) => (
+            <motion.line
+              key={i}
+              x1={`${20 + i * 10}%`}
+              y1="30%"
+              x2={`${30 + i * 8}%`}
+              y2="70%"
+              stroke="var(--ai-primary)"
+              strokeWidth="1"
+              strokeDasharray="4,4"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 0.4 }}
+              transition={{
+                duration: 2,
+                delay: i * 0.3,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            />
+          ))}
+          {[...Array(6)].map((_, i) => (
+            <motion.circle
+              key={`node-${i}`}
+              cx={`${25 + i * 12}%`}
+              cy={`${40 + (i % 2) * 20}%`}
+              r="3"
+              fill="var(--ai-primary)"
+              animate={{
+                scale: [1, 1.5, 1],
+                opacity: [0.3, 0.8, 0.3]
+              }}
+              transition={{
+                duration: 3,
+                delay: i * 0.5,
+                repeat: Infinity
+              }}
+            />
+          ))}
+        </svg>
+      </div>
+
       {/* DevOps Pipeline Visualization */}
-      <div className="absolute inset-0 opacity-20">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
-            style={{
-              left: '0%',
-              top: `${15 + i * 12}%`,
-              width: '100%',
-            }}
-            animate={{
-              opacity: [0, 1, 0],
-              scaleX: [0, 1, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              delay: i * 0.8,
-            }}
-          />
-        ))}
-      </div>
-      
-      {/* Code Matrix Effect */}
-      <div className="absolute inset-0 opacity-15">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-green-400 font-mono text-xs"
-            style={{
-              left: `${(i * 5) % 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-          >
-            {['const', 'function', 'async', 'await', 'import', 'export', 'class', 'interface'][i % 8]}
-          </motion.div>
-        ))}
-      </div>
-      
-
-      {/* Tech Stack Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Azure Hexagons */}
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={`azure-${i}`}
-            className="absolute w-24 h-24 border-2 border-blue-500/20"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
-            }}
-            animate={{
-              x: [0, 50, 0],
-              y: [0, -75, 0],
-              rotate: [0, 180, 360],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{
-              duration: 15 + i * 2,
-              repeat: Infinity,
-              delay: i * 0.7,
-            }}
-          />
-        ))}
-        
-        {/* DevOps Gears */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={`gear-${i}`}
-            className="absolute w-16 h-16 border border-green-400/25 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 12 + i,
-              repeat: Infinity,
-              delay: i * 0.4,
-            }}
-          >
-            <div className="absolute inset-2 border border-green-400/25 rounded-full" />
-            <div className="absolute inset-4 border border-green-400/25 rounded-full" />
-          </motion.div>
-        ))}
-        
-        {/* AI Neural Nodes */}
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={`node-${i}`}
-            className="absolute w-8 h-8 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.3, 0.8, 0.3],
-              x: [0, 30, 0],
-              y: [0, -30, 0],
-            }}
-            transition={{
-              duration: 8 + i,
-              repeat: Infinity,
-              delay: i * 0.3,
-            }}
-          />
-        ))}
+      <div className="absolute top-1/4 right-10 w-64 h-32 pointer-events-none opacity-25">
+        <div className="relative">
+          {['Build', 'Test', 'Deploy'].map((stage, i) => (
+            <motion.div
+              key={stage}
+              className="absolute flex items-center gap-2"
+              style={{ top: `${i * 35}px` }}
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: i * 0.5, duration: 1 }}
+            >
+              <motion.div
+                className="w-3 h-3 bg-[var(--ai-primary)] rounded-full"
+                animate={{ scale: [1, 1.3, 1] }}
+                transition={{ duration: 2, delay: i * 0.7, repeat: Infinity }}
+              />
+              <motion.div
+                className="w-16 h-1 bg-gradient-to-r from-[var(--ai-primary)] to-transparent"
+                animate={{ scaleX: [0, 1, 0] }}
+                transition={{ duration: 3, delay: i * 0.5, repeat: Infinity }}
+              />
+              <span className="text-xs font-mono text-[var(--ai-primary)]">{stage}</span>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
-      {/* Data Flow Lines */}
-      <div className="absolute inset-0">
-        {[...Array(8)].map((_, i) => (
+      {/* Floating Code Snippets */}
+      <div className="absolute inset-0 pointer-events-none">
+        {['const ai = new ML()', 'kubectl apply -f', 'az webapp deploy', 'docker build -t'].map((code, i) => (
           <motion.div
-            key={i}
-            className="absolute h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+            key={code}
+            className="absolute text-xs font-mono text-[var(--ai-accent)]/40 bg-black/20 px-2 py-1 rounded border border-[var(--ai-accent)]/20"
             style={{
-              left: `${i * 12.5}%`,
-              top: `${20 + i * 10}%`,
-              width: '200px',
+              right: `${10 + (i * 15)}%`,
+              bottom: `${20 + (i % 2) * 30}%`,
             }}
             animate={{
-              opacity: [0, 1, 0],
-              x: [0, 100, 0],
+              y: [-5, 5, -5],
+              opacity: [0.4, 0.7, 0.4],
             }}
             transition={{
-              duration: 3 + i * 0.5,
+              duration: 5 + i * 0.3,
               repeat: Infinity,
-              delay: i * 0.3,
+              ease: "easeInOut"
             }}
-          />
+          >
+            {code}
+          </motion.div>
         ))}
       </div>
 
@@ -209,10 +178,10 @@ const AIHero: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mb-8 mt-12"
             >
-              <span className="text-lg text-cyan-400 font-semibold relative">
+              <span className="text-lg text-[var(--ai-primary)] font-semibold relative">
                 <span className="inline-block animate-pulse">Hello, I'm</span>
                 <motion.span
-                  className="absolute -right-2 top-0 w-1 h-6 bg-cyan-400"
+                  className="absolute -right-2 top-0 w-1 h-6 bg-[var(--ai-primary)]"
                   animate={{ opacity: [0, 1, 0] }}
                   transition={{ duration: 1, repeat: Infinity }}
                 />
@@ -226,19 +195,19 @@ const AIHero: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 relative"
             >
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent font-orbitron relative">
+              <span className="bg-brand-gradient bg-clip-text text-transparent font-orbitron relative">
                 Nicolette
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 blur-xl opacity-30"
+                  className="absolute inset-0 bg-brand-gradient blur-xl opacity-30"
                   animate={{ opacity: [0.3, 0.6, 0.3] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
               </span>
               <br />
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent font-orbitron relative">
+              <span className="bg-brand-gradient bg-clip-text text-transparent font-orbitron relative">
                 Mashaba
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 blur-xl opacity-30"
+                  className="absolute inset-0 bg-brand-gradient blur-xl opacity-30"
                   animate={{ opacity: [0.3, 0.6, 0.3] }}
                   transition={{ duration: 2, repeat: Infinity, delay: 1 }}
                 />
@@ -257,14 +226,14 @@ const AIHero: React.FC = () => {
                   className="inline-block"
                   animate={{ 
                     scale: [1, 1.05, 1],
-                    color: ['#e5e7eb', '#06b6d4', '#e5e7eb']
+                    color: ['[var(--ai-primary)]', '[var(--ai-secondary)]', '[var(--ai-primary)]']
                   }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
                   Software Developer
                 </motion.span>
               </div>
-              <div className="text-lg text-cyan-400 flex items-center justify-center lg:justify-start gap-2">
+              <div className="text-lg text-[var(--ai-primary)] flex items-center justify-center lg:justify-start gap-2">
                 <Zap className="w-5 h-5 animate-pulse" />
                 Software Engineering Student & Microsoft Azure Certified
               </div>
@@ -282,7 +251,7 @@ const AIHero: React.FC = () => {
                 Specializing in full-stack development, cloud computing, and intelligent system design.
               </span>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-purple-500/5 rounded-lg"
+                className="absolute inset-0 bg-brand-gradient/10 rounded-lg"
                 animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 3, repeat: Infinity }}
               />
@@ -299,10 +268,10 @@ const AIHero: React.FC = () => {
                 whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(6, 182, 212, 0.5)" }}
                 whileTap={{ scale: 0.95 }}
                 onClick={scrollToAbout}
-                className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-2xl shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 flex items-center justify-center gap-3 relative overflow-hidden group"
+                className="px-8 py-4 bg-brand-gradient text-white font-bold rounded-2xl shadow-2xl hover:shadow-[var(--ai-glow)] transition-all duration-300 flex items-center justify-center gap-3 relative overflow-hidden group"
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 bg-brand-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   animate={{ x: ['-100%', '100%'] }}
                   transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
                 />
@@ -314,10 +283,10 @@ const AIHero: React.FC = () => {
                 whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(6, 182, 212, 0.3)" }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-8 py-4 bg-transparent border-2 border-cyan-500 text-cyan-400 font-bold rounded-2xl hover:bg-cyan-500/10 transition-all duration-300 flex items-center justify-center gap-3 relative group"
+                className="px-8 py-4 bg-transparent border-2 border-[var(--ai-primary)] text-[var(--ai-primary)] font-bold rounded-2xl hover:bg-[var(--ai-glow)] transition-all duration-300 flex items-center justify-center gap-3 relative group"
               >
                 <motion.div
-                  className="absolute inset-0 bg-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 bg-[var(--ai-primary)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
                 <Mail className="w-5 h-5 relative z-10" />
                 <span className="relative z-10">Get In Touch</span>
@@ -337,12 +306,12 @@ const AIHero: React.FC = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-12 h-12 bg-gradient-to-r from-gray-700 to-gray-800 rounded-2xl flex items-center justify-center hover:from-cyan-500/20 hover:to-blue-500/20 transition-all duration-300 group relative overflow-hidden"
+                className="w-12 h-12 bg-gradient-to-r from-gray-700 to-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group relative overflow-hidden"
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 bg-brand-gradient/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
-                <Github className="w-6 h-6 text-white group-hover:text-cyan-400 relative z-10" />
+                <Github className="w-6 h-6 text-white group-hover:text-[var(--ai-primary)] relative z-10" />
               </motion.a>
               <motion.a
                 href="https://linkedin.com/in/nicolette-mashaba"
@@ -350,12 +319,12 @@ const AIHero: React.FC = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1, rotate: -5 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl flex items-center justify-center hover:from-cyan-500/20 hover:to-blue-500/20 transition-all duration-300 group relative overflow-hidden"
+                className="w-12 h-12 bg-brand-gradient rounded-2xl flex items-center justify-center transition-all duration-300 group relative overflow-hidden"
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 bg-brand-gradient/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
-                <Linkedin className="w-6 h-6 text-white group-hover:text-cyan-400 relative z-10" />
+                <Linkedin className="w-6 h-6 text-white group-hover:text-[var(--ai-primary)] relative z-10" />
               </motion.a>
             </motion.div>
           </motion.div>
@@ -368,18 +337,8 @@ const AIHero: React.FC = () => {
             className="relative flex justify-center lg:justify-end"
           >
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 z-10">
-              {/* Glowing Ring */}
-              <motion.div
-                className="absolute inset-0 rounded-full border-4 border-cyan-400/30"
-                animate={{ 
-                  scale: [1, 1.1, 1],
-                  opacity: [0.3, 0.6, 0.3]
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-              />
-              
               {/* Main Photo Container */}
-              <div className="w-full h-full rounded-full overflow-hidden border-4 border-cyan-500/30 shadow-2xl relative">
+              <div className="w-full h-full rounded-full overflow-hidden border-4 border-[var(--ai-primary)]/30 shadow-2xl relative">
                 {/* Profile Image */}
                 <img 
                   src="/images/nicolette-profile.jpg"
@@ -388,12 +347,12 @@ const AIHero: React.FC = () => {
                 />
                 
                 {/* Tech Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-blue-500/10 to-purple-500/20" />
+                <div className="absolute inset-0 bg-brand-gradient/20" />
                 
                 {/* Name Badge */}
                 <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-xl p-3 text-center">
                   <h3 className="text-white font-bold text-lg font-orbitron">Nicolette</h3>
-                  <p className="text-cyan-200 text-sm">Software Developer</p>
+                  <p className="text-[var(--ai-primary)]/80 text-sm">Software Developer</p>
                 </div>
                 
                 {/* Floating Tech Icons */}
@@ -420,7 +379,7 @@ const AIHero: React.FC = () => {
                 </motion.div>
                 {/* Holographic Overlay */}
                 <motion.div 
-                  className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-transparent to-blue-400/20"
+                  className="absolute inset-0 bg-brand-gradient/20"
                   animate={{ opacity: [0, 0.5, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
@@ -435,7 +394,7 @@ const AIHero: React.FC = () => {
                 return (
                   <motion.div
                     key={tech.label}
-                    className="absolute w-14 h-14 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 backdrop-blur-sm border border-cyan-400/30 flex items-center justify-center shadow-lg"
+                    className="absolute w-14 h-14 rounded-full bg-brand-gradient/20 backdrop-blur-sm border border-[var(--ai-primary)]/30 flex items-center justify-center shadow-lg"
                     style={{
                       left: `calc(50% + ${x}px - 28px)`,
                       top: `calc(50% + ${y}px - 28px)`,
@@ -453,54 +412,10 @@ const AIHero: React.FC = () => {
                     }}
                     whileHover={{ scale: 1.3, rotate: 360 }}
                   >
-                    <tech.icon className="w-7 h-7 text-cyan-400" />
+                    <tech.icon className="w-7 h-7 text-[var(--ai-primary)]" />
                   </motion.div>
                 );
               })}
-
-              {/* Enhanced Floating Particles */}
-              {[...Array(12)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-3 h-3 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-60"
-                  style={{
-                    left: `${15 + (i * 7)}%`,
-                    top: `${10 + (i * 6)}%`,
-                  }}
-                  animate={{
-                    y: [0, -30, 0],
-                    x: [0, 20, 0],
-                    opacity: [0.6, 1, 0.6],
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 3 + i * 0.3,
-                    repeat: Infinity,
-                    delay: i * 0.2,
-                  }}
-                />
-              ))}
-
-              {/* Data Flow Lines */}
-              {[...Array(6)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-1 h-20 bg-gradient-to-b from-cyan-400 to-transparent opacity-40"
-                  style={{
-                    left: `${20 + i * 12}%`,
-                    top: `${5 + i * 8}%`,
-                  }}
-                  animate={{
-                    opacity: [0.4, 0.8, 0.4],
-                    scaleY: [1, 1.5, 1],
-                  }}
-                  transition={{
-                    duration: 2 + i * 0.2,
-                    repeat: Infinity,
-                    delay: i * 0.3,
-                  }}
-                />
-              ))}
             </div>
           </motion.div>
         </div>
@@ -516,10 +431,10 @@ const AIHero: React.FC = () => {
             onClick={scrollToAbout}
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 group"
+            className="text-[var(--ai-primary)] hover:text-[var(--ai-secondary)] transition-colors duration-300 group"
           >
             <motion.div
-              className="w-12 h-12 rounded-full border-2 border-cyan-400/30 flex items-center justify-center group-hover:border-cyan-400/60 transition-colors duration-300"
+              className="w-12 h-12 rounded-full border-2 border-[var(--ai-primary)]/30 flex items-center justify-center group-hover:border-[var(--ai-primary)]/60 transition-colors duration-300"
               whileHover={{ scale: 1.1 }}
             >
               <ChevronDown className="w-6 h-6" />

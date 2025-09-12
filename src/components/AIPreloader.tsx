@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 interface AIPreloaderProps {
   onComplete: () => void;
@@ -44,37 +45,100 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 flex items-center justify-center z-50 overflow-hidden">
-      {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,#00d4ff_0%,transparent_50%),radial-gradient(circle_at_75%_75%,#9333ea_0%,transparent_50%)]" />
+    <div className="fixed inset-0 bg-app-gradient flex items-center justify-center z-50 overflow-hidden">
+      {/* Premium Background Effects */}
+      <div className="absolute inset-0 bg-grid opacity-10" />
+      <div className="absolute inset-0 particle-system opacity-20 pointer-events-none" />
+      
+      {/* Neural Network Visualization */}
+      <div className="absolute inset-0 pointer-events-none opacity-15">
+        <svg className="w-full h-full">
+          {[...Array(8)].map((_, i) => (
+            <motion.circle
+              key={`neural-${i}`}
+              cx={`${20 + (i % 3) * 30}%`}
+              cy={`${25 + Math.floor(i / 3) * 25}%`}
+              r="3"
+              fill="var(--ai-primary)"
+              animate={{
+                scale: [1, 1.5, 1],
+                opacity: [0.3, 0.8, 0.3]
+              }}
+              transition={{
+                duration: 3 + i * 0.2,
+                delay: i * 0.3,
+                repeat: Infinity
+              }}
+            />
+          ))}
+          {[...Array(6)].map((_, i) => (
+            <motion.line
+              key={`connection-${i}`}
+              x1={`${20 + (i % 2) * 30}%`}
+              y1={`${25 + i * 15}%`}
+              x2={`${50 + (i % 2) * 30}%`}
+              y2={`${40 + i * 12}%`}
+              stroke="var(--ai-accent)"
+              strokeWidth="1"
+              strokeDasharray="3,3"
+              animate={{
+                pathLength: [0, 1, 0],
+                opacity: [0.2, 0.6, 0.2]
+              }}
+              transition={{
+                duration: 4,
+                delay: i * 0.5,
+                repeat: Infinity
+              }}
+            />
+          ))}
+        </svg>
       </div>
-
-      {/* Floating Tech Elements */}
-      <div className="absolute inset-0">
+      
+      {/* Enhanced Floating Tech Elements */}
+      <div className="absolute inset-0 pointer-events-none">
         {[...Array(12)].map((_, i) => (
-          <div
+          <motion.div
             key={i}
-            className="absolute text-cyan-400/10 font-mono text-sm animate-pulse"
+            className="absolute text-xs font-mono text-[var(--ai-primary)]/30 bg-[var(--ai-primary)]/5 px-2 py-1 rounded border border-[var(--ai-primary)]/20"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.3}s`,
-              animationDuration: `${4 + Math.random() * 2}s`
+            }}
+            animate={{
+              y: [-10, 10, -10],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{
+              duration: 4 + i * 0.3,
+              repeat: Infinity,
+              ease: "easeInOut"
             }}
           >
             {['AI', 'ML', 'React', 'Node', 'Cloud', 'DevOps', 'Code', 'Data', 'Azure', 'Python', 'TypeScript', 'API'][i]}
-          </div>
+          </motion.div>
         ))}
       </div>
 
-      <div className="text-center px-6 relative z-10" role="status" aria-live="polite" aria-label={`Loading ${progress}%`}>
+      <motion.div 
+        className="text-center px-6 relative z-10 glass-premium rounded-3xl p-8 border border-[var(--ai-primary)]/20 shadow-2xl max-w-md mx-auto"
+        role="status" 
+        aria-live="polite" 
+        aria-label={`Loading ${progress}%`}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}
+      >
         {/* Professional Circular Loader */}
         <div className="mb-8 sm:mb-10">
-          <div className="relative mx-auto mb-4 w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40">
+          <motion.div 
+            className="relative mx-auto mb-4 w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          >
             {/* Outer Ring with Gradient */}
-            <div className="absolute inset-0 rounded-full border-4 border-transparent bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 p-1">
-              <div className="w-full h-full rounded-full bg-slate-900"></div>
+            <div className="absolute inset-0 rounded-full border-4 border-transparent bg-gradient-to-r from-[var(--ai-primary)] via-[var(--ai-secondary)] to-[var(--ai-accent)] p-1">
+              <div className="w-full h-full rounded-full bg-black/50 backdrop-blur-sm"></div>
             </div>
             
             {/* Progress Ring */}
@@ -94,85 +158,121 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
                 />
                 <defs>
                   <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#00d4ff" />
-                    <stop offset="50%" stopColor="#3b82f6" />
-                    <stop offset="100%" stopColor="#9333ea" />
+                    <stop offset="0%" stopColor="var(--ai-primary)" />
+                    <stop offset="50%" stopColor="var(--ai-secondary)" />
+                    <stop offset="100%" stopColor="var(--ai-accent)" />
                   </linearGradient>
                 </defs>
               </svg>
             </div>
             
             {/* Inner Pulsing Ring */}
-            <div className="absolute inset-4 rounded-full border-2 border-cyan-400/30 animate-ping" />
+            <motion.div 
+              className="absolute inset-4 rounded-full border-2 border-[var(--ai-primary)]/30"
+              animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.8, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
             
             {/* Central Core */}
-            <div className="absolute inset-6 sm:inset-8 bg-gradient-to-br from-slate-800 to-slate-900 rounded-full flex items-center justify-center shadow-2xl border border-slate-700">
+            <div className="absolute inset-6 sm:inset-8 glass-premium rounded-full flex items-center justify-center shadow-2xl border border-[var(--ai-primary)]/30">
               {/* AI Monogram with Professional Styling */}
               <div className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 mb-1">
+                <motion.div 
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[var(--ai-primary)] via-[var(--ai-secondary)] to-[var(--ai-accent)] mb-1"
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
                   AI
-                </div>
-                <div className="w-8 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full"></div>
+                </motion.div>
+                <motion.div 
+                  className="w-8 h-0.5 bg-gradient-to-r from-[var(--ai-primary)] to-[var(--ai-accent)] mx-auto rounded-full"
+                  animate={{ scaleX: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
               </div>
             </div>
             
             {/* Orbiting Dots */}
-            <div className="absolute inset-0 animate-spin" style={{ animationDuration: '3s' }}>
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1 w-2 h-2 bg-cyan-400 rounded-full shadow-lg"></div>
-            </div>
-            <div className="absolute inset-0 animate-spin" style={{ animationDuration: '4s', animationDirection: 'reverse' }}>
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1 w-1.5 h-1.5 bg-purple-400 rounded-full shadow-lg"></div>
-            </div>
-          </div>
+            <motion.div 
+              className="absolute inset-0"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            >
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1 w-2 h-2 bg-[var(--ai-primary)] rounded-full shadow-lg"></div>
+            </motion.div>
+            <motion.div 
+              className="absolute inset-0"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            >
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1 w-1.5 h-1.5 bg-[var(--ai-accent)] rounded-full shadow-lg"></div>
+            </motion.div>
+          </motion.div>
         </div>
         
         {/* Enhanced Text with Professional Typography */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 tracking-tight">
+        <motion.h2 
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-2 sm:mb-3 tracking-tight"
+          animate={{ opacity: [0.8, 1, 0.8] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
           Nicolette Mashaba
-        </h2>
-        <p className="text-base sm:text-lg md:text-xl text-cyan-300 mb-8 sm:mb-10 font-medium">
+        </motion.h2>
+        <p className="text-base sm:text-lg text-secondary mb-8 sm:mb-10 font-medium">
           Software Developer & AI Enthusiast
         </p>
         
         {/* Professional Progress Section */}
-        <div className="w-[90vw] max-w-md sm:max-w-lg mx-auto mb-4 sm:mb-6">
-          <div className="flex justify-between text-sm sm:text-base text-gray-300 mb-3">
+        <div className="w-full max-w-sm mx-auto mb-4 sm:mb-6">
+          <div className="flex justify-between text-sm sm:text-base text-secondary mb-3">
             <span className="font-medium">{steps[currentStep]}</span>
-            <span className="font-bold text-cyan-400">{progress}%</span>
+            <span className="font-bold text-[var(--ai-primary)]">{progress}%</span>
           </div>
-          <div className="w-full bg-slate-800/50 rounded-full h-3 overflow-hidden border border-slate-700/50">
-            <div 
+          <div className="w-full glass-premium rounded-full h-3 overflow-hidden border border-[var(--ai-primary)]/20">
+            <motion.div 
               className="h-3 rounded-full transition-all duration-300 ease-out relative"
               style={{ 
                 width: `${progress}%`,
-                background: 'linear-gradient(90deg, #00d4ff 0%, #3b82f6 50%, #9333ea 100%)'
+                background: 'linear-gradient(90deg, var(--ai-primary) 0%, var(--ai-secondary) 50%, var(--ai-accent) 100%)'
               }}
+              animate={{ opacity: [0.8, 1, 0.8] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
-            </div>
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                animate={{ x: [-20, 100] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </motion.div>
           </div>
         </div>
         
         {/* Professional Step Indicators */}
         <div className="flex justify-center gap-2 sm:gap-3" aria-hidden="true">
           {steps.map((_, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
+              className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 cursor-glow ${
                 index <= currentStep 
-                  ? 'bg-gradient-to-r from-cyan-400 to-blue-400 shadow-lg scale-110' 
-                  : 'bg-slate-600'
+                  ? 'bg-gradient-to-r from-[var(--ai-primary)] to-[var(--ai-secondary)] shadow-lg' 
+                  : 'bg-gray-600'
               }`}
+              animate={index <= currentStep ? { scale: [1, 1.2, 1] } : {}}
+              transition={{ duration: 0.5 }}
             />
           ))}
         </div>
 
         {/* Professional Loading Text */}
-        <div className="mt-6 text-sm text-slate-400 font-mono">
-          <span className="inline-block w-2 h-2 bg-cyan-400 rounded-full animate-pulse mr-2"></span>
+        <div className="mt-6 text-sm text-muted font-mono">
+          <motion.span 
+            className="inline-block w-2 h-2 bg-[var(--ai-primary)] rounded-full mr-2"
+            animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 1, repeat: Infinity }}
+          />
           Loading assets
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

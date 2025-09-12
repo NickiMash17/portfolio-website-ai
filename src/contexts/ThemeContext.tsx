@@ -67,14 +67,27 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       root.style.setProperty('--shadow-color', 'rgba(0, 0, 0, 0.1)');
       root.style.setProperty('--shadow-hover', 'rgba(0, 0, 0, 0.15)');
       
+      // LockedIn AI brand accents (light mode)
+      root.style.setProperty('--ai-primary', '#00E5FF');
+      root.style.setProperty('--ai-secondary', '#00C2FF');
+      root.style.setProperty('--ai-accent', '#8B5CF6');
+      root.style.setProperty('--ai-glow', 'rgba(0, 229, 255, 0.35)');
+      root.style.setProperty('--devops-primary', '#00C2FF');
+      root.style.setProperty('--devops-secondary', '#0099E6');
+      root.style.setProperty('--devops-accent', '#0077CC');
+      root.style.setProperty('--code-primary', '#8B5CF6');
+      root.style.setProperty('--code-secondary', '#A78BFA');
+      root.style.setProperty('--code-accent', '#7C3AED');
+      root.style.setProperty('--code-syntax', '#C4B5FD');
+      
       // Add light mode class to body for additional styling
       document.body.classList.add('light-mode');
       document.body.classList.remove('dark-mode');
     } else {
       // Dark mode colors
-      root.style.setProperty('--bg-primary', '#0a0f1c');
-      root.style.setProperty('--bg-secondary', '#0f172a');
-      root.style.setProperty('--bg-tertiary', '#1e293b');
+      root.style.setProperty('--bg-primary', '#0B1220');
+      root.style.setProperty('--bg-secondary', '#0E1726');
+      root.style.setProperty('--bg-tertiary', '#102038');
       root.style.setProperty('--text-primary', '#f1f5f9');
       root.style.setProperty('--text-secondary', '#cbd5e1');
       root.style.setProperty('--text-muted', '#94a3b8');
@@ -82,6 +95,19 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       root.style.setProperty('--border-hover', '#475569');
       root.style.setProperty('--shadow-color', 'rgba(0, 0, 0, 0.3)');
       root.style.setProperty('--shadow-hover', 'rgba(0, 0, 0, 0.4)');
+      
+      // LockedIn AI brand accents (dark mode)
+      root.style.setProperty('--ai-primary', '#00E5FF');
+      root.style.setProperty('--ai-secondary', '#00C2FF');
+      root.style.setProperty('--ai-accent', '#8B5CF6');
+      root.style.setProperty('--ai-glow', 'rgba(0, 229, 255, 0.35)');
+      root.style.setProperty('--devops-primary', '#00C2FF');
+      root.style.setProperty('--devops-secondary', '#0099E6');
+      root.style.setProperty('--devops-accent', '#0077CC');
+      root.style.setProperty('--code-primary', '#8B5CF6');
+      root.style.setProperty('--code-secondary', '#A78BFA');
+      root.style.setProperty('--code-accent', '#7C3AED');
+      root.style.setProperty('--code-syntax', '#C4B5FD');
       
       // Add dark mode class to body for additional styling
       document.body.classList.add('dark-mode');

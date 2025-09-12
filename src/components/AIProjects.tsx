@@ -351,40 +351,40 @@ const AIProjects: React.FC = () => {
   ];
 
   const filters = [
-    { id: 'all', label: 'All Projects', count: projects.length, icon: Grid3X3, color: 'from-cyan-500 to-blue-500' },
-    { id: 'ai-ml', label: 'AI & ML', count: projects.filter(p => p.category === 'ai-ml').length, icon: Brain, color: 'from-cyan-500 to-purple-500' },
-    { id: 'cloud-azure', label: 'Cloud & Azure', count: projects.filter(p => p.category === 'cloud-azure').length, icon: Cloud, color: 'from-blue-500 to-cyan-500' },
-    { id: 'full-stack', label: 'Full-Stack', count: projects.filter(p => p.category === 'full-stack').length, icon: Code, color: 'from-purple-500 to-cyan-500' },
-    { id: 'devops', label: 'DevOps', count: projects.filter(p => p.category === 'devops').length, icon: Server, color: 'from-orange-500 to-red-500' },
-    { id: 'innovation', label: 'Innovation', count: projects.filter(p => p.category === 'innovation').length, icon: Rocket, color: 'from-cyan-500 to-blue-500' }
+    { id: 'all', label: 'All Projects', count: projects.length, icon: Grid3X3, color: 'from-[var(--ai-primary)] to-[var(--ai-secondary)]' },
+    { id: 'ai-ml', label: 'AI & ML', count: projects.filter(p => p.category === 'ai-ml').length, icon: Brain, color: 'from-[var(--ai-primary)] to-[var(--ai-accent)]' },
+    { id: 'cloud-azure', label: 'Cloud & Azure', count: projects.filter(p => p.category === 'cloud-azure').length, icon: Cloud, color: 'from-[var(--ai-secondary)] to-[var(--ai-primary)]' },
+    { id: 'full-stack', label: 'Full-Stack', count: projects.filter(p => p.category === 'full-stack').length, icon: Code, color: 'from-[var(--ai-accent)] to-[var(--ai-secondary)]' },
+    { id: 'devops', label: 'DevOps', count: projects.filter(p => p.category === 'devops').length, icon: Server, color: 'from-[var(--ai-secondary)] to-[var(--ai-primary)]' },
+    { id: 'innovation', label: 'Innovation', count: projects.filter(p => p.category === 'innovation').length, icon: Rocket, color: 'from-[var(--ai-primary)] to-[var(--ai-secondary)]' }
   ];
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'ai-ml': return 'from-cyan-500 to-purple-500';
-      case 'cloud-azure': return 'from-blue-500 to-cyan-500';
-      case 'full-stack': return 'from-purple-500 to-cyan-500';
-      case 'devops': return 'from-orange-500 to-red-500';
-      case 'innovation': return 'from-cyan-500 to-blue-500';
-      default: return 'from-cyan-500 to-blue-500';
+      case 'ai-ml': return 'from-[var(--ai-primary)] to-[var(--ai-accent)]';
+      case 'cloud-azure': return 'from-[var(--ai-secondary)] to-[var(--ai-primary)]';
+      case 'full-stack': return 'from-[var(--ai-accent)] to-[var(--ai-secondary)]';
+      case 'devops': return 'from-[var(--ai-secondary)] to-[var(--ai-primary)]';
+      case 'innovation': return 'from-[var(--ai-primary)] to-[var(--ai-secondary)]';
+      default: return 'from-[var(--ai-primary)] to-[var(--ai-secondary)]';
     }
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'advanced': return 'from-blue-500 to-cyan-500';
-      case 'expert': return 'from-purple-500 to-cyan-500';
-      case 'pioneering': return 'from-cyan-500 to-blue-500';
-      default: return 'from-cyan-500 to-blue-500';
+      case 'advanced': return 'from-[var(--ai-secondary)] to-[var(--ai-primary)]';
+      case 'expert': return 'from-[var(--ai-accent)] to-[var(--ai-primary)]';
+      case 'pioneering': return 'from-[var(--ai-primary)] to-[var(--ai-secondary)]';
+      default: return 'from-[var(--ai-primary)] to-[var(--ai-secondary)]';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed': return 'bg-green-500/20 text-green-400 border-green-500/50';
-      case 'in-progress': return 'bg-cyan-500/20 text-cyan-400 border-cyan-500/50';
-      case 'planned': return 'bg-blue-500/20 text-blue-400 border-blue-500/50';
-      default: return 'bg-cyan-500/20 text-cyan-400 border-cyan-500/50';
+      case 'in-progress': return 'bg-[var(--ai-primary)]/15 text-[var(--ai-primary)] border-[var(--ai-primary)]/40';
+      case 'planned': return 'bg-[var(--ai-secondary)]/15 text-[var(--ai-secondary)] border-[var(--ai-secondary)]/40';
+      default: return 'bg-[var(--ai-primary)]/15 text-[var(--ai-primary)] border-[var(--ai-primary)]/40';
     }
   };
 
@@ -448,174 +448,88 @@ const AIProjects: React.FC = () => {
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(projectsJsonLd)}</script>
       </Helmet>
-      {/* Advanced Tech Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950" />
-      
-      {/* Azure Cloud Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,#0078d4_0%,transparent_50%),radial-gradient(circle_at_75%_75%,#00bcf2_0%,transparent_50%),radial-gradient(circle_at_50%_50%,#40e0d0_0%,transparent_50%)]" />
+      {/* Brand Background */}
+      <div className="absolute inset-0 bg-app-gradient" />
+      {/* DevOps Pipeline Data Flow */}
+      <div className="absolute inset-0 pointer-events-none opacity-15">
+        <svg className="w-full h-full">
+          {[...Array(5)].map((_, i) => (
+            <motion.path
+              key={i}
+              d={`M ${20 + i * 160} 100 Q ${120 + i * 160} 50 ${220 + i * 160} 100 T ${420 + i * 160} 100`}
+              stroke="var(--ai-primary)"
+              strokeWidth="2"
+              fill="none"
+              strokeDasharray="8,8"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{
+                duration: 4,
+                delay: i * 0.8,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          ))}
+        </svg>
       </div>
-      
-      {/* DevOps Pipeline Visualization */}
-      <div className="absolute inset-0 opacity-20">
-        {[...Array(6)].map((_, i) => (
+      {/* Floating Tech Stack Icons */}
+      <div className="absolute inset-0 pointer-events-none">
+        {['React', 'Node.js', 'Azure', 'Docker', 'K8s', 'ML'].map((tech, i) => (
           <motion.div
-            key={i}
-            className="absolute h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+            key={tech}
+            className="absolute text-xs font-mono text-[var(--ai-secondary)]/30 bg-[var(--ai-secondary)]/5 px-2 py-1 rounded border border-[var(--ai-secondary)]/20"
             style={{
-              left: '0%',
-              top: `${15 + i * 12}%`,
-              width: '100%',
+              left: `${10 + (i * 15)}%`,
+              top: `${15 + (i % 2) * 60}%`,
             }}
             animate={{
-              opacity: [0, 1, 0],
-              scaleX: [0, 1, 0],
+              y: [-8, 8, -8],
+              rotate: [-2, 2, -2],
+              opacity: [0.3, 0.5, 0.3],
             }}
             transition={{
-              duration: 4,
+              duration: 6 + i * 0.4,
               repeat: Infinity,
-              delay: i * 0.8,
-            }}
-          />
-        ))}
-      </div>
-      
-      {/* Code Matrix Effect */}
-      <div className="absolute inset-0 opacity-15">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-green-400 font-mono text-[10px] sm:text-xs"
-            style={{
-              left: `${(i * 5) % 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              delay: i * 0.2,
+              ease: "easeInOut"
             }}
           >
-            {['const', 'function', 'async', 'await', 'import', 'export', 'class', 'interface'][i % 8]}
+            {tech}
           </motion.div>
         ))}
       </div>
-      
-      {/* Advanced Neural Network Grid */}
-      <div className="absolute inset-0 opacity-25">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,120,212,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(0,120,212,0.15)_1px,transparent_1px)] bg-[size:60px_60px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.1)_1px,transparent_1px)] bg-[size:20px_20px] animate-pulse" />
-      </div>
-
-      {/* Tech Stack Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Azure Hexagons */}
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={`azure-${i}`}
-            className="absolute w-16 h-16 sm:w-20 sm:h-20 border-2 border-blue-500/20"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
-            }}
-            animate={{
-              x: [0, 50, 0],
-              y: [0, -75, 0],
-              rotate: [0, 180, 360],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{
-              duration: 15 + i * 2,
-              repeat: Infinity,
-              delay: i * 0.7,
-            }}
-          />
-        ))}
-        
-        {/* DevOps Gears */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={`gear-${i}`}
-            className="absolute w-12 h-12 sm:w-16 sm:h-16 border border-green-400/25 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 12 + i,
-              repeat: Infinity,
-              delay: i * 0.4,
-            }}
-          >
-            <div className="absolute inset-2 border border-green-400/25 rounded-full" />
-            <div className="absolute inset-4 border border-green-400/25 rounded-full" />
-          </motion.div>
-        ))}
-        
-        {/* AI Neural Nodes */}
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={`node-${i}`}
-            className="absolute w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.3, 0.8, 0.3],
-              x: [0, 30, 0],
-              y: [0, -30, 0],
-            }}
-            transition={{
-              duration: 8 + i,
-              repeat: Infinity,
-              delay: i * 0.3,
-            }}
-          />
-        ))}
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12 sm:mb-20"
+          viewport={{ once: true }}
+          className="text-center mb-12 sm:mb-16 scroll-reveal"
         >
           <h2 className="tech-title leading-tight-mobile text-fluid-3xl sm:text-5xl font-bold mb-4 sm:mb-6">
             INNOVATION PROJECTS
           </h2>
-          <p className="text-fluid-lg sm:text-xl text-white/90 max-w-4xl mx-auto leading-relaxed px-2">
-            Cutting-edge projects showcasing <span className="text-cyan-400 font-semibold">AI innovation</span>, 
-            <span className="text-blue-400 font-semibold"> cloud architecture</span>, and 
-            <span className="text-purple-400 font-semibold"> next-generation development</span> practices. 
+          <p className="text-fluid-lg sm:text-xl text-secondary max-w-4xl mx-auto leading-relaxed scroll-reveal stagger-1">
+            Cutting-edge projects showcasing <span className="text-brand font-semibold">AI innovation</span>, 
+            <span className="text-[var(--ai-secondary)] font-semibold"> cloud architecture</span>, and 
+            <span className="text-[var(--ai-accent)] font-semibold"> next-generation development</span> practices. 
             Each project represents a leap forward in technology and business value.
           </p>
         </motion.div>
 
         {/* Enhanced Filter Tabs */}
-        <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-12 sm:mb-16">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-12 sm:mb-16 scroll-reveal stagger-2">
           {filters.map((filter) => (
             <motion.button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-semibold transition-all duration-300 flex items-center gap-3 cursor-pointer ${
+              className={`btn-premium px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-semibold transition-all duration-300 flex items-center gap-3 cursor-pointer cursor-glow ${
                 activeFilter === filter.id
                   ? `bg-gradient-to-r ${filter.color} text-white shadow-2xl`
-                  : 'glass-ai text-white hover:text-white hover:shadow-xl'
+                  : 'glass-premium text-primary hover:text-primary hover:shadow-xl'
               }`}
             >
               <filter.icon className="w-5 h-5" />
@@ -645,13 +559,13 @@ const AIProjects: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-12 sm:mt-20"
+          className="text-center mt-12 sm:mt-20 scroll-reveal"
         >
-          <div className="glass-ai rounded-3xl p-8 sm:p-12 data-visualization">
+          <div className="glass-premium interactive-card cursor-glow rounded-3xl p-8 sm:p-12 data-visualization">
             <h2 className="tech-title text-fluid-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
               Ready to Start a Project?
             </h2>
-            <p className="text-fluid-lg sm:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed">
+            <p className="text-fluid-lg sm:text-xl text-secondary leading-relaxed">
               Let's collaborate to bring your ideas to life with cutting-edge technology and innovative solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
@@ -659,7 +573,7 @@ const AIProjects: React.FC = () => {
                 href="#contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 sm:px-10 py-3.5 sm:py-4 btn-ai text-fluid-base sm:text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
+                className="btn-premium inline-flex items-center justify-center px-8 py-4 text-white font-bold rounded-2xl hover:shadow-2xl transition-all duration-300 cursor-glow"
               >
                 <Mail className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform duration-300" />
                 Get In Touch
@@ -668,7 +582,7 @@ const AIProjects: React.FC = () => {
                 href="#resume"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 sm:px-10 py-3.5 sm:py-4 btn-code text-fluid-base sm:text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
+                className="btn-code text-fluid-base sm:text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
               >
                 <FileText className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform duration-300" />
                 View Resume
@@ -693,15 +607,15 @@ const AIProjects: React.FC = () => {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="glass-ai rounded-t-3xl sm:rounded-3xl w-full sm:max-w-3xl md:max-w-4xl lg:max-w-6xl max-h-[92vh] sm:max-h-[90vh] overflow-hidden border border-cyan-500/20 shadow-2xl"
+              className="glass-premium rounded-t-3xl sm:rounded-3xl w-full sm:max-w-3xl md:max-w-4xl lg:max-w-6xl max-h-[92vh] sm:max-h-[90vh] overflow-hidden border border-[var(--ai-primary)]/20 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
                 {/* Modal Header */}
-              <div className="p-6 sm:p-8 border-b border-cyan-500/20">
+              <div className="p-6 sm:p-8 border-b border-[var(--ai-primary)]/20">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <h3 id="project-modal-title" className="text-fluid-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3 sm:gap-4">
-                      <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${getCategoryColor(selectedProject.category)} rounded-2xl flex items-center justify-center flex-shrink-0`}>
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-brand-gradient rounded-2xl flex items-center justify-center flex-shrink-0`}>
                         {React.createElement(getCategoryIcon(selectedProject.category), { className: 'w-5 h-5 sm:w-6 sm:h-6 text-white' })}
                       </div>
                       <span className="truncate">{selectedProject.title}</span>
@@ -720,7 +634,7 @@ const AIProjects: React.FC = () => {
                   </div>
                   <button
                     onClick={closeProjectModal}
-                    className="p-2.5 sm:p-3 hover:bg-cyan-500/20 rounded-2xl transition-colors duration-300"
+                    className="p-2.5 sm:p-3 hover:bg-[var(--ai-primary)]/20 rounded-2xl transition-colors duration-300"
                     aria-label="Close project details"
                   >
                     <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
@@ -733,9 +647,9 @@ const AIProjects: React.FC = () => {
                 {/* Project Image */}
                 {selectedProject.image && (
                   <div className="mb-6 sm:mb-8">
-                    <div className="w-full h-44 sm:h-64 bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-purple-500/10 rounded-2xl flex items-center justify-center relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20" />
-                      {React.createElement(getCategoryIcon(selectedProject.category), { className: 'w-16 h-16 sm:w-24 sm:h-24 text-cyan-400' })}
+                    <div className="w-full h-44 sm:h-64 bg-brand-gradient/10 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                      <div className="absolute inset-0 bg-brand-gradient/20" />
+                      {React.createElement(getCategoryIcon(selectedProject.category), { className: 'w-16 h-16 sm:w-24 sm:h-24 text-[var(--ai-primary)]' })}
                     </div>
                   </div>
                 )}
@@ -747,7 +661,7 @@ const AIProjects: React.FC = () => {
                     {/* Description */}
                     <div>
                       <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
                           <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
                         Description
@@ -760,7 +674,7 @@ const AIProjects: React.FC = () => {
                     {/* Technologies */}
                     <div>
                       <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
                           <Code className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
                         Technologies Used
@@ -780,7 +694,7 @@ const AIProjects: React.FC = () => {
                     {/* Key Features */}
                     <div>
                       <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-cyan-500 to-purple-500 rounded-lg flex items-center justify-center">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
                           <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
                         Key Features
@@ -801,7 +715,7 @@ const AIProjects: React.FC = () => {
                     {/* Project Stats */}
                     <div>
                       <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
                           <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
                         Project Statistics
@@ -830,12 +744,12 @@ const AIProjects: React.FC = () => {
                     {selectedProject.architecture && (
                       <div>
                         <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
-                          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
                             <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                           </div>
                           Architecture
                         </h4>
-                        <p className="text-fluid-base sm:text-lg text-white/90 bg-gradient-to-r from-purple-500/10 to-cyan-500/10 p-3 sm:p-4 rounded-2xl border border-purple-500/20">
+                        <p className="text-fluid-base sm:text-lg text-white/90 bg-brand-gradient/10 p-3 sm:p-4 rounded-2xl border border-[var(--ai-primary)]/20">
                           {selectedProject.architecture}
                         </p>
                       </div>
@@ -845,7 +759,7 @@ const AIProjects: React.FC = () => {
                     {selectedProject.metrics && (
                       <div>
                         <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
-                          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
                             <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                           </div>
                           Performance Metrics
@@ -864,12 +778,12 @@ const AIProjects: React.FC = () => {
                     {/* Impact */}
                     <div>
                       <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-green-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
                           <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
                         Impact & Results
                       </h4>
-                      <p className="text-fluid-base sm:text-lg text-white/90 bg-gradient-to-r from-green-500/10 to-cyan-500/10 p-3 sm:p-4 rounded-2xl border border-green-500/20">
+                      <p className="text-fluid-base sm:text-lg text-white/90 bg-brand-gradient/10 p-3 sm:p-4 rounded-2xl border border-[var(--ai-primary)]/20">
                         {selectedProject.impact}
                       </p>
                     </div>
@@ -878,7 +792,7 @@ const AIProjects: React.FC = () => {
                 </div>
 
               {/* Sticky Action Bar on Mobile */}
-              <div className="sticky bottom-0 inset-x-0 bg-gradient-to-br from-slate-900/80 via-blue-950/80 to-indigo-950/80 backdrop-blur-md border-t border-cyan-500/20 p-4 sm:hidden">
+              <div className="sticky bottom-0 inset-x-0 bg-gradient-to-br from-slate-900/80 via-blue-950/80 to-indigo-950/80 backdrop-blur-md border-t border-[var(--ai-primary)]/20 p-4 sm:hidden">
                 <div className="grid grid-cols-2 gap-3">
                   {selectedProject.liveUrl && (
                     <a
@@ -906,7 +820,7 @@ const AIProjects: React.FC = () => {
               </div>
 
               {/* Desktop Action Buttons */}
-              <div className="hidden sm:flex flex-col sm:flex-row gap-4 p-6 sm:p-8 border-t border-cyan-500/20">
+              <div className="hidden sm:flex flex-col sm:flex-row gap-4 p-6 sm:p-8 border-t border-[var(--ai-primary)]/20">
                   {selectedProject.liveUrl && (
                     <a
                       href={selectedProject.liveUrl}
