@@ -173,7 +173,7 @@ const AIHero: React.FC = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center lg:text-left"
+            className="text-center lg:text-left relative z-20" // Added z-20 for stacking context
           >
             {/* Greeting with Typewriter Effect */}
             <motion.div
@@ -297,30 +297,43 @@ const AIHero: React.FC = () => {
               </motion.button>
             </motion.div>
 
-            {/* Social Media Links - Updated spacing */}
-            <div className="absolute left-4 sm:left-6 md:left-8 bottom-32 sm:bottom-40 flex flex-col space-y-6 sm:space-y-8">
-              <a 
-                href="https://github.com/NickiMash17"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-sm 
-                  flex items-center justify-center border border-white/20 hover:scale-110 
-                  hover:bg-[var(--ai-primary)] transition-all duration-300"
-                aria-label="GitHub Profile"
-              >
-                <Github className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </a>
-              <a 
-                href="https://linkedin.com/in/nicolette-mashaba"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-sm 
-                  flex items-center justify-center border border-white/20 hover:scale-110 
-                  hover:bg-[var(--ai-primary)] transition-all duration-300"
-                aria-label="LinkedIn Profile"
-              >
-                <Linkedin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </a>
+            {/* Social Media Links - Fixed positioning and z-index */}
+            <div className="flex flex-col items-center lg:items-start space-y-4 sm:space-y-6 relative z-30"> {/* Added relative and z-30 */}
+              <div className="flex items-center gap-6 sm:gap-8 mt-6 sm:mt-8"> {/* Added margin top */}
+                <a 
+                  href="https://github.com/NickiMash17"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/10 
+                    backdrop-blur-sm flex items-center justify-center border border-white/20 
+                    hover:bg-[var(--ai-primary)] transition-all duration-300
+                    hover:shadow-lg hover:shadow-[var(--ai-primary)]/20"
+                  aria-label="GitHub Profile"
+                >
+                  <Github className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:scale-110 transition-transform duration-300" />
+                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs sm:text-sm 
+                    text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    GitHub
+                  </span>
+                </a>
+                
+                <a 
+                  href="https://linkedin.com/in/nicolette-mashaba"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/10 
+                    backdrop-blur-sm flex items-center justify-center border border-white/20 
+                    hover:bg-[var(--ai-primary)] transition-all duration-300
+                    hover:shadow-lg hover:shadow-[var(--ai-primary)]/20"
+                  aria-label="LinkedIn Profile"
+                >
+                  <Linkedin className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:scale-110 transition-transform duration-300" />
+                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs sm:text-sm 
+                    text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    LinkedIn
+                  </span>
+                </a>
+              </div>
             </div>
           </motion.div>
 
@@ -329,7 +342,7 @@ const AIHero: React.FC = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative flex justify-center lg:justify-end"
+            className="relative flex justify-center lg:justify-end mt-12 sm:mt-0" // Added margin top for mobile
           >
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 z-10">
               {/* Main Photo Container */}
