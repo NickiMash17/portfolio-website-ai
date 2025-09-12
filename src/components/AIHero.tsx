@@ -40,7 +40,7 @@ const AIHero: React.FC = () => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div className="min-h-screen relative flex items-center justify-center">
       {/* Advanced Tech Background */}
       <div className="absolute inset-0 bg-app-gradient" />
       
@@ -297,40 +297,31 @@ const AIHero: React.FC = () => {
               </motion.button>
             </motion.div>
 
-            {/* Enhanced Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="flex justify-center lg:justify-start gap-6"
-            >
-              <motion.a
+            {/* Social Media Links - Updated spacing */}
+            <div className="absolute left-4 sm:left-6 md:left-8 bottom-32 sm:bottom-40 flex flex-col space-y-6 sm:space-y-8">
+              <a 
                 href="https://github.com/NickiMash17"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-                className="w-12 h-12 bg-gradient-to-r from-gray-700 to-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group relative overflow-hidden"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-sm 
+                  flex items-center justify-center border border-white/20 hover:scale-110 
+                  hover:bg-[var(--ai-primary)] transition-all duration-300"
+                aria-label="GitHub Profile"
               >
-                <motion.div
-                  className="absolute inset-0 bg-brand-gradient/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
-                <Github className="w-6 h-6 text-white group-hover:text-[var(--ai-primary)] relative z-10" />
-              </motion.a>
-              <motion.a
+                <Github className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              </a>
+              <a 
                 href="https://linkedin.com/in/nicolette-mashaba"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.1, rotate: -5 }}
-                whileTap={{ scale: 0.9 }}
-                className="w-12 h-12 bg-brand-gradient rounded-2xl flex items-center justify-center transition-all duration-300 group relative overflow-hidden"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-sm 
+                  flex items-center justify-center border border-white/20 hover:scale-110 
+                  hover:bg-[var(--ai-primary)] transition-all duration-300"
+                aria-label="LinkedIn Profile"
               >
-                <motion.div
-                  className="absolute inset-0 bg-brand-gradient/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
-                <Linkedin className="w-6 h-6 text-white group-hover:text-[var(--ai-primary)] relative z-10" />
-              </motion.a>
-            </motion.div>
+                <Linkedin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              </a>
+            </div>
           </motion.div>
 
           {/* Enhanced Photo Section */}
@@ -446,7 +437,7 @@ const AIHero: React.FC = () => {
           </motion.button>
         </motion.div>
       </div>
-    </section>
+    </div>
   );
 };
 
