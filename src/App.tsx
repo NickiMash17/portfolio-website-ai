@@ -64,21 +64,21 @@ const Navigation: React.FC<NavigationProps> = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-ai border-b border-[var(--ai-primary)]/20 shadow-2xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-brand-gradient rounded-2xl flex items-center justify-center shadow-lg">
-              <Brain className="w-7 h-7 text-white" />
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20">
+          {/* Logo - Updated sizing */}
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-brand-gradient rounded-2xl flex items-center justify-center shadow-lg">
+              <Brain className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
             </div>
             <div>
-              <span className="text-xl sm:text-2xl font-bold text-white font-orbitron tracking-wider">NICOLETTE</span>
-              <p className="text-xs sm:text-sm text-[var(--ai-primary)] font-semibold tracking-wide">SOFTWARE DEVELOPER</p>
+              <span className="text-lg sm:text-xl md:text-2xl font-bold text-white font-orbitron tracking-wider">NICOLETTE</span>
+              <p className="text-[10px] sm:text-xs md:text-sm text-[var(--ai-primary)] font-semibold tracking-wide">SOFTWARE DEVELOPER</p>
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2">
+          {/* Desktop Navigation - Updated padding and text size */}
+          <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
             {navItems.map((item) => (
               <a
                 key={item.href}
@@ -88,7 +88,7 @@ const Navigation: React.FC<NavigationProps> = () => {
                   lockoutRef.current = true;
                   setTimeout(() => { lockoutRef.current = false; }, 400);
                 }}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-2xl text-lg font-semibold transition-all duration-300 ${
+                className={`flex items-center space-x-1 lg:space-x-2 px-4 lg:px-6 py-2.5 rounded-2xl text-base lg:text-lg font-semibold transition-all duration-300 ${
                   activeSection === item.href.substring(1)
                     ? 'bg-gradient-to-r from-[var(--ai-primary)] to-[var(--ai-secondary)] text-white shadow-lg'
                     : 'text-white hover:text-[var(--ai-primary)] hover:bg-[var(--ai-primary)]/10'
@@ -112,10 +112,10 @@ const Navigation: React.FC<NavigationProps> = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Updated spacing */}
         {isMenuOpen && (
           <div className="md:hidden border-t border-[var(--ai-primary)]/20">
-            <div className="px-2 pt-4 pb-6 space-y-2">
+            <div className="px-2 pt-3 pb-4 space-y-1">
               {navItems.map((item) => (
                 <a
                   key={item.href}
@@ -126,7 +126,7 @@ const Navigation: React.FC<NavigationProps> = () => {
                     lockoutRef.current = true;
                     setTimeout(() => { lockoutRef.current = false; }, 400);
                   }}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-2xl text-lg font-semibold transition-all duration-300 ${
+                  className={`flex items-center space-x-3 px-4 py-2.5 rounded-xl text-base font-semibold transition-all duration-300 ${
                     activeSection === item.href.substring(1)
                       ? 'bg-gradient-to-r from-[var(--ai-primary)] to-[var(--ai-secondary)] text-white shadow-lg'
                       : 'text-white hover:text-[var(--ai-primary)] hover:bg-[var(--ai-primary)]/10'
@@ -147,21 +147,21 @@ const Navigation: React.FC<NavigationProps> = () => {
 const Footer: React.FC = () => {
   return (
     <footer className="relative z-10 border-t border-[var(--ai-primary)]">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-20">
-        {/* Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
-          {/* Brand */}
-          <div className="space-y-6 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start space-x-4">
-              <div className="w-16 h-16 bg-brand-gradient rounded-2xl flex items-center justify-center shadow-lg">
-                <Brain className="w-8 h-8 text-white" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 md:py-16">
+        {/* Top Section - Updated grid and spacing */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
+          {/* Brand Section */}
+          <div className="space-y-4 sm:space-y-6 text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start space-x-3">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-brand-gradient rounded-2xl flex items-center justify-center shadow-lg">
+                <Brain className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
               <div>
                 <span className="text-2xl font-bold text-white font-orbitron">NICOLETTE</span>
                 <p className="text-xs sm:text-sm text-[var(--ai-primary)] font-semibold">SOFTWARE DEVELOPER</p>
               </div>
             </div>
-            <p className="text-base sm:text-lg text-white max-w-md leading-relaxed mx-auto md:mx-0">
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-md leading-relaxed mx-auto md:mx-0">
               Software Engineering student architecting innovative solutions and pushing the boundaries of web technology. 
               Microsoft Azure certified and ready to build the future.
             </p>
@@ -172,52 +172,52 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-6 text-center md:text-left">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center justify-center md:justify-start gap-3">
+          {/* Quick Links - Updated spacing and text sizes */}
+          <div className="space-y-4 sm:space-y-6 text-center md:text-left">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6 flex items-center justify-center md:justify-start gap-2 sm:gap-3">
               <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
                 <Zap className="w-4 h-4 text-white" />
               </div>
               Quick Links
             </h3>
-            <div className="space-y-4">
-              <a href="#home" className="text-base sm:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
+            <div className="space-y-3 sm:space-y-4">
+              <a href="#home" className="text-sm sm:text-base md:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <Home className="w-4 h-4" />
                 Home
               </a>
-              <a href="#about" className="text-base sm:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
+              <a href="#about" className="text-sm sm:text-base md:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <User className="w-4 h-4" />
                 About
               </a>
-              <a href="#projects" className="text-base sm:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
+              <a href="#projects" className="text-sm sm:text-base md:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <Briefcase className="w-4 h-4" />
                 Projects
               </a>
-              <a href="#resume" className="text-base sm:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
+              <a href="#resume" className="text-sm sm:text-base md:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <FileText className="w-4 h-4" />
                 Resume
               </a>
-              <a href="#contact" className="text-base sm:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
+              <a href="#contact" className="text-sm sm:text-base md:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <Mail className="w-4 h-4" />
                 Contact
               </a>
             </div>
           </div>
 
-          {/* Contact Info */}
-          <div className="space-y-6 text-center md:text-left">
+          {/* Contact Info - Updated sizing */}
+          <div className="space-y-4 sm:space-y-6 text-center md:text-left">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center justify-center md:justify-start gap-3">
               <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
                 <MailIcon className="w-4 h-4" />
               </div>
               Get In Touch
             </h3>
-            <div className="space-y-6">
-              <div className="flex items-center justify-center md:justify-start gap-4 text-white group">
-                <div className="w-12 h-12 bg-brand-gradient/20 rounded-2xl flex items-center justify-center transition-all duration-300">
-                  <MailIcon className="w-6 h-6 text-[var(--ai-primary)]" />
+            <div className="space-y-4 sm:space-y-6">
+              <div className="flex items-center justify-center md:justify-start gap-3 sm:gap-4 text-white group">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-brand-gradient/20 rounded-2xl flex items-center justify-center">
+                  <MailIcon className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--ai-primary)]" />
                 </div>
-                <a href="mailto:nene171408@gmail.com" className="text-base sm:text-lg hover-brand transition-colors duration-300">
+                <a href="mailto:nene171408@gmail.com" className="text-sm sm:text-base md:text-lg hover-brand transition-colors duration-300">
                   nene171408@gmail.com
                 </a>
               </div>
@@ -254,17 +254,17 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="mt-12 sm:mt-16 pt-8 border-t border-[var(--ai-primary)]">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-white text-base sm:text-lg">
+        {/* Bottom Section - Updated spacing */}
+        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-[var(--ai-primary)]">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-x-2 sm:gap-x-4 gap-y-2 text-white text-sm sm:text-base">
               <span> 2025 Nicolette Mashaba. Made with</span>
               <Heart className="w-5 h-5 text-red-400" />
               <span>and lots of</span>
               <Zap className="w-5 h-5 text-[var(--ai-primary)]" />
             </div>
             
-            <div className="flex items-center gap-4 sm:gap-8 text-base sm:text-lg">
+            <div className="flex items-center gap-3 sm:gap-6 text-sm sm:text-base">
               <a href="#privacy" className="text-white hover-brand transition-colors duration-300 hover:underline">
                 Privacy Policy
               </a>
@@ -340,11 +340,11 @@ const AppContent: React.FC<AppContentProps> = ({ optimizeElement, debounceScroll
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 left-6 z-40 w-16 h-16 bg-brand-gradient text-white rounded-2xl shadow-2xl hover:shadow-[var(--ai-primary)]/40 transition-all duration-500 backdrop-blur-lg border-2 border-white/30 performance-critical"
+        className="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 z-40 w-12 h-12 sm:w-16 sm:h-16 bg-brand-gradient text-white rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-[var(--ai-primary)]/40 transition-all duration-500 backdrop-blur-lg border-2 border-white/30 performance-critical"
         aria-label="Scroll to top"
       >
         <div className="relative z-10 flex items-center justify-center w-full h-full">
-          <ArrowUp className="w-8 h-8 drop-shadow-lg" />
+          <ArrowUp className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg" />
         </div>
       </button>
     </div>
