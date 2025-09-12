@@ -24,6 +24,10 @@ const AIHero: React.FC = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollToSection = (sectionId: string) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const techIcons = [
     { icon: Brain, label: 'AI/ML', color: 'from-[var(--ai-primary)] to-[var(--ai-secondary)]' },
     { icon: Cloud, label: 'Cloud', color: 'from-[var(--ai-secondary)] to-[var(--ai-accent)]' },

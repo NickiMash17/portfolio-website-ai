@@ -731,3 +731,181 @@ textarea:focus {
 /* Brand ring / border helpers */
 .ring-brand { box-shadow: 0 0 0 3px var(--ai-primary) inset; }
 .border-brand-20 { border-color: color-mix(in oklab, var(--ai-primary) 20%, transparent); }
+
+/* Enhanced Depth and Shadows */
+.depth-1 { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+.depth-2 { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); }
+.depth-3 { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); }
+.depth-4 { box-shadow: 0 16px 64px rgba(0, 0, 0, 0.25); }
+
+/* Magnetic Hover Effects */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  .interactive-card {
+    transition: all 0.3s ease;
+  }
+  
+  .interactive-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Optimize glass morphism for mobile */
+  .glass-premium {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  /* Reduce particle complexity */
+  .particle-system {
+    opacity: 0.1 !important;
+  }
+  
+  /* Disable parallax on mobile for performance */
+  .parallax-slow,
+  .parallax-fast {
+    transform: none !important;
+  }
+  
+  /* Optimize neural network animations */
+  .neural-node {
+    animation-duration: 4s;
+  }
+  
+  /* Touch-friendly interactions */
+  .cursor-glow::before {
+    display: none;
+  }
+  
+  /* Reduce magnetic effects on mobile */
+  .magnetic {
+    transform: none !important;
+  }
+  
+  /* Mobile-specific button sizing */
+  .btn-premium {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+  
+  /* Optimize skill bars for mobile */
+  .skill-progress::after {
+    animation: none;
+  }
+  
+  /* Reduce motion for better performance */
+  @media (prefers-reduced-motion: reduce) {
+    .interactive-card,
+    .btn-premium,
+    .scroll-reveal,
+    .skill-progress {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Replace hover effects with touch-friendly alternatives */
+  .interactive-card:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+  
+  .btn-premium:active {
+    transform: scale(0.98);
+  }
+  
+  .glass-premium:active {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  
+  /* Disable hover-only effects */
+  .cursor-glow::before,
+  .magnetic {
+    display: none;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .glass-premium {
+    padding: 16px;
+    margin: 8px;
+  }
+  
+  .interactive-card {
+    margin-bottom: 16px;
+  }
+  
+  /* Optimize text sizing */
+  .tech-title {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+    line-height: 1.2;
+  }
+  
+  /* Reduce spacing */
+  .scroll-reveal {
+    margin-bottom: 12px;
+  }
+  
+  /* Optimize neural network for small screens */
+  .neural-node {
+    r: 2;
+  }
+  
+  /* Simplify background effects */
+  .bg-grid {
+    opacity: 0.05 !important;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+  .glass-premium {
+    padding: 12px 16px;
+  }
+  
+  /* Reduce vertical spacing in landscape */
+  .scroll-reveal {
+    margin-bottom: 8px;
+  }
+  
+  /* Optimize hero section for landscape */
+  .hero-section {
+    min-height: 80vh;
+  }
+}
+
+/* High DPI mobile displays */
+@media (-webkit-min-device-pixel-ratio: 2) and (max-width: 768px) {
+  .glass-premium {
+    border-width: 0.5px;
+  }
+  
+  .interactive-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Loading States */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

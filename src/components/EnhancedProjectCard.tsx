@@ -44,7 +44,7 @@ interface Project {
 interface EnhancedProjectCardProps {
   project: Project;
   index: number;
-  onViewDetails: (project: Project) => void;
+  onViewDetails?: (project: Project) => void;
 }
 
 const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({ 
@@ -137,15 +137,17 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
 
           {/* Hover Overlay with Action Preview */}
           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <motion.button
-              onClick={() => onViewDetails(project)}
-              className="btn-premium px-6 py-3 backdrop-blur-md rounded-2xl text-white font-semibold flex items-center gap-2 cursor-glow"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Eye className="w-5 h-5" />
-              Quick Preview
-            </motion.button>
+            {onViewDetails && (
+              <motion.button
+                onClick={() => onViewDetails(project)}
+                className="btn-premium px-6 py-3 backdrop-blur-md rounded-2xl text-white font-semibold flex items-center gap-2 cursor-glow"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Eye className="w-5 h-5" />
+                Quick Preview
+              </motion.button>
+            )}
           </div>
         </div>
         

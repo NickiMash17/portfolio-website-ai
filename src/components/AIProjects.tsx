@@ -95,7 +95,7 @@ const AIProjects: React.FC = () => {
       impact: 'Helps job seekers optimize their resumes and career paths with AI-driven insights and recommendations, improving job application success rates by 40%.',
       teamSize: 1,
       duration: '6 months',
-      status: 'in-progress',
+      status: 'in-progress' as const,
       architecture: 'Microservices with AI/ML pipeline',
       metrics: {
         performance: '95% accuracy',
@@ -144,7 +144,7 @@ const AIProjects: React.FC = () => {
       impact: 'Scored 100/100 Lighthouse performance rating and achieved excellent user engagement through gamification. Over 1,000 downloads and 99.8% uptime.',
       teamSize: 1,
       duration: '3 months',
-      status: 'completed',
+      status: 'completed' as const,
       architecture: 'PWA with AI integration',
       metrics: {
         performance: '100/100 Lighthouse',
@@ -193,7 +193,7 @@ const AIProjects: React.FC = () => {
       impact: 'Successfully delivered a production-ready e-commerce platform with secure payment processing. Over 2,000 registered users with 99.5% uptime.',
       teamSize: 1,
       duration: '4 months',
-      status: 'completed',
+      status: 'completed' as const,
       architecture: 'MERN stack with microservices',
       metrics: {
         performance: '98% uptime',
@@ -242,7 +242,7 @@ const AIProjects: React.FC = () => {
       impact: 'Successfully connected South African students with STEM opportunities and improved access to educational resources. Over 5,000 students served with 95% user satisfaction.',
       teamSize: 5,
       duration: '6 months',
-      status: 'completed',
+      status: 'completed' as const,
       architecture: 'Collaborative development with CI/CD',
       metrics: {
         performance: '95% user satisfaction',
@@ -291,7 +291,7 @@ const AIProjects: React.FC = () => {
       impact: 'Delivered a robust book review platform with clean, maintainable code and comprehensive functionality. 90% faster queries and 45% better search performance.',
       teamSize: 1,
       duration: '3 months',
-      status: 'completed',
+      status: 'completed' as const,
       architecture: 'Clean Architecture with ASP.NET Core',
       metrics: {
         performance: '90% faster queries',
@@ -339,13 +339,61 @@ const AIProjects: React.FC = () => {
       impact: 'Demonstrates cutting-edge technology skills and innovative thinking in financial technology. Ready for production deployment.',
       teamSize: 1,
       duration: '8 months',
-      status: 'planned',
+      status: 'planned' as const,
       architecture: 'Quantum-classical hybrid system',
       metrics: {
         performance: '99.9% accuracy',
         users: 'TBD',
         uptime: 'TBD',
         efficiency: 'TBD'
+      }
+    },
+    {
+      id: 'cloud-infrastructure',
+      title: 'Azure Cloud Infrastructure Automation',
+      description: 'Enterprise-grade cloud infrastructure with Infrastructure as Code, automated CI/CD pipelines, and comprehensive monitoring.',
+      longDescription: 'A comprehensive cloud infrastructure solution built on Microsoft Azure, featuring Infrastructure as Code (IaC) with Terraform, automated CI/CD pipelines, and enterprise-grade monitoring. Includes auto-scaling, disaster recovery, and security best practices for production workloads.',
+      image: '/api/placeholder/600/400',
+      technologies: ['Azure', 'Terraform', 'Docker', 'Kubernetes', 'Azure DevOps', 'ARM Templates', 'PowerShell', 'Monitoring'],
+      category: 'cloud-azure',
+      difficulty: 'expert',
+      githubUrl: 'https://github.com/NickiMash17/azure-infrastructure',
+      features: [
+        'Infrastructure as Code with Terraform',
+        'Automated CI/CD pipelines',
+        'Auto-scaling and load balancing',
+        'Comprehensive monitoring and alerting',
+        'Disaster recovery implementation',
+        'Security best practices',
+        'Cost optimization strategies',
+        'Multi-environment deployment'
+      ],
+      challenges: [
+        'Designing scalable infrastructure architecture',
+        'Implementing automated deployment pipelines',
+        'Ensuring security and compliance',
+        'Managing costs and resource optimization',
+        'Setting up monitoring and alerting',
+        'Disaster recovery planning'
+      ],
+      solutions: [
+        'Used Terraform for infrastructure automation',
+        'Implemented Azure DevOps for CI/CD',
+        'Applied Azure Security Center recommendations',
+        'Set up Azure Cost Management',
+        'Configured Azure Monitor and Log Analytics',
+        'Designed multi-region backup strategy'
+      ],
+      impact: 'Reduced deployment time by 80%, improved system reliability to 99.9% uptime, and decreased infrastructure costs by 30% through automation and optimization.',
+      teamSize: 2,
+      duration: '4 months',
+      status: 'completed' as const,
+      architecture: 'Multi-tier cloud architecture',
+      metrics: {
+        performance: '99.9% uptime',
+        users: '10,000+ concurrent',
+        uptime: '99.9%',
+        efficiency: '80% faster deployment'
       }
     }
   ];
