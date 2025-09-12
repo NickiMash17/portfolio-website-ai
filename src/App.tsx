@@ -280,8 +280,6 @@ const Footer: React.FC = () => {
 };
 
 const AppContent: React.FC<AppContentProps> = ({ optimizeElement, debounceScroll }) => {
-  console.log('AppContent component rendered!');
-
   const scrollToTop = React.useCallback((e?: React.MouseEvent) => {
     if (e) e.preventDefault();
     debounceScroll(() => {
@@ -352,7 +350,6 @@ const AppContent: React.FC<AppContentProps> = ({ optimizeElement, debounceScroll
 };
 
 const App: React.FC = () => {
-  console.log('App component mounting...');
   const [showPreloader, setShowPreloader] = React.useState(true);
   const [currentSection, setCurrentSection] = React.useState<string>('');
 

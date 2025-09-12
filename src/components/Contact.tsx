@@ -87,20 +87,21 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
   ];
 
   return (
-    <section id="contact" className={`py-20 relative overflow-hidden ${className}`}>
+    <section id="contact" className={`py-12 sm:py-16 md:py-20 relative overflow-hidden ${className}`}>
       {/* Background Layers */}
       <div className="absolute inset-0 bg-app-gradient -z-10" />
       
       {/* Network Connectivity Visualization */}
-      <div className="absolute inset-0 pointer-events-none opacity-30">
+      <div className="absolute inset-0 pointer-events-none opacity-20 sm:opacity-30">
         <svg className="w-full h-full">
           {/* Communication Network */}
           {[...Array(8)].map((_, i) => (
             <motion.circle
               key={`network-${i}`}
-              cx={`${25 + (i % 3) * 25}%`}
-              cy={`${30 + Math.floor(i / 3) * 20}%`}
-              r="6"
+              cx={`${20 + (i % 3) * 20}%`} // Adjusted for mobile
+              cy={`${25 + Math.floor(i / 3) * 15}%`} // Adjusted for mobile
+              r="4" // Smaller on mobile
+              className="sm:r-6"
               fill="none"
               stroke="var(--ai-secondary)"
               strokeWidth="2"
@@ -119,10 +120,10 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           {[...Array(6)].map((_, i) => (
             <motion.line
               key={`net-line-${i}`}
-              x1={`${25 + (i % 2) * 25}%`}
-              y1={`${30 + i * 10}%`}
-              x2={`${50 + (i % 2) * 25}%`}
-              y2={`${50 + i * 8}%`}
+              x1={`${20 + (i % 2) * 20}%`} // Adjusted for mobile
+              y1={`${25 + i * 10}%`} // Adjusted for mobile
+              x2={`${40 + (i % 2) * 20}%`} // Adjusted for mobile
+              y2={`${45 + i * 8}%`} // Adjusted for mobile
               stroke="var(--ai-secondary)"
               strokeWidth="1"
               strokeDasharray="6,6"
@@ -167,22 +168,16 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
       
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="tech-title leading-tight-mobile text-fluid-3xl sm:text-5xl font-bold mb-4 sm:mb-6">
+        <motion.div className="text-center mb-8 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
             CONTACT
           </h2>
-          <p className="text-xl text-white max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-white max-w-3xl mx-auto leading-relaxed px-4">
             Ready to collaborate on your next project? Let's discuss how we can bring your ideas to life with cutting-edge technology.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-16 px-4 sm:px-6">
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -191,10 +186,10 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            <div className="glass-ai rounded-3xl p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
-                  <Send className="w-4 h-4 text-white" />
+            <div className="glass-ai rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg sm:rounded-xl flex items-center justify-center">
+                  <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                 </div>
                 Send Message
               </h3>
@@ -212,7 +207,10 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--ai-primary)] focus:border-transparent transition-all duration-300"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-800/50 border border-gray-600 
+                      rounded-lg sm:rounded-xl text-sm sm:text-base text-white placeholder-gray-400 
+                      focus:outline-none focus:ring-2 focus:ring-[var(--ai-primary)] focus:border-transparent 
+                      transition-all duration-300"
                       placeholder="Your full name"
                     />
                   </div>
@@ -227,7 +225,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--ai-primary)] focus:border-transparent transition-all duration-300"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-800/50 border border-gray-600 rounded-lg sm:rounded-xl text-sm sm:text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--ai-primary)] focus:border-transparent transition-all duration-300"
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -244,7 +242,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--ai-primary)] focus:border-transparent transition-all duration-300"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-800/50 border border-gray-600 rounded-lg sm:rounded-xl text-sm sm:text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--ai-primary)] focus:border-transparent transition-all duration-300"
                     placeholder="What's this about?"
                   />
                 </div>
@@ -260,7 +258,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                     onChange={handleInputChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--ai-primary)] focus:border-transparent transition-all duration-300 resize-none"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-800/50 border border-gray-600 rounded-lg sm:rounded-xl text-sm sm:text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--ai-primary)] focus:border-transparent transition-all duration-300 resize-none"
                     placeholder="Tell me about your project..."
                   />
                 </div>
@@ -270,16 +268,20 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 bg-brand-gradient text-white font-bold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                  className="w-full py-3 sm:py-4 bg-brand-gradient text-sm sm:text-base text-white 
+                  font-bold rounded-lg sm:rounded-xl transition-all duration-300 
+                  disabled:opacity-50 disabled:cursor-not-allowed flex items-center 
+                  justify-center gap-2 sm:gap-3"
                 >
                   {isSubmitting ? (
                     <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent 
+                      rounded-full animate-spin" />
                       Sending...
                     </>
                   ) : (
                     <>
-                      <Send className="w-5 h-5" />
+                      <Send className="w-4 h-4 sm:w-5 sm:h-5" />
                       Send Message
                     </>
                   )}
@@ -312,15 +314,15 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
             className="space-y-8"
           >
             {/* Contact Methods */}
-            <div className="glass-ai rounded-3xl p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
-                  <Mail className="w-4 h-4 text-white" />
+            <div className="glass-ai rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg sm:rounded-xl flex items-center justify-center">
+                  <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                 </div>
                 Contact Information
               </h3>
               
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {contactMethods.map((method) => (
                   <motion.a
                     key={method.label}
@@ -328,15 +330,18 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                     target={method.href.startsWith('http') ? '_blank' : undefined}
                     rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     whileHover={{ scale: 1.02, x: 10 }}
-                    className="block p-4 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-xl border border-gray-600/50 hover:border-[var(--ai-primary)]/50 transition-all duration-300 group"
+                    className="block p-3 sm:p-4 bg-gradient-to-r from-gray-800/50 to-gray-700/50 
+                    rounded-lg sm:rounded-xl border border-gray-600/50 
+                    hover:border-[var(--ai-primary)]/50 transition-all duration-300 group"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 bg-brand-gradient rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                        <method.icon className="w-6 h-6 text-white" />
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-brand-gradient rounded-lg sm:rounded-xl 
+                        flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <method.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-sm text-white font-semibold">{method.label}</p>
-                        <p className="text-white font-medium">{method.value}</p>
+                        <p className="text-xs sm:text-sm text-white font-semibold">{method.label}</p>
+                        <p className="text-sm sm:text-base text-white font-medium">{method.value}</p>
                       </div>
                     </div>
                   </motion.a>
@@ -345,65 +350,71 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
             </div>
 
             {/* Availability Status */}
-            <div className="glass-ai rounded-3xl p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
-                  <Clock className="w-4 h-4 text-white" />
+            <div className="glass-ai rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 
+              border border-[var(--ai-primary)]/20 shadow-2xl">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg sm:rounded-xl 
+                  flex items-center justify-center">
+                  <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                 </div>
                 Availability
               </h3>
               
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
-                  <span className="text-green-400 font-semibold">Available for new projects</span>
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-400 rounded-full animate-pulse" />
+                  <span className="text-sm sm:text-base text-green-400 font-semibold">
+                    Available for new projects
+                  </span>
                 </div>
-                <p className="text-white text-sm">
+                <p className="text-xs sm:text-sm text-white">
                   I'm currently accepting new opportunities and would love to discuss your project requirements.
                 </p>
-                <div className="flex items-center gap-2 text-sm text-white">
-                  <Calendar className="w-4 h-4" />
+                <div className="flex items-center gap-2 text-xs sm:text-sm text-white">
+                  <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <span>Response time: Usually within 24 hours</span>
                 </div>
               </div>
             </div>
 
             {/* Additional Information */}
-            <div className="glass-ai rounded-3xl p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-white" />
+            <div className="glass-ai rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 
+              border border-[var(--ai-primary)]/20 shadow-2xl">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg sm:rounded-xl 
+                  flex items-center justify-center">
+                  <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                 </div>
                 Why Work With Me?
               </h3>
               
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-white font-semibold">Microsoft Azure Certified</p>
-                    <p className="text-white text-sm">Professional cloud computing expertise</p>
+                    <p className="text-sm sm:text-base text-white font-semibold">Microsoft Azure Certified</p>
+                    <p className="text-xs sm:text-sm text-white">Professional cloud computing expertise</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-white font-semibold">AI/ML Specialization</p>
-                    <p className="text-white text-sm">Cutting-edge machine learning solutions</p>
+                    <p className="text-sm sm:text-base text-white font-semibold">AI/ML Specialization</p>
+                    <p className="text-xs sm:text-sm text-white">Cutting-edge machine learning solutions</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-white font-semibold">Full-Stack Development</p>
-                    <p className="text-white text-sm">End-to-end application development</p>
+                    <p className="text-sm sm:text-base text-white font-semibold">Full-Stack Development</p>
+                    <p className="text-xs sm:text-sm text-white">End-to-end application development</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--ai-primary)] mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-white font-semibold">DevOps Expertise</p>
-                    <p className="text-white text-sm">Scalable and maintainable solutions</p>
+                    <p className="text-sm sm:text-base text-white font-semibold">DevOps Expertise</p>
+                    <p className="text-xs sm:text-sm text-white">Scalable and maintainable solutions</p>
                   </div>
                 </div>
               </div>

@@ -7,8 +7,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './contexts/ThemeContext';
 import ThemeWrapper from './components/ThemeWrapper';
 
-console.log('main.tsx starting...');
-
 // Performance optimizations
 if (process.env.NODE_ENV === 'production') {
   // Disable console in production
@@ -48,7 +46,9 @@ const initializeTheme = () => {
     document.body.classList.add('dark-mode');
   }
   
-  console.log('Theme initialized:', theme);
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Theme initialized:', theme);
+  }
 };
 
 // Initialize theme before React renders
@@ -60,7 +60,10 @@ if (!rootElement) {
   throw new Error('Root element not found');
 }
 const root = ReactDOM.createRoot(rootElement);
-console.log('React root created, element:', rootElement);
+
+if (process.env.NODE_ENV === 'development') {
+  console.log('React root created, element:', rootElement);
+}
 
 // Use React.StrictMode for development only
 if (process.env.NODE_ENV === 'development') {
@@ -79,7 +82,6 @@ if (process.env.NODE_ENV === 'development') {
     </React.StrictMode>
   );
 } else {
-  console.log('Rendering in production mode...');
   root.render(
     <HelmetProvider>
       <ThemeProvider>
