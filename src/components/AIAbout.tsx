@@ -281,20 +281,20 @@ const AIAbout: React.FC = () => {
         <div className="space-y-12">
           {/* Overview */}
           {activeTab === 'overview' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
               {/* Overview Content */}
-              <div className="space-y-6">
-                <div className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50">
-                  <h3 className="text-2xl font-bold text-primary mb-4">Career Focus</h3>
-                  <p className="text-secondary leading-relaxed">
+              <div className="space-y-4 sm:space-y-6">
+                <div className="bg-slate-800/50 rounded-xl lg:rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-slate-700/50">
+                  <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-4">Career Focus</h3>
+                  <p className="text-secondary leading-relaxed text-sm sm:text-base break-words hyphens-auto">
                     Specializing in full-stack development with a focus on AI integration and cloud architecture. 
                     I blend technical expertise with creative problem-solving to build innovative solutions.
                   </p>
                 </div>
                 
-                <div className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50">
-                  <h3 className="text-2xl font-bold text-primary mb-4">Technical Vision</h3>
-                  <p className="text-secondary leading-relaxed">
+                <div className="bg-slate-800/50 rounded-xl lg:rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-slate-700/50">
+                  <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-4">Technical Vision</h3>
+                  <p className="text-secondary leading-relaxed text-sm sm:text-base break-words hyphens-auto">
                     Leveraging Azure cloud services and AI technologies to create scalable, intelligent applications. 
                     Committed to writing clean, maintainable code and implementing best practices.
                   </p>
@@ -302,20 +302,20 @@ const AIAbout: React.FC = () => {
               </div>
 
               {/* Stats & Highlights */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {skills.map((category, idx) => (
                   <div
                     key={idx}
-                    className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50"
+                    className="bg-slate-800/50 rounded-xl lg:rounded-2xl p-3 sm:p-4 lg:p-6 backdrop-blur-sm border border-slate-700/50"
                   >
-                    <h4 className="text-lg font-semibold text-primary mb-3">{category.category}</h4>
-                    <div className="space-y-3">
+                    <h4 className="text-sm sm:text-base lg:text-lg font-semibold text-primary mb-2 sm:mb-3 break-words hyphens-auto leading-tight">{category.category}</h4>
+                    <div className="space-y-2 sm:space-y-3">
                       {category.items.slice(0, 2).map((skill, skillIdx) => (
-                        <div key={skillIdx} className="flex items-center gap-3">
-                          <div className={`w-8 h-8 rounded-lg bg-gradient-to-r ${skill.color} flex items-center justify-center`}>
-                            <skill.icon className="w-4 h-4 text-white" />
+                        <div key={skillIdx} className="flex items-start gap-2 sm:gap-3">
+                          <div className={`w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-lg bg-gradient-to-r ${skill.color} flex items-center justify-center flex-shrink-0`}>
+                            <skill.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white" />
                           </div>
-                          <span className="text-secondary">{skill.name}</span>
+                          <span className="text-secondary text-xs sm:text-sm lg:text-base break-words hyphens-auto leading-tight flex-1 min-w-0">{skill.name}</span>
                         </div>
                       ))}
                     </div>
@@ -327,28 +327,28 @@ const AIAbout: React.FC = () => {
 
           {/* Experience */}
           {activeTab === 'experience' && (
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {experience.map((job, idx) => (
                 <div
                   key={idx}
-                  className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50"
+                  className="bg-slate-800/50 rounded-xl lg:rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-slate-700/50"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${getCategoryColor(job.category)} flex items-center justify-center flex-shrink-0`}>
-                      <job.icon className="w-6 h-6 text-white" />
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-r ${getCategoryColor(job.category)} flex items-center justify-center flex-shrink-0`}>
+                      <job.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
-                    <div className="space-y-2">
-                      <h3 className="text-xl font-bold text-primary">{job.title}</h3>
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-secondary">
-                        <span>{job.company}</span>
+                    <div className="space-y-2 flex-1 min-w-0">
+                      <h3 className="text-lg sm:text-xl font-bold text-primary break-words hyphens-auto">{job.title}</h3>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-sm text-secondary">
+                        <span className="break-words hyphens-auto">{job.company}</span>
                         <span className="text-[var(--ai-primary)]">{job.year}</span>
                       </div>
-                      <p className="text-secondary">{job.description}</p>
-                      <div className="flex flex-wrap gap-2 mt-4">
+                      <p className="text-secondary text-sm sm:text-base leading-relaxed break-words hyphens-auto">{job.description}</p>
+                      <div className="flex flex-wrap gap-2 mt-3 sm:mt-4">
                         {job.technologies.map((tech, techIdx) => (
                           <span
                             key={techIdx}
-                            className="px-3 py-1 text-sm bg-slate-700/50 text-secondary rounded-lg"
+                            className="px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm bg-slate-700/50 text-secondary rounded-lg break-words hyphens-auto"
                           >
                             {tech}
                           </span>
@@ -363,23 +363,27 @@ const AIAbout: React.FC = () => {
 
           {/* Skills */}
           {activeTab === 'skills' && (
-            <div className="space-y-10">
+            <div className="space-y-8 sm:space-y-10">
               {skills.map((category, idx) => (
-                <div key={idx} className="space-y-6">
-                  <h3 className="text-2xl font-bold text-primary">{category.category}</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div key={idx} className="space-y-4 sm:space-y-6">
+                  <h3 className="text-xl sm:text-2xl font-bold text-primary break-words hyphens-auto">{category.category}</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
                     {category.items.map((skill, skillIdx) => (
                       <div
                         key={skillIdx}
-                        className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50"
+                        className="bg-slate-800/50 rounded-xl lg:rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-slate-700/50"
                       >
-                        <div className="flex items-center gap-4 mb-4">
-                          <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${skill.color} flex items-center justify-center`}>
-                            <skill.icon className="w-6 h-6 text-white" />
+                        <div className="flex flex-col gap-3 sm:gap-4">
+                          <div className="flex items-center gap-3">
+                            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-r ${skill.color} flex items-center justify-center flex-shrink-0`}>
+                              <skill.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-semibold text-primary text-sm sm:text-base break-words hyphens-auto leading-tight">{skill.name}</h4>
+                            </div>
                           </div>
-                          <div>
-                            <h4 className="font-semibold text-primary">{skill.name}</h4>
-                            <div className="mt-1 bg-slate-700/50 rounded-full h-2">
+                          <div className="mt-2">
+                            <div className="bg-slate-700/50 rounded-full h-2">
                               <div
                                 className={`h-full rounded-full bg-gradient-to-r ${skill.color}`}
                                 style={{ width: `${skill.level}%` }}
@@ -397,30 +401,30 @@ const AIAbout: React.FC = () => {
 
           {/* Certifications */}
           {activeTab === 'certifications' && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {certifications.map((cert, idx) => (
                 <div
                   key={idx}
-                  className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50"
+                  className="bg-slate-800/50 rounded-xl lg:rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-slate-700/50"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${cert.color} flex items-center justify-center flex-shrink-0`}>
-                      <cert.icon className="w-6 h-6 text-white" />
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-r ${cert.color} flex items-center justify-center flex-shrink-0`}>
+                      <cert.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
-                    <div className="space-y-2">
-                      <h3 className="text-xl font-bold text-primary">{cert.name}</h3>
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-secondary">
-                        <span>{cert.issuer}</span>
+                    <div className="space-y-2 flex-1 min-w-0">
+                      <h3 className="text-lg sm:text-xl font-bold text-primary break-words hyphens-auto leading-tight">{cert.name}</h3>
+                      <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-1 sm:gap-4 text-sm text-secondary">
+                        <span className="break-words hyphens-auto">{cert.issuer}</span>
                         <span className="text-[var(--ai-primary)]">{cert.date}</span>
-                        <span className="px-2 py-1 bg-slate-700/50 rounded-lg">{cert.badge}</span>
+                        <span className="px-2 py-1 bg-slate-700/50 rounded-lg text-xs sm:text-sm break-words hyphens-auto">{cert.badge}</span>
                       </div>
-                      <p className="text-secondary">{cert.description}</p>
+                      <p className="text-secondary text-sm sm:text-base leading-relaxed break-words hyphens-auto">{cert.description}</p>
                       {cert.url && (
                         <a
                           href={cert.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-block text-[var(--ai-primary)] hover:text-[var(--ai-secondary)] transition-colors duration-300"
+                          className="inline-block text-[var(--ai-primary)] hover:text-[var(--ai-secondary)] transition-colors duration-300 text-sm sm:text-base break-words hyphens-auto"
                         >
                           Learn more →
                         </a>
