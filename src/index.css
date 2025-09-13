@@ -364,13 +364,7 @@
 .tech-title {
   font-family: 'Orbitron', monospace;
   font-weight: 800;
-  background: linear-gradient(135deg, 
-    var(--ai-primary) 0%, 
-    var(--code-primary) 50%, 
-    var(--devops-primary) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #00C2FF;
   text-shadow: 0 0 30px var(--ai-glow);
 }
 
@@ -640,75 +634,367 @@ textarea:focus {
 
 /* Enhanced Responsive Design */
 @media (max-width: 768px) {
-  .ai-neural-glow,
-  .ai-data-flow,
-  .devops-pipeline {
-    animation-duration: 12s;
+  /* Reduce animation complexity on mobile */
+  .interactive-card {
+    transition: all 0.3s ease;
   }
   
-  .holographic {
-    background-size: 200% 200%;
+  .interactive-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
   }
   
+  /* Optimize glass morphism for mobile */
+  .glass-premium {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  /* Reduce particle complexity */
+  .particle-system {
+    opacity: 0.1 !important;
+  }
+  
+  /* Disable parallax on mobile for performance */
+  .parallax-slow,
+  .parallax-fast {
+    transform: none !important;
+  }
+  
+  /* Optimize neural network animations */
   .neural-node {
     animation-duration: 4s;
   }
-
-  /* Enhanced touch targets */
-  button, 
-  a, 
-  input, 
-  select, 
-  textarea {
+  
+  /* Touch-friendly interactions */
+  .cursor-glow::before {
+    display: none;
+  }
+  
+  /* Reduce magnetic effects on mobile */
+  .magnetic {
+    transform: none !important;
+  }
+  
+  /* Mobile-specific button sizing */
+  .btn-premium {
     min-height: 44px;
-    min-width: 44px;
+    padding: 12px 20px;
   }
-
-  /* Improved spacing for mobile */
-  .section-padding {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-
-  /* Better text readability */
-  p {
-    font-size: var(--step-0);
-    line-height: 1.6;
-  }
-
-  /* Improved navigation spacing */
-  nav a {
-    padding: 0.75rem;
-    margin: 0.25rem 0;
-  }
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .ai-neural-glow,
-  .ai-data-flow,
-  .devops-pipeline,
-  .neural-node,
-  .holographic,
-  .particle-system,
-  .infrastructure-diagram {
-    animation: none;
-  }
-}
-
-/* Print Styles */
-@media print {
-  .ai-neural-glow,
-  .ai-data-flow,
-  .devops-pipeline,
-  .particle-system {
-    background: none;
+  
+  /* Optimize skill bars for mobile */
+  .skill-progress::after {
     animation: none;
   }
   
-  .holographic {
-    -webkit-text-fill-color: initial;
-    color: var(--text-primary);
+  /* Enhanced mobile scrolling */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Reduce motion for better performance */
+  @media (prefers-reduced-motion: reduce) {
+    .interactive-card,
+    .btn-premium,
+    .scroll-reveal,
+    .skill-progress {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+  
+  /* Mobile-specific background optimizations */
+  .bg-app-gradient {
+    background: linear-gradient(135deg,
+      var(--bg-primary) 0%,
+      var(--bg-secondary) 100%
+    );
+  }
+  
+  /* Simplified particle effects for mobile */
+  .particle-system::before {
+    background-image: 
+      radial-gradient(circle at 50% 50%, var(--ai-glow) 0%, transparent 70%);
+    animation-duration: 30s;
+  }
+  
+  /* Mobile-optimized glass effects */
+  .glass-ai,
+  .glass-devops,
+  .glass-code {
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.06);
+  }
+  
+  /* Enhanced touch targets */
+  a, button, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  
+  /* Improved text readability on mobile */
+  p, li {
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+  
+  /* Mobile-specific spacing */
+  .section-padding {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  /* Optimize animations for mobile */
+  .ai-neural-glow,
+  .ai-data-flow,
+  .devops-pipeline {
+    animation-duration: 15s;
+    animation-timing-function: ease-out;
+  }
+  
+  /* Mobile-friendly hover states */
+  .interactive-hover:active {
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
+  }
+  
+  /* Enhanced mobile grid layouts */
+  .mobile-grid-1 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  /* Mobile-optimized typography */
+  .mobile-text-sm { font-size: 0.875rem; }
+  .mobile-text-base { font-size: 1rem; }
+  .mobile-text-lg { font-size: 1.125rem; }
+  .mobile-text-xl { font-size: 1.25rem; }
+  
+  /* Improved mobile navigation */
+  nav a {
+    padding: 0.75rem 1rem;
+    margin: 0.25rem 0;
+    border-radius: 0.5rem;
+  }
+  
+  /* Mobile-specific card optimizations */
+  .mobile-card {
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Enhanced mobile forms */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+  }
+  
+  /* Mobile-optimized modals */
+  .mobile-modal {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Replace hover effects with touch-friendly alternatives */
+  .interactive-card:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+  
+  .btn-premium:active {
+    transform: scale(0.98);
+  }
+  
+  .glass-premium:active {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  
+  /* Disable hover-only effects */
+  .cursor-glow::before,
+  .magnetic {
+    display: none;
+  }
+  
+  /* Touch-optimized interactions */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.75rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .glass-premium {
+    padding: 16px;
+    margin: 8px;
+    border-radius: 1rem;
+  }
+  
+  .interactive-card {
+    margin-bottom: 16px;
+    border-radius: 1rem;
+  }
+  
+  /* Optimize text sizing */
+  .tech-title {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+    line-height: 1.2;
+  }
+  
+  /* Reduce spacing */
+  .scroll-reveal {
+    margin-bottom: 12px;
+  }
+  
+  /* Optimize neural network for small screens */
+  .neural-node {
+    r: 2;
+  }
+  
+  /* Simplify background effects */
+  .bg-grid {
+    opacity: 0.03 !important;
+    background-size: 20px 20px;
+  }
+  
+  /* Mobile-specific project cards */
+  .project-card-mobile {
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Enhanced mobile buttons */
+  .mobile-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    border-radius: 0.75rem;
+    min-height: 44px;
+  }
+  
+  /* Mobile-optimized spacing */
+  .mobile-spacing {
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+  .glass-premium {
+    padding: 12px 16px;
+  }
+  
+  /* Reduce vertical spacing in landscape */
+  .scroll-reveal {
+    margin-bottom: 8px;
+  }
+  
+  /* Optimize hero section for landscape */
+  .hero-section {
+    min-height: 80vh;
+    padding: 2rem 0;
+  }
+  
+  /* Landscape-specific navigation */
+  .landscape-nav {
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* High DPI mobile displays */
+@media (-webkit-min-device-pixel-ratio: 2) and (max-width: 768px) {
+  .glass-premium {
+    border-width: 0.5px;
+  }
+  
+  .interactive-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Enhanced text rendering */
+  .tech-title {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Performance optimizations for all mobile devices */
+@media (max-width: 768px) {
+  /* GPU acceleration for smooth animations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+  }
+  
+  /* Optimize scroll performance */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Reduce repaints and reflows */
+  .optimized-element {
+    contain: layout style paint;
+  }
+  
+  /* Mobile-specific loading states */
+  .mobile-loading {
+    background: linear-gradient(90deg, 
+      rgba(255,255,255,0.05) 25%, 
+      rgba(255,255,255,0.1) 50%, 
+      rgba(255,255,255,0.05) 75%);
+    background-size: 200% 100%;
+    animation: mobile-skeleton-loading 2s infinite;
+  }
+}
+
+@keyframes mobile-skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Enhanced accessibility for mobile */
+@media (max-width: 768px) {
+  /* Focus indicators */
+  button:focus,
+  a:focus,
+  input:focus,
+  textarea:focus {
+    outline: 3px solid var(--ai-primary);
+    outline-offset: 2px;
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .glass-premium {
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid var(--ai-primary);
+    }
+    
+    .tech-title {
+      color: var(--ai-primary);
+      text-shadow: none;
+    }
+  }
+  
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -833,6 +1119,11 @@ textarea:focus {
     animation: none;
   }
   
+  /* Enhanced mobile scrolling */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  
   /* Reduce motion for better performance */
   @media (prefers-reduced-motion: reduce) {
     .interactive-card,
@@ -842,6 +1133,102 @@ textarea:focus {
       animation: none !important;
       transition: none !important;
     }
+  }
+  
+  /* Mobile-specific background optimizations */
+  .bg-app-gradient {
+    background: linear-gradient(135deg,
+      var(--bg-primary) 0%,
+      var(--bg-secondary) 100%
+    );
+  }
+  
+  /* Simplified particle effects for mobile */
+  .particle-system::before {
+    background-image: 
+      radial-gradient(circle at 50% 50%, var(--ai-glow) 0%, transparent 70%);
+    animation-duration: 30s;
+  }
+  
+  /* Mobile-optimized glass effects */
+  .glass-ai,
+  .glass-devops,
+  .glass-code {
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.06);
+  }
+  
+  /* Enhanced touch targets */
+  a, button, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  
+  /* Improved text readability on mobile */
+  p, li {
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+  
+  /* Mobile-specific spacing */
+  .section-padding {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  /* Optimize animations for mobile */
+  .ai-neural-glow,
+  .ai-data-flow,
+  .devops-pipeline {
+    animation-duration: 15s;
+    animation-timing-function: ease-out;
+  }
+  
+  /* Mobile-friendly hover states */
+  .interactive-hover:active {
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
+  }
+  
+  /* Enhanced mobile grid layouts */
+  .mobile-grid-1 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  /* Mobile-optimized typography */
+  .mobile-text-sm { font-size: 0.875rem; }
+  .mobile-text-base { font-size: 1rem; }
+  .mobile-text-lg { font-size: 1.125rem; }
+  .mobile-text-xl { font-size: 1.25rem; }
+  
+  /* Improved mobile navigation */
+  nav a {
+    padding: 0.75rem 1rem;
+    margin: 0.25rem 0;
+    border-radius: 0.5rem;
+  }
+  
+  /* Mobile-specific card optimizations */
+  .mobile-card {
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Enhanced mobile forms */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+  }
+  
+  /* Mobile-optimized modals */
+  .mobile-modal {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
   }
 }
 
@@ -866,6 +1253,13 @@ textarea:focus {
   .magnetic {
     display: none;
   }
+  
+  /* Touch-optimized interactions */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.75rem;
+  }
 }
 
 /* Small mobile devices */
@@ -873,10 +1267,12 @@ textarea:focus {
   .glass-premium {
     padding: 16px;
     margin: 8px;
+    border-radius: 1rem;
   }
   
   .interactive-card {
     margin-bottom: 16px;
+    border-radius: 1rem;
   }
   
   /* Optimize text sizing */
@@ -897,7 +1293,29 @@ textarea:focus {
   
   /* Simplify background effects */
   .bg-grid {
-    opacity: 0.05 !important;
+    opacity: 0.03 !important;
+    background-size: 20px 20px;
+  }
+  
+  /* Mobile-specific project cards */
+  .project-card-mobile {
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Enhanced mobile buttons */
+  .mobile-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    border-radius: 0.75rem;
+    min-height: 44px;
+  }
+  
+  /* Mobile-optimized spacing */
+  .mobile-spacing {
+    padding: 1rem;
+    margin: 0.5rem 0;
   }
 }
 
@@ -915,6 +1333,12 @@ textarea:focus {
   /* Optimize hero section for landscape */
   .hero-section {
     min-height: 80vh;
+    padding: 2rem 0;
+  }
+  
+  /* Landscape-specific navigation */
+  .landscape-nav {
+    padding: 0.5rem 1rem;
   }
 }
 
@@ -927,20 +1351,59 @@ textarea:focus {
   .interactive-card {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
+  
+  /* Enhanced text rendering */
+  .tech-title {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 /* Loading States */
 .skeleton {
-  background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0.1) 25%, 
+    rgba(255,255,255,0.2) 50%, 
+    rgba(255,255,255,0.1) 75%);
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
 }
 
 @keyframes skeleton-loading {
-  0% {
-    background-position: 200% 0;
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Enhanced accessibility for mobile */
+@media (max-width: 768px) {
+  /* Focus indicators */
+  button:focus,
+  a:focus,
+  input:focus,
+  textarea:focus {
+    outline: 3px solid var(--ai-primary);
+    outline-offset: 2px;
   }
-  100% {
-    background-position: -200% 0;
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .glass-premium {
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid var(--ai-primary);
+    }
+    
+    .tech-title {
+      color: var(--ai-primary);
+      text-shadow: none;
+    }
+  }
+  
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

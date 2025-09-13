@@ -169,7 +169,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <motion.div className="text-center mb-8 sm:mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
+          <h2 className="tech-title leading-tight-mobile text-fluid-3xl sm:text-5xl font-bold mb-3 sm:mb-4">
             CONTACT
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-white max-w-3xl mx-auto leading-relaxed px-4">

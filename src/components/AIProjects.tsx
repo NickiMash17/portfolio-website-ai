@@ -590,7 +590,7 @@ const AIProjects: React.FC = () => {
         </div>
 
         {/* Enhanced Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12 md:mb-16">
           {filteredProjects.map((project, index) => (
             <EnhancedProjectCard
               key={project.id}
@@ -607,16 +607,16 @@ const AIProjects: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-12 sm:mt-20 scroll-reveal"
+          className="text-center mt-8 sm:mt-12 md:mt-20 scroll-reveal"
         >
-          <div className="glass-premium interactive-card cursor-glow rounded-3xl p-8 sm:p-12 data-visualization">
-            <h2 className="tech-title text-fluid-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
+          <div className="glass-premium interactive-card cursor-glow rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 data-visualization">
+            <h2 className="tech-title text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 md:mb-4">
               Ready to Start a Project?
             </h2>
-            <p className="text-fluid-lg sm:text-xl text-secondary leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-secondary leading-relaxed mb-4 sm:mb-6">
               Let's collaborate to bring your ideas to life with cutting-edge technology and innovative solutions.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center">
               <motion.a
                 href="#contact"
                 whileHover={{ scale: 1.05 }}

@@ -91,7 +91,7 @@ const Navigation: React.FC<NavigationProps> = () => {
                 className={`flex items-center space-x-1 lg:space-x-2 px-4 lg:px-6 py-2.5 rounded-2xl text-base lg:text-lg font-semibold transition-all duration-300 ${
                   activeSection === item.href.substring(1)
                     ? 'bg-gradient-to-r from-[var(--ai-primary)] to-[var(--ai-secondary)] text-white shadow-lg'
-                    : 'text-white hover:text-[var(--ai-primary)] hover:bg-[var(--ai-primary)]/10'
+                    : 'text-brand hover:text-[var(--ai-primary)] hover:bg-[var(--ai-primary)]/10'
                 }`}
               >
                 {item.icon}
@@ -129,7 +129,7 @@ const Navigation: React.FC<NavigationProps> = () => {
                   className={`flex items-center space-x-3 px-4 py-2.5 rounded-xl text-base font-semibold transition-all duration-300 ${
                     activeSection === item.href.substring(1)
                       ? 'bg-gradient-to-r from-[var(--ai-primary)] to-[var(--ai-secondary)] text-white shadow-lg'
-                      : 'text-white hover:text-[var(--ai-primary)] hover:bg-[var(--ai-primary)]/10'
+                      : 'text-brand hover:text-[var(--ai-primary)] hover:bg-[var(--ai-primary)]/10'
                   }`}
                 >
                   {item.icon}
@@ -181,23 +181,23 @@ const Footer: React.FC = () => {
               Quick Links
             </h3>
             <div className="space-y-3 sm:space-y-4">
-              <a href="#home" className="text-sm sm:text-base md:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
+              <a href="#home" className="text-sm sm:text-base md:text-lg text-brand hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <Home className="w-4 h-4" />
                 Home
               </a>
-              <a href="#about" className="text-sm sm:text-base md:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
+              <a href="#about" className="text-sm sm:text-base md:text-lg text-brand hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <User className="w-4 h-4" />
                 About
               </a>
-              <a href="#projects" className="text-sm sm:text-base md:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
+              <a href="#projects" className="text-sm sm:text-base md:text-lg text-brand hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <Briefcase className="w-4 h-4" />
                 Projects
               </a>
-              <a href="#resume" className="text-sm sm:text-base md:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
+              <a href="#resume" className="text-sm sm:text-base md:text-lg text-brand hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <FileText className="w-4 h-4" />
                 Resume
               </a>
-              <a href="#contact" className="text-sm sm:text-base md:text-lg text-white hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
+              <a href="#contact" className="text-sm sm:text-base md:text-lg text-brand hover-brand transition-colors duration-300 hover:translate-x-2 transform flex items-center justify-center md:justify-start gap-2">
                 <Mail className="w-4 h-4" />
                 Contact
               </a>
