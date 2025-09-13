@@ -76,7 +76,7 @@ export const usePerformance = (options: PerformanceOptions = {}) => {
       const scrollSpeed = scrollDistance / scrollDuration; // pixels per millisecond
       const scrollPerformance = Math.round(scrollSpeed * 1000); // pixels per second
       
-        setMetrics(prev => ({ ...prev, scrollPerformance }));
+      setMetrics(prev => ({ ...prev, scrollPerformance }));
     } else if (metrics.isScrolling) {
       setMetrics(prev => ({ ...prev, isScrolling: false }));
     }
@@ -101,7 +101,7 @@ export const usePerformance = (options: PerformanceOptions = {}) => {
       // Force garbage collection if available
       if ('gc' in window) {
         (window as any).gc();
-    }
+      }
 
       // Clear any cached data
       if ('caches' in window) {
@@ -109,15 +109,10 @@ export const usePerformance = (options: PerformanceOptions = {}) => {
           names.forEach(name => {
             if (name.includes('temp') || name.includes('cache')) {
               caches.delete(name);
-    }
+            }
           });
         });
       }
-      
-      // Clear console for development
-      // if (process.env.NODE_ENV === 'development') {
-      //   console.clear();
-      // }
     }
   }, [enableMemoryCleanup]);
 
@@ -130,7 +125,7 @@ export const usePerformance = (options: PerformanceOptions = {}) => {
       document.documentElement.style.setProperty('--animation-duration', '0.1s');
       document.documentElement.style.setProperty('--animation-delay', '0s');
       document.documentElement.style.setProperty('--scroll-behavior', 'auto');
-      } else {
+    } else {
       document.documentElement.style.setProperty('--animation-duration', '0.3s');
       document.documentElement.style.setProperty('--animation-delay', '0.1s');
       document.documentElement.style.setProperty('--scroll-behavior', 'smooth');
@@ -148,18 +143,18 @@ export const usePerformance = (options: PerformanceOptions = {}) => {
   // Initialize performance monitoring
   useEffect(() => {
     if (enableMonitoring) {
-    // Start FPS monitoring
+      // Start FPS monitoring
       rafRef.current = requestAnimationFrame(measureFPS);
 
       // Start memory monitoring
       const memoryInterval = setInterval(measureMemory, 2000);
 
-    return () => {
+      return () => {
         if (rafRef.current) {
           cancelAnimationFrame(rafRef.current);
-      }
-      clearInterval(memoryInterval);
-    };
+        }
+        clearInterval(memoryInterval);
+      };
     }
   }, [enableMonitoring, measureFPS, measureMemory]);
 
@@ -196,11 +191,10 @@ export const usePerformance = (options: PerformanceOptions = {}) => {
   }, []);
 
   const debounceScroll = useCallback((callback: () => void, delay: number = 100) => {
-    let timeoutId: NodeJS.Timeout;
-    return () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(callback, delay);
-    };
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    scrollTimeoutRef.current = setTimeout(callback, delay);
   }, []);
 
   const throttleScroll = useCallback((callback: () => void, limit: number = 16) => {
@@ -222,4 +216,4 @@ export const usePerformance = (options: PerformanceOptions = {}) => {
     cleanupMemory,
     optimizeAnimations
   };
-}; 
+};

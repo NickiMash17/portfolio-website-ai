@@ -13,6 +13,7 @@ interface NavigationProps {}
 interface AppContentProps {
   optimizeElement: (element: HTMLElement) => void;
   debounceScroll: (callback: () => void, delay?: number) => void;
+  className?: string;
 }
 
 // Lazy load heavy components
@@ -279,7 +280,7 @@ const Footer: React.FC = () => {
   );
 };
 
-const AppContent: React.FC<AppContentProps> = ({ optimizeElement, debounceScroll }) => {
+const AppContent: React.FC<AppContentProps> = ({ optimizeElement, debounceScroll, className }) => {
   const scrollToTop = React.useCallback((e?: React.MouseEvent) => {
     if (e) e.preventDefault();
     debounceScroll(() => {
@@ -298,7 +299,7 @@ const AppContent: React.FC<AppContentProps> = ({ optimizeElement, debounceScroll
   }, [optimizeElement]);
 
   return (
-    <div className="min-h-screen font-inter transition-colors duration-300 relative bg-app-gradient">
+    <div className={`min-h-screen font-inter transition-colors duration-300 relative bg-app-gradient ${className || ''}`}>
       {/* Navigation */}
       <Navigation />
 
@@ -505,7 +506,11 @@ const App: React.FC = () => {
           <meta name="twitter:description" content={meta.description} />
         </Helmet>
       )}
-      <AppContent optimizeElement={optimizeElement} debounceScroll={debounceScroll} className={`min-h-screen font-inter transition-colors duration-300 relative bg-app-gradient ${isMobile ? 'mobile-optimized' : ''}`} />
+      <AppContent 
+        optimizeElement={optimizeElement} 
+        debounceScroll={debounceScroll} 
+        className={isMobile ? 'mobile-optimized' : ''} 
+      />
     </>
   );
 };
