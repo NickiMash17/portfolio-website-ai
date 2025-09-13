@@ -208,16 +208,16 @@ const Chatbot: React.FC = () => {
         </div>
 
         {/* Header */}
-        <div className="relative p-6 border-b border-cyan-400/30 bg-gradient-to-r from-black/50 to-gray-900/50">
+        <div className="relative p-4 sm:p-6 border-b border-cyan-400/30 bg-gradient-to-r from-black/50 to-gray-900/50">
           {/* Holographic Scan Line */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent animate-pulse" />
           
           <div className="relative flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-black via-gray-900 to-black rounded-lg border-2 border-cyan-400/50 flex items-center justify-center relative overflow-hidden">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-black via-gray-900 to-black rounded-lg border-2 border-cyan-400/50 flex items-center justify-center relative overflow-hidden">
                 {/* Rotating AI Core */}
-                <div className="w-6 h-6 border border-cyan-400 rounded rotate-45 flex items-center justify-center animate-spin" style={{ animationDuration: '4s' }}>
-                  <div className="w-3 h-3 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-sm" />
+                <div className="w-5 h-5 sm:w-6 sm:h-6 border border-cyan-400 rounded rotate-45 flex items-center justify-center animate-spin" style={{ animationDuration: '4s' }}>
+                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-sm" />
                 </div>
                 {/* Energy Pulse */}
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-transparent animate-pulse" />
@@ -225,21 +225,21 @@ const Chatbot: React.FC = () => {
               
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent font-mono">
+                  <h3 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent font-mono">
                     NEURAL.AI
                   </h3>
                   <div className="w-2 h-2 bg-cyan-400 rounded-full animate-ping" />
                 </div>
                 <div className="flex items-center gap-2 mt-1">
                   <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-                  <span className="text-sm text-cyan-400 font-mono font-semibold">QUANTUM_PROTOCOL_ACTIVE</span>
+                  <span className="text-xs sm:text-sm text-cyan-400 font-mono font-semibold">QUANTUM_PROTOCOL_ACTIVE</span>
                 </div>
               </div>
             </div>
             
             <button
               onClick={() => setIsOpen(false)}
-              className="w-10 h-10 bg-gradient-to-r from-black/80 to-gray-900/80 hover:from-red-500/20 hover:to-red-600/20 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-300 transition-all duration-300 border border-cyan-400/30 hover:border-red-500/50"
+              className="w-10 h-10 bg-gradient-to-r from-black/80 to-gray-900/80 hover:from-red-500/20 hover:to-red-600/20 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-300 transition-all duration-300 border border-cyan-400/30 hover:border-red-500/50 touch-manipulation"
             >
               <X className="w-5 h-5" />
             </button>
@@ -247,7 +247,7 @@ const Chatbot: React.FC = () => {
         </div>
 
         {/* Chat Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4 relative">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3 sm:space-y-4 relative">
           {/* Floating Data Particles */}
           <div className="absolute inset-0 pointer-events-none opacity-20">
             <div className="absolute top-4 right-4 text-xs font-mono text-cyan-400 animate-pulse">01101</div>
@@ -261,7 +261,7 @@ const Chatbot: React.FC = () => {
               className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
             >
               <div
-                className={`max-w-[80%] p-4 rounded-xl relative overflow-hidden ${
+                className={`max-w-[85%] sm:max-w-[80%] p-3 sm:p-4 rounded-xl relative overflow-hidden ${
                   message.isBot
                     ? 'bg-gradient-to-br from-black/80 via-gray-900/80 to-black/80 border border-cyan-400/30 text-white backdrop-blur-sm'
                     : 'bg-gradient-to-br from-cyan-400/20 to-blue-400/20 border border-cyan-400/40 text-cyan-400 backdrop-blur-sm'
@@ -271,7 +271,7 @@ const Chatbot: React.FC = () => {
                 {message.isBot && (
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent animate-pulse" />
                 )}
-                <p className="text-sm sm:text-base">{message.text}</p>
+                <p className="text-sm sm:text-base leading-relaxed break-words">{message.text}</p>
                 <span className="text-xs opacity-60 mt-2 block font-mono">
                   {message.timestamp.toLocaleTimeString()}
                 </span>
@@ -281,16 +281,16 @@ const Chatbot: React.FC = () => {
         </div>
 
         {/* Quick Replies */}
-        <div className="p-4 border-t border-cyan-400/30 bg-gradient-to-r from-black/80 to-gray-900/80 relative">
+        <div className="p-3 sm:p-4 border-t border-cyan-400/30 bg-gradient-to-r from-black/80 to-gray-900/80 relative">
           {/* Terminal-style Background */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent" />
           
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
             {quickReplies.map((reply, index) => (
               <button
                 key={index}
                 onClick={() => handleQuickReply(reply)}
-                className="px-4 py-2 bg-gradient-to-r from-black/60 to-gray-900/60 hover:from-cyan-400/20 hover:to-blue-400/20 text-cyan-400 hover:text-white rounded-lg text-sm transition-all duration-300 border border-cyan-400/30 hover:border-cyan-400/60 font-mono backdrop-blur-sm"
+                className="px-3 py-2 sm:px-4 sm:py-2 bg-gradient-to-r from-black/60 to-gray-900/60 hover:from-cyan-400/20 hover:to-blue-400/20 text-cyan-400 hover:text-white rounded-lg text-xs sm:text-sm transition-all duration-300 border border-cyan-400/30 hover:border-cyan-400/60 font-mono backdrop-blur-sm touch-manipulation active:scale-95"
               >
                 {reply}
               </button>
@@ -305,16 +305,16 @@ const Chatbot: React.FC = () => {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage(inputValue)}
               placeholder="Initialize query..."
-              className="flex-1 bg-gradient-to-r from-black/80 to-gray-900/80 text-white placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 border border-cyan-400/30 focus:border-cyan-400/60 font-mono backdrop-blur-sm"
+              className="flex-1 bg-gradient-to-r from-black/80 to-gray-900/80 text-white placeholder-gray-500 rounded-lg px-3 py-2.5 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 border border-cyan-400/30 focus:border-cyan-400/60 font-mono backdrop-blur-sm text-sm sm:text-base"
             />
             <button
               onClick={() => handleSendMessage(inputValue)}
               disabled={!inputValue.trim()}
-              className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-400 hover:from-blue-400 hover:to-purple-400 rounded-lg flex items-center justify-center text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 border border-cyan-400/30 relative overflow-hidden group"
+              className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-cyan-400 to-blue-400 hover:from-blue-400 hover:to-purple-400 rounded-lg flex items-center justify-center text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 border border-cyan-400/30 relative overflow-hidden group touch-manipulation active:scale-95"
             >
               {/* Button Energy Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
-              <Send className="w-5 h-5" />
+              <Send className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
         </div>
