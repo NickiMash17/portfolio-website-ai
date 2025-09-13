@@ -352,11 +352,70 @@ const AppContent: React.FC<AppContentProps> = ({ optimizeElement, debounceScroll
 const App: React.FC = () => {
   const [showPreloader, setShowPreloader] = React.useState(true);
   const [currentSection, setCurrentSection] = React.useState<string>('');
+  const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
-    const timer = setTimeout(() => setShowPreloader(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
+    // Check if device is mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    // Mobile scroll optimizations
+    if (isMobile) {
+      // Prevent zoom on double tap
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', function (event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+      
+      // Optimize scroll performance
+      document.body.style.webkitOverflowScrolling = 'touch';
+      document.body.style.overflowScrolling = 'touch';
+      
+      // Add momentum scrolling
+      document.documentElement.style.webkitOverflowScrolling = 'touch';
+    }
+    
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setShowPreloader(false);
+    }, 1500);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, [isMobile]);
+
+  // Add scroll optimization for mobile
+  React.useEffect(() => {
+    if (isMobile) {
+      // Throttle scroll events for better performance
+      let ticking = false;
+      
+      const handleScroll = () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+      
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, [isMobile]);
 
   // Track URL hash for per-section SEO
   React.useEffect(() => {
@@ -446,7 +505,7 @@ const App: React.FC = () => {
           <meta name="twitter:description" content={meta.description} />
         </Helmet>
       )}
-      <AppContent optimizeElement={optimizeElement} debounceScroll={debounceScroll} />
+      <AppContent optimizeElement={optimizeElement} debounceScroll={debounceScroll} className={`min-h-screen font-inter transition-colors duration-300 relative bg-app-gradient ${isMobile ? 'mobile-optimized' : ''}`} />
     </>
   );
 };
