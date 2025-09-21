@@ -284,7 +284,7 @@ const AIAbout: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
               {/* Overview Content */}
               <div className="space-y-4 sm:space-y-6">
-                <div className="bg-slate-800/50 rounded-xl lg:rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-slate-700/50">
+                <div className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl">
                   <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-4">Career Focus</h3>
                   <p className="text-secondary leading-relaxed text-sm sm:text-base break-words hyphens-auto">
                     Specializing in full-stack development with a focus on AI integration and cloud architecture. 
@@ -292,7 +292,7 @@ const AIAbout: React.FC = () => {
                   </p>
                 </div>
                 
-                <div className="bg-slate-800/50 rounded-xl lg:rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-slate-700/50">
+                <div className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl">
                   <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-4">Technical Vision</h3>
                   <p className="text-secondary leading-relaxed text-sm sm:text-base break-words hyphens-auto">
                     Leveraging Azure cloud services and AI technologies to create scalable, intelligent applications. 
@@ -306,7 +306,7 @@ const AIAbout: React.FC = () => {
                 {skills.map((category, idx) => (
                   <div
                     key={idx}
-                    className="bg-slate-800/50 rounded-xl lg:rounded-2xl p-3 sm:p-4 lg:p-6 backdrop-blur-sm border border-slate-700/50"
+                    className="glass-ai rounded-xl lg:rounded-2xl p-3 sm:p-4 lg:p-6 border border-[var(--ai-primary)]/20 shadow-2xl"
                   >
                     <h4 className="text-sm sm:text-base lg:text-lg font-semibold text-primary mb-2 sm:mb-3 break-words hyphens-auto leading-tight">{category.category}</h4>
                     <div className="space-y-2 sm:space-y-3">
@@ -331,7 +331,7 @@ const AIAbout: React.FC = () => {
               {experience.map((job, idx) => (
                 <div
                   key={idx}
-                  className="bg-slate-800/50 rounded-xl lg:rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-slate-700/50"
+                  className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-r ${getCategoryColor(job.category)} flex items-center justify-center flex-shrink-0`}>
@@ -371,7 +371,7 @@ const AIAbout: React.FC = () => {
                     {category.items.map((skill, skillIdx) => (
                       <div
                         key={skillIdx}
-                        className="bg-slate-800/50 rounded-xl lg:rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-slate-700/50"
+                        className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl"
                       >
                         <div className="flex flex-col gap-3 sm:gap-4">
                           <div className="flex items-center gap-3">
@@ -405,7 +405,7 @@ const AIAbout: React.FC = () => {
               {certifications.map((cert, idx) => (
                 <div
                   key={idx}
-                  className="bg-slate-800/50 rounded-xl lg:rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-slate-700/50"
+                  className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-r ${cert.color} flex items-center justify-center flex-shrink-0`}>

@@ -352,6 +352,7 @@ const AppContent: React.FC<AppContentProps> = ({ optimizeElement, debounceScroll
 
 const App: React.FC = () => {
   const [showPreloader, setShowPreloader] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [currentSection, setCurrentSection] = React.useState<string>('');
   const [isMobile, setIsMobile] = React.useState(false);
 
@@ -384,16 +385,19 @@ const App: React.FC = () => {
       document.documentElement.style.webkitOverflowScrolling = 'touch';
     }
     
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setShowPreloader(false);
-    }, 1500);
-
     return () => {
-      clearTimeout(timer);
       window.removeEventListener('resize', checkMobile);
     };
   }, [isMobile]);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPreloader(false);
+      setIsLoading(false);
+    }, 5000); // 5 seconds timeout as a fallback
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Add scroll optimization for mobile
   React.useEffect(() => {
@@ -435,8 +439,14 @@ const App: React.FC = () => {
     enableMemoryCleanup: true
   });
 
-  if (showPreloader) {
-    return <AIPreloader onComplete={() => setShowPreloader(false)} />;
+  const handlePreloaderComplete = () => {
+    setShowPreloader(false);
+    setIsLoading(false);
+  };
+
+  // Show preloader while loading
+  if (showPreloader || isLoading) {
+    return <AIPreloader onComplete={handlePreloaderComplete} />;
   }
 
   const sectionMeta: Record<string, { title: string; description: string }> = {

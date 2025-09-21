@@ -102,7 +102,7 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
       viewport={{ once: true }}
       className="h-full group"
     >
-      <div className="glass-premium interactive-card cursor-glow rounded-2xl sm:rounded-3xl border border-[var(--ai-primary)]/20 hover:border-[var(--ai-primary)]/50 transition-all duration-500 overflow-hidden hover:shadow-2xl hover:shadow-[var(--ai-primary)]/25 h-full flex flex-col scroll-reveal relative">
+      <div className="glass-ai interactive-card cursor-glow rounded-2xl sm:rounded-3xl border border-[var(--ai-primary)]/20 hover:border-[var(--ai-primary)]/50 transition-all duration-500 overflow-hidden hover:shadow-2xl hover:shadow-[var(--ai-primary)]/25 h-full flex flex-col scroll-reveal relative">
         {/* Enhanced Hover Glow Effect */}
         <div className="absolute inset-0 bg-brand-gradient/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl sm:rounded-3xl" />
         

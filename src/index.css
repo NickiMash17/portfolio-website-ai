@@ -3,7 +3,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
-/* Tailwind base, components, and utilities should be injected by your build tool (e.g., PostCSS) */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* CSS Custom Properties for theming */
 :root {
@@ -1564,4 +1567,183 @@ body {
 .chat-input input:focus {
   outline: 2px solid #0066cc;
   outline-offset: 2px;
+}
+
+/* =============================
+  Enhanced AI Assistant UI/UX
+  ============================= */
+
+/* Neural Network Button Effects */
+.neural-button {
+  position: relative;
+  background: linear-gradient(135deg, var(--ai-primary), var(--ai-secondary), var(--ai-accent));
+  background-size: 200% 200%;
+  animation: neural-gradient 3s ease infinite;
+  border: 2px solid var(--ai-primary);
+  box-shadow: 0 0 20px var(--ai-glow), 0 0 40px var(--ai-glow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.neural-button:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 30px var(--ai-glow), 0 20px 60px var(--ai-glow);
+}
+
+@keyframes neural-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Holographic Chat Interface */
+.holographic-chat {
+  background: linear-gradient(135deg, 
+    rgba(0, 229, 255, 0.05) 0%, 
+    rgba(139, 92, 246, 0.05) 50%, 
+    rgba(0, 194, 255, 0.05) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 229, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.holographic-chat::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 229, 255, 0.1) 50%, transparent 100%);
+  animation: holographic-scan 3s ease-in-out infinite;
+}
+
+@keyframes holographic-scan {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* AI Typing Indicator */
+.ai-typing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(0, 229, 255, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.ai-typing-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--ai-primary);
+  border-radius: 50%;
+  animation: typing-bounce 1.4s ease-in-out infinite both;
+}
+
+.ai-typing-dot:nth-child(2) { animation-delay: -0.32s; }
+.ai-typing-dot:nth-child(3) { animation-delay: -0.16s; }
+.ai-typing-dot:nth-child(4) { animation-delay: 0s; }
+
+@keyframes typing-bounce {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* Neural Message Bubbles */
+.neural-message {
+  position: relative;
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 8px 0;
+  backdrop-filter: blur(10px);
+  animation: message-appear 0.5s ease-out;
+}
+
+@keyframes message-appear {
+  0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Enhanced Floating Action Button */
+.floating-ai-button {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--ai-primary), var(--ai-accent));
+  border-radius: 50%;
+  border: 2px solid var(--ai-primary);
+  box-shadow: 0 4px 20px var(--ai-glow), 0 8px 40px var(--ai-glow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.floating-ai-button:hover {
+  transform: translateY(-4px) scale(1.1);
+  box-shadow: 0 8px 30px var(--ai-glow), 0 16px 60px var(--ai-glow);
+}
+
+/* AI Status Indicator */
+.ai-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ai-primary);
+}
+
+.ai-status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--ai-primary);
+  border-radius: 50%;
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Enhanced Input Field */
+.neural-input {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(0, 229, 255, 0.2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.3s ease;
+}
+
+.neural-input:focus {
+  outline: none;
+  border-color: var(--ai-primary);
+  box-shadow: 0 0 20px var(--ai-glow);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .floating-ai-button {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .holographic-chat {
+    backdrop-filter: blur(10px);
+  }
+  
+  .neural-message {
+    padding: 12px;
+    font-size: 14px;
+  }
 }

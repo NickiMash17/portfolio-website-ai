@@ -208,17 +208,17 @@ const AIAbout: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Overview Content */}
               <div className="space-y-6">
-                <div className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50">
-                  <h3 className="text-2xl font-bold text-white mb-4">Career Focus</h3>
-                  <p className="text-slate-300 leading-relaxed">
+                <div className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl">
+                  <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-4">Career Focus</h3>
+                  <p className="text-secondary leading-relaxed text-sm sm:text-base break-words hyphens-auto">
                     Specializing in full-stack development with a focus on AI integration and cloud architecture. 
                     I blend technical expertise with creative problem-solving to build innovative solutions.
                   </p>
                 </div>
                 
-                <div className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50">
-                  <h3 className="text-2xl font-bold text-white mb-4">Technical Vision</h3>
-                  <p className="text-slate-300 leading-relaxed">
+                <div className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl">
+                  <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-4">Technical Vision</h3>
+                  <p className="text-secondary leading-relaxed text-sm sm:text-base break-words hyphens-auto">
                     Leveraging Azure cloud services and AI technologies to create scalable, intelligent applications. 
                     Committed to writing clean, maintainable code and implementing best practices.
                   </p>
@@ -230,7 +230,7 @@ const AIAbout: React.FC = () => {
                 {skills.map((category, idx) => (
                   <div
                     key={idx}
-                    className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50"
+                    className="glass-ai rounded-xl lg:rounded-2xl p-3 sm:p-4 lg:p-6 border border-[var(--ai-primary)]/20 shadow-2xl"
                   >
                     <h4 className="text-lg font-semibold text-white mb-3">{category.category}</h4>
                     <div className="space-y-3">
@@ -255,7 +255,7 @@ const AIAbout: React.FC = () => {
               {experience.map((job, idx) => (
                 <div
                   key={idx}
-                  className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50"
+                  className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl"
                 >
                   <div className="flex items-start gap-4">
                     <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${getCategoryColor(job.category)} flex items-center justify-center flex-shrink-0`}>
@@ -295,7 +295,7 @@ const AIAbout: React.FC = () => {
                     {category.items.map((skill, skillIdx) => (
                       <div
                         key={skillIdx}
-                        className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50"
+                        className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl"
                       >
                         <div className="flex items-center gap-4 mb-4">
                           <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${skill.color} flex items-center justify-center`}>
@@ -325,7 +325,7 @@ const AIAbout: React.FC = () => {
               {certifications.map((cert, idx) => (
                 <div
                   key={idx}
-                  className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50"
+                  className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl"
                 >
                   <div className="flex items-start gap-4">
                     <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${cert.color} flex items-center justify-center flex-shrink-0`}>
