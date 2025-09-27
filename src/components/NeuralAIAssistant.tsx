@@ -468,7 +468,7 @@ const NeuralAIAssistant: React.FC = () => {
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                     placeholder="Ask about Nicolette's work..."
-                    className="flex-1 bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all"
+                    className="flex-1 bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all text-base"
                     disabled={isTyping}
                   />
                   <button

@@ -79,11 +79,11 @@ const TechStack3D: React.FC = () => {
     const updateCloudProps = () => {
       const width = window.innerWidth;
       if (width < 640) {
-        setCloudProps({ count: 4, radius: 12, fontSize: 1.8 });
-      } else if (width < 768) {
         setCloudProps({ count: 5, radius: 14, fontSize: 2.0 });
-      } else if (width < 1024) {
+      } else if (width < 768) {
         setCloudProps({ count: 6, radius: 16, fontSize: 2.2 });
+      } else if (width < 1024) {
+        setCloudProps({ count: 7, radius: 18, fontSize: 2.4 });
       } else {
         setCloudProps({ count: 8, radius: 20, fontSize: 2.5 });
       }
