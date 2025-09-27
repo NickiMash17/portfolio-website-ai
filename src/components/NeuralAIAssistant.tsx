@@ -369,13 +369,13 @@ const NeuralAIAssistant: React.FC = () => {
 
   // --- Render ---
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-4 right-4 z-50">
       {isOpen ? (
-        <div className={`bg-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ${
-          isMinimized ? 'w-80 h-16' : 'w-96 h-[600px]'
+        <div className={`bg-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 flex flex-col ${
+          isMinimized ? 'w-80 h-16' : 'w-[calc(100vw-2rem)] sm:w-96 h-[70vh] sm:h-[600px]'
         }`}>
           {/* Header */}
-          <div className="bg-gradient-to-r from-cyan-600/20 to-purple-600/20 border-b border-slate-700/50 p-4 flex items-center justify-between">
+          <div className="bg-gradient-to-r from-cyan-600/20 to-purple-600/20 border-b border-slate-700/50 p-4 flex items-center justify-between flex-shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
                 <Brain className="w-5 h-5 text-white" />
@@ -413,7 +413,7 @@ const NeuralAIAssistant: React.FC = () => {
           {!isMinimized && (
             <>
               {/* Messages */}
-              <div className="h-[400px] overflow-y-auto p-4 space-y-4 bg-slate-900/50">
+              <div className="flex-grow overflow-y-auto p-4 space-y-4 bg-slate-900/50">
                 {messages.map((message) => (
                   <div
                     key={message.id}
@@ -459,7 +459,7 @@ const NeuralAIAssistant: React.FC = () => {
               </div>
 
               {/* Input */}
-              <div className="p-4 border-t border-slate-700/50 bg-slate-900">
+              <div className="p-4 border-t border-slate-700/50 bg-slate-900 flex-shrink-0">
                 <div className="flex gap-2">
                   <input
                     ref={inputRef}

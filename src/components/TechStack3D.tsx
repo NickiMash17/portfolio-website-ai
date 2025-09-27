@@ -12,7 +12,7 @@ const techSkills = [
   { name: 'TensorFlow', color: '#FF6F00' },
 ];
 
-const TechWord = ({ children, color: wordColor = 'white', ...props }: any) => {
+const TechWord = ({ children, color: wordColor = 'white', fontSize = 2.5, ...props }: any) => {
   const ref = useRef<any>();
   const [hovered, setHovered] = useState(false);
   const over = (e: any) => (e.stopPropagation(), setHovered(true));
@@ -36,7 +36,7 @@ const TechWord = ({ children, color: wordColor = 'white', ...props }: any) => {
       ref={ref}
       onPointerOver={over}
       onPointerOut={out}
-      fontSize={2.5}
+      fontSize={fontSize}
       color={hovered ? '#fa2720' : wordColor}
     >
       {children}
@@ -44,7 +44,7 @@ const TechWord = ({ children, color: wordColor = 'white', ...props }: any) => {
   );
 };
 
-const TechCloud = ({ count = 4, radius = 20 }) => {
+const TechCloud = ({ count = 4, radius = 20, fontSize = 2.5 }) => {
   const words = useMemo(() => {
     const temp: [THREE.Vector3, string, string][] = [];
     const spherical = new THREE.Spherical();
@@ -66,13 +66,35 @@ const TechCloud = ({ count = 4, radius = 20 }) => {
   return (
     <>
       {words.map(([pos, word, color], index) =>
-        <TechWord key={index} position={pos} color={color} children={word} />
+        <TechWord key={index} position={pos} color={color} children={word} fontSize={fontSize} />
       )}
     </>
   );
 };
 
 const TechStack3D: React.FC = () => {
+  const [cloudProps, setCloudProps] = useState({ count: 8, radius: 20, fontSize: 2.5 });
+
+  useEffect(() => {
+    const updateCloudProps = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setCloudProps({ count: 4, radius: 12, fontSize: 1.8 });
+      } else if (width < 768) {
+        setCloudProps({ count: 5, radius: 14, fontSize: 2.0 });
+      } else if (width < 1024) {
+        setCloudProps({ count: 6, radius: 16, fontSize: 2.2 });
+      } else {
+        setCloudProps({ count: 8, radius: 20, fontSize: 2.5 });
+      }
+    };
+
+    window.addEventListener('resize', updateCloudProps);
+    updateCloudProps();
+
+    return () => window.removeEventListener('resize', updateCloudProps);
+  }, []);
+
   return (
     <div className="w-full h-full relative">
       <Canvas
@@ -84,7 +106,7 @@ const TechStack3D: React.FC = () => {
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
         <Float floatIntensity={2} rotationIntensity={2}>
-          <TechCloud count={8} radius={20} />
+          <TechCloud {...cloudProps} />
         </Float>
       </Canvas>
     </div>

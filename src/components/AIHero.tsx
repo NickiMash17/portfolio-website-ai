@@ -10,10 +10,15 @@ const AIHero: React.FC = () => {
 
   useEffect(() => {
     const updateRadius = () => {
-      if (window.innerWidth < 768) {
-        setRadius(150);
-      } else {
-        setRadius(200);
+      const width = window.innerWidth;
+      if (width < 640) { // Extra small
+        setRadius(110);
+      } else if (width < 768) { // Small
+        setRadius(140);
+      } else if (width < 1024) { // Medium
+        setRadius(160);
+      } else { // Large
+        setRadius(180);
       }
     };
 
@@ -122,7 +127,7 @@ const AIHero: React.FC = () => {
 
       {/* DevOps Pipeline Visualization */}
       {!shouldDisableAnimations && (
-      <div className="absolute top-1/4 right-10 w-64 h-32 pointer-events-none opacity-25">
+      <div className="hidden md:block absolute top-1/4 right-10 w-64 h-32 pointer-events-none opacity-25">
         <div className="relative">
           {['Build', 'Test', 'Deploy'].map((stage, i) => (
             <motion.div
@@ -152,7 +157,7 @@ const AIHero: React.FC = () => {
 
       {/* Floating Code Snippets */}
       {!shouldDisableAnimations && (
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="hidden sm:block absolute inset-0 pointer-events-none">
         {['const ai = new ML()', 'kubectl apply -f', 'az webapp deploy', 'docker build -t'].map((code, i) => (
           <motion.div
             key={code}
