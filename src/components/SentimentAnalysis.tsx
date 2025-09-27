@@ -46,15 +46,15 @@ const SentimentAnalysis: React.FC = () => {
     <div className="glass-ai rounded-xl p-6">
       <h3 className="text-xl font-bold mb-4">Interactive AI Demo: Sentiment Analysis</h3>
       <p className="text-sm text-secondary mb-4">Enter a sentence below and the AI will analyze its sentiment.</p>
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-2">
         <input
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Enter a sentence..."
-          className="flex-1 bg-slate-800/50 border border-slate-700/50 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
+          className="w-full sm:flex-1 bg-slate-800/50 border border-slate-700/50 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
         />
-        <button onClick={handleAnalyze} className="bg-brand-gradient text-white rounded-lg px-4 py-2 font-bold">Analyze</button>
+        <button onClick={handleAnalyze} className="w-full sm:w-auto bg-brand-gradient text-white rounded-lg px-4 py-2 font-bold">Analyze</button>
       </div>
       {prediction && (
         <div className="mt-4 text-center">
