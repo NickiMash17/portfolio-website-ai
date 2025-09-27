@@ -17,8 +17,10 @@ import {
   Lightbulb
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import GitHubCalendar from 'react-github-calendar';
+import TechStack3D from './TechStack3D';
 
-type TabId = 'overview' | 'experience' | 'skills' | 'certifications';
+type TabId = 'overview' | 'experience' | 'skills' | 'certifications' | 'story' | 'activity';
 
 const AIAbout: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabId>('overview');
@@ -50,45 +52,6 @@ const AIAbout: React.FC = () => {
       technologies: ['Navigation Systems', 'Safety Protocols', 'Team Leadership', 'Optimization'],
       icon: Shield,
       category: 'leadership'
-    }
-  ];
-
-  const skills = [
-    {
-      category: 'AI & Machine Learning',
-      items: [
-        { name: 'Python & TensorFlow', level: 90, icon: Brain, color: 'from-cyan-500 to-blue-500', category: 'ai' },
-        { name: 'OpenAI GPT Integration', level: 85, icon: Cpu, color: 'from-blue-500 to-purple-500', category: 'ai' },
-        { name: 'Azure AI Services', level: 88, icon: Cloud, color: 'from-purple-500 to-cyan-500', category: 'ai' },
-        { name: 'Data Analysis & Visualization', level: 82, icon: Database, color: 'from-cyan-500 to-blue-500', category: 'ai' }
-      ]
-    },
-    {
-      category: 'Cloud & DevOps',
-      items: [
-        { name: 'Microsoft Azure', level: 92, icon: Cloud, color: 'from-blue-500 to-cyan-500', category: 'cloud' },
-        { name: 'Docker & Containerization', level: 85, icon: Server, color: 'from-cyan-500 to-blue-500', category: 'cloud' },
-        { name: 'CI/CD Pipelines', level: 80, icon: GitBranch, color: 'from-blue-500 to-purple-500', category: 'cloud' },
-        { name: 'Infrastructure as Code', level: 75, icon: Layers, color: 'from-purple-500 to-cyan-500', category: 'cloud' }
-      ]
-    },
-    {
-      category: 'Full-Stack Development',
-      items: [
-        { name: 'React.js & TypeScript', level: 95, icon: Code, color: 'from-cyan-500 to-purple-500', category: 'code' },
-        { name: 'Node.js & Express', level: 88, icon: Server, color: 'from-purple-500 to-blue-500', category: 'code' },
-        { name: 'ASP.NET Core', level: 85, icon: Code, color: 'from-blue-500 to-cyan-500', category: 'code' },
-        { name: 'RESTful APIs', level: 90, icon: Activity, color: 'from-cyan-500 to-purple-500', category: 'code' }
-      ]
-    },
-    {
-      category: 'Data & Analytics',
-      items: [
-        { name: 'MongoDB & SQL Server', level: 88, icon: Database, color: 'from-purple-500 to-cyan-500', category: 'data' },
-        { name: 'Data Visualization', level: 82, icon: Activity, color: 'from-cyan-500 to-blue-500', category: 'data' },
-        { name: 'Analytics & Reporting', level: 85, icon: TrendingUp, color: 'from-blue-500 to-purple-500', category: 'data' },
-        { name: 'Git & Version Control', level: 92, icon: GitBranch, color: 'from-purple-500 to-cyan-500', category: 'data' }
-      ]
     }
   ];
 
@@ -141,9 +104,34 @@ const AIAbout: React.FC = () => {
 
   const tabs = [
     { id: 'overview', label: 'Overview', icon: Lightbulb, color: 'from-cyan-500 to-blue-500' },
+    { id: 'story', label: 'My Story', icon: Rocket, color: 'from-orange-500 to-red-500' },
     { id: 'experience', label: 'Experience', icon: TrendingUp, color: 'from-blue-500 to-purple-500' },
     { id: 'skills', label: 'Skills', icon: Zap, color: 'from-purple-500 to-cyan-500' },
-    { id: 'certifications', label: 'Certifications', icon: Award, color: 'from-cyan-500 to-purple-500' }
+    { id: 'certifications', label: 'Certifications', icon: Award, color: 'from-cyan-500 to-purple-500' },
+    { id: 'activity', label: 'Activity', icon: Activity, color: 'from-green-500 to-teal-500' }
+  ];
+
+  const achievements = [
+    {
+      label: 'Improved Model Accuracy by 25%',
+      icon: Brain,
+      category: 'ai'
+    },
+    {
+      label: 'Reduced Report Generation Time by 20%',
+      icon: Code,
+      category: 'development'
+    },
+    {
+      label: 'Enhanced Vessel Safety and Trained 5+ Junior Officers',
+      icon: Shield,
+      category: 'leadership'
+    },
+    {
+      label: 'Delivered Responsive UIs with Tailwind CSS',
+      icon: Code,
+      category: 'development'
+    }
   ];
 
   const getCategoryIcon = (category: string) => {
@@ -254,8 +242,8 @@ const AIAbout: React.FC = () => {
           <h2 className="tech-title leading-tight-mobile text-fluid-3xl sm:text-5xl font-bold mb-4 sm:mb-6">
             ABOUT ME
           </h2>
-          <p className="mt-4 text-lg sm:text-xl text-secondary">
-            Software developer with a passion for AI and cloud technologies.
+          <p className="mt-4 text-lg sm:text-xl text-secondary max-w-3xl mx-auto">
+            From navigating the high seas to navigating complex code, I build intelligent and scalable software solutions. I thrive at the intersection of AI, cloud computing, and full-stack development, turning ambitious ideas into reality.
           </p>
         </div>
 
@@ -285,43 +273,71 @@ const AIAbout: React.FC = () => {
               {/* Overview Content */}
               <div className="space-y-4 sm:space-y-6">
                 <div className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl">
-                  <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-4">Career Focus</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-4">My Mission</h3>
                   <p className="text-secondary leading-relaxed text-sm sm:text-base break-words hyphens-auto">
-                    Specializing in full-stack development with a focus on AI integration and cloud architecture. 
-                    I blend technical expertise with creative problem-solving to build innovative solutions.
+                    My journey into tech was driven by a desire to solve complex problems and build things that make a difference. I specialize in full-stack development, but my passion lies in integrating AI and leveraging the power of the cloud to create truly intelligent and scalable applications. I believe in the power of clean code, thoughtful architecture, and a user-centric approach to turn innovative ideas into impactful solutions.
                   </p>
                 </div>
                 
                 <div className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl">
-                  <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-4">Technical Vision</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-4">My Philosophy</h3>
                   <p className="text-secondary leading-relaxed text-sm sm:text-base break-words hyphens-auto">
-                    Leveraging Azure cloud services and AI technologies to create scalable, intelligent applications. 
-                    Committed to writing clean, maintainable code and implementing best practices.
+                    I approach every project with a blend of discipline from my naval background and the creative curiosity of a developer. My goal is to not just write code, but to build robust systems that are efficient, maintainable, and deliver real value. I'm always learning, always exploring, and always ready for the next challenge.
                   </p>
                 </div>
               </div>
 
               {/* Stats & Highlights */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                {skills.map((category, idx) => (
+                {achievements.map((achievement, idx) => (
                   <div
                     key={idx}
                     className="glass-ai rounded-xl lg:rounded-2xl p-3 sm:p-4 lg:p-6 border border-[var(--ai-primary)]/20 shadow-2xl"
                   >
-                    <h4 className="text-sm sm:text-base lg:text-lg font-semibold text-primary mb-2 sm:mb-3 break-words hyphens-auto leading-tight">{category.category}</h4>
-                    <div className="space-y-2 sm:space-y-3">
-                      {category.items.slice(0, 2).map((skill, skillIdx) => (
-                        <div key={skillIdx} className="flex items-start gap-2 sm:gap-3">
-                          <div className={`w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-lg bg-gradient-to-r ${skill.color} flex items-center justify-center flex-shrink-0`}>
-                            <skill.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white" />
-                          </div>
-                          <span className="text-secondary text-xs sm:text-sm lg:text-base break-words hyphens-auto leading-tight flex-1 min-w-0">{skill.name}</span>
-                        </div>
-                      ))}
+                    <div className="flex items-center gap-3">
+                      <div className={`w-10 h-10 rounded-lg bg-gradient-to-r ${getCategoryColor(achievement.category)} flex items-center justify-center flex-shrink-0`}>
+                        <achievement.icon className="w-5 h-5 text-white" />
+                      </div>
+                      <h4 className="text-sm sm:text-base font-semibold text-primary break-words hyphens-auto leading-tight">{achievement.label}</h4>
                     </div>
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* My Story */}
+          {activeTab === 'story' && (
+            <div className="glass-ai rounded-xl lg:rounded-2xl p-6 sm:p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
+              <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-4 sm:mb-6">My Journey to Code</h3>
+              <div className="space-y-4 text-secondary leading-relaxed text-sm sm:text-base break-words hyphens-auto">
+                <p>
+                  My path to becoming a software developer has been anything but conventional. I began my career as a Junior Navigation Officer in the South African Navy, where I spent nearly a decade navigating the complexities of the sea. This experience taught me discipline, precision, and the importance of teamwork in high-stakes environments. It was a world of structure and order, but I found myself increasingly drawn to the creative possibilities of technology.
+                </p>
+                <p>
+                  The turning point came when I realized that the same principles of navigation—charting a course, solving complex problems, and adapting to changing conditions—could be applied to the world of software development. I decided to embark on a new voyage, trading my naval uniform for a code editor. The transition was challenging, but my naval background provided me with a unique perspective on problem-solving and a relentless drive to succeed.
+                </p>
+                <p>
+                  Today, I channel that same focus and determination into building innovative software solutions. I thrive on the challenges of full-stack development, the complexities of cloud architecture, and the endless possibilities of AI. My journey has taught me that with the right mindset, any obstacle can be overcome, and any destination can be reached. I'm excited to continue exploring this new frontier, one line of code at a time.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Activity */}
+          {activeTab === 'activity' && (
+            <div className="glass-ai rounded-xl lg:rounded-2xl p-6 sm:p-8 border border-[var(--ai-primary)]/20 shadow-2xl">
+              <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-4 sm:mb-6">GitHub Activity</h3>
+              <GitHubCalendar
+                username="NickiMash17"
+                blockSize={15}
+                blockMargin={5}
+                fontSize={16}
+                theme={{
+                  light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+                  dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+                }}
+              />
             </div>
           )}
 
@@ -363,39 +379,8 @@ const AIAbout: React.FC = () => {
 
           {/* Skills */}
           {activeTab === 'skills' && (
-            <div className="space-y-8 sm:space-y-10">
-              {skills.map((category, idx) => (
-                <div key={idx} className="space-y-4 sm:space-y-6">
-                  <h3 className="text-xl sm:text-2xl font-bold text-primary break-words hyphens-auto">{category.category}</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-                    {category.items.map((skill, skillIdx) => (
-                      <div
-                        key={skillIdx}
-                        className="glass-ai rounded-xl lg:rounded-2xl p-4 sm:p-6 border border-[var(--ai-primary)]/20 shadow-2xl"
-                      >
-                        <div className="flex flex-col gap-3 sm:gap-4">
-                          <div className="flex items-center gap-3">
-                            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-r ${skill.color} flex items-center justify-center flex-shrink-0`}>
-                              <skill.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <h4 className="font-semibold text-primary text-sm sm:text-base break-words hyphens-auto leading-tight">{skill.name}</h4>
-                            </div>
-                          </div>
-                          <div className="mt-2">
-                            <div className="bg-slate-700/50 rounded-full h-2">
-                              <div
-                                className={`h-full rounded-full bg-gradient-to-r ${skill.color}`}
-                                style={{ width: `${skill.level}%` }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
+            <div className="h-[500px]">
+              <TechStack3D />
             </div>
           )}
 

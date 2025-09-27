@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Code, Mail, Github, Linkedin, ChevronDown, Brain, Cloud, Database, Server, Terminal, Layers, Zap, Cpu, Network } from 'lucide-react';
+import OptimizedImage from './shared/OptimizedImage';
+import usePerformance from '../hooks/usePerformance';
 
 const AIHero: React.FC = () => {
   const [radius, setRadius] = useState(200);
+  const { shouldDisableAnimations } = usePerformance();
 
   useEffect(() => {
     const updateRadius = () => {
@@ -40,11 +43,12 @@ const AIHero: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center">
+    <section id="hero" className="min-h-screen relative flex items-center justify-center">
       {/* Advanced Tech Background */}
       <div className="absolute inset-0 bg-app-gradient" />
       
       {/* Azure Cloud Services Floating Animation */}
+      {!shouldDisableAnimations && (
       <div className="absolute inset-0 pointer-events-none">
         {['Azure Functions', 'Kubernetes', 'Docker', 'CI/CD', 'ML Studio', 'DevOps'].map((service, i) => (
           <motion.div
@@ -68,8 +72,10 @@ const AIHero: React.FC = () => {
           </motion.div>
         ))}
       </div>
+      )}
 
       {/* Neural Network Connections */}
+      {!shouldDisableAnimations && (
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <svg className="w-full h-full">
           {[...Array(8)].map((_, i) => (
@@ -112,8 +118,10 @@ const AIHero: React.FC = () => {
           ))}
         </svg>
       </div>
+      )}
 
       {/* DevOps Pipeline Visualization */}
+      {!shouldDisableAnimations && (
       <div className="absolute top-1/4 right-10 w-64 h-32 pointer-events-none opacity-25">
         <div className="relative">
           {['Build', 'Test', 'Deploy'].map((stage, i) => (
@@ -140,8 +148,10 @@ const AIHero: React.FC = () => {
           ))}
         </div>
       </div>
+      )}
 
       {/* Floating Code Snippets */}
+      {!shouldDisableAnimations && (
       <div className="absolute inset-0 pointer-events-none">
         {['const ai = new ML()', 'kubectl apply -f', 'az webapp deploy', 'docker build -t'].map((code, i) => (
           <motion.div
@@ -165,6 +175,7 @@ const AIHero: React.FC = () => {
           </motion.div>
         ))}
       </div>
+      )}
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -244,7 +255,7 @@ const AIHero: React.FC = () => {
             </motion.div>
 
             {/* Description with Holographic Effect */}
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
@@ -259,7 +270,7 @@ const AIHero: React.FC = () => {
                 animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 3, repeat: Infinity }}
               />
-            </motion.p>
+            </motion.div>
 
             {/* Enhanced CTA Buttons */}
             <motion.div
@@ -272,6 +283,7 @@ const AIHero: React.FC = () => {
                 whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(6, 182, 212, 0.5)" }}
                 whileTap={{ scale: 0.95 }}
                 onClick={scrollToAbout}
+                aria-label="View my work, scrolls to about section"
                 className="px-8 py-4 bg-brand-gradient text-white font-bold rounded-2xl shadow-2xl hover:shadow-[var(--ai-glow)] transition-all duration-300 flex items-center justify-center gap-3 relative overflow-hidden group"
               >
                 <motion.div
@@ -287,6 +299,7 @@ const AIHero: React.FC = () => {
                 whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(6, 182, 212, 0.3)" }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                aria-label="Get in touch, scrolls to contact section"
                 className="px-8 py-4 bg-transparent border-2 border-[var(--ai-primary)] text-[var(--ai-primary)] font-bold rounded-2xl hover:bg-[var(--ai-glow)] transition-all duration-300 flex items-center justify-center gap-3 relative group"
               >
                 <motion.div
@@ -348,10 +361,13 @@ const AIHero: React.FC = () => {
               {/* Main Photo Container */}
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-[var(--ai-primary)]/30 shadow-2xl relative">
                 {/* Profile Image */}
-                <img 
+                <OptimizedImage 
                   src="/images/nicolette-profile.jpg"
                   alt="Nicolette Mashaba - Software Developer"
                   className="w-full h-full object-cover"
+                  width={400}
+                  height={400}
+                  priority={true}
                 />
                 
                 {/* Tech Overlay */}
@@ -364,6 +380,7 @@ const AIHero: React.FC = () => {
                 </div>
                 
                 {/* Floating Tech Icons */}
+                {!shouldDisableAnimations && (<>
                 <motion.div
                   className="absolute top-4 right-4 w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center z-30"
                   animate={{ rotate: [0, 360] }}
@@ -385,6 +402,7 @@ const AIHero: React.FC = () => {
                 >
                   <Database className="w-5 h-5 text-white" />
                 </motion.div>
+                </>)}
                 {/* Holographic Overlay */}
                 <motion.div 
                   className="absolute inset-0 bg-brand-gradient/20"
@@ -394,7 +412,7 @@ const AIHero: React.FC = () => {
               </div>
 
               {/* Enhanced Orbiting Tech Icons */}
-              {techIcons.map((tech, index) => {
+              {!shouldDisableAnimations && techIcons.map((tech, index) => {
                 const angle = (index / techIcons.length) * Math.PI * 2;
                 const x = Math.cos(angle) * radius;
                 const y = Math.sin(angle) * radius;
@@ -440,6 +458,7 @@ const AIHero: React.FC = () => {
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
             className="text-[var(--ai-primary)] hover:text-[var(--ai-secondary)] transition-colors duration-300 group"
+            aria-label="Scroll down to about section"
           >
             <motion.div
               className="w-12 h-12 rounded-full border-2 border-[var(--ai-primary)]/30 flex items-center justify-center group-hover:border-[var(--ai-primary)]/60 transition-colors duration-300"
@@ -450,7 +469,7 @@ const AIHero: React.FC = () => {
           </motion.button>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 

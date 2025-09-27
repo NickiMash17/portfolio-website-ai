@@ -12,7 +12,7 @@
   --section-spacing: clamp(3rem, 10vw, 6rem);
   --container-padding: 1rem;
   --ai-primary: #00bcd4;
-  --ai-secondary: #607d8b;
+  --ai-secondary: #263238; /* Darkened for better contrast */
 }
 
 /* Add your global CSS rules below */

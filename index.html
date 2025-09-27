@@ -1,20 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon-32x32.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nicolette Mashaba | Software Developer & Microsoft Azure Certified</title>
     <meta name="description" content="Software developer specializing in full‑stack development, cloud (Azure), AI solutions, and high‑performance web apps. View projects, resume, and contact Nicolette." />
-
     <meta name="keywords" content="Nicolette Mashaba, software developer, full stack, Azure, cloud, React, TypeScript, AI, portfolio" />
     <meta name="author" content="Nicolette Mashaba" />
-    <meta name="theme-color" content="#0ea5e9" />
+    <meta name="theme-color" content="#0f172a" />
     <link rel="canonical" href="https://portfolio-ai-nicolette.surge.sh/" />
 
-    <!-- Preconnects for performance -->
+    <!-- Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" 
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" 
+          as="style" 
+          onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    </noscript>
 
     <!-- App icons and manifest -->
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon-32x32.png" />
@@ -28,30 +36,31 @@
     <meta property="og:title" content="Nicolette Mashaba | Software Developer" />
     <meta property="og:description" content="Full‑stack & cloud (Azure) developer building performant, modern web apps with AI." />
     <meta property="og:image" content="/images/nicolette-profile.jpg" />
-
+    
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://portfolio-ai-nicolette.surge.sh/" />
     <meta name="twitter:title" content="Nicolette Mashaba | Software Developer" />
     <meta name="twitter:description" content="Full‑stack & cloud (Azure) developer building performant, modern web apps with AI." />
     <meta name="twitter:image" content="/images/nicolette-profile.jpg" />
-
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Nicolette Mashaba",
-        "url": "https://portfolio-ai-nicolette.surge.sh/",
-        "sameAs": [
-          "https://github.com/NickiMash17"
-        ],
-        "jobTitle": "Software Developer",
-        "description": "Full‑stack and Azure cloud developer building AI-powered, high‑performance web apps."
+    
+    <style>
+      /* Critical CSS for initial load */
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background-color: #0f172a;
+        color: white;
       }
-    </script>
+    </style>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./src/main.tsx"></script>
+    
+    <!-- Vite's entry point -->
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

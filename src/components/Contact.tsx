@@ -266,6 +266,7 @@ const Contact: React.FC<ContactProps> = ({ className = '' }) => {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
+                  aria-label={isSubmitting ? 'Submitting your message' : 'Send your message'}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="w-full py-3 sm:py-4 bg-brand-gradient text-sm sm:text-base text-white 

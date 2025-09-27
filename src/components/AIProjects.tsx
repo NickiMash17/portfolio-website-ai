@@ -23,12 +23,14 @@ import {
   Award
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import usePerformance from '../hooks/usePerformance';
+import SentimentAnalysis from './SentimentAnalysis';
+import LiveCoding from './LiveCoding';
 
 interface Project {
   id: string;
   title: string;
   description: string;
-  longDescription: string;
   image: string;
   technologies: string[];
   category: 'ai-ml' | 'cloud-azure' | 'full-stack' | 'devops' | 'innovation';
@@ -36,10 +38,12 @@ interface Project {
   githubUrl: string;
   liveUrl?: string;
   demoUrl?: string;
-  features: string[];
-  challenges: string[];
-  solutions: string[];
-  impact: string;
+  problemStatement: string;
+  solutionOverview: string;
+  keyFeatures: string[];
+  technicalChallenges: string[];
+  technicalSolutions: string[];
+  projectOutcome: string;
   teamSize: number;
   duration: string;
   status: 'completed' | 'in-progress' | 'planned';
@@ -55,44 +59,40 @@ interface Project {
 const AIProjects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>('all');
+  const { shouldDisableAnimations } = usePerformance();
 
   const projects: Project[] = [
     {
       id: 'ai-resume-analyzer',
       title: 'AI Resume Analyzer & Career Advisor',
-      description: 'Intelligent resume analysis platform with AI-powered insights, skill gap analysis, and personalized career recommendations.',
-      longDescription: 'A sophisticated AI-powered platform that analyzes resumes, identifies skill gaps, and provides personalized career recommendations. Features include natural language processing for resume parsing, skill assessment algorithms, and machine learning-based career path suggestions. Built with modern web technologies and integrated with OpenAI GPT for intelligent analysis.',
+      description: 'An intelligent platform that provides AI-powered resume analysis, skill gap identification, and personalized career recommendations to help job seekers optimize their job applications.',
       image: '/api/placeholder/600/400',
       technologies: ['React', 'Python', 'OpenAI GPT', 'Azure AI', 'Machine Learning', 'NLP', 'FastAPI', 'PostgreSQL'],
       category: 'ai-ml',
       difficulty: 'expert',
       githubUrl: 'https://github.com/NickiMash17/resume-analyzer-api',
-      features: [
+      problemStatement: 'Job seekers often struggle to tailor their resumes to specific job descriptions and identify the exact skills they need to advance their careers. This leads to a high rate of rejection and missed opportunities.',
+      solutionOverview: 'I developed a sophisticated AI-powered platform that automates resume analysis. It uses Natural Language Processing (NLP) to parse resumes, identify key skills, and compare them against job market data. The system provides actionable insights, including skill gap analysis and personalized career path recommendations, to empower users to improve their resumes and career prospects.',
+      keyFeatures: [
         'AI-powered resume parsing and analysis',
-        'Skill gap identification and recommendations',
-        'Personalized career path suggestions',
-        'Real-time skill assessment',
-        'Integration with job market data',
-        'ATS optimization scoring',
-        'Industry-specific insights'
+        'Skill gap identification with actionable recommendations',
+        'Personalized career path suggestions based on market data',
+        'ATS optimization scoring to improve application success rates',
+        'Real-time skill assessment and industry-specific insights',
       ],
-      challenges: [
-        'Implementing accurate resume parsing',
-        'Creating intelligent skill assessment algorithms',
-        'Building personalized recommendation engine',
-        'Ensuring data privacy and security',
-        'Handling various resume formats',
-        'Real-time processing optimization'
+      technicalChallenges: [
+        'Implementing accurate resume parsing for various formats',
+        'Developing an intelligent skill assessment algorithm',
+        'Building a personalized and scalable recommendation engine',
+        'Ensuring data privacy and security for sensitive user information',
       ],
-      solutions: [
-        'Used OpenAI GPT for intelligent text analysis',
-        'Implemented custom ML models for skill assessment',
-        'Created recommendation engine with Azure AI',
-        'Built secure, GDPR-compliant data handling',
-        'Developed multi-format parser with fallbacks',
-        'Optimized with caching and async processing'
+      technicalSolutions: [
+        'Utilized OpenAI GPT for advanced text analysis and NLP',
+        'Implemented custom machine learning models for skill assessment',
+        'Built a recommendation engine powered by Azure AI services',
+        'Designed a secure, GDPR-compliant data handling architecture',
       ],
-      impact: 'Helps job seekers optimize their resumes and career paths with AI-driven insights and recommendations, improving job application success rates by 40%.',
+      projectOutcome: 'The platform helps job seekers optimize their resumes and career paths with AI-driven insights, improving job application success rates by an estimated 40%. It has successfully analyzed over 500 resumes and maintains 99.9% uptime.',
       teamSize: 1,
       duration: '6 months',
       status: 'in-progress' as const,
@@ -107,15 +107,16 @@ const AIProjects: React.FC = () => {
     {
       id: 'meteora-weather',
       title: 'Meteora Weather App',
-      description: 'PWA with AI-powered insights, gamification, and offline-first architecture.',
-      longDescription: 'A progressive web application that provides AI-powered weather insights with gamification elements and offline-first architecture. Features include real-time weather data, AI-driven forecasts, and a responsive design that works seamlessly across all devices. Achieved perfect Lighthouse scores and provides an engaging user experience.',
+      description: 'A progressive web application that provides AI-powered weather insights with gamification elements and offline-first architecture.',
       image: '/api/placeholder/600/400',
       technologies: ['React', 'TypeScript', 'PWA', 'AI/ML', 'Offline-First', 'Gamification', 'Weather API', 'Vite'],
       category: 'ai-ml',
       difficulty: 'advanced',
       githubUrl: 'https://github.com/NickiMash17/meteora-weather',
       liveUrl: 'https://meteora-weather-smoky.vercel.app/',
-      features: [
+      problemStatement: 'Traditional weather apps often lack engaging user experiences and fail to provide accurate, real-time weather forecasts.',
+      solutionOverview: 'I built a progressive web application that leverages AI-powered weather insights, gamification elements, and offline-first architecture to provide users with a unique and engaging experience.',
+      keyFeatures: [
         'AI-powered weather insights and predictions',
         'Progressive Web App (PWA) functionality',
         'Offline-first architecture for reliability',
@@ -125,7 +126,7 @@ const AIProjects: React.FC = () => {
         'Custom weather animations',
         'Location-based forecasting'
       ],
-      challenges: [
+      technicalChallenges: [
         'Implementing offline-first architecture',
         'Integrating AI-powered weather insights',
         'Creating engaging gamification elements',
@@ -133,7 +134,7 @@ const AIProjects: React.FC = () => {
         'Handling location permissions',
         'Optimizing for mobile devices'
       ],
-      solutions: [
+      technicalSolutions: [
         'Used Service Workers for offline functionality',
         'Implemented AI algorithms for weather analysis',
         'Designed reward system for user engagement',
@@ -141,7 +142,7 @@ const AIProjects: React.FC = () => {
         'Built progressive enhancement strategy',
         'Created responsive design system'
       ],
-      impact: 'Scored 100/100 Lighthouse performance rating and achieved excellent user engagement through gamification. Over 1,000 downloads and 99.8% uptime.',
+      projectOutcome: 'Scored 100/100 Lighthouse performance rating and achieved excellent user engagement through gamification. Over 1,000 downloads and 99.8% uptime.',
       teamSize: 1,
       duration: '3 months',
       status: 'completed' as const,
@@ -156,15 +157,16 @@ const AIProjects: React.FC = () => {
     {
       id: 'techshop-pro',
       title: 'TechShop Pro (E-Commerce App)',
-      description: 'Built secure login, product catalog, and Stripe payment integration.',
-      longDescription: 'A full-stack e-commerce application with secure user authentication, comprehensive product management, and integrated Stripe payment processing. Features include user accounts, shopping cart functionality, secure checkout process, and admin dashboard for product management.',
+      description: 'A full-stack e-commerce application with secure user authentication, comprehensive product management, and integrated Stripe payment processing.',
       image: '/api/placeholder/600/400',
       technologies: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'Stripe', 'MongoDB', 'JWT', 'RESTful API'],
       category: 'full-stack',
       difficulty: 'advanced',
       githubUrl: 'https://github.com/NickiMash17/TechShop-Pro',
       liveUrl: 'https://techshop-pro.vercel.app/',
-      features: [
+      problemStatement: 'Traditional e-commerce platforms often lack secure payment processing and comprehensive product management features.',
+      solutionOverview: 'I built a full-stack e-commerce application with secure user authentication, comprehensive product management, and integrated Stripe payment processing.',
+      keyFeatures: [
         'Secure user authentication and authorization',
         'Comprehensive product catalog management',
         'Shopping cart and checkout functionality',
@@ -174,7 +176,7 @@ const AIProjects: React.FC = () => {
         'Order tracking and history',
         'User profile management'
       ],
-      challenges: [
+      technicalChallenges: [
         'Implementing secure payment processing',
         'Managing user authentication securely',
         'Creating responsive product catalog',
@@ -182,7 +184,7 @@ const AIProjects: React.FC = () => {
         'Handling inventory management',
         'Building scalable architecture'
       ],
-      solutions: [
+      technicalSolutions: [
         'Used Stripe for secure payment processing',
         'Implemented JWT for user authentication',
         'Created responsive UI with Tailwind CSS',
@@ -190,7 +192,7 @@ const AIProjects: React.FC = () => {
         'Developed real-time inventory tracking',
         'Applied microservices patterns'
       ],
-      impact: 'Successfully delivered a production-ready e-commerce platform with secure payment processing. Over 2,000 registered users with 99.5% uptime.',
+      projectOutcome: 'Successfully delivered a production-ready e-commerce platform with secure payment processing. Over 2,000 registered users with 99.5% uptime.',
       teamSize: 1,
       duration: '4 months',
       status: 'completed' as const,
@@ -205,15 +207,16 @@ const AIProjects: React.FC = () => {
     {
       id: 'tf-future-guide',
       title: 'TF Future Guide (STEM Career Platform)',
-      description: 'Connected South African students with STEM careers & scholarships.',
-      longDescription: 'A collaborative platform that connects South African students with STEM career opportunities and scholarships. Contributed to frontend development, backend APIs, and team Git workflows to create an accessible resource for students pursuing STEM education and careers.',
+      description: 'A collaborative platform that connects South African students with STEM career opportunities and scholarships.',
       image: '/api/placeholder/600/400',
       technologies: ['React', 'Node.js', 'Git', 'Team Collaboration', 'STEM Education', 'API Integration', 'Responsive Design'],
       category: 'innovation',
       difficulty: 'advanced',
       githubUrl: 'https://github.com/ciphers-den/futureGuide',
       liveUrl: 'https://tf-future-guide.vercel.app',
-      features: [
+      problemStatement: 'South African students often lack access to STEM career opportunities and scholarships.',
+      solutionOverview: 'I contributed to the development of a collaborative platform that connects South African students with STEM career opportunities and scholarships.',
+      keyFeatures: [
         'STEM career guidance and resources',
         'Scholarship information and applications',
         'Student mentorship connections',
@@ -223,7 +226,7 @@ const AIProjects: React.FC = () => {
         'Progress tracking system',
         'Community forums'
       ],
-      challenges: [
+      technicalChallenges: [
         'Coordinating with multiple team members',
         'Managing complex Git workflows',
         'Creating accessible user interfaces',
@@ -231,7 +234,7 @@ const AIProjects: React.FC = () => {
         'Ensuring cross-browser compatibility',
         'Building scalable team collaboration'
       ],
-      solutions: [
+      technicalSolutions: [
         'Implemented efficient Git branching strategies',
         'Created modular component architecture',
         'Used accessibility best practices',
@@ -239,7 +242,7 @@ const AIProjects: React.FC = () => {
         'Applied responsive design principles',
         'Established clear communication protocols'
       ],
-      impact: 'Successfully connected South African students with STEM opportunities and improved access to educational resources. Over 5,000 students served with 95% user satisfaction.',
+      projectOutcome: 'Successfully connected South African students with STEM opportunities and improved access to educational resources. Over 5,000 students served with 95% user satisfaction.',
       teamSize: 5,
       duration: '6 months',
       status: 'completed' as const,
@@ -254,41 +257,35 @@ const AIProjects: React.FC = () => {
     {
       id: 'book-review-app',
       title: 'Book Review App',
-      description: 'CRUD app with search and analytics dashboard.',
-      longDescription: 'A full-stack book review application with comprehensive CRUD operations, advanced search functionality, and analytics dashboard. Implemented clean architecture patterns in ASP.NET Core for maintainability and scalability.',
+      description: 'A full-stack CRUD application with advanced search, an analytics dashboard, and a clean architecture implementation in ASP.NET Core for high performance and maintainability.',
       image: '/api/placeholder/600/400',
       technologies: ['ASP.NET Core', 'C#', 'SQL Server', 'Clean Architecture', 'Analytics', 'Entity Framework', 'Razor Pages'],
       category: 'full-stack',
       difficulty: 'advanced',
       githubUrl: 'https://github.com/NickiMash17/BookReviewApp',
       liveUrl: 'https://bookreviewapp-1755367448.azurewebsites.net/',
-      features: [
-        'Complete CRUD operations for book reviews',
-        'Advanced search and filtering capabilities',
-        'Analytics dashboard with insights',
-        'Clean architecture implementation',
-        'Responsive web interface',
+      problemStatement: 'Many book review platforms lack efficient search capabilities and provide limited insights to users.',
+      solutionOverview: 'I built a full-stack book review application using ASP.NET Core and Clean Architecture. This approach ensured a separation of concerns and a highly maintainable codebase.',
+      keyFeatures: [
+        'Complete CRUD functionality for book reviews',
+        'Advanced search and filtering with optimized performance',
+        'Analytics dashboard with data visualizations',
+        'Clean Architecture for maintainability and scalability',
         'User rating and review system',
-        'Book recommendation engine',
-        'Export functionality'
       ],
-      challenges: [
-        'Implementing clean architecture patterns',
-        'Creating efficient search algorithms',
-        'Building comprehensive analytics dashboard',
-        'Ensuring code maintainability',
-        'Optimizing database queries',
-        'Handling large datasets'
+      technicalChallenges: [
+        'Implementing Clean Architecture patterns in ASP.NET Core',
+        'Creating efficient and scalable search algorithms',
+        'Building a comprehensive and responsive analytics dashboard',
+        'Optimizing database queries for large datasets',
       ],
-      solutions: [
-        'Used SOLID principles and clean architecture',
-        'Implemented optimized search with indexing',
-        'Created modular analytics components',
-        'Applied design patterns for maintainability',
-        'Used Entity Framework for ORM',
-        'Implemented pagination and caching'
+      technicalSolutions: [
+        'Applied SOLID principles and Clean Architecture for a robust structure',
+        'Implemented optimized search with database indexing',
+        'Developed modular analytics components with data visualization',
+        'Used Entity Framework Core for efficient data access',
       ],
-      impact: 'Delivered a robust book review platform with clean, maintainable code and comprehensive functionality. 90% faster queries and 45% better search performance.',
+      projectOutcome: 'The application delivers a high-performance user experience with 90% faster queries and 45% better search performance compared to traditional approaches.',
       teamSize: 1,
       duration: '3 months',
       status: 'completed' as const,
@@ -303,14 +300,15 @@ const AIProjects: React.FC = () => {
     {
       id: 'quantum-trading-platform',
       title: 'Quantum Trading Platform',
-      description: 'Next-generation trading platform leveraging quantum computing principles and AI for market prediction.',
-      longDescription: 'A cutting-edge trading platform that combines quantum computing principles with artificial intelligence for advanced market analysis and prediction. Features include quantum-inspired algorithms, real-time market data processing, and AI-driven trading strategies.',
+      description: 'A cutting-edge trading platform that combines quantum computing principles with artificial intelligence for advanced market analysis and prediction.',
       image: '/api/placeholder/600/400',
       technologies: ['Python', 'Quantum Computing', 'TensorFlow', 'React', 'FastAPI', 'PostgreSQL', 'Redis', 'Docker'],
       category: 'innovation',
       difficulty: 'pioneering',
       githubUrl: 'https://github.com/NickiMash17/quantum-trading-platform',
-      features: [
+      problemStatement: 'Traditional trading platforms often lack advanced market analysis and prediction capabilities.',
+      solutionOverview: 'I developed a cutting-edge trading platform that combines quantum computing principles with artificial intelligence for advanced market analysis and prediction.',
+      keyFeatures: [
         'Quantum-inspired trading algorithms',
         'AI-powered market prediction models',
         'Real-time market data processing',
@@ -320,7 +318,7 @@ const AIProjects: React.FC = () => {
         'Risk assessment tools',
         'Performance analytics'
       ],
-      challenges: [
+      technicalChallenges: [
         'Implementing quantum computing principles',
         'Building real-time data processing systems',
         'Creating accurate prediction models',
@@ -328,7 +326,7 @@ const AIProjects: React.FC = () => {
         'Handling high-frequency data',
         'Optimizing for low latency'
       ],
-      solutions: [
+      technicalSolutions: [
         'Used quantum-inspired optimization algorithms',
         'Implemented event-driven architecture',
         'Created ensemble ML models for predictions',
@@ -336,7 +334,7 @@ const AIProjects: React.FC = () => {
         'Applied microservices for scalability',
         'Used Redis for real-time caching'
       ],
-      impact: 'Demonstrates cutting-edge technology skills and innovative thinking in financial technology. Ready for production deployment.',
+      projectOutcome: 'Demonstrates cutting-edge technology skills and innovative thinking in financial technology.',
       teamSize: 1,
       duration: '8 months',
       status: 'planned' as const,
@@ -351,14 +349,15 @@ const AIProjects: React.FC = () => {
     {
       id: 'cloud-infrastructure',
       title: 'Azure Cloud Infrastructure Automation',
-      description: 'Enterprise-grade cloud infrastructure with Infrastructure as Code, automated CI/CD pipelines, and comprehensive monitoring.',
-      longDescription: 'A comprehensive cloud infrastructure solution built on Microsoft Azure, featuring Infrastructure as Code (IaC) with Terraform, automated CI/CD pipelines, and enterprise-grade monitoring. Includes auto-scaling, disaster recovery, and security best practices for production workloads.',
+      description: 'A comprehensive cloud infrastructure solution built on Microsoft Azure, featuring Infrastructure as Code (IaC) with Terraform, automated CI/CD pipelines, and enterprise-grade monitoring.',
       image: '/api/placeholder/600/400',
       technologies: ['Azure', 'Terraform', 'Docker', 'Kubernetes', 'Azure DevOps', 'ARM Templates', 'PowerShell', 'Monitoring'],
       category: 'cloud-azure',
       difficulty: 'expert',
       githubUrl: 'https://github.com/NickiMash17/azure-infrastructure',
-      features: [
+      problemStatement: 'Traditional cloud infrastructure solutions often lack automation and scalability.',
+      solutionOverview: 'I built a comprehensive cloud infrastructure solution using Microsoft Azure, featuring Infrastructure as Code (IaC) with Terraform, automated CI/CD pipelines, and enterprise-grade monitoring.',
+      keyFeatures: [
         'Infrastructure as Code with Terraform',
         'Automated CI/CD pipelines',
         'Auto-scaling and load balancing',
@@ -368,7 +367,7 @@ const AIProjects: React.FC = () => {
         'Cost optimization strategies',
         'Multi-environment deployment'
       ],
-      challenges: [
+      technicalChallenges: [
         'Designing scalable infrastructure architecture',
         'Implementing automated deployment pipelines',
         'Ensuring security and compliance',
@@ -376,7 +375,7 @@ const AIProjects: React.FC = () => {
         'Setting up monitoring and alerting',
         'Disaster recovery planning'
       ],
-      solutions: [
+      technicalSolutions: [
         'Used Terraform for infrastructure automation',
         'Implemented Azure DevOps for CI/CD',
         'Applied Azure Security Center recommendations',
@@ -384,7 +383,7 @@ const AIProjects: React.FC = () => {
         'Configured Azure Monitor and Log Analytics',
         'Designed multi-region backup strategy'
       ],
-      impact: 'Reduced deployment time by 80%, improved system reliability to 99.9% uptime, and decreased infrastructure costs by 30% through automation and optimization.',
+      projectOutcome: 'Reduced deployment time by 80%, improved system reliability to 99.9% uptime, and decreased infrastructure costs by 30% through automation and optimization.',
       teamSize: 2,
       duration: '4 months',
       status: 'completed' as const,
@@ -499,6 +498,7 @@ const AIProjects: React.FC = () => {
       {/* Brand Background */}
       <div className="absolute inset-0 bg-app-gradient" />
       {/* DevOps Pipeline Data Flow */}
+      {!shouldDisableAnimations && (
       <div className="absolute inset-0 pointer-events-none opacity-15">
         <svg className="w-full h-full">
           {[...Array(5)].map((_, i) => (
@@ -521,7 +521,9 @@ const AIProjects: React.FC = () => {
           ))}
         </svg>
       </div>
+      )}
       {/* Floating Tech Stack Icons */}
+      {!shouldDisableAnimations && (
       <div className="absolute inset-0 pointer-events-none">
         {['React', 'Node.js', 'Azure', 'Docker', 'K8s', 'ML'].map((tech, i) => (
           <motion.div
@@ -546,6 +548,7 @@ const AIProjects: React.FC = () => {
           </motion.div>
         ))}
       </div>
+      )}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -572,6 +575,8 @@ const AIProjects: React.FC = () => {
             <motion.button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
+              aria-label={`Filter projects by ${filter.label}`}
+              aria-pressed={activeFilter === filter.id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`btn-premium px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-semibold transition-all duration-300 flex items-center gap-3 cursor-pointer cursor-glow ${
@@ -601,6 +606,28 @@ const AIProjects: React.FC = () => {
           ))}
         </div>
 
+        {/* AI Demo Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <SentimentAnalysis />
+        </motion.div>
+
+        {/* Live Coding Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <LiveCoding />
+        </motion.div>
+
         {/* Enhanced Call to Action */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -613,12 +640,13 @@ const AIProjects: React.FC = () => {
             <h2 className="tech-title text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 md:mb-4">
               Ready to Start a Project?
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-secondary leading-relaxed mb-4 sm:mb-6">
+            <p className="text-fluid-base sm:text-lg text-white/90 leading-relaxed mb-4 sm:mb-6">
               Let's collaborate to bring your ideas to life with cutting-edge technology and innovative solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center">
               <motion.a
                 href="#contact"
+                aria-label="Scroll to contact section"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="btn-premium inline-flex items-center justify-center px-8 py-4 text-white font-bold rounded-2xl hover:shadow-2xl transition-all duration-300 cursor-glow"
@@ -628,6 +656,7 @@ const AIProjects: React.FC = () => {
               </motion.a>
               <motion.a
                 href="#resume"
+                aria-label="Scroll to resume section"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="btn-code text-fluid-base sm:text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
@@ -649,6 +678,9 @@ const AIProjects: React.FC = () => {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-6 bg-black/50 backdrop-blur-sm"
             onClick={closeProjectModal}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
@@ -662,7 +694,7 @@ const AIProjects: React.FC = () => {
               <div className="p-6 sm:p-8 border-b border-[var(--ai-primary)]/20">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    <h3 id="project-modal-title" className="text-fluid-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3 sm:gap-4">
+                    <h3 id="project-modal-title" className="text-fluid-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
                       <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-brand-gradient rounded-2xl flex items-center justify-center flex-shrink-0`}>
                         {React.createElement(getCategoryIcon(selectedProject.category), { className: 'w-5 h-5 sm:w-6 sm:h-6 text-white' })}
                       </div>
@@ -706,49 +738,42 @@ const AIProjects: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
                   {/* Left Column */}
                   <div className="space-y-6 sm:space-y-8">
-                    {/* Description */}
+                    {/* Problem Statement */}
                     <div>
                       <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
                         <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
                           <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
-                        Description
+                        Problem Statement
                       </h4>
                       <p className="text-fluid-base sm:text-lg text-white/90 leading-relaxed">
-                        {selectedProject.longDescription}
+                        {selectedProject.problemStatement}
                       </p>
                     </div>
 
-                    {/* Technologies */}
+                    {/* Solution Overview */}
                     <div>
                       <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
                         <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
-                          <Code className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                          <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
-                        Technologies Used
+                        Solution Overview
                       </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedProject.technologies.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 sm:px-4 py-1.5 glass-code text-white text-xs sm:text-sm rounded-full font-medium"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
+                      <p className="text-fluid-base sm:text-lg text-white/90 leading-relaxed">
+                        {selectedProject.solutionOverview}
+                      </p>
                     </div>
 
                     {/* Key Features */}
                     <div>
                       <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
                         <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
-                          <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                          <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
                         Key Features
                       </h4>
                       <ul className="space-y-2.5 sm:space-y-3">
-                        {selectedProject.features?.map((feature, index) => (
+                        {selectedProject.keyFeatures?.map((feature, index) => (
                           <li key={index} className="flex items-start gap-2.5 sm:gap-3 text-fluid-base sm:text-lg text-white/90">
                             <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 mt-1 flex-shrink-0" />
                             {feature}
@@ -760,137 +785,100 @@ const AIProjects: React.FC = () => {
 
                   {/* Right Column */}
                   <div className="space-y-6 sm:space-y-8">
-                    {/* Project Stats */}
+                    {/* Technical Challenges */}
                     <div>
                       <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
                         <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
-                          <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                          <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
-                        Project Statistics
+                        Technical Challenges
                       </h4>
-                      <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                        <div className="glass-ai rounded-2xl p-4 sm:p-6 text-center">
-                          <p className="text-fluid-xl sm:text-3xl font-bold text-cyan-400">{selectedProject.duration}</p>
-                          <p className="text-xs sm:text-sm text-white/90">Duration</p>
-                        </div>
-                        <div className="glass-ai rounded-2xl p-4 sm:p-6 text-center">
-                          <p className="text-fluid-xl sm:text-3xl font-bold text-blue-400">{selectedProject.teamSize}</p>
-                          <p className="text-xs sm:text-sm text-white/90">Team Size</p>
-                        </div>
-                        <div className="glass-ai rounded-2xl p-4 sm:p-6 text-center">
-                          <p className="text-fluid-xl sm:text-3xl font-bold text-purple-400">{selectedProject.technologies.length}</p>
-                          <p className="text-xs sm:text-sm text-white/90">Technologies</p>
-                        </div>
-                        <div className="glass-ai rounded-2xl p-4 sm:p-6 text-center">
-                          <p className="text-fluid-xl sm:text-3xl font-bold text-cyan-400">{selectedProject.features?.length || 0}</p>
-                          <p className="text-xs sm:text-sm text-white/90">Features</p>
-                        </div>
-                      </div>
+                      <ul className="space-y-2.5 sm:space-y-3">
+                        {selectedProject.technicalChallenges?.map((challenge, index) => (
+                          <li key={index} className="flex items-start gap-2.5 sm:gap-3 text-fluid-base sm:text-lg text-white/90">
+                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                            {challenge}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
 
-                    {/* Architecture */}
-                    {selectedProject.architecture && (
-                      <div>
-                        <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
-                          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
-                            <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-                          </div>
-                          Architecture
-                        </h4>
-                        <p className="text-fluid-base sm:text-lg text-white/90 bg-brand-gradient/10 p-3 sm:p-4 rounded-2xl border border-[var(--ai-primary)]/20">
-                          {selectedProject.architecture}
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Metrics */}
-                    {selectedProject.metrics && (
-                      <div>
-                        <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
-                          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
-                            <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-                          </div>
-                          Performance Metrics
-                        </h4>
-                        <div className="space-y-2.5 sm:space-y-3">
-                          {Object.entries(selectedProject.metrics).map(([key, value]) => (
-                            <div key={key} className="flex justify-between items-center glass-ai rounded-xl p-3 sm:p-4">
-                              <span className="text-fluid-base sm:text-base text-white font-medium capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
-                              <span className="text-cyan-400 font-bold text-fluid-base sm:text-base">{value}</span>
-                            </div>
-                          ))}
+                    {/* Technical Solutions */}
+                    <div>
+                      <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
+                          <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
-                      </div>
-                    )}
+                        Technical Solutions
+                      </h4>
+                      <ul className="space-y-2.5 sm:space-y-3">
+                        {selectedProject.technicalSolutions?.map((solution, index) => (
+                          <li key={index} className="flex items-start gap-2.5 sm:gap-3 text-fluid-base sm:text-lg text-white/90">
+                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                            {solution}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-                    {/* Impact */}
+                    {/* Project Outcome */}
                     <div>
                       <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
                         <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
                           <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         </div>
-                        Impact & Results
+                        Project Outcome
                       </h4>
-                      <p className="text-fluid-base sm:text-lg text-white/90 bg-brand-gradient/10 p-3 sm:p-4 rounded-2xl border border-[var(--ai-primary)]/20">
-                        {selectedProject.impact}
+                      <p className="text-fluid-base sm:text-lg text-white/90 leading-relaxed">
+                        {selectedProject.projectOutcome}
                       </p>
-                    </div>
                     </div>
                   </div>
                 </div>
 
-              {/* Sticky Action Bar on Mobile */}
-              <div className="sticky bottom-0 inset-x-0 bg-gradient-to-br from-slate-900/80 via-blue-950/80 to-indigo-950/80 backdrop-blur-md border-t border-[var(--ai-primary)]/20 p-4 sm:hidden">
-                <div className="grid grid-cols-2 gap-3">
-                  {selectedProject.liveUrl && (
-                    <a
-                      href={selectedProject.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-3 btn-ai text-center text-sm font-bold rounded-xl flex items-center justify-center gap-2 group"
-                    >
-                      <ExternalLink className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
-                      Live
-                    </a>
-                  )}
-                  {selectedProject.githubUrl && (
-                    <a
-                      href={selectedProject.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-3 btn-code text-center text-sm font-bold rounded-xl flex items-center justify-center gap-2 group"
-                    >
-                      <Github className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
-                      Code
-                    </a>
-                  )}
+                {/* Technologies Used */}
+                <div className="mt-6 sm:mt-8">
+                  <h4 className="text-fluid-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-3">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
+                      <Code className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                    </div>
+                    Technologies Used
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 sm:px-4 py-1.5 glass-code text-white text-xs sm:text-sm rounded-full font-medium"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* Desktop Action Buttons */}
-              <div className="hidden sm:flex flex-col sm:flex-row gap-4 p-6 sm:p-8 border-t border-[var(--ai-primary)]/20">
+                {/* Project Links */}
+                <div className="mt-6 sm:mt-8 pt-6 border-t border-[var(--ai-primary)]/20 flex flex-col sm:flex-row gap-4">
+                  <a
+                    href={selectedProject.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-premium flex-1 inline-flex items-center justify-center px-6 py-3 text-white font-bold rounded-2xl hover:shadow-2xl transition-all duration-300 cursor-glow"
+                  >
+                    <Github className="w-5 h-5 sm:w-6 sm:h-6 mr-3" />
+                    View on GitHub
+                  </a>
                   {selectedProject.liveUrl && (
                     <a
                       href={selectedProject.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 px-8 py-4 btn-ai text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
+                      className="btn-code flex-1 text-fluid-base sm:text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
                     >
-                      <ExternalLink className="w-8 h-8 sm:w-9 sm:h-9 group-hover:scale-110 transition-transform duration-300" />
+                      <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6 mr-3" />
                       Live Demo
                     </a>
                   )}
-                  {selectedProject.githubUrl && (
-                    <a
-                      href={selectedProject.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 px-8 py-4 btn-code text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
-                    >
-                      <Github className="w-8 h-8 sm:w-9 sm:h-9 group-hover:scale-110 transition-transform duration-300" />
-                      View Code
-                    </a>
-                  )}
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -900,4 +888,4 @@ const AIProjects: React.FC = () => {
   );
 };
 
-export default React.memo(AIProjects);
+export default AIProjects;

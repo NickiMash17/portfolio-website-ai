@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 
 interface ThemeWrapperProps {
@@ -8,27 +8,6 @@ interface ThemeWrapperProps {
 
 const ThemeWrapper: React.FC<ThemeWrapperProps> = ({ children, className = '' }) => {
   const { theme, isLight } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    // Listen for theme changes and update component state
-    const handleThemeChange = (_event: CustomEvent) => {
-      // Force re-render when theme changes
-      setMounted(false);
-      setTimeout(() => setMounted(true), 0);
-    };
-
-    window.addEventListener('themechange', handleThemeChange as EventListener);
-    return () => window.removeEventListener('themechange', handleThemeChange as EventListener);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <div 
@@ -40,4 +19,4 @@ const ThemeWrapper: React.FC<ThemeWrapperProps> = ({ children, className = '' })
   );
 };
 
-export default ThemeWrapper; 
+export default ThemeWrapper;

@@ -17,7 +17,6 @@ interface Project {
   id: string;
   title: string;
   description: string;
-  longDescription: string;
   image: string;
   technologies: string[];
   category: 'ai-ml' | 'cloud-azure' | 'full-stack' | 'devops' | 'innovation';
@@ -25,10 +24,12 @@ interface Project {
   githubUrl: string;
   liveUrl?: string;
   demoUrl?: string;
-  features: string[];
-  challenges: string[];
-  solutions: string[];
-  impact: string;
+  problemStatement: string;
+  solutionOverview: string;
+  keyFeatures: string[];
+  technicalChallenges: string[];
+  technicalSolutions: string[];
+  projectOutcome: string;
   teamSize: number;
   duration: string;
   status: 'completed' | 'in-progress' | 'planned';

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Navigation } from './Navigation';
-import { Footer } from './Footer';
+import Navigation from './Navigation';
+import Footer from './Footer';
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -39,7 +39,7 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 font-sans relative overflow-x-hidden">
+      <div className="min-h-screen font-sans relative overflow-x-hidden">
         <Navigation />
         <main
           className="pt-20 sm:pt-24 md:pt-28 min-h-[calc(100vh-80px)]"

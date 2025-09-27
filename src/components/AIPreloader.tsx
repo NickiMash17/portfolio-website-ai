@@ -101,9 +101,7 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
               stroke="url(#neuralGradient)"
               strokeWidth="1"
               filter="url(#glow)"
-              style={{
-                animation: `connectionPulse ${3 + i * 0.1}s ease-in-out infinite alternate`
-              }}
+              className="connectionPulse"
             />
           ))}
           
@@ -116,10 +114,7 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
               r="2"
               fill="url(#neuralGradient)"
               filter="url(#glow)"
-              style={{
-                animation: `nodePulse ${2 + Math.random()}s ease-in-out infinite`,
-                animationDelay: `${i * 0.1}s`
-              }}
+              className="nodePulse"
             />
           ))}
         </svg>
@@ -350,105 +345,13 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
         {/* Professional Loading Text */}
         <div className="mt-8 text-sm text-slate-400 font-mono">
           <span 
-            className="inline-block w-3 h-3 bg-cyan-400 rounded-full mr-3"
-            style={{
-              animation: 'dotPulse 1s ease-in-out infinite'
-            }}
+            className="inline-block w-3 h-3 bg-cyan-400 rounded-full mr-3 dotPulse"
           />
           Initializing quantum consciousness...
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes connectionPulse {
-          0% { opacity: 0.2; }
-          100% { opacity: 0.8; }
-        }
-        
-        @keyframes nodePulse {
-          0%, 100% { transform: scale(1); opacity: 0.5; }
-          50% { transform: scale(1.5); opacity: 1; }
-        }
-        
-        @keyframes dataFlow {
-          0% { transform: translateX(-100px); opacity: 0; }
-          50% { opacity: 1; }
-          100% { transform: translateX(100px); opacity: 0; }
-        }
-        
-        @keyframes codeFloat {
-          0%, 100% { transform: translateY(0px); opacity: 0.2; }
-          25% { transform: translateY(-10px); opacity: 0.8; }
-          50% { transform: translateY(-20px); opacity: 1; }
-          75% { transform: translateY(-10px); opacity: 0.8; }
-        }
-        
-        @keyframes particleFloat {
-          0% { transform: scale(0); opacity: 0; }
-          50% { transform: scale(1); opacity: 1; }
-          100% { transform: scale(0); opacity: 0; }
-        }
-        
-        @keyframes preloaderAppear {
-          0% { opacity: 0; transform: scale(0.8) translateY(50px); }
-          100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        
-        @keyframes coreRotate {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes ringRotate {
-          0% { transform: rotate(0deg) scale(1); }
-          50% { transform: rotate(180deg) scale(1.05); }
-          100% { transform: rotate(360deg) scale(1); }
-        }
-        
-        @keyframes coreGlow {
-          0%, 100% { transform: scale(1); opacity: 0.8; }
-          50% { transform: scale(1.1); opacity: 1; }
-        }
-        
-        @keyframes barPulse {
-          0%, 100% { transform: scaleX(0.5); }
-          50% { transform: scaleX(1); }
-        }
-        
-        @keyframes orbRotate {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes textPulse {
-          0%, 100% { opacity: 0.8; }
-          50% { opacity: 1; }
-        }
-        
-        @keyframes progressShimmer {
-          0% { transform: translateX(-20px); }
-          100% { transform: translateX(100px); }
-        }
-        
-        @keyframes stepPulse {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.3); }
-          100% { transform: scale(1); }
-        }
-        
-        @keyframes dotPulse {
-          0%, 100% { opacity: 0.5; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.3); }
-        }
-        
-        .bg-grid {
-          background-image:
-            linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
-          background-size: 40px 40px, 40px 40px;
-          background-position: -1px -1px, -1px -1px;
-        }
-      `}</style>
+      {/* styles moved to AIPreloader.css */}
     </div>
   );
 };
