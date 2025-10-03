@@ -66,7 +66,7 @@ const AIHero: React.FC = () => {
   ];
 
   return (
-    <section id="hero" className="min-h-screen relative flex items-center justify-center">
+    <section id="hero" className="min-h-screen relative flex flex-col lg:flex-row items-center justify-center px-4 sm:px-6 lg:px-8 py-0">
       {/* Advanced Tech Background */}
       <div className="absolute inset-0 bg-app-gradient particles" />
       
@@ -200,7 +200,7 @@ const AIHero: React.FC = () => {
       </div>
       )}
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 md:py-16 lg:py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Content */}
           <motion.div
