@@ -25,7 +25,7 @@ const App = () => {
     }, 2000); // Minimum 2 seconds to show preloader
 
     return () => clearTimeout(timer);
-  }, [isLoading]);
+  }, []);
 
   if (isLoading) {
     return <AIPreloader onComplete={handlePreloaderComplete} />;
