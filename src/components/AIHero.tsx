@@ -6,20 +6,25 @@ import usePerformance from '../hooks/usePerformance';
 
 const AIHero: React.FC = () => {
   const [radius, setRadius] = useState(200);
+  const [iconSize, setIconSize] = useState(56);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const { shouldDisableAnimations } = usePerformance();
 
   useEffect(() => {
-    const updateRadius = () => {
+    const updateRadiusAndIconSize = () => {
       const width = window.innerWidth;
       if (width < 640) { // Extra small
         setRadius(110);
+        setIconSize(40);
       } else if (width < 768) { // Small
         setRadius(140);
+        setIconSize(48);
       } else if (width < 1024) { // Medium
         setRadius(160);
+        setIconSize(56);
       } else { // Large
         setRadius(180);
+        setIconSize(56);
       }
     };
 
@@ -32,12 +37,12 @@ const AIHero: React.FC = () => {
     };
 
     mediaQuery.addEventListener('change', handleChange);
-    window.addEventListener('resize', updateRadius);
-    updateRadius();
+    window.addEventListener('resize', updateRadiusAndIconSize);
+    updateRadiusAndIconSize();
 
     return () => {
       mediaQuery.removeEventListener('change', handleChange);
-      window.removeEventListener('resize', updateRadius);
+      window.removeEventListener('resize', updateRadiusAndIconSize);
     };
   }, []);
 
@@ -430,7 +435,7 @@ const AIHero: React.FC = () => {
               </div>
 
               {/* Enhanced Orbiting Tech Icons */}
-              {!shouldDisableAnimations && !prefersReducedMotion && techIcons.map((tech, index) => {
+              {!prefersReducedMotion && techIcons.map((tech, index) => {
                 const angle = (index / techIcons.length) * Math.PI * 2;
                 const x = Math.cos(angle) * radius;
                 const y = Math.sin(angle) * radius;
@@ -438,10 +443,12 @@ const AIHero: React.FC = () => {
                 return (
                   <motion.div
                     key={tech.label}
-                    className="absolute w-14 h-14 rounded-full bg-brand-gradient/20 backdrop-blur-sm border border-[var(--ai-primary)]/30 flex items-center justify-center shadow-lg"
+                    className="absolute rounded-full bg-brand-gradient/20 backdrop-blur-sm border border-[var(--ai-primary)]/30 flex items-center justify-center shadow-lg"
                     style={{
-                      left: `calc(50% + ${x}px - 28px)`,
-                      top: `calc(50% + ${y}px - 28px)`,
+                      width: `${iconSize}px`,
+                      height: `${iconSize}px`,
+                      left: `calc(50% + ${x}px - ${iconSize / 2}px)`,
+                      top: `calc(50% + ${y}px - ${iconSize / 2}px)`,
                     }}
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{
@@ -456,7 +463,7 @@ const AIHero: React.FC = () => {
                     }}
                     whileHover={{ scale: 1.3, rotate: 360 }}
                   >
-                    <tech.icon className="w-7 h-7 text-[var(--ai-primary)]" />
+                    <tech.icon className={`text-[var(--ai-primary)]`} style={{ width: `${iconSize * 0.5}px`, height: `${iconSize * 0.5}px` }} />
                   </motion.div>
                 );
               })}
