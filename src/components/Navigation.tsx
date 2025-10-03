@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Menu, 
-  X, 
-  Home, 
-  User, 
-  Briefcase, 
-  FileText, 
-  Mail, 
-  Github, 
+import {
+  Menu,
+  X,
+  Home,
+  User,
+  Briefcase,
+  FileText,
+  Mail,
+  Github,
   Linkedin,
   Brain,
-  Download
+  Download,
+  Sun,
+  Moon
 } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const { theme, toggleTheme, isLight } = useTheme();
 
   // Handle scroll effect safely
   useEffect(() => {
@@ -62,6 +66,8 @@ const Navigation = () => {
     }
     setIsOpen(false);
   };
+
+
 
   return (
     <>
@@ -122,6 +128,16 @@ const Navigation = () => {
               >
                 <Linkedin className="w-5 h-5" />
               </a>
+
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                aria-label={`Switch to ${isLight ? 'dark' : 'light'} mode`}
+                className="p-2 text-slate-400 hover:text-white transition-colors duration-300 rounded-lg hover:bg-slate-700/50"
+              >
+                {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+              </button>
+
               <button
                 onClick={() => scrollToSection('resume')}
                 aria-label="Scroll to resume section"

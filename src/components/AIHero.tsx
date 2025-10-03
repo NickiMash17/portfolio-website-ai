@@ -68,7 +68,7 @@ const AIHero: React.FC = () => {
   return (
     <section id="hero" className="min-h-screen relative flex items-center justify-center">
       {/* Advanced Tech Background */}
-      <div className="absolute inset-0 bg-app-gradient" />
+      <div className="absolute inset-0 bg-app-gradient particles" />
       
       {/* Azure Cloud Services Floating Animation */}
       {!shouldDisableAnimations && !prefersReducedMotion && (
@@ -307,7 +307,7 @@ const AIHero: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={scrollToAbout}
                 aria-label="View my work, scrolls to about section"
-                className="px-8 py-4 bg-brand-gradient text-white font-bold rounded-2xl shadow-2xl hover:shadow-[var(--ai-glow)] transition-all duration-300 flex items-center justify-center gap-3 relative overflow-hidden group"
+                className="btn btn-primary btn-magnetic px-8 py-4 font-bold rounded-2xl shadow-2xl hover:shadow-[var(--ai-glow)] transition-all duration-300 flex items-center justify-center gap-3 relative overflow-hidden group cursor-glow"
               >
                 <motion.div
                   className="absolute inset-0 bg-brand-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -317,13 +317,13 @@ const AIHero: React.FC = () => {
                 <Code className="w-5 h-5 relative z-10" />
                 <span className="relative z-10">View My Work</span>
               </motion.button>
-              
+
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(6, 182, 212, 0.3)" }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 aria-label="Get in touch, scrolls to contact section"
-                className="px-8 py-4 bg-transparent border-2 border-[var(--ai-primary)] text-[var(--ai-primary)] font-bold rounded-2xl hover:bg-[var(--ai-glow)] transition-all duration-300 flex items-center justify-center gap-3 relative group"
+                className="btn btn-outline btn-magnetic px-8 py-4 font-bold rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 relative group cursor-glow"
               >
                 <motion.div
                   className="absolute inset-0 bg-[var(--ai-primary)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"

@@ -7,6 +7,7 @@ import Resume from './components/Resume';
 import Contact from './components/Contact';
 import NeuralAIAssistant from './components/NeuralAIAssistant';
 import AIPreloader from './components/AIPreloader';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,14 +32,16 @@ const App = () => {
   }
 
   return (
-    <Layout>
-      <AIHero />
-      <AIAbout />
-      <AIProjects />
-      <Resume />
-      <Contact />
-      <NeuralAIAssistant />
-    </Layout>
+    <ThemeProvider>
+      <Layout>
+        <AIHero />
+        <AIAbout />
+        <AIProjects />
+        <Resume />
+        <Contact />
+        <NeuralAIAssistant />
+      </Layout>
+    </ThemeProvider>
   );
 };
 

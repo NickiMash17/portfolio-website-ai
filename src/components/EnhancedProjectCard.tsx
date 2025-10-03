@@ -101,15 +101,25 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true }}
-      className="h-full group"
+      className="h-full group will-change-transform"
     >
-      <div className="glass-ai interactive-card cursor-glow rounded-2xl sm:rounded-3xl border border-[var(--ai-primary)]/20 hover:border-[var(--ai-primary)]/50 transition-all duration-500 overflow-hidden hover:shadow-2xl hover:shadow-[var(--ai-primary)]/25 h-full flex flex-col scroll-reveal relative">
+      <div className="glass-ai card-magnetic cursor-glow rounded-2xl sm:rounded-3xl border border-[var(--ai-primary)]/20 hover:border-[var(--ai-primary)]/50 transition-all duration-500 overflow-hidden hover:shadow-2xl hover:shadow-[var(--ai-primary)]/25 h-full flex flex-col scroll-reveal relative">
         {/* Enhanced Hover Glow Effect */}
         <div className="absolute inset-0 bg-brand-gradient/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl sm:rounded-3xl" />
         
         {/* Project Image with Enhanced Effects - Mobile Optimized */}
-        <div className="h-32 sm:h-40 md:h-48 bg-brand-gradient/10 flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-brand-gradient/20" />
+        <div className="h-32 sm:h-40 md:h-48 bg-brand-gradient/10 flex items-center justify-center relative overflow-hidden rounded-2xl">
+        {project.image && (
+          <>
+            <img
+              src={project.image}
+              alt={`${project.title} screenshot`}
+              className="absolute inset-0 w-full h-full object-cover rounded-2xl"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-brand-gradient/20" />
+          </>
+        )}
           
           {/* Simplified Background Pattern for Mobile */}
           <div className="absolute inset-0 opacity-10 sm:opacity-20">
