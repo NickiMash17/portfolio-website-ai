@@ -28,20 +28,23 @@ const Navigation = () => {
 
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-      
+
       const sections = ['home', 'about', 'projects', 'resume', 'contact'];
-      const currentSection = sections.find(section => {
+      let currentSection = 'home';
+      let minDistance = Number.POSITIVE_INFINITY;
+
+      sections.forEach(section => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+          if (rect.top <= 100 && Math.abs(rect.top) < minDistance) {
+            minDistance = Math.abs(rect.top);
+            currentSection = section;
+          }
         }
-        return false;
       });
-      
-      if (currentSection) {
-        setActiveSection(currentSection);
-      }
+
+      setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -123,20 +126,23 @@ const Navigation = () => {
                 href="https://linkedin.com/in/nicolette-mashaba"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-slate-400 hover:text-white transition-colors duration-300"
+                className="p-3 bg-slate-800/50 text-slate-400 hover:text-white rounded-lg transition-colors duration-300"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
 
-              {/* Theme Toggle */}
+              {/* Mobile Theme Toggle */}
               <button
                 onClick={toggleTheme}
                 aria-label={`Switch to ${isLight ? 'dark' : 'light'} mode`}
-                className="p-2 text-slate-400 hover:text-white transition-colors duration-300 rounded-lg hover:bg-slate-700/50"
+                className="p-3 bg-slate-800/50 text-slate-400 hover:text-white rounded-lg transition-colors duration-300"
               >
                 {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
               </button>
+
+              {/* Theme Toggle */}
+              {/* Removed duplicate theme toggle button */}
 
               <button
                 onClick={() => scrollToSection('resume')}
@@ -201,6 +207,15 @@ const Navigation = () => {
                     >
                       <Linkedin className="w-5 h-5" />
                     </a>
+
+                    {/* Mobile Theme Toggle */}
+                    <button
+                      onClick={toggleTheme}
+                      aria-label={`Switch to ${isLight ? 'dark' : 'light'} mode`}
+                      className="p-3 bg-slate-800/50 text-slate-400 hover:text-white rounded-lg transition-colors duration-300"
+                    >
+                      {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                    </button>
                   </div>
                   
                   <button
