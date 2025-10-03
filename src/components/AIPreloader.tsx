@@ -21,56 +21,48 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
   ];
 
   useEffect(() => {
-    // Progressive loading with realistic timing
+    // Fast preloader that definitely reaches 100%
+    const totalDuration = 2000; // 2 seconds total duration (fast)
+    const updateInterval = 20; // Update every 20ms for smooth animation
+    let elapsed = 0;
+
     const progressInterval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(progressInterval);
-          // Fixed timing issue - call onComplete after animation completes
-          setTimeout(() => onComplete(), 1000);
-          return 100;
-        }
-        // Simple constant increment to ensure completion
-        const increment = 2;
-        return Math.min(prev + increment, 100);
-      });
-    }, 100); // <-- Consistent interval
+      elapsed += updateInterval;
+      // Simple percentage calculation that definitely reaches 100%
+      const progress = Math.min(100, Math.floor((elapsed / totalDuration) * 100));
 
-    // Step progression - aligned with progress
-    const stepInterval = setInterval(() => {
-      setCurrentStep(prev => {
-        if (prev >= steps.length - 1) {
-          clearInterval(stepInterval);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 1500); // <-- Slowed down from 800ms to 1500ms
+      setProgress(progress);
 
-    // Neural activity simulation
-    const neuralInterval = setInterval(() => {
-      setNeuralActivity(Math.random());
-    }, 150);
+      // Update step text based on progress
+      const stepIndex = Math.min(
+        steps.length - 1,
+        Math.floor(progress / (100 / steps.length))
+      );
+      setCurrentStep(stepIndex);
+
+      if (progress >= 100) {
+        clearInterval(progressInterval);
+        // Complete immediately when reaching 100%
+        setTimeout(() => onComplete(), 100);
+      }
+    }, updateInterval);
+
+    // Neural activity effect
+    const activityInterval = setInterval(() => {
+      setNeuralActivity(Math.random() * 100);
+    }, 200);
+
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+    mediaQuery.addEventListener('change', (e) => setPrefersReducedMotion(e.matches));
 
     return () => {
       clearInterval(progressInterval);
-      clearInterval(stepInterval);
-      clearInterval(neuralInterval);
+      clearInterval(activityInterval);
+      mediaQuery.removeEventListener('change', () => {});
     };
-  }, [onComplete, steps.length]);
-
-  // Detect reduced motion preference
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches);
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
+  }, [onComplete]);
 
   // Advanced Neural Network Visualization
   const NeuralNetwork: React.FC = () => {

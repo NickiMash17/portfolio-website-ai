@@ -1,0 +1,63 @@
+/* Mobile-first scroll optimizations */
+@media (max-width: 768px) {
+  /* Enable hardware acceleration for smoother scrolling */
+  html, body {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Optimize scrolling performance */
+  * {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+  }
+
+  /* Improve image rendering */
+  img {
+    content-visibility: auto;
+    max-width: 100%;
+    height: auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* Optimize fixed/absolute positioned elements */
+  .fixed, .absolute {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  /* Disable hover effects on mobile */
+  @media (hover: none) {
+    *:hover {
+      background-color: transparent !important;
+      transform: none !important;
+    }
+  }
+
+  /* Optimize animations for mobile */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
