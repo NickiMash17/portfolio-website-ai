@@ -872,10 +872,12 @@ const AIProjects: React.FC = () => {
                       href={selectedProject.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-code flex-1 text-fluid-base sm:text-lg font-bold rounded-2xl flex items-center justify-center gap-3 group"
+                      className="group relative flex-1 inline-flex items-center justify-center px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold shadow-lg hover:from-blue-600 hover:to-cyan-600 transition-all duration-300"
+                      aria-label={`Live demo of ${selectedProject.title}`}
                     >
-                      <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6 mr-3" />
-                      Live Demo
+                      <span className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-300"></span>
+                      <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 mr-2 relative z-10" />
+                      <span className="relative z-10 text-sm sm:text-base">Live Demo</span>
                     </a>
                   )}
                 </div>

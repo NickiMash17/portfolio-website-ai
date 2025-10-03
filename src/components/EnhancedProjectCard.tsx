@@ -203,14 +203,15 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-premium w-full h-10 sm:h-12 md:h-14 px-3 sm:px-6 rounded-lg sm:rounded-xl font-semibold text-white flex items-center justify-center gap-2 sm:gap-3 cursor-glow group/btn min-h-[44px]"
+                className="group relative w-full h-8 sm:h-10 md:h-12 px-3 sm:px-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold shadow-lg hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 cursor-glow"
                 aria-label={`Open live demo: ${project.title}`}
                 title="Live Demo"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 stroke-[2.5] group-hover/btn:scale-110 transition-transform duration-300" />
-                <span className="text-sm sm:text-base md:text-lg font-bold">Live</span>
+                <span className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 rounded-lg sm:rounded-xl transition-opacity duration-300"></span>
+                <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 stroke-[2.5] group-hover:scale-110 transition-transform duration-300 relative z-10" />
+                <span className="text-xs sm:text-sm md:text-base font-bold relative z-10">Live</span>
               </motion.a>
             )}
             {project.githubUrl && (

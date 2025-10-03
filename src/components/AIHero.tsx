@@ -6,6 +6,7 @@ import usePerformance from '../hooks/usePerformance';
 
 const AIHero: React.FC = () => {
   const [radius, setRadius] = useState(200);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const { shouldDisableAnimations } = usePerformance();
 
   useEffect(() => {
@@ -22,10 +23,22 @@ const AIHero: React.FC = () => {
       }
     };
 
+    // Detect reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
     window.addEventListener('resize', updateRadius);
     updateRadius();
 
-    return () => window.removeEventListener('resize', updateRadius);
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+      window.removeEventListener('resize', updateRadius);
+    };
   }, []);
 
   const scrollToAbout = () => {
@@ -53,7 +66,7 @@ const AIHero: React.FC = () => {
       <div className="absolute inset-0 bg-app-gradient" />
       
       {/* Azure Cloud Services Floating Animation */}
-      {!shouldDisableAnimations && (
+      {!shouldDisableAnimations && !prefersReducedMotion && (
       <div className="absolute inset-0 pointer-events-none">
         {['Azure Functions', 'Kubernetes', 'Docker', 'CI/CD', 'ML Studio', 'DevOps'].map((service, i) => (
           <motion.div
@@ -80,7 +93,7 @@ const AIHero: React.FC = () => {
       )}
 
       {/* Neural Network Connections */}
-      {!shouldDisableAnimations && (
+      {!shouldDisableAnimations && !prefersReducedMotion && (
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <svg className="w-full h-full">
           {[...Array(8)].map((_, i) => (
@@ -126,7 +139,7 @@ const AIHero: React.FC = () => {
       )}
 
       {/* DevOps Pipeline Visualization */}
-      {!shouldDisableAnimations && (
+      {!shouldDisableAnimations && !prefersReducedMotion && (
       <div className="hidden md:block absolute top-1/4 right-10 w-64 h-32 pointer-events-none opacity-25">
         <div className="relative">
           {['Build', 'Test', 'Deploy'].map((stage, i) => (
@@ -156,7 +169,7 @@ const AIHero: React.FC = () => {
       )}
 
       {/* Floating Code Snippets */}
-      {!shouldDisableAnimations && (
+      {!shouldDisableAnimations && !prefersReducedMotion && (
       <div className="hidden sm:block absolute inset-0 pointer-events-none">
         {['const ai = new ML()', 'kubectl apply -f', 'az webapp deploy', 'docker build -t'].map((code, i) => (
           <motion.div
@@ -182,7 +195,7 @@ const AIHero: React.FC = () => {
       </div>
       )}
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 md:py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Content */}
           <motion.div
@@ -196,7 +209,7 @@ const AIHero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-8 mt-12"
+              className="mb-8 mt-4"
             >
               <span className="text-lg text-[var(--ai-primary)] font-semibold relative">
                 <span className="inline-block animate-pulse">Hello, I'm</span>
@@ -315,42 +328,42 @@ const AIHero: React.FC = () => {
               </motion.button>
             </motion.div>
 
-            {/* Social Media Links - Fixed positioning and z-index */}
-            <div className="flex flex-col items-center lg:items-start space-y-4 sm:space-y-6 relative z-30"> {/* Added relative and z-30 */}
-              <div className="flex items-center gap-6 sm:gap-8 mt-6 sm:mt-8"> {/* Added margin top */}
-                <a 
-                  href="https://github.com/NickiMash17"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/10 
-                    backdrop-blur-sm flex items-center justify-center border border-white/20 
-                    hover:bg-[var(--ai-primary)] transition-all duration-300
-                    hover:shadow-lg hover:shadow-[var(--ai-primary)]/20"
-                  aria-label="GitHub Profile"
-                >
-                  <Github className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:scale-110 transition-transform duration-300" />
-                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs sm:text-sm 
-                    text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    GitHub
-                  </span>
-                </a>
-                
-                <a 
-                  href="https://linkedin.com/in/nicolette-mashaba"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/10 
-                    backdrop-blur-sm flex items-center justify-center border border-white/20 
-                    hover:bg-[var(--ai-primary)] transition-all duration-300
-                    hover:shadow-lg hover:shadow-[var(--ai-primary)]/20"
-                  aria-label="LinkedIn Profile"
-                >
-                  <Linkedin className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:scale-110 transition-transform duration-300" />
-                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs sm:text-sm 
-                    text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    LinkedIn
-                  </span>
-                </a>
+             {/* Social Media Links - Fixed positioning and z-index */}
+             <div className="flex flex-col items-center lg:items-start space-y-4 sm:space-y-6 relative z-30"> {/* Added relative and z-30 */}
+               <div className="flex items-center gap-6 sm:gap-8 mt-3 sm:mt-4"> {/* Reduced margin top */}
+            <a
+              href="https://github.com/NickiMash17"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/10
+                backdrop-blur-sm flex items-center justify-center border border-white/20
+                hover:bg-[var(--ai-primary)] transition-all duration-300
+                hover:shadow-lg hover:shadow-[var(--ai-primary)]/20"
+              aria-label="GitHub Profile"
+            >
+              <Github className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:scale-110 transition-transform duration-300" />
+              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs sm:text-sm
+                text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                GitHub
+              </span>
+            </a>
+
+            <a
+              href="https://linkedin.com/in/nicolette-mashaba"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/10
+                backdrop-blur-sm flex items-center justify-center border border-white/20
+                hover:bg-[var(--ai-primary)] transition-all duration-300
+                hover:shadow-lg hover:shadow-[var(--ai-primary)]/20"
+              aria-label="LinkedIn Profile"
+            >
+              <Linkedin className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:scale-110 transition-transform duration-300" />
+              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs sm:text-sm
+                text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                LinkedIn
+              </span>
+            </a>
               </div>
             </div>
           </motion.div>
@@ -385,7 +398,7 @@ const AIHero: React.FC = () => {
                 </div>
                 
                 {/* Floating Tech Icons */}
-                {!shouldDisableAnimations && (<>
+                {!shouldDisableAnimations && !prefersReducedMotion && (<>
                 <motion.div
                   className="absolute top-4 right-4 w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center z-30"
                   animate={{ rotate: [0, 360] }}
@@ -417,7 +430,7 @@ const AIHero: React.FC = () => {
               </div>
 
               {/* Enhanced Orbiting Tech Icons */}
-              {!shouldDisableAnimations && techIcons.map((tech, index) => {
+              {!shouldDisableAnimations && !prefersReducedMotion && techIcons.map((tech, index) => {
                 const angle = (index / techIcons.length) * Math.PI * 2;
                 const x = Math.cos(angle) * radius;
                 const y = Math.sin(angle) * radius;
@@ -431,12 +444,12 @@ const AIHero: React.FC = () => {
                       top: `calc(50% + ${y}px - 28px)`,
                     }}
                     initial={{ scale: 0, opacity: 0 }}
-                    animate={{ 
+                    animate={{
                       scale: [1, 1.2, 1],
                       opacity: [0.8, 1, 0.8],
                       rotate: [0, 360, 0]
                     }}
-                    transition={{ 
+                    transition={{
                       duration: 4 + index * 0.5,
                       repeat: Infinity,
                       delay: 0.8 + index * 0.1
@@ -460,14 +473,14 @@ const AIHero: React.FC = () => {
         >
           <motion.button
             onClick={scrollToAbout}
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            animate={prefersReducedMotion ? {} : { y: [0, 10, 0] }}
+            transition={prefersReducedMotion ? {} : { duration: 2, repeat: Infinity }}
             className="text-[var(--ai-primary)] hover:text-[var(--ai-secondary)] transition-colors duration-300 group"
             aria-label="Scroll down to about section"
           >
             <motion.div
               className="w-12 h-12 rounded-full border-2 border-[var(--ai-primary)]/30 flex items-center justify-center group-hover:border-[var(--ai-primary)]/60 transition-colors duration-300"
-              whileHover={{ scale: 1.1 }}
+              whileHover={prefersReducedMotion ? {} : { scale: 1.1 }}
             >
               <ChevronDown className="w-6 h-6" />
             </motion.div>

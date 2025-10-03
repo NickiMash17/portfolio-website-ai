@@ -8,6 +8,7 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const [neuralActivity, setNeuralActivity] = useState(0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   const steps = [
     'Initializing Neural Networks...',
@@ -32,7 +33,7 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
         const increment = prev < 20 ? 2 : prev > 80 ? 1 : 3;
         return Math.min(prev + increment, 100);
       });
-    }, 80);
+    }, 150); // <-- Slowed down from 80ms to 150ms
 
     // Step progression - aligned with progress
     const stepInterval = setInterval(() => {
@@ -43,7 +44,7 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
         }
         return prev + 1;
       });
-    }, 800);
+    }, 1500); // <-- Slowed down from 800ms to 1500ms
 
     // Neural activity simulation
     const neuralInterval = setInterval(() => {
@@ -57,23 +58,36 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
     };
   }, [onComplete, steps.length]);
 
+  // Detect reduced motion preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
   // Advanced Neural Network Visualization
   const NeuralNetwork: React.FC = () => {
-    const nodes = Array.from({ length: 24 }, (_, i) => ({
+    const nodes = Array.from({ length: 32 }, (_, i) => ({
       id: i,
-      x: 20 + (i % 6) * 15,
-      y: 20 + Math.floor(i / 6) * 20,
-      layer: Math.floor(i / 6)
+      x: 15 + (i % 8) * 12,
+      y: 15 + Math.floor(i / 8) * 15,
+      layer: Math.floor(i / 8)
     }));
 
-    const connections = nodes.flatMap(node => 
+    const connections = nodes.flatMap(node =>
       nodes
-        .filter(target => target.layer === node.layer + 1)
+        .filter(target => target.layer === node.layer + 1 || (target.layer === node.layer && Math.abs(target.x - node.x) < 20))
         .map(target => ({ from: node, to: target }))
     );
 
     return (
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-25">
         <svg className="w-full h-full">
           <defs>
             <linearGradient id="neuralGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -81,15 +95,27 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
               <stop offset="50%" stopColor="#00C2FF" />
               <stop offset="100%" stopColor="#8B5CF6" />
             </linearGradient>
+            <radialGradient id="nodeGradient" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#00E5FF" stopOpacity="1" />
+              <stop offset="70%" stopColor="#00C2FF" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.4" />
+            </radialGradient>
             <filter id="glow">
-              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-              <feMerge> 
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <filter id="strongGlow">
+              <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+              <feMerge>
                 <feMergeNode in="coloredBlur"/>
                 <feMergeNode in="SourceGraphic"/>
               </feMerge>
             </filter>
           </defs>
-          
+
           {/* Neural Connections */}
           {connections.map((conn, i) => (
             <line
@@ -99,23 +125,37 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
               x2={`${conn.to.x}%`}
               y2={`${conn.to.y}%`}
               stroke="url(#neuralGradient)"
-              strokeWidth="1"
+              strokeWidth="1.5"
               filter="url(#glow)"
-              className="connectionPulse"
+              className={prefersReducedMotion ? '' : "connectionPulse"}
+              opacity={0.6 + Math.random() * 0.4}
             />
           ))}
-          
+
           {/* Neural Nodes */}
           {nodes.map((node, i) => (
-            <circle
-              key={`node-${i}`}
-              cx={`${node.x}%`}
-              cy={`${node.y}%`}
-              r="2"
-              fill="url(#neuralGradient)"
-              filter="url(#glow)"
-              className="nodePulse"
-            />
+            <g key={`node-${i}`}>
+              <circle
+                cx={`${node.x}%`}
+                cy={`${node.y}%`}
+                r="3"
+                fill="url(#nodeGradient)"
+                filter="url(#strongGlow)"
+                className={prefersReducedMotion ? '' : "nodePulse"}
+              />
+              {/* Pulsing ring around nodes */}
+              <circle
+                cx={`${node.x}%`}
+                cy={`${node.y}%`}
+                r="6"
+                fill="none"
+                stroke="url(#neuralGradient)"
+                strokeWidth="1"
+                opacity="0.3"
+                className={prefersReducedMotion ? '' : "nodePulse"}
+                style={prefersReducedMotion ? {} : { animationDelay: `${i * 0.2}s` }}
+              />
+            </g>
           ))}
         </svg>
       </div>
@@ -134,8 +174,8 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
             top: `${Math.random() * 100}%`,
             width: '200px',
             transform: `rotate(${Math.random() * 360}deg)`,
-            animation: `dataFlow ${4 + Math.random() * 2}s linear infinite`,
-            animationDelay: `${i * 0.5}s`
+            animation: prefersReducedMotion ? 'none' : `dataFlow ${4 + Math.random() * 2}s linear infinite`,
+            animationDelay: prefersReducedMotion ? 'none' : `${i * 0.5}s`
           }}
         />
       ))}
@@ -145,7 +185,7 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
   // Floating Code Elements
   const FloatingCode: React.FC = () => {
     const codeSnippets = [
-      'AI.initialize()', 'neural.train()', 'quantum.compute()', 
+      'AI.initialize()', 'neural.train()', 'quantum.compute()',
       'matrix.optimize()', 'data.process()', 'brain.activate()',
       'ML.predict()', 'deep.learn()', 'tensor.flow()', 'gpu.accelerate()'
     ];
@@ -159,7 +199,7 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
             style={{
               left: `${Math.random() * 80 + 10}%`,
               top: `${Math.random() * 80 + 10}%`,
-              animation: `codeFloat ${6 + i * 0.5}s ease-in-out infinite`,
+              animation: prefersReducedMotion ? 'none' : `codeFloat ${6 + i * 0.5}s ease-in-out infinite`,
             }}
           >
             {code}
@@ -170,44 +210,87 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center z-50 overflow-hidden">
+    <div
+      className="fixed inset-0 bg-ai-background flex items-center justify-center z-50 overflow-hidden"
+      role="alert"
+      aria-live="assertive"
+      aria-busy={progress < 100}
+      aria-label="AI Portfolio Loading Screen"
+    >
       {/* Advanced Background Effects */}
-      <div className="absolute inset-0 bg-grid opacity-10" />
-      <NeuralNetwork />
+      <div className="absolute inset-0 bg-grid opacity-10" aria-hidden="true" />
+      {/* <NeuralNetwork /> */}
       <DataStreams />
       <FloatingCode />
-      
-      {/* Quantum Particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 50 }).map((_, i) => (
+
+      {/* Enhanced Quantum Particles */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        {Array.from({ length: 20 }).map((_, i) => ( // <-- Reduced from 80 to 20
           <div
             key={`particle-${i}`}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full"
+            className="absolute rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animation: `particleFloat ${3 + Math.random() * 2}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 3}s`
+              width: `${2 + Math.random() * 3}px`,
+              height: `${2 + Math.random() * 3}px`,
+              background: `linear-gradient(45deg, ${['#00E5FF', '#00C2FF', '#8B5CF6', '#A855F7'][Math.floor(Math.random() * 4)]}, transparent)`,
+              boxShadow: `0 0 ${4 + Math.random() * 6}px ${['#00E5FF', '#00C2FF', '#8B5CF6'][Math.floor(Math.random() * 3)]}`,
+              animation: prefersReducedMotion ? 'none' : `particleFloat ${3 + Math.random() * 3}s ease-in-out infinite`,
+              animationDelay: prefersReducedMotion ? 'none' : `${Math.random() * 4}s`
             }}
           />
         ))}
       </div>
 
-      <div 
-        className="text-center px-8 relative z-10 bg-slate-800/40 backdrop-blur-xl rounded-3xl p-12 border border-cyan-400/30 shadow-2xl max-w-lg mx-auto"
-        role="status" 
-        aria-live="polite" 
-        aria-label={`Loading ${progress}%`}
+      {/* Holographic Grid Overlay */}
+      <div className="absolute inset-0 pointer-events-none opacity-10" aria-hidden="true">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(0, 229, 255, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0, 229, 255, 0.1) 1px, transparent 1px),
+              linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px)
+            `,
+            backgroundSize: '40px 40px, 40px 40px, 80px 80px, 80px 80px',
+            backgroundPosition: '0 0, 0 0, 20px 20px, 20px 20px',
+            animation: prefersReducedMotion ? 'none' : 'gridShift 20s linear infinite'
+          }}
+        />
+      </div>
+
+      {/* AI Consciousness Waves */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div
+            key={`wave-${i}`}
+            className="absolute w-full h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"
+            style={{
+              top: `${30 + i * 20}%`,
+              animation: prefersReducedMotion ? 'none' : `waveFlow ${8 + i * 2}s ease-in-out infinite`,
+              animationDelay: prefersReducedMotion ? 'none' : `${i * 1.5}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div
+        className="text-center px-4 relative z-10 bg-slate-800/40 backdrop-blur-xl rounded-3xl p-2 border border-cyan-400/30 shadow-2xl max-w-lg mx-auto"
+        role="status"
+        aria-live="polite"
+        aria-label={`Loading progress: ${progress}% complete. Current step: ${steps[currentStep]}`}
         style={{
-          animation: 'preloaderAppear 1s ease-out'
+          animation: prefersReducedMotion ? 'none' : 'preloaderAppear 1s ease-out'
         }}
       >
         {/* Quantum Core Loader */}
-        <div className="mb-12">
-          <div 
-            className="relative mx-auto mb-6 w-48 h-48"
+        <div className="mb-0">
+          <div
+            className="relative mx-auto mb-2 w-48 h-48"
             style={{
-              animation: 'coreRotate 20s linear infinite'
+              animation: prefersReducedMotion ? 'none' : 'coreRotate 20s linear infinite'
             }}
           >
             {/* Outer Quantum Ring */}
@@ -216,13 +299,13 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
             </div>
             
             {/* Middle Energy Ring */}
-            <div 
+            <div
               className="absolute inset-4 rounded-full border-2 border-blue-400/50"
               style={{
-                animation: 'ringRotate 15s linear infinite reverse'
+                animation: prefersReducedMotion ? 'none' : 'ringRotate 15s linear infinite reverse'
               }}
             />
-            
+
             {/* Progress Ring */}
             <div className="absolute inset-2 rounded-full">
               <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
@@ -236,7 +319,7 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
                   strokeLinecap="round"
                   strokeDasharray={`${2 * Math.PI * 45}`}
                   strokeDashoffset={`${2 * Math.PI * 45 * (1 - progress / 100)}`}
-                  className="transition-all duration-500 ease-out filter drop-shadow-lg"
+                  className={prefersReducedMotion ? "filter drop-shadow-lg" : "transition-all duration-500 ease-out filter drop-shadow-lg"}
                 />
                 <defs>
                   <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -247,40 +330,40 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
                 </defs>
               </svg>
             </div>
-            
+
             {/* Inner Core */}
             <div className="absolute inset-6 flex items-center justify-center">
               <div className="text-center">
-                <div 
+                <div
                   className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 mb-2"
                   style={{
-                    animation: 'coreGlow 2s ease-in-out infinite'
+                    animation: prefersReducedMotion ? 'none' : 'coreGlow 2s ease-in-out infinite'
                   }}
                 >
                   AI
                 </div>
-                <div 
+                <div
                   className="w-10 h-1 bg-gradient-to-r from-cyan-400 to-purple-600 mx-auto rounded-full"
                   style={{
-                    animation: 'barPulse 2s ease-in-out infinite'
+                    animation: prefersReducedMotion ? 'none' : 'barPulse 2s ease-in-out infinite'
                   }}
                 />
               </div>
             </div>
-            
+
             {/* Quantum Orbs */}
-            <div 
+            <div
               className="absolute inset-0"
               style={{
-                animation: 'orbRotate 4s linear infinite'
+                animation: prefersReducedMotion ? 'none' : 'orbRotate 4s linear infinite'
               }}
             >
               <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1 w-3 h-3 bg-cyan-400 rounded-full shadow-lg"></div>
             </div>
-            <div 
+            <div
               className="absolute inset-0"
               style={{
-                animation: 'orbRotate 6s linear infinite reverse'
+                animation: prefersReducedMotion ? 'none' : 'orbRotate 6s linear infinite reverse'
               }}
             >
               <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1 w-2 h-2 bg-purple-400 rounded-full shadow-lg"></div>
@@ -289,18 +372,18 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
         </div>
         
         {/* Enhanced Text with Professional Typography */}
-        <h2 
-          className="text-3xl font-bold text-white mb-3 tracking-tight"
+        <h2
+          className="text-3xl font-bold text-white mb-0 tracking-tight"
           style={{
-            animation: 'textPulse 2s ease-in-out infinite'
+            animation: prefersReducedMotion ? 'none' : 'textPulse 2s ease-in-out infinite'
           }}
         >
           Nicolette Mashaba
         </h2>
-        <p className="text-lg text-slate-300 mb-10 font-medium">
+        <p className="text-lg text-slate-300 mb-2 font-medium">
           Software Developer & AI Enthusiast
         </p>
-        
+
         {/* Professional Progress Section */}
         <div className="w-full max-w-md mx-auto mb-6">
           <div className="flex justify-between text-sm text-slate-400 mb-4">
@@ -308,34 +391,34 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
             <span className="font-bold text-cyan-400">{progress}%</span>
           </div>
           <div className="w-full bg-slate-700/50 rounded-full h-4 overflow-hidden border border-cyan-400/20">
-            <div 
-              className="h-full rounded-full transition-all duration-300 ease-out relative"
-              style={{ 
+            <div
+              className={prefersReducedMotion ? "h-full rounded-full relative" : "h-full rounded-full transition-all duration-300 ease-out relative"}
+              style={{
                 width: `${progress}%`,
                 background: 'linear-gradient(90deg, #00E5FF 0%, #00C2FF 50%, #8B5CF6 100%)'
               }}
             >
-              <div 
+              <div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                 style={{
-                  animation: 'progressShimmer 2s ease-in-out infinite'
+                  animation: prefersReducedMotion ? 'none' : 'progressShimmer 2s ease-in-out infinite'
                 }}
               />
             </div>
           </div>
         </div>
-        
+
         {/* Professional Step Indicators */}
         <div className="flex justify-center gap-3 mb-8" aria-hidden="true">
           {steps.map((_, index) => (
             <div
               key={index}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index <= currentStep 
-                  ? 'bg-gradient-to-r from-cyan-400 to-purple-600 shadow-lg' 
+              className={`w-3 h-3 rounded-full ${prefersReducedMotion ? '' : 'transition-all duration-300'} ${
+                index <= currentStep
+                  ? 'bg-gradient-to-r from-cyan-400 to-purple-600 shadow-lg'
                   : 'bg-slate-600'
               }`}
-              style={index <= currentStep ? {
+              style={index <= currentStep && !prefersReducedMotion ? {
                 animation: 'stepPulse 0.5s ease-out'
               } : {}}
             />
@@ -344,8 +427,8 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
 
         {/* Professional Loading Text */}
         <div className="mt-8 text-sm text-slate-400 font-mono">
-          <span 
-            className="inline-block w-3 h-3 bg-cyan-400 rounded-full mr-3 dotPulse"
+          <span
+            className={prefersReducedMotion ? "inline-block w-3 h-3 bg-cyan-400 rounded-full mr-3" : "inline-block w-3 h-3 bg-cyan-400 rounded-full mr-3 dotPulse"}
           />
           Initializing quantum consciousness...
         </div>

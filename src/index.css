@@ -10,19 +10,65 @@
     --ai-primary: #00e5ff;
     --ai-secondary: #00c2ff;
     --ai-accent: #7c3aed;
+    --ai-accent-secondary: #a855f7;
     --ai-background: #0f172a;
     --ai-card: #1e293b;
+    --ai-card-hover: #334155;
     --ai-text: #e2e8f0;
+    --ai-text-secondary: #94a3b8;
+    --ai-text-muted: #64748b;
+    --ai-border: #334155;
+    --ai-border-light: #475569;
     --ai-glow: rgba(0, 229, 255, 0.1);
+    --ai-glow-secondary: rgba(124, 58, 237, 0.1);
+    --ai-shadow: rgba(0, 0, 0, 0.3);
+    --ai-shadow-glow: rgba(0, 229, 255, 0.2);
   }
 
   * {
+    scroll-behavior: smooth;
   }
-  
+
   body {
     @apply bg-ai-background text-ai-text font-sans antialiased min-h-screen;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Enhanced focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-ai-primary;
+  }
+
+  /* Improved selection colors */
+  ::selection {
+    @apply bg-ai-primary/20 text-ai-text;
+  }
+
+  ::-moz-selection {
+    @apply bg-ai-primary/20 text-ai-text;
+  }
+}
+
+/* Accessibility: Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Smooth fade-in for sections */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
   }
 }
 
