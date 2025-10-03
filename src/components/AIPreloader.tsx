@@ -5,6 +5,7 @@ interface AIPreloaderProps {
 }
 
 const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
+  // Progress bar logic (ensure it reaches 100%)
   const [progress, setProgress] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const [neuralActivity, setNeuralActivity] = useState(0);
@@ -26,14 +27,14 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
         if (prev >= 100) {
           clearInterval(progressInterval);
           // Fixed timing issue - call onComplete after animation completes
-          setTimeout(() => onComplete(), 500);
+          setTimeout(() => onComplete(), 1000);
           return 100;
         }
-        // Realistic loading curve - slower at start and end
-        const increment = prev < 20 ? 2 : prev > 80 ? 1 : 3;
+        // Simple constant increment to ensure completion
+        const increment = 2;
         return Math.min(prev + increment, 100);
       });
-    }, 150); // <-- Slowed down from 80ms to 150ms
+    }, 100); // <-- Consistent interval
 
     // Step progression - aligned with progress
     const stepInterval = setInterval(() => {
@@ -225,7 +226,7 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
 
       {/* Enhanced Quantum Particles */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {Array.from({ length: 20 }).map((_, i) => ( // <-- Reduced from 80 to 20
+        {Array.from({ length: 10 }).map((_, i) => (
           <div
             key={`particle-${i}`}
             className="absolute rounded-full"
