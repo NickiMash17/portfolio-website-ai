@@ -369,7 +369,7 @@ const NeuralAIAssistant: React.FC = () => {
 
   // --- Render ---
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className={`fixed bottom-4 right-4 z-50 ${isOpen ? '' : 'ai-assistant-mobile'}`}>
       {isOpen ? (
         <div className={`bg-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 flex flex-col ${
           isMinimized ? 'w-80 h-16' : 'max-w-xs sm:max-w-sm w-full sm:w-96 h-[70vh] sm:h-[600px]'

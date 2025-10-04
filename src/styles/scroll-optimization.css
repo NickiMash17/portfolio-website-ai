@@ -1,4 +1,4 @@
-/* Mobile-first scroll optimizations */
+/* Mobile-first scroll optimizations - keeping all animations */
 @media (max-width: 768px) {
   /* Enable hardware acceleration for smoother scrolling */
   html, body {
@@ -13,16 +13,20 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* Keep smooth scrolling */
+    scroll-behavior: smooth;
   }
 
-  /* Optimize scrolling performance */
+  /* Optimize scrolling performance while keeping animations */
   * {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    -webkit-transform: translateZ(0);
+    /* Use translate3d for hardware acceleration */
     transform: translateZ(0);
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
+    /* Optimize will-change for better performance */
+    will-change: transform;
   }
 
   /* Improve image rendering */
@@ -41,23 +45,41 @@
   .fixed, .absolute {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+    will-change: transform;
   }
 
-  /* Disable hover effects on mobile */
-  @media (hover: none) {
-    *:hover {
-      background-color: transparent !important;
-      transform: none !important;
-    }
-  }
+  /* Don't disable hover effects - keep animations */
+  /* Keep touch targets optimized but don't remove hover */
 
-  /* Optimize animations for mobile */
-  @media (prefers-reduced-motion: reduce) {
+  /* Optimize animations for mobile while keeping them */
+  @media (prefers-reduced-motion: no-preference) {
     *, *::before, *::after {
+      /* Keep animations but optimize for performance */
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
+      /* Don't disable scroll-behavior */
     }
+  }
+
+  /* Fix modal scrolling issues */
+  .modal-scroll {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Ensure project sections are properly scrollable */
+  #projects {
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* Fix AI assistant positioning */
+  .ai-assistant-mobile {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    left: auto !important;
+    transform: none !important;
   }
 }

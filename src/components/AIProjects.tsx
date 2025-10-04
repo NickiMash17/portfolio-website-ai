@@ -687,7 +687,7 @@ const AIProjects: React.FC = () => {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="glass-premium rounded-t-3xl sm:rounded-3xl w-full sm:max-w-3xl md:max-w-4xl lg:max-w-6xl max-h-[92vh] sm:max-h-[90vh] overflow-hidden border border-[var(--ai-primary)]/20 shadow-2xl"
+              className="glass-premium rounded-t-3xl sm:rounded-3xl w-full sm:max-w-3xl md:max-w-4xl lg:max-w-6xl max-h-[92vh] sm:max-h-[90vh] overflow-hidden border border-[var(--ai-primary)]/20 shadow-2xl modal-scroll"
               onClick={(e) => e.stopPropagation()}
             >
                 {/* Modal Header */}

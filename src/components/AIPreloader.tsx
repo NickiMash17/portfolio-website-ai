@@ -204,7 +204,7 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-ai-background flex items-center justify-center z-50 overflow-hidden"
+      className="fixed inset-0 bg-ai-background flex items-center justify-center z-50 overflow-hidden md:overflow-visible"
       role="alert"
       aria-live="assertive"
       aria-busy={progress < 100}
@@ -212,7 +212,6 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
     >
       {/* Advanced Background Effects */}
       <div className="absolute inset-0 bg-grid opacity-10" aria-hidden="true" />
-      {/* <NeuralNetwork /> */}
       <DataStreams />
       <FloatingCode />
 
