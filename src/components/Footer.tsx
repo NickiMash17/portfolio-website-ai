@@ -267,16 +267,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Floating Action for Mobile */}
-      <div className="fixed bottom-6 right-6 md:hidden z-40">
-        <button
-          onClick={scrollToTop}
-          className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full shadow-lg shadow-cyan-500/25 flex items-center justify-center hover:scale-105 transition-transform duration-300"
-          aria-label="Back to top"
-        >
-          <ArrowUp className="w-5 h-5" />
-        </button>
-      </div>
+
     </footer>
   );
 };
