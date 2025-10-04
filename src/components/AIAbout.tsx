@@ -95,9 +95,9 @@ const AIAbout: React.FC = () => {
       date: '2024',
       badge: 'Bootcamp',
       description: 'Intensive software development bootcamp covering full-stack development and modern technologies.',
-      icon: Rocket,
-      color: 'from-orange-500 to-red-500',
-      url: '#',
+      icon: Award,
+      color: 'from-purple-500 to-cyan-500',
+      url: 'https://techbridlefoundation.org', // <-- Updated URL
       category: 'development'
     }
   ];

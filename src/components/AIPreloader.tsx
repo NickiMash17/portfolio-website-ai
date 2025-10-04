@@ -204,7 +204,7 @@ const AIPreloader: React.FC<AIPreloaderProps> = ({ onComplete }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-ai-background flex items-center justify-center z-50 overflow-auto md:overflow-visible px-2 py-4 sm:px-0"
+      className="fixed inset-0 bg-ai-background flex items-center justify-center z-[9999] overflow-auto md:overflow-visible px-2 py-4 sm:px-0"
       role="alert"
       aria-live="assertive"
       aria-busy={progress < 100}

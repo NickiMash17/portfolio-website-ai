@@ -369,11 +369,23 @@ const NeuralAIAssistant: React.FC = () => {
 
   // --- Render ---
   return (
-    <div className={`fixed bottom-4 right-4 z-50 ${isOpen ? '' : 'ai-assistant-mobile'}`}>
+    <div
+      className={`fixed bottom-4 right-4 z-50 ${isOpen ? '' : 'ai-assistant-mobile'}`}
+      role="dialog"
+      aria-modal="true"
+      aria-label="AI Assistant Chat"
+      tabIndex={-1}
+    >
       {isOpen ? (
-        <div className={`bg-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 flex flex-col ${
-          isMinimized ? 'w-80 h-16' : 'max-w-xs sm:max-w-sm w-full sm:w-96 h-[60vh] sm:h-[600px]'
-        }`}>
+        <div
+          className={`bg-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 flex flex-col focus:outline-none ${
+            isMinimized
+              ? 'w-80 h-16'
+              : 'max-w-xs w-full h-[60vh] sm:max-w-sm sm:w-96 sm:h-[600px]'
+          }`}
+          tabIndex={0}
+          aria-labelledby="ai-assistant-title"
+        >
           {/* Header */}
           <div className="bg-gradient-to-r from-cyan-600/20 to-purple-600/20 border-b border-slate-700/50 p-4 flex items-center justify-between flex-shrink-0">
             <div className="flex items-center gap-3">
@@ -381,29 +393,32 @@ const NeuralAIAssistant: React.FC = () => {
                 <Brain className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h3 className="font-bold text-white">Neural AI Assistant</h3>
+                <h3 id="ai-assistant-title" className="font-bold text-white">Neural AI Assistant</h3>
                 <p className="text-xs text-cyan-400">Powered by Nicolette's expertise</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setSoundEnabled(!soundEnabled)}
-                className="p-2 text-slate-400 hover:text-cyan-400 transition-colors"
+                className="p-2 text-slate-400 hover:text-cyan-400 transition-colors focus:outline focus:ring-2 focus:ring-cyan-400"
                 aria-label={soundEnabled ? 'Mute sound' : 'Enable sound'}
+                tabIndex={0}
               >
                 {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
               </button>
               <button
                 onClick={() => setIsMinimized(!isMinimized)}
-                className="p-2 text-slate-400 hover:text-cyan-400 transition-colors"
+                className="p-2 text-slate-400 hover:text-cyan-400 transition-colors focus:outline focus:ring-2 focus:ring-cyan-400"
                 aria-label={isMinimized ? 'Maximize' : 'Minimize'}
+                tabIndex={0}
               >
                 {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
               </button>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 text-slate-400 hover:text-red-400 transition-colors"
+                className="p-2 text-slate-400 hover:text-red-400 transition-colors focus:outline focus:ring-2 focus:ring-red-400"
                 aria-label="Close"
+                tabIndex={0}
               >
                 <X className="w-4 h-4" />
               </button>
@@ -413,7 +428,11 @@ const NeuralAIAssistant: React.FC = () => {
           {!isMinimized && (
             <>
               {/* Messages */}
-              <div className="flex-grow overflow-y-auto p-4 space-y-4 bg-slate-900/50">
+              <div
+                className="flex-grow overflow-y-auto p-4 space-y-4 bg-slate-900/50"
+                aria-live="polite"
+                aria-label="Chat messages"
+              >
                 {messages.map((message) => (
                   <div
                     key={message.id}
@@ -460,7 +479,14 @@ const NeuralAIAssistant: React.FC = () => {
 
               {/* Input */}
               <div className="p-4 border-t border-slate-700/50 bg-slate-900 flex-shrink-0">
-                <div className="flex gap-2">
+                <form
+                  className="flex gap-2 flex-col sm:flex-row"
+                  onSubmit={e => {
+                    e.preventDefault();
+                    sendMessage();
+                  }}
+                  aria-label="Send a message"
+                >
                   <input
                     ref={inputRef}
                     type="text"
@@ -468,17 +494,19 @@ const NeuralAIAssistant: React.FC = () => {
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                     placeholder="Ask about Nicolette's work..."
-                    className="flex-1 min-w-0 bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all text-base"
+                    className="flex-1 min-w-0 bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all text-base mb-2 sm:mb-0"
                     disabled={isTyping}
+                    aria-label="Type your message"
                   />
                   <button
-                    onClick={() => sendMessage()}
+                    type="submit"
                     disabled={isTyping || !inputValue.trim()}
-                    className="bg-brand-gradient text-white rounded-xl px-4 py-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg transition-all flex items-center gap-2"
+                    className="bg-brand-gradient text-white rounded-xl px-4 py-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg transition-all flex items-center gap-2 focus:outline focus:ring-2 focus:ring-cyan-400"
+                    aria-label="Send message"
                   >
                     <Send className="w-4 h-4" />
                   </button>
-                </div>
+                </form>
               </div>
             </>
           )}
@@ -486,8 +514,9 @@ const NeuralAIAssistant: React.FC = () => {
       ) : (
         <button
           onClick={() => setIsOpen(true)}
-          className="w-14 h-14 bg-brand-gradient text-white rounded-2xl shadow-2xl hover:shadow-cyan-500/40 transition-all duration-300 flex items-center justify-center"
+          className="w-14 h-14 bg-brand-gradient text-white rounded-2xl shadow-2xl hover:shadow-cyan-500/40 transition-all duration-300 flex items-center justify-center focus:outline focus:ring-2 focus:ring-cyan-400"
           aria-label="Open AI Assistant"
+          tabIndex={0}
         >
           <MessageCircle className="w-6 h-6" />
         </button>
