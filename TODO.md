@@ -11,4 +11,6 @@
 2. [x] Adjust NeuralAIAssistant height and positioning for mobile
 3. [x] Improve AIProjects modal scrolling on mobile
 4. [x] Remove floating scroll button from Footer
-5. [ ] Test all changes on mobile
+5. [x] Improve preloader mobile responsiveness (responsive sizing, text scaling, performance optimizations)
+6. [x] Enhance AI Assistant mobile UX (touch targets, responsive layout, better spacing)
+7. [ ] Test all changes on mobile

@@ -380,47 +380,47 @@ const NeuralAIAssistant: React.FC = () => {
         <div
           className={`bg-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 flex flex-col focus:outline-none ${
             isMinimized
-              ? 'w-80 h-16'
-              : 'max-w-xs w-full h-[60vh] sm:max-w-sm sm:w-96 sm:h-[600px]'
+              ? 'w-72 h-14 sm:w-80 sm:h-16'
+              : 'max-w-[calc(100vw-2rem)] w-full h-[50vh] sm:max-w-xs sm:h-[60vh] md:max-w-sm md:h-[600px]'
           }`}
           tabIndex={0}
           aria-labelledby="ai-assistant-title"
         >
           {/* Header */}
-          <div className="bg-gradient-to-r from-cyan-600/20 to-purple-600/20 border-b border-slate-700/50 p-4 flex items-center justify-between flex-shrink-0">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-brand-gradient rounded-xl flex items-center justify-center">
-                <Brain className="w-5 h-5 text-white" />
+          <div className="bg-gradient-to-r from-cyan-600/20 to-purple-600/20 border-b border-slate-700/50 p-3 sm:p-4 flex items-center justify-between flex-shrink-0">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-gradient rounded-xl flex items-center justify-center flex-shrink-0">
+                <Brain className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <div>
-                <h3 id="ai-assistant-title" className="font-bold text-white">Neural AI Assistant</h3>
-                <p className="text-xs text-cyan-400">Powered by Nicolette's expertise</p>
+              <div className="min-w-0 flex-1">
+                <h3 id="ai-assistant-title" className="font-bold text-white text-sm sm:text-base truncate">Neural AI Assistant</h3>
+                <p className="text-xs text-cyan-400 truncate">Powered by Nicolette's expertise</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
               <button
                 onClick={() => setSoundEnabled(!soundEnabled)}
-                className="p-2 text-slate-400 hover:text-cyan-400 transition-colors focus:outline focus:ring-2 focus:ring-cyan-400"
+                className="p-1.5 sm:p-2 text-slate-400 hover:text-cyan-400 transition-colors focus:outline focus:ring-2 focus:ring-cyan-400 rounded"
                 aria-label={soundEnabled ? 'Mute sound' : 'Enable sound'}
                 tabIndex={0}
               >
-                {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                {soundEnabled ? <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
               </button>
               <button
                 onClick={() => setIsMinimized(!isMinimized)}
-                className="p-2 text-slate-400 hover:text-cyan-400 transition-colors focus:outline focus:ring-2 focus:ring-cyan-400"
+                className="p-1.5 sm:p-2 text-slate-400 hover:text-cyan-400 transition-colors focus:outline focus:ring-2 focus:ring-cyan-400 rounded"
                 aria-label={isMinimized ? 'Maximize' : 'Minimize'}
                 tabIndex={0}
               >
-                {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
+                {isMinimized ? <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Minimize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
               </button>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 text-slate-400 hover:text-red-400 transition-colors focus:outline focus:ring-2 focus:ring-red-400"
+                className="p-1.5 sm:p-2 text-slate-400 hover:text-red-400 transition-colors focus:outline focus:ring-2 focus:ring-red-400 rounded"
                 aria-label="Close"
                 tabIndex={0}
               >
-                <X className="w-4 h-4" />
+                <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </button>
             </div>
           </div>
@@ -478,7 +478,7 @@ const NeuralAIAssistant: React.FC = () => {
               </div>
 
               {/* Input */}
-              <div className="p-4 border-t border-slate-700/50 bg-slate-900 flex-shrink-0">
+              <div className="p-3 sm:p-4 border-t border-slate-700/50 bg-slate-900 flex-shrink-0">
                 <form
                   className="flex gap-2 flex-col sm:flex-row"
                   onSubmit={e => {
@@ -494,14 +494,14 @@ const NeuralAIAssistant: React.FC = () => {
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                     placeholder="Ask about Nicolette's work..."
-                    className="flex-1 min-w-0 bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all text-base mb-2 sm:mb-0"
+                    className="flex-1 min-w-0 bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-400 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all text-sm sm:text-base mb-2 sm:mb-0 min-h-[44px] sm:min-h-[auto]"
                     disabled={isTyping}
                     aria-label="Type your message"
                   />
                   <button
                     type="submit"
                     disabled={isTyping || !inputValue.trim()}
-                    className="bg-brand-gradient text-white rounded-xl px-4 py-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg transition-all flex items-center gap-2 focus:outline focus:ring-2 focus:ring-cyan-400"
+                    className="bg-brand-gradient text-white rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg transition-all flex items-center justify-center gap-2 focus:outline focus:ring-2 focus:ring-cyan-400 min-h-[44px] sm:min-h-[auto]"
                     aria-label="Send message"
                   >
                     <Send className="w-4 h-4" />

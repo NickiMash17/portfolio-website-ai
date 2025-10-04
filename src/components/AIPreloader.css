@@ -100,16 +100,39 @@
   background-position: -1px -1px;
 }
 
+/* Mobile optimizations for preloader */
 @media (max-width: 640px) {
-  .preloader-svg,
-  .preloader-floating {
-    width: 100vw !important;
-    height: 40vh !important;
-    font-size: 0.9rem !important;
-    padding: 0.5rem !important;
+  /* Reduce animation complexity on mobile for better performance */
+  .connectionPulse,
+  .nodePulse,
+  .dataFlow,
+  .codeFloat,
+  .particleFloat,
+  .preloaderAppear,
+  .coreRotate,
+  .ringRotate,
+  .coreGlow,
+  .barPulse,
+  .orbRotate,
+  .textPulse,
+  .progressShimmer,
+  .stepPulse,
+  .dotPulse,
+  .gridShift,
+  .waveFlow {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
-  .preloader-step {
-    font-size: 1rem !important;
-    padding: 0.25rem 0.5rem !important;
+
+  /* Optimize visual effects for mobile */
+  .neural-network-svg,
+  .floating-code,
+  .data-streams {
+    opacity: 0.3;
+  }
+
+  /* Ensure touch-friendly interactions */
+  .preloader-content {
+    min-height: 44px;
   }
 }
