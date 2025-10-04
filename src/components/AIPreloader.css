@@ -99,3 +99,17 @@
   background-size: 50px 50px;
   background-position: -1px -1px;
 }
+
+@media (max-width: 640px) {
+  .preloader-svg,
+  .preloader-floating {
+    width: 100vw !important;
+    height: 40vh !important;
+    font-size: 0.9rem !important;
+    padding: 0.5rem !important;
+  }
+  .preloader-step {
+    font-size: 1rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+}
