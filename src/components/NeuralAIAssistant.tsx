@@ -370,7 +370,11 @@ const NeuralAIAssistant: React.FC = () => {
   // --- Render ---
   return (
     <div
-      className={`fixed bottom-4 right-4 z-50 ${isOpen ? '' : 'ai-assistant-mobile'}`}
+      className={`fixed z-50 transition-all duration-300 ${
+        isOpen 
+          ? 'bottom-4 right-4 sm:bottom-6 sm:right-6' 
+          : 'bottom-4 right-4'
+      }`}
       role="dialog"
       aria-modal="true"
       aria-label="AI Assistant Chat"
@@ -381,7 +385,7 @@ const NeuralAIAssistant: React.FC = () => {
           className={`bg-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 flex flex-col focus:outline-none ${
             isMinimized
               ? 'w-72 h-14 sm:w-80 sm:h-16'
-              : 'max-w-[calc(100vw-2rem)] w-full h-[50vh] sm:max-w-xs sm:h-[60vh] md:max-w-sm md:h-[600px]'
+              : 'w-[calc(100vw-2rem)] h-[50vh] sm:max-w-xs sm:h-[60vh] md:max-w-sm md:h-[600px]'
           }`}
           tabIndex={0}
           aria-labelledby="ai-assistant-title"
